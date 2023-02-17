@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-// import Footer from "@/components/Footer";
 import Navbar from "../navbar/NavBar";
+import Footer from "../footer/Footer";
 
 export default function Layout({ children }) {
   return (
@@ -11,7 +10,7 @@ export default function Layout({ children }) {
         <Navbar />
       </header>
       <main className="overflow-hidden">{children}</main>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
