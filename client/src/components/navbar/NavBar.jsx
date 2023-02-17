@@ -1,10 +1,7 @@
-import React from 'react'
-import "./NavBar.scss"
+import React from "react";
 
 const NavBar = () => {
-  return (
-    <div className='nav'>NavBar</div>
-  )
-}
+  return <div className="bg-red-700">NavBar</div>;
+};
 
-export default NavBar
+export default NavBar;
