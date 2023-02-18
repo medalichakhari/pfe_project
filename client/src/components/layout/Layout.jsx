@@ -1,16 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Navbar from "../navbar/NavBar";
+import NavBar from "../navbar/NavBar";
 import Footer from "../footer/Footer";
 
 export default function Layout({ children }) {
   return (
     <>
       <header>
-        <Navbar />
+        <NavBar />
       </header>
       <main className="overflow-hidden">{children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
