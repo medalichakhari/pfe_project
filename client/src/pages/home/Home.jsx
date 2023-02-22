@@ -11,7 +11,6 @@ const Home = () => {
       <Hero />
       <Search />
       <JobCard />
-      <JobCategoryCard />
     </Layout>
   );
 };

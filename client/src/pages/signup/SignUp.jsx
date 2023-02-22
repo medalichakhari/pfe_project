@@ -1,88 +1,115 @@
 import React from "react";
-// import { GoogleLogin } from 'react-google-login';
 import { useForm } from "react-hook-form";
-// import { LockClosedIcon } from '@heroicons/react/solid';
+import PrimaryButton from "../../components/buttons/primarybutton/index";
 
-function SignUp() {
+function SignIn() {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
   };
 
-  const responseGoogle = (response) => {
-    console.log(response);
-  };
-
   return (
-    <div className="min-h-screen bg-blue-100 flex justify-center items-center">
-      <div className="bg-white p-8 rounded shadow-md">
-        <div className="text-center">
-          {/* <LockClosedIcon className="h-8 w-8 mx-auto text-blue-500" /> */}
-          <h2 className="mt-2 text-2xl font-bold text-gray-900">Sign Up</h2>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="my-4">
-            <label htmlFor="name" className="block text-gray-700 font-medium">
-              Name
+    <div className="min-h-screen flex justify-center items-center bg-gray-50">
+      <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <form className="space-y-4" action="#">
+          <h4 className="text-xl font-medium text-gray-900 dark:text-white">
+            Sign up to our platform
+          </h4>
+          <div>
+            <label
+              for="firstName"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              First name
             </label>
             <input
-              type="text"
-              name="name"
-              id="name"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              {...register("name")}
+              type="firstName"
+              name="firstName"
+              id="firstName"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="First name"
+              required
             />
           </div>
-          <div className="my-4">
-            <label htmlFor="email" className="block text-gray-700 font-medium">
-              Email
+          <div>
+            <label
+              for="lastName"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Last Name
+            </label>
+            <input
+              type="lastName"
+              name="lastName"
+              id="lastName"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Last Name"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="email"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Your email
             </label>
             <input
               type="email"
               name="email"
               id="email"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              {...register("email")}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="name@company.com"
+              required
             />
           </div>
-          <div className="my-4">
+          <div>
             <label
-              htmlFor="password"
-              className="block text-gray-700 font-medium"
+              for="password"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Password
+              Your password
             </label>
             <input
               type="password"
               name="password"
               id="password"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              {...register("password")}
+              placeholder="••••••••"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              required
             />
           </div>
-          <div className="my-6">
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+          <div>
+            <label
+              for="matchPassword"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Sign Up
-            </button>
-          </div>
-          {/* <div className="my-4">
-            <GoogleLogin
-              clientId="YOUR_CLIENT_ID"
-              buttonText="Sign Up with Google"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              cookiePolicy={'single_host_origin'}
-              className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+              Retype your password
+            </label>
+            <input
+              type="password"
+              name="matchPassword"
+              id="matchPassword"
+              placeholder="••••••••"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              required
             />
-          </div> */}
+          </div>
+          <PrimaryButton className="w-full">Create an account</PrimaryButton>
+          <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+            Registered?{" "}
+            <a
+              href="/signin"
+              className="text-secondary hover:underline dark:text-primary"
+            >
+              Login to you account
+            </a>
+          </div>
         </form>
       </div>
     </div>
   );
 }
 
-export default SignUp;
+export default SignIn;

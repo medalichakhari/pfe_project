@@ -1,7 +1,6 @@
 import React from "react";
-// import { GoogleLogin } from 'react-google-login';
 import { useForm } from "react-hook-form";
-// import { LockClosedIcon } from '@heroicons/react/solid';
+import PrimaryButton from "../../components/buttons/primarybutton/index";
 
 function SignIn() {
   const { register, handleSubmit } = useForm();
@@ -10,63 +9,82 @@ function SignIn() {
     console.log(data);
   };
 
-  const responseGoogle = (response) => {
-    console.log(response);
-  };
-
   return (
-    <div className="min-h-screen bg-blue-100 flex justify-center items-center">
-      <div className="bg-white p-8 rounded shadow-md">
-        <div className="text-center">
-          {/* <LockClosedIcon className="h-8 w-8 mx-auto text-blue-500" /> */}
-          <h2 className="mt-2 text-2xl font-bold text-gray-900">Sign In</h2>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="my-4">
-            <label htmlFor="email" className="block text-gray-700 font-medium">
-              Email
+    <div className="min-h-screen flex justify-center items-center bg-gray-50">
+      <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <form className="space-y-4" action="#">
+          <h4 className="text-xl font-medium text-gray-900 dark:text-white">
+            Sign in to our platform
+          </h4>
+          <div>
+            <label
+              for="email"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Your email
             </label>
             <input
               type="email"
               name="email"
               id="email"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              {...register("email")}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="name@company.com"
+              required
             />
           </div>
-          <div className="my-4">
+          <div>
             <label
-              htmlFor="password"
-              className="block text-gray-700 font-medium"
+              for="password"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Password
+              Your password
             </label>
             <input
               type="password"
               name="password"
               id="password"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              {...register("password")}
+              placeholder="••••••••"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              required
             />
           </div>
-          <div className="my-6">
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+          <div className="flex items-start">
+            <div className="flex items-start">
+              <div className="flex items-center h-5">
+                <input
+                  id="remember"
+                  type="checkbox"
+                  value=""
+                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                  required
+                />
+              </div>
+              <label
+                for="remember"
+                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Remember me
+              </label>
+            </div>
+            <a
+              href="#"
+              className="ml-auto text-sm text-secondary hover:underline dark:text-primary"
             >
-              Sign In
-            </button>
+              Lost Password?
+            </a>
           </div>
-          {/* <div className="my-4">
-            <GoogleLogin
-              clientId="YOUR_CLIENT_ID"
-              buttonText="Sign In with Google"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              cookiePolicy={'single_host_origin'}
-              className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
-            />
-          </div> */}
+          <PrimaryButton className="w-full">
+            Login to your account
+          </PrimaryButton>
+          <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+            Not registered?{" "}
+            <a
+              href="/signup"
+              className="text-secondary hover:underline dark:text-primary"
+            >
+              Create account
+            </a>
+          </div>
         </form>
       </div>
     </div>
