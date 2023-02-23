@@ -5,7 +5,7 @@ import SecondaryButton from "../buttons/SecondaryButton";
 
 export default function NavBar() {
   return (
-    <Navbar fluid={true} rounded={true}>
+    <Navbar fluid={true} rounded={true} >
       <Navbar.Brand href="#">
         {/* <img
       src=""
