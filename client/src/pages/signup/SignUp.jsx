@@ -8,6 +8,7 @@ function SignIn() {
   const { signUpWithEmailAndPwd } = useAuth();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+  
   const onSubmit = (data) => {
     signUpWithEmailAndPwd(data.email, data.password)
       .then(() => {
@@ -26,10 +27,7 @@ function SignIn() {
             Sign up to our platform
           </h4>
           <div>
-            <label
-              for="firstName"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               First name
             </label>
             <input
@@ -43,10 +41,7 @@ function SignIn() {
             />
           </div>
           <div>
-            <label
-              for="lastName"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Last Name
             </label>
             <input
@@ -60,10 +55,7 @@ function SignIn() {
             />
           </div>
           <div>
-            <label
-              for="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Your email
             </label>
             <input
@@ -77,10 +69,7 @@ function SignIn() {
             />
           </div>
           <div>
-            <label
-              for="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Your password
             </label>
             <input
@@ -94,10 +83,7 @@ function SignIn() {
             />
           </div>
           <div>
-            <label
-              for="matchPassword"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Retype your password
             </label>
             <input

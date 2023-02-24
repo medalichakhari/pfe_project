@@ -1,26 +1,33 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import PrimaryButton from "../../components/buttons/primarybutton/index";
+import { useAuth } from "../../context/AuthContext";
 
 function SignIn() {
+  const { signInWithEmailAndPwd } = useAuth();
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    signInWithEmailAndPwd(data.email, data.password)
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-50">
       <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <form className="space-y-4" action="#">
+        <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <h4 className="text-xl font-medium text-gray-900 dark:text-white">
             Sign in to our platform
           </h4>
           <div>
-            <label
-              for="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Your email
             </label>
             <input
@@ -30,13 +37,11 @@ function SignIn() {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               placeholder="name@company.com"
               required
+              {...register("email")}
             />
           </div>
           <div>
-            <label
-              for="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Your password
             </label>
             <input
@@ -46,6 +51,7 @@ function SignIn() {
               placeholder="••••••••"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               required
+              {...register("password")}
             />
           </div>
           <div className="flex items-start">
@@ -59,10 +65,7 @@ function SignIn() {
                   required
                 />
               </div>
-              <label
-                for="remember"
-                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
+              <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                 Remember me
               </label>
             </div>
