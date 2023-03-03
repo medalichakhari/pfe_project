@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../../components/layout/Layout";
 import Hero from "../../components/sections/Hero";
-import JobCard from "../../components/jobcard/JobCard";
+import Jobs from "../../components/sections/Jobs";
 import Search from "../../components/sections/Search";
 import JobCategoryCard from "../../components/category/Category";
 
@@ -10,7 +10,7 @@ const Home = () => {
     <Layout>
       <Hero />
       <Search />
-      <JobCard />
+      <Jobs />
     </Layout>
   );
 };
