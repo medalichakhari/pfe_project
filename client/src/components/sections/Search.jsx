@@ -3,6 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import PrimaryButton from "../buttons/PrimaryButton";
 
+
 const Search = () => {
   return (
     <form className="flex flex-col items-center my-6">

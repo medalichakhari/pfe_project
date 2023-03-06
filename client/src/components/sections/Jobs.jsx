@@ -4,7 +4,7 @@ import SecondaryButton from "../buttons/SecondaryButton";
 import JobCard from "../jobcard/JobCard";
 
 const Jobs = () => {
-  const [showCount, setShowCount] = useState(10);
+  const [showCount, setShowCount] = useState(5);
   const {
     data: Data,
     isLoading,
@@ -26,9 +26,7 @@ const Jobs = () => {
         {jobsList?.map((job) => (
           <JobCard key={job.id} job={job} />
         ))}
-        <SecondaryButton onClick={handleLoadMore}>
-          Load more
-        </SecondaryButton>
+        <SecondaryButton onClick={handleLoadMore}>Load more</SecondaryButton>
       </div>
     </div>
   );
