@@ -1,41 +1,61 @@
 import React from "react";
+import CustomerIcon from "../../assets/svg/CustomerIcon";
+import BusinessIcon from "../../assets/svg/BusinessIcon";
+import FinanceIcon from "../../assets/svg/FinanceIcon";
+import HRIcon from "../../assets/svg/HRIcon";
+import DesignIcon from "../../assets/svg/DesignIcon";
+import MarketingIcon from "../../assets/svg/MarketingIcon";
 import CategoryCard from "../category/Category";
+import GovernmentIcon from "../../assets/svg/Government";
+import ManagmentIcon from "../../assets/svg/ManagmentIcon";
 
 const categories = [
   {
     id: 1,
     name: "Technology",
-    logo: "https://via.placeholder.com/100x100.png?text=Tech",
+    logo: <MarketingIcon />,
     count: 25,
   },
   {
     id: 2,
     name: "Finance",
-    logo: "https://via.placeholder.com/100x100.png?text=Finance",
+    logo: <DesignIcon />,
     count: 15,
   },
   {
     id: 3,
     name: "Retail",
-    logo: "https://via.placeholder.com/100x100.png?text=Retail",
+    logo: <HRIcon />,
     count: 10,
   },
   {
     id: 4,
     name: "Retail",
-    logo: "https://via.placeholder.com/100x100.png?text=Retail",
+    logo: <FinanceIcon />,
     count: 10,
   },
   {
     id: 5,
     name: "Retail",
-    logo: "https://via.placeholder.com/100x100.png?text=Retail",
+    logo: <GovernmentIcon />,
     count: 10,
   },
   {
     id: 6,
     name: "Retail",
-    logo: "https://via.placeholder.com/100x100.png?text=Retail",
+    logo: <BusinessIcon />,
+    count: 10,
+  },
+  {
+    id: 7,
+    name: "Retail",
+    logo: <CustomerIcon />,
+    count: 10,
+  },
+  {
+    id: 8,
+    name: "Retail",
+    logo: <ManagmentIcon />,
     count: 10,
   },
 ];
@@ -43,7 +63,7 @@ const categories = [
 const CategoryList = () => {
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {categories.map((category) => (
           <CategoryCard
             key={category.id}

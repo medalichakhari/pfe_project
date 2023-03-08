@@ -2,7 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import PrimaryButton from "../../components/buttons/primarybutton/index";
+import SecondaryButton from "../../components/buttons/secondarybutton";
 import { useAuth } from "../../context/AuthContext";
+import GoogleIcon from "../../assets/svg/GoogleIcon";
 
 function SignIn() {
   const { signInWithEmailAndPwd } = useAuth();
@@ -79,6 +81,19 @@ function SignIn() {
           <PrimaryButton className="w-full">
             Login to your account
           </PrimaryButton>
+          <div className="flex items-center justify-center">
+            <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
+            <div className="px-2 text-gray-500 dark:text-gray-300">or</div>
+            <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
+          </div>
+          <SecondaryButton className="w-full">
+            <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600">
+                <GoogleIcon />
+              </div>
+              <span className="ml-2">Login with Google</span>
+            </div>
+          </SecondaryButton>
           <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
             Not registered?{" "}
             <a
