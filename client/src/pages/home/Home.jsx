@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../../components/layout/Layout";
 import Hero from "../../components/sections/Hero";
-import Jobs from "../../components/sections/Jobs";
+import JobList from "../../components/sections/JobList";
 import Search from "../../components/sections/Search";
 import CategoryList from "../../components/sections/CategoryList";
 
@@ -10,7 +10,7 @@ const Home = () => {
     <Layout>
       <Hero />
       <Search />
-      <Jobs />
+      <JobList />
       <CategoryList />
     </Layout>
   );

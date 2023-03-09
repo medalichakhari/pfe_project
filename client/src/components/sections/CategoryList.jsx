@@ -5,7 +5,7 @@ import FinanceIcon from "../../assets/svg/FinanceIcon";
 import HRIcon from "../../assets/svg/HRIcon";
 import DesignIcon from "../../assets/svg/DesignIcon";
 import MarketingIcon from "../../assets/svg/MarketingIcon";
-import CategoryCard from "../category/Category";
+import CategoryCard from "../categorycard/CategoryCard";
 import GovernmentIcon from "../../assets/svg/Government";
 import ManagmentIcon from "../../assets/svg/ManagmentIcon";
 
@@ -62,7 +62,10 @@ const categories = [
 
 const CategoryList = () => {
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="container mx-auto my-6 sm:my-4 lg:my-8 px-4 sm:px-6 lg:px-8">
+      <div className="text-center mb-4">
+        <h2 className="text-gray-900 text-2xl font-bold">Our company's categories</h2>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {categories.map((category) => (
           <CategoryCard

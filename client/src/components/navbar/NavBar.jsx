@@ -33,7 +33,7 @@ export default function NavBar() {
           <Navbar.Link href="/">Contact</Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
-      <SnackBarAlert message="Hello worl" type="info" />
+      <SnackBarAlert message="aminee" type="error" />
     </>
   );
 }

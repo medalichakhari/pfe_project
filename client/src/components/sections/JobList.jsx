@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import SecondaryButton from "../buttons/SecondaryButton";
 import JobCard from "../jobcard/JobCard";
 
-const Jobs = () => {
+const JobList = () => {
   const [showCount, setShowCount] = useState(5);
   const {
     data: Data,
@@ -21,15 +21,19 @@ const Jobs = () => {
   return isLoading ? (
     <div>Loading...</div>
   ) : (
-    <div>
-      <div className="flex gap-6 justify-center flex-wrap items-center py-10">
+    <div className="flex flex-col items-center h-full">
+      <div className="flex gap-6 justify-center flex-wrap items-center py-10 mb-auto">
         {jobsList?.map((job) => (
           <JobCard key={job.id} job={job} />
         ))}
-        <SecondaryButton onClick={handleLoadMore}>Load more</SecondaryButton>
       </div>
+      {jobsList && (
+        <div className="mt-auto">
+          <SecondaryButton onClick={handleLoadMore}>Load more</SecondaryButton>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Jobs;
+export default JobList;
