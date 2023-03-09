@@ -1,8 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const CategoryCard = ({ category, logo, count }) => {
+const CategoryCard = ({ category, logo, count, categoryId }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/companies/${categoryId}`);
+  };
   return (
-    <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition duration-300 cursor-pointer">
+    <div
+      className="bg-white rounded-lg shadow-lg hover:shadow-xl transition duration-300 cursor-pointer"
+      onClick={handleClick}
+    >
       <div className="p-4">
         <div className="flex items-center">
           {logo}

@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import Home from "./pages/home/Home";
 import SignIn from "./pages/signin/SignIn";
 import SignUp from "./pages/signup/SignUp";
+import Companies from "./pages/companies/Companies";
 import { AuthContextProvider } from "./context/AuthContext";
 
 const queryClient = new QueryClient();
@@ -16,6 +17,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/companies/:categoryId" element={<Companies />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
           </Routes>
