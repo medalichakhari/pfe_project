@@ -15,17 +15,23 @@ const googleProvider = new GoogleAuthProvider();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
       console.log("currenuser", currentuser);
       setUser(currentuser);
+      if (currentuser) {
+        currentuser.getIdToken().then(setToken);
+      } else {
+        setToken(null);
+      }
     });
 
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [user]);
   const signUpWithEmailAndPwd = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -46,6 +52,7 @@ export const AuthContextProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        token,
         signUpWithEmailAndPwd,
         signInWithEmailAndPwd,
         logOut,

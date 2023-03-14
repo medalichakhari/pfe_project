@@ -6,6 +6,7 @@ import HRIcon from "../../assets/svg/HRIcon";
 import DesignIcon from "../../assets/svg/DesignIcon";
 import MarketingIcon from "../../assets/svg/MarketingIcon";
 import CategoryCard from "../categorycard/CategoryCard";
+import GoogleIcon from "../../assets/svg/GoogleIcon";
 import GovernmentIcon from "../../assets/svg/Government";
 import ManagmentIcon from "../../assets/svg/ManagmentIcon";
 import CompanyCard from "../companycard/CompanyCard";
@@ -14,56 +15,56 @@ const comapanies = [
   {
     id: 1,
     name: "Technology",
-    logo: <MarketingIcon />,
+    logo: <GoogleIcon />,
     location: "New York",
     count: 25,
   },
   {
     id: 2,
     name: "Finance",
-    logo: <DesignIcon />,
+    logo: <GoogleIcon />,
     location: "New York",
     count: 15,
   },
   {
     id: 3,
     name: "Retail",
-    logo: <HRIcon />,
+    logo: <GoogleIcon />,
     location: "New York",
     count: 10,
   },
   {
     id: 4,
     name: "Retail",
-    logo: <FinanceIcon />,
+    logo: <GoogleIcon />,
     location: "New York",
     count: 10,
   },
   {
     id: 5,
     name: "Retail",
-    logo: <GovernmentIcon />,
+    logo: <GoogleIcon />,
     location: "New York",
     count: 10,
   },
   {
     id: 6,
     name: "Retail",
-    logo: <BusinessIcon />,
+    logo: <GoogleIcon />,
     location: "New York",
     count: 10,
   },
   {
     id: 7,
     name: "Retail",
-    logo: <CustomerIcon />,
+    logo: <GoogleIcon />,
     location: "New York",
     count: 10,
   },
   {
     id: 8,
     name: "Retail",
-    logo: <ManagmentIcon />,
+    logo: <GoogleIcon />,
     location: "New York",
     count: 10,
   },
@@ -73,9 +74,7 @@ const CompanyList = () => {
   return (
     <div className="container mx-auto my-6 sm:my-4 lg:my-8 px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-4">
-        <h2 className="text-gray-900 text-2xl font-bold">
-          Our comapanies
-        </h2>
+        <h2 className="text-gray-900 text-2xl font-bold">Our comapanies</h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {comapanies.map((company) => (
