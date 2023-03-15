@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
 import PrimaryButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
-import SnackBarAlert from "../shared/SnackbarAlert";
+
 
 export default function NavBar() {
   const { user, logOut } = useAuth();
@@ -80,7 +80,6 @@ export default function NavBar() {
           <Navbar.Link href="/">Contact</Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
-      <SnackBarAlert message="aminee" type="success" />
     </>
   );
 }
