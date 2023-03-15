@@ -17,7 +17,7 @@ function App() {
       <AuthContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/abc" element={<JobDetails />} />
+            {/* <Route path="/abc" element={<JobDetails />} /> */}
             <Route path="/" element={<Home />} />
             <Route path="/companies/:categoryId" element={<Companies />} />
             <Route path="/signin" element={<SignIn />} />
