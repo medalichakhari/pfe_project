@@ -39,8 +39,9 @@ export const AuthContextProvider = ({ children }) => {
   const signInWithEmailAndPwd = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
-  const logOut = () => {
-    return signOut(auth);
+  const logOut = async () => {
+    await signOut(auth);
+    setUser(null);
   };
   const googleSignUp = () => {
     return signInWithPopup(auth, googleProvider);

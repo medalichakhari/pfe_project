@@ -6,7 +6,7 @@ import SecondaryButton from "../../components/buttons/secondarybutton";
 import { useAuth } from "../../context/AuthContext";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
 
-const SignIn = () => {
+const SignUp = () => {
   const { signUpWithEmailAndPwd } = useAuth();
   const { googleSignUp } = useAuth();
   const navigate = useNavigate();
@@ -50,7 +50,6 @@ const SignIn = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 placeholder="First name"
                 {...register("firstName")}
-                required
               />
             </div>
             <div>
@@ -64,7 +63,6 @@ const SignIn = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 placeholder="Last Name"
                 {...register("lastName")}
-                required
               />
             </div>
           </div>
@@ -79,7 +77,6 @@ const SignIn = () => {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               placeholder="name@company.com"
               {...register("email")}
-              required
             />
           </div>
           <div>
@@ -93,7 +90,6 @@ const SignIn = () => {
               placeholder="••••••••"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               {...register("password")}
-              required
             />
           </div>
           <div>
@@ -107,7 +103,6 @@ const SignIn = () => {
               placeholder="••••••••"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               {...register("matchPassword")}
-              required
             />
           </div>
           <PrimaryButton className="w-full" type="submit">
@@ -141,4 +136,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

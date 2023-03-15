@@ -24,7 +24,7 @@ const Footer = () => {
               Jobyssey
             </span>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6 mr-4">
+          <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
             <div>
               <footer.Title title="about" />
               <footer.LinkGroup col={true}>
@@ -49,9 +49,9 @@ const Footer = () => {
           </div>
         </div>
         <footer.Divider />
-        <div className="w-full sm:flex sm:items-center sm:justify-between ml-4">
+        <div className="w-full sm:flex sm:items-center sm:justify-between">
           <footer.Copyright href="#" by="Jobyssey™" year={2022} />
-          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center mr-6">
+          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
             <footer.Icon href="#" icon={BsFacebook} />
             <footer.Icon href="#" icon={BsInstagram} />
             <footer.Icon href="#" icon={BsTwitter} />

@@ -7,6 +7,7 @@ import SignIn from "./pages/signin/SignIn";
 import SignUp from "./pages/signup/SignUp";
 import Companies from "./pages/companies/Companies";
 import { AuthContextProvider } from "./context/AuthContext";
+import JobDetails from "./pages/jobdetails/JobDetails";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ function App() {
       <AuthContextProvider>
         <BrowserRouter>
           <Routes>
+            <Route path="/abc" element={<JobDetails />} />
             <Route path="/" element={<Home />} />
             <Route path="/companies/:categoryId" element={<Companies />} />
             <Route path="/signin" element={<SignIn />} />
