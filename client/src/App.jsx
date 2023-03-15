@@ -7,7 +7,7 @@ import SignIn from "./pages/signin/SignIn";
 import SignUp from "./pages/signup/SignUp";
 import Companies from "./pages/companies/Companies";
 import { AuthContextProvider } from "./context/AuthContext";
-import JobDetails from "./pages/jobdetails/JobDetails";
+// import JobDetails from "./pages/jobdetails/JobDetails";
 
 const queryClient = new QueryClient();
 
