@@ -5,7 +5,6 @@ import { Navbar, Dropdown, Avatar } from "flowbite-react";
 import PrimaryButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
 
-
 export default function NavBar() {
   const { user, logOut } = useAuth();
 
@@ -39,20 +38,19 @@ export default function NavBar() {
               label={
                 <Avatar
                   alt="User settings"
-                  img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                  img={user.photoURL}
                   rounded={true}
                 />
               }
             >
               <Dropdown.Header>
-                <span className="block text-sm">Bonnie Green</span>
+                <span className="block text-sm">{user.displayName}</span>
                 <span className="block truncate text-sm font-medium">
-                  name@flowbite.com
+                  {user.email}
                 </span>
               </Dropdown.Header>
               <Dropdown.Item>Dashboard</Dropdown.Item>
               <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item>Earnings</Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
             </Dropdown>
