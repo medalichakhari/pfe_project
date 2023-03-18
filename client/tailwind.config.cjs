@@ -19,6 +19,7 @@ module.exports = {
       "greyIsh": "#f1f4f8",
       "black": "#222222",
       "gray": "#666666",
+      "darkGray": "#888888",
       "lightgray": "#DDDDDD",
       "green": "#28C165",
       "red": "#F4574D",

@@ -1,19 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useFormik } from "formik";
 import PrimaryButton from "../../components/buttons/primarybutton/index";
 import SecondaryButton from "../../components/buttons/secondarybutton";
 import { useAuth } from "../../context/AuthContext";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
+import { signInSchema } from "../../utils/validationSchemas";
 
 const SignIn = () => {
   const { signInWithEmailAndPwd } = useAuth();
   const { googleSignIn } = useAuth();
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
 
-  const handleSignIn = (data) => {
-    signInWithEmailAndPwd(data.email, data.password)
+  const handleSignIn = (values) => {
+    signInWithEmailAndPwd(values.email, values.password)
       .then(() => {
         navigate("/");
       })
@@ -30,11 +30,26 @@ const SignIn = () => {
         console.log(error);
       });
   };
-
+  const {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: signInSchema,
+    onSubmit: handleSignIn,
+  });
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-50">
       <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <form className="space-y-4" onSubmit={handleSubmit(handleSignIn)}>
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <h4 className="text-xl font-medium text-gray-900 dark:text-white">
             Sign in to our platform
           </h4>
@@ -43,26 +58,44 @@ const SignIn = () => {
               Your email
             </label>
             <input
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
               type="email"
               name="email"
               id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               placeholder="name@company.com"
-              {...register("email")}
+              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                touched.email && errors.email
+                  ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                  : "focus:ring-blue-500 focus:border-blue-500"
+              }`}
             />
+            {touched.email && errors.email && (
+              <div className="text-red-500 text-sm">{errors.email}</div>
+            )}
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Your password
             </label>
             <input
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
               type="password"
               name="password"
               id="password"
               placeholder="••••••••"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              {...register("password")}
+              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                touched.password && errors.password
+                  ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                  : "focus:ring-blue-500 focus:border-blue-500"
+              }`}
             />
+            {touched.password && errors.password && (
+              <div className="text-red-500 text-sm">{errors.password}</div>
+            )}
           </div>
           <div className="flex items-start">
             <div className="flex items-start">
