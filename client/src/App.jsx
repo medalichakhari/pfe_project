@@ -10,6 +10,7 @@ import Offer from "./pages/offer/Offer";
 import Unauthorized from "./pages/Unauthorized";
 import NotFound from "./pages/NotFound";
 import { AuthContextProvider } from "./context/AuthContext";
+import JobApplication from "./pages/jobapplication/JobApplication";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/offer/:offerId" element={<Offer />} />
+            <Route path="apply" element={<JobApplication />} />
             <Route path="/companies/:categoryId" element={<Companies />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
