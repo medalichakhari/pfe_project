@@ -7,6 +7,7 @@ import SignIn from "./pages/signin/SignIn";
 import SignUp from "./pages/signup/SignUp";
 import Companies from "./pages/companies/Companies";
 import Offer from "./pages/offer/Offer";
+import Unauthorized from "./pages/Unauthorized";
 import NotFound from "./pages/NotFound";
 import { AuthContextProvider } from "./context/AuthContext";
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="/companies/:categoryId" element={<Companies />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
