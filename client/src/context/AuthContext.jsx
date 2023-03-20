@@ -8,30 +8,35 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../services/firebaseConfig";
+import LoadingSpinner from "../components/shared/LoadingSpinner";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 const googleProvider = new GoogleAuthProvider();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
       console.log("currenuser", currentuser);
-      setUser(currentuser);
       if (currentuser) {
+        setUser(currentuser);
         currentuser.getIdToken().then(setToken);
       } else {
+        setUser(null);
         setToken(null);
       }
+      setIsLoading(false);
     });
 
     return () => {
       unsubscribe();
     };
-  }, [user]);
+  }, []);
+
   const signUpWithEmailAndPwd = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -49,6 +54,11 @@ export const AuthContextProvider = ({ children }) => {
   const googleSignIn = () => {
     return signInWithPopup(auth, googleProvider);
   };
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <AuthContext.Provider
       value={{

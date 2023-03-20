@@ -11,6 +11,8 @@ import Unauthorized from "./pages/Unauthorized";
 import NotFound from "./pages/NotFound";
 import { AuthContextProvider } from "./context/AuthContext";
 import JobApplication from "./pages/jobapplication/JobApplication";
+import JobPosting from "./pages/jobposting/JobPosting";
+import RequireAuth from "./components/RequireAuth";
 
 const queryClient = new QueryClient();
 
@@ -22,7 +24,16 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/offer/:offerId" element={<Offer />} />
-            <Route path="apply" element={<JobApplication />} />
+            <Route element={<RequireAuth />}>
+              <Route
+                path="/offer/:offerId/apply"
+                element={<JobApplication />}
+              />
+            </Route>
+            <Route element={<RequireAuth />}>
+              <Route path="/postjob" element={<JobPosting />} />
+            </Route>
+            <Route path="/companies/:categoryId" element={<Companies />} />
             <Route path="/companies/:categoryId" element={<Companies />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
