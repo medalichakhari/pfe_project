@@ -3,7 +3,7 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
 import PrimaryButton from "../buttons/PrimaryButton";
-import ApplyDialog from "./ApplyDialog";
+// import ApplyDialog from "./ApplyDialog";
 
 const OfferDetails = () => {
   const { offerId } = useParams();
@@ -14,9 +14,9 @@ const OfferDetails = () => {
   };
   return (
     <>
-      {openApplyDialog && (
+      {/* {openApplyDialog && (
         <ApplyDialog open={openApplyDialog} setOpen={setOpenApplyDialog} />
-      )}
+      )} */}
       <div className="container mx-auto my-10">
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold text-gray-800">React Developer</h1>
