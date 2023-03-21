@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import { useAuth } from "../../context/AuthContext";
-import {
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-} from "@mui/material";
+// import {
+//   FormControl,
+//   FormControlLabel,
+//   Radio,
+//   RadioGroup,
+// } from "@mui/material";
 import UploadImage from "../shared/UploadImage";
 import PrimaryButton from "../buttons/primarybutton";
 import { CreateUser } from "../../lib/fetch";
@@ -112,7 +112,7 @@ const UserForm = () => {
               className="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             />
           </div>
-          <FormControl className="mb-1">
+          {/* <FormControl className="mb-1">
             <label className="block text-sm font-medium text-gray-900 dark:text-white">
               Gender:
             </label>
@@ -135,7 +135,7 @@ const UserForm = () => {
                 label="Other"
               />
             </RadioGroup>
-          </FormControl>
+          </FormControl> */}
           <div>
             <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
               Phone Number:
