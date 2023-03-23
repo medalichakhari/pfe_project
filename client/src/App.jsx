@@ -13,6 +13,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import JobApplication from "./pages/jobapplication/JobApplication";
 import JobPosting from "./pages/jobposting/JobPosting";
 import RequireAuth from "./components/RequireAuth";
+import UserForm from "./components/userform/UserForm";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ function App() {
             <Route path="/companies/:categoryId" element={<Companies />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/useraccount" element={<UserForm />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -130,7 +130,11 @@ const SignUp = () => {
             <div className="px-2 text-gray-500 dark:text-gray-300">or</div>
             <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
           </div>
-          <SecondaryButton className="w-full" onClick={handleSignUpWithGoogle}>
+          <SecondaryButton
+            type="button"
+            className="w-full"
+            onClick={handleSignUpWithGoogle}
+          >
             <div className="flex items-center justify-center">
               <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600">
                 <GoogleIcon />

@@ -1,5 +1,18 @@
 import axios from "axios";
 //User
+export const fetchUserByEmail = async (userEmail, token) => {
+    let config = {
+        method: "get",
+        url: `http://localhost:8080/api/users/email/${userEmail}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    };
+    const response = await axios(config);
+    return response.data;
+};
+
 export const CreateUser = async (userData, token) => {
     let data = userData;
     let config = {

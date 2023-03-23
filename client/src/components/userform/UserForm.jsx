@@ -1,34 +1,40 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-// import {
-//   FormControl,
-//   FormControlLabel,
-//   Radio,
-//   RadioGroup,
-// } from "@mui/material";
 import UploadImage from "../shared/UploadImage";
 import PrimaryButton from "../buttons/primarybutton";
 import { CreateUser } from "../../lib/fetch";
+import Radio from "../inputs/Radio";
 
 const UserForm = () => {
+  const options = [
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+    { label: "Other", value: "other" },
+  ];
+  const [selectedValue, setSelectedValue] = useState("");
   const [image, setImage] = useState("");
-  const { token } = useAuth();
-  console.log("user", token);
+  const { user, token } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const handleCreateUser = (values, actions) => {
+    console.log("etoken", token);
     let userData = {
+      id: user.uid,
       nom: values.fName,
       prenom: values.lName,
-      email: "useraminea@email.com",
+      email: user.email,
       dNaissance: values.birthDate,
       telephone: values.phoneNumber,
       adresse: values.address,
       photo: image,
-      genre: values.gender,
+      genre: selectedValue,
     };
-    console.log(image);
     CreateUser(userData, token)
       .then((res) => {
+        navigate(from, { replace: true });
         console.log("res", res);
       })
       .catch((error) => {
@@ -112,30 +118,19 @@ const UserForm = () => {
               className="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             />
           </div>
-          {/* <FormControl className="mb-1">
-            <label className="block text-sm font-medium text-gray-900 dark:text-white">
+          <div>
+            <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
               Gender:
             </label>
-            <RadioGroup
-              row
-              name="gender"
-              value={values.gender}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            >
-              <FormControlLabel
-                value="female"
-                control={<Radio />}
-                label="Female"
+            <div className="flex items-center">
+              <Radio
+                name="gender"
+                options={options}
+                selectedValue={selectedValue}
+                setSelectedValue={setSelectedValue}
               />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="Other"
-              />
-            </RadioGroup>
-          </FormControl> */}
+            </div>
+          </div>
           <div>
             <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
               Phone Number:

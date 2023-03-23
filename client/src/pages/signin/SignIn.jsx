@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 import PrimaryButton from "../../components/buttons/primarybutton/index";
 import SecondaryButton from "../../components/buttons/secondarybutton";
@@ -11,11 +11,13 @@ const SignIn = () => {
   const { signInWithEmailAndPwd } = useAuth();
   const { googleSignIn } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleSignIn = (values) => {
     signInWithEmailAndPwd(values.email, values.password)
       .then(() => {
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);
@@ -24,7 +26,7 @@ const SignIn = () => {
   const handleSignInWithGoogle = () => {
     googleSignIn()
       .then(() => {
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);
@@ -126,7 +128,7 @@ const SignIn = () => {
             <div className="px-2 text-gray-500 dark:text-gray-300">or</div>
             <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
           </div>
-          <SecondaryButton className="w-full" onClick={handleSignInWithGoogle}>
+          <SecondaryButton type="button" className="w-full" onClick={handleSignInWithGoogle}>
             <div className="flex items-center justify-center">
               <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600">
                 <GoogleIcon />
