@@ -3,7 +3,6 @@ import { useState } from "react";
 function UploadPDF() {
   const [selectedFile, setSelectedFile] = useState(null);
 
-
   function handleFileChange(event) {
     const file = event.target.files[0];
     if (file && file.type === "application/pdf") {
@@ -19,7 +18,7 @@ function UploadPDF() {
     event.preventDefault();
     if (selectedFile) {
       // Handle file upload logic here
-      console.log("Uploading file: ", selectedFile);
+      "Uploading file: ", selectedFile;
       setSelectedFile(null);
     } else {
       setError("Please select a PDF file to upload");

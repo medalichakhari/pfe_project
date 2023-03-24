@@ -2,18 +2,27 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import SecondaryButton from "../buttons/SecondaryButton";
 import JobCard from "../jobcard/JobCard";
+import { GetOffres } from "../../lib/fetch";
+import { useAuth } from "../../context/AuthContext";
 
 const JobList = () => {
+  const { token } = useAuth();
   const [showCount, setShowCount] = useState(5);
+  // const {
+  //   data: Data,
+  //   isLoading,
+  //   error,
+  // } = useQuery("jobs", () => {
+  //   return fetch("http://localhost:3000/jobs")
+  //     .then((res) => res.json())
+  //     .catch((err) => (err));
+  // });
   const {
     data: Data,
     isLoading,
     error,
-  } = useQuery("jobs", () => {
-    return fetch("http://localhost:3000/jobs")
-      .then((res) => res.json())
-      .catch((err) => console.log(err));
-  });
+  } = useQuery(["jobs", token], () => GetOffres(token));
+
   const jobsList = Data?.slice(0, showCount);
   const handleLoadMore = () => {
     setShowCount(showCount + 5);

@@ -11,9 +11,6 @@ const RequireAuth = () => {
     ["userInfo", user?.uid, token],
     () => GetUser(user?.uid, token)
   );
-  console.log("user", userInfo);
-  console.log("token", token);
-  console.log("userInfo", user.uid);
   return (
     !isLoading &&
     (user && userInfo ? (

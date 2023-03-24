@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
 import PrimaryButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
+import { BsBriefcase, BsSearch } from "react-icons/bs";
 
 export default function NavBar() {
   const { user, logOut } = useAuth();
@@ -11,10 +12,10 @@ export default function NavBar() {
   const handleLogout = () => {
     logOut()
       .then(() => {
-        console.log("logout success");
+        ("logout success");
       })
       .catch((err) => {
-        console.log(err);
+        err;
       });
   };
   return (
@@ -73,8 +74,12 @@ export default function NavBar() {
             Home
           </Navbar.Link>
           <Navbar.Link href="/">About</Navbar.Link>
-          <Navbar.Link href="/">Find Job</Navbar.Link>
-          <Navbar.Link href="/">Post Job</Navbar.Link>
+          <Navbar.Link href="/" className="flex items-center">
+            {<BsSearch className="mr-1" />}Find Job
+          </Navbar.Link>
+          <Navbar.Link href="/postjob" className="flex items-center">
+            {<BsBriefcase className="mr-1" />}Post Job
+          </Navbar.Link>
           <Navbar.Link href="/">Contact</Navbar.Link>
         </Navbar.Collapse>
       </Navbar>

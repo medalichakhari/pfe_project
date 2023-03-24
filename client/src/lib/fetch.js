@@ -267,6 +267,19 @@ export const GetSociete = async (id, token) => {
     return response.data;
 }
 
+export const GetSocieteByRid = async (recruteurId, token) => {
+    let config = {
+        method: "get",
+        url: `http://localhost:8080/api/societes/recruteur/${recruteurId}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    };
+    const response = await axios(config);
+    return response.data;
+}
+
 export const UpdateSociete = async (id, societeData, token) => {
     let data = societeData;
     let config = {

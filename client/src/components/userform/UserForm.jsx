@@ -20,7 +20,6 @@ const UserForm = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const handleCreateUser = (values, actions) => {
-    console.log("etoken", token);
     let userData = {
       id: user.uid,
       nom: values.fName,
