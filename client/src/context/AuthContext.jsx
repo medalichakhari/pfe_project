@@ -6,6 +6,8 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  sendPasswordResetEmail,
+  confirmPasswordReset,
 } from "firebase/auth";
 import { auth } from "../services/firebaseConfig";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
@@ -53,7 +55,14 @@ export const AuthContextProvider = ({ children }) => {
   const googleSignIn = () => {
     return signInWithPopup(auth, googleProvider);
   };
-
+  const forgotPassword = (email) => {
+    sendPasswordResetEmail(auth, email, {
+      url: "http://localhost:5173/resetpassword",
+    });
+  };
+  const resetPassword = (oobCode, newPassword) => {
+    return confirmPasswordReset(auth, oobCode, newPassword)
+  }
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -68,6 +77,8 @@ export const AuthContextProvider = ({ children }) => {
         logOut,
         googleSignUp,
         googleSignIn,
+        forgotPassword,
+        resetPassword,
       }}
     >
       {children}

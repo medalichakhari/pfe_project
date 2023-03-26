@@ -6,29 +6,59 @@ import SecondaryButton from "../../components/buttons/secondarybutton";
 import { useAuth } from "../../context/AuthContext";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
 import { signInSchema } from "../../utils/validationSchemas";
+import { useToast } from "@chakra-ui/react";
 
 const SignIn = () => {
   const { signInWithEmailAndPwd } = useAuth();
   const { googleSignIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const toast = useToast();
   const from = location.state?.from?.pathname || "/";
 
   const handleSignIn = (values) => {
     signInWithEmailAndPwd(values.email, values.password)
       .then(() => {
         navigate(from, { replace: true });
+        toast({
+          description: "Logged In.",
+          position: "bottom-left",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
       })
       .catch((error) => {
+        toast({
+          description: error.message,
+          position: "bottom-left",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
         console.log(error);
       });
   };
   const handleSignInWithGoogle = () => {
     googleSignIn()
       .then(() => {
+        toast({
+          description: "Logged In.",
+          position: "bottom-left",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
         navigate(from, { replace: true });
       })
       .catch((error) => {
+        toast({
+          description: error.message,
+          position: "bottom-left",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
         console.log(error);
       });
   };
@@ -128,7 +158,11 @@ const SignIn = () => {
             <div className="px-2 text-gray-500 dark:text-gray-300">or</div>
             <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
           </div>
-          <SecondaryButton type="button" className="w-full" onClick={handleSignInWithGoogle}>
+          <SecondaryButton
+            type="button"
+            className="w-full"
+            onClick={handleSignInWithGoogle}
+          >
             <div className="flex items-center justify-center">
               <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600">
                 <GoogleIcon />
