@@ -4,18 +4,35 @@ import { useFormik } from "formik";
 import PrimaryButton from "../../components/buttons/primarybutton/index";
 import { useAuth } from "../../context/AuthContext";
 import useQuery from "../../hooks/useQuery";
+import { useToast } from "@chakra-ui/react";
 
 const ResetPassword = () => {
   const { resetPassword } = useAuth();
   const query = useQuery();
-  const oobCode = query.get("oobCode")
+  const oobCode = query.get("oobCode");
   const navigate = useNavigate();
+  const toast = useToast();
   const handleResetPassword = (values, actions) => {
     resetPassword(oobCode, values.email)
       .then(() => {
+        console.log("password reset");
+        toast({
+          description: "Your password has been reset",
+          position: "bottom-left",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
       })
       .catch((error) => {
         console.log(error);
+        toast({
+          description: error.message,
+          position: "bottom-left",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
       });
   };
   const {

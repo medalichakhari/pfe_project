@@ -81,8 +81,8 @@ const JobPosting = () => {
     }
   }, [isLoadingUserInfo, isLoadingCompanyInfo, userInfo, companyInfo]);
   const handleCreateCompany = async (values, actions) => {
-    const recruteurId = userInfo?.recruteur?.id;
-    const companyId = companyInfo?.id;
+    let recruteurId = userInfo?.recruteur?.id;
+    let companyId = companyInfo?.id;
     console.log("recruteurId", recruteurId);
     let recruterData = {
       titre_professionelle: values.profession,
@@ -96,21 +96,28 @@ const JobPosting = () => {
     };
     try {
       if (!isLoadingUserInfo && recruteurId) {
+        await UpdateRecruteur(recruteurId, recruterData, token);
+        console.log("Recruteur updated");
+      } else {
         await CreateRecruteur(recruterData, token).then((res) =>
           console.log(res)
         );
-      } else {
-        await UpdateRecruteur(recruteurId, recruterData, token);
-        console.log("Recruteur updated");
+        recruteurId = res.data.id;
       }
-
-      if (!isLoadingCompanyInfo && companyId) {
-        await UpdateSociete(companyId, companyData, token);
-        console.log("Company updated");
+      if (recruteurId) {
+        if (!isLoadingCompanyInfo && companyId) {
+          await UpdateSociete(companyId, companyData, token);
+          console.log("Company updated");
+        } else {
+          companyData.recruteurId = recruteurId; // Set the recruiter ID for the company
+          await CreateSociete(companyData, token).then((res) =>
+            console.log(res)
+          );
+        }
+        completeFormStep();
       } else {
-        await CreateSociete(companyData, token).then((res) => console.log(res));
+        console.log("Failed to create recruiter");
       }
-      completeFormStep();
     } catch (err) {
       console.log("Something wrong happened", err);
     }
@@ -122,9 +129,10 @@ const JobPosting = () => {
       domaine: jobOfferValues.domain,
       type: jobOfferValues.type,
       salaire: jobOfferValues.salary,
-      competence: jobOfferValues.qualification,
+      // competences: jobOfferValues.qualification,
       description: jobOfferValues.description,
       categorieId: 1,
+      recruteurId: userInfo?.recruteur?.id,
     };
     CreateOffre(offerData, token)
       .then((res) => {

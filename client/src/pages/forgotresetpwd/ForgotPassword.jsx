@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import PrimaryButton from "../../components/buttons/primarybutton/index";
 import { useAuth } from "../../context/AuthContext";
-import { signUpSchema } from "../../utils/validationSchemas";
 
 const ForgotPassword = () => {
   const { forgotPassword } = useAuth();
@@ -12,9 +11,23 @@ const ForgotPassword = () => {
     forgotPassword(values.email)
       .then(() => {
         console.log("email sent");
+        toast({
+          description: "Email sent.",
+          position: "bottom-left",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
       })
       .catch((error) => {
         console.log(error);
+        toast({
+          description: error.message,
+          position: "bottom-left",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
       });
   };
 
