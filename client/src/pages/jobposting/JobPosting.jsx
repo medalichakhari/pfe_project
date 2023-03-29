@@ -82,8 +82,7 @@ const JobPosting = () => {
   }, [isLoadingUserInfo, isLoadingCompanyInfo, userInfo, companyInfo]);
   const handleCreateCompany = async (values, actions) => {
     let recruteurId = userInfo?.recruteur?.id;
-    let companyId = companyInfo?.id;
-    console.log("recruteurId", recruteurId);
+    let companyId = companyInfo && companyInfo[0]?.id;
     let recruterData = {
       titre_professionelle: values.profession,
       userId: user?.uid,
@@ -99,10 +98,10 @@ const JobPosting = () => {
         await UpdateRecruteur(recruteurId, recruterData, token);
         console.log("Recruteur updated");
       } else {
-        await CreateRecruteur(recruterData, token).then((res) =>
-          console.log(res)
-        );
-        recruteurId = res.data.id;
+        await CreateRecruteur(recruterData, token).then((res) => {
+          console.log(res);
+          recruteurId = res.data.id;
+        });
       }
       if (recruteurId) {
         if (!isLoadingCompanyInfo && companyId) {

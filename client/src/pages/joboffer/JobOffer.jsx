@@ -1,11 +1,11 @@
 import React from "react";
-import OfferDetails from "../../components/offerdetails/OfferDetails";
+import JobOfferDetails from "../../components/jobofferdetails/JobOfferDetails";
 import Layout from "../../components/layout/Layout";
 
 const Offer = () => {
   return (
     <Layout>
-      <OfferDetails />
+      <JobOfferDetails />
     </Layout>
   );
 };

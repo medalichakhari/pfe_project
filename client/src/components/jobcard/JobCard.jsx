@@ -7,6 +7,14 @@ const JobCard = ({ job }) => {
   const handleNavigate = () => {
     navigate(`/offer/${job.id}`);
   };
+  const handleApply = () => {
+    navigate(`/offer/${job.id}/apply`);
+  };
+  const truncatedTitle =
+    job.titre.slice(0, 15) + (job.titre.length > 15 ? "..." : "");
+  const truncatedDescription =
+    job.description.slice(0, 99) + (job.description.length > 99 ? "..." : "");
+
   return (
     <div>
       <div className="group group/item w-[250px] p-[20px] bg-white rounded-[10px] hover:bg-blueColor shadow-lg shadow-greIsh-400/700 hover:shadow-lg">
@@ -15,7 +23,7 @@ const JobCard = ({ job }) => {
             className="text-[16px] font-semibold text-textColor group-hover:text-white cursor-pointer"
             onClick={handleNavigate}
           >
-            {job.titre}
+            {truncatedTitle}
           </h1>
           <span className="flex items-center text-[#ccc] gap-1">
             <BiTimeFive />
@@ -24,7 +32,7 @@ const JobCard = ({ job }) => {
         </span>
         <h6 className="text-[#ccc]">{job.lieu}</h6>
         <p className="text-[13px text-[#959595] pt-[20px] border-t-[2px] mt-[20px]">
-          {job.description}
+          {truncatedDescription}
         </p>
         <div className="flex items-center gap-2">
           <img src="" alt="" className="w-[10%]" />
@@ -34,9 +42,9 @@ const JobCard = ({ job }) => {
         </div>
         <button
           className="border-[2px] rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-white group-hover/item:text-textColor group-hover:text-textColor"
-          onClick={() => navigate(`/`)}
+          onClick={handleApply}
         >
-          Aplly Now
+          Apply Now
         </button>
       </div>
     </div>

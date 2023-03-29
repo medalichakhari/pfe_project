@@ -94,7 +94,7 @@ export default function NavBar() {
           </Navbar.Link>
           <Navbar.Link href="/">About</Navbar.Link>
           <Navbar.Link href="/" className="flex items-center">
-            {<BsSearch className="mr-1 text-gray-500" />}Find Job
+            {<BsSearch className="mr-1 text-gray-500" />}Companies
           </Navbar.Link>
           <Navbar.Link href="/postjob" className="flex items-center">
             {<BsBriefcase className="mr-1 text-gray-500" />}Post Job
