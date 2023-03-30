@@ -22,10 +22,11 @@ export const AuthContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentuser) => {
       if (currentuser) {
-        setUser(currentuser);
-        currentuser.getIdToken().then(setToken);
+        const idTokenResult = await currentuser.getIdTokenResult(true);
+        setUser(idTokenResult.claims);
+        setToken(idTokenResult.token);
       } else {
         setUser(null);
         setToken(null);
@@ -61,8 +62,11 @@ export const AuthContextProvider = ({ children }) => {
     });
   };
   const resetPassword = (oobCode, newPassword) => {
-    return confirmPasswordReset(auth, oobCode, newPassword)
-  }
+    return confirmPasswordReset(auth, oobCode, newPassword);
+  };
+  const refreshToken = () => {
+    return auth.currentUser.getIdToken(true);
+  };
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -79,6 +83,7 @@ export const AuthContextProvider = ({ children }) => {
         googleSignIn,
         forgotPassword,
         resetPassword,
+        refreshToken,
       }}
     >
       {children}

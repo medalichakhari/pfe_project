@@ -53,10 +53,10 @@ const JobPosting = () => {
       return null;
     }
   };
-  const { token, user } = useAuth();
+  const { token, user, refreshToken } = useAuth();
   const { data: userInfo, isLoading: isLoadingUserInfo } = useQuery(
-    ["userInfo", user?.uid, token],
-    () => GetUser(user?.uid, token)
+    ["userInfo", user?.user_id, token],
+    () => GetUser(user?.user_id, token)
   );
   const { data: companyInfo, isLoading: isLoadingCompanyInfo } = useQuery(
     ["companyInfo", userInfo?.recruteur?.id, token],
@@ -85,7 +85,7 @@ const JobPosting = () => {
     let companyId = companyInfo && companyInfo[0]?.id;
     let recruterData = {
       titre_professionelle: values.profession,
-      userId: user?.uid,
+      userId: user?.user_id,
     };
     let companyData = {
       nom: values.companyName,
@@ -98,7 +98,7 @@ const JobPosting = () => {
         await UpdateRecruteur(recruteurId, recruterData, token);
         console.log("Recruteur updated");
       } else {
-        await CreateRecruteur(recruterData, token).then((res) => {
+        await CreateRecruteur(recruterData, token).then(async (res) => {
           console.log(res);
           recruteurId = res.data.id;
         });

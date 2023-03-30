@@ -17,7 +17,7 @@
 
 //   useEffect(() => {
 //     async function fetchUserData() {
-//       const userInfo = await GetUser(user?.uid, token);
+//       const userInfo = await GetUser(user?.user_id, token);
 //       if (userInfo?.recruteur) {
 //         sessionStorage.setItem("recruiter", JSON.stringify(userInfo.recruteur));
 //         setRecruiter(userInfo.recruteur);

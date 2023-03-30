@@ -21,7 +21,7 @@ const UserForm = () => {
   const from = location.state?.from?.pathname || "/";
   const handleCreateUser = (values, actions) => {
     let userData = {
-      id: user.uid,
+      id: user.user_id,
       nom: values.fName,
       prenom: values.lName,
       email: user.email,

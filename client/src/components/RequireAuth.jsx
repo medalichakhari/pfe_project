@@ -7,9 +7,10 @@ import { GetUser } from "../lib/fetch";
 const RequireAuth = () => {
   const location = useLocation();
   const { user, token } = useContext(AuthContext);
+  console.log(user);
   const { data: userInfo, isLoading } = useQuery(
-    ["userInfo", user?.uid, token],
-    () => GetUser(user?.uid, token)
+    ["userInfo", user?.user_id, token],
+    () => GetUser(user?.user_id, token)
   );
   return (
     !isLoading &&

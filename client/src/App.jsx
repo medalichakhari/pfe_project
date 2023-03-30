@@ -27,37 +27,31 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
         {/* <UserProvider> */}
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Home />} />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/candidatspace" element={<CandidatSpace />} />
+            <Route path="/offer/:offerId" element={<JobOffer />} />
+            <Route element={<RequireAuth />}>
               <Route
-                path="/candidatspace"
-                element={<CandidatSpace />}
+                path="/offer/:offerId/apply"
+                element={<JobApplication />}
               />
-              <Route path="/offer/:offerId" element={<JobOffer />} />
-              <Route element={<RequireAuth />}>
-                <Route
-                  path="/offer/:offerId/apply"
-                  element={<JobApplication />}
-                />
-              </Route>
-              <Route
-                path="/recruiterspace"
-                element={<RecruiterSpace />}
-              />
-              <Route element={<RequireAuth />}>
-                <Route path="/postjob" element={<JobPosting />} />
-              </Route>
-              <Route path="/companies/:categoryId" element={<Companies />} />
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/forgotpassword" element={<ForgotPassword />} />
-              <Route path="/resetpassword" element={<ResetPassword />} />
-              <Route path="/useraccount" element={<UserForm />} />
-              <Route path="/unauthorized" element={<Unauthorized />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
+            </Route>
+            <Route path="/recruiterspace" element={<RecruiterSpace />} />
+            <Route element={<RequireAuth />}>
+              <Route path="/postjob" element={<JobPosting />} />
+            </Route>
+            <Route path="/companies/:categoryId" element={<Companies />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route path="/resetpassword" element={<ResetPassword />} />
+            <Route path="/useraccount" element={<UserForm />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
         {/* </UserProvider> */}
       </AuthContextProvider>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
