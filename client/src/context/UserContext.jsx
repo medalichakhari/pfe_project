@@ -1,5 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
 import { useAuth } from "./AuthContext";
+import { useQuery } from "react-query";
 import { GetUser } from "../lib/fetch";
 
 const UserContext = createContext();
@@ -10,40 +11,43 @@ export function useUser() {
 
 export function UserProvider({ children }) {
   const { user, token } = useAuth();
-  const [company, setCompany] = useState(
-    JSON.parse(sessionStorage.getItem("company"))
-  );
-  const [candidate, setCandidate] = useState(
-    JSON.parse(sessionStorage.getItem("candidate"))
+
+  const { data, isLoading, isError, refetch } = useQuery(
+    ["getUserData", user?.user_id, token],
+    () => GetUser(user?.user_id, token)
   );
 
-  useEffect(() => {
-    async function fetchUserData() {
-      const userInfo = await GetUser(user?.user_id, token);
-      if (userInfo?.societe) {
-        sessionStorage.setItem("company", JSON.stringify(userInfo.societe));
-        setCompany(userInfo.societe);
+  const value = {
+    company: data?.societe || null,
+    setCompany: (company) => {
+      if (company) {
+        sessionStorage.setItem("company", JSON.stringify(company));
       } else {
-        sessionStorage.removeItem("societe");
-        setCompany(null);
+        sessionStorage.removeItem("company");
       }
-      if (userInfo?.candidat) {
-        sessionStorage.setItem("candidate", JSON.stringify(userInfo.candidat));
-        setCandidate(userInfo.candidat);
+      return data?.societe || null;
+    },
+    candidate: data?.candidat || null,
+    setCandidate: (candidate) => {
+      if (candidate) {
+        sessionStorage.setItem("candidate", JSON.stringify(candidate));
       } else {
         sessionStorage.removeItem("candidate");
-        setCandidate(null);
       }
-    }
+      return data?.candidat || null;
+    },
+    refresh: refetch,
+  };
 
-    fetchUserData();
-  }, [user, token]);
+  if (isLoading) {
+    // You could show a loading spinner or skeleton component here
+    return <div>Loading...</div>;
+  }
 
-  return (
-    <UserContext.Provider
-      value={{ company, setCompany, candidate, setCandidate }}
-    >
-      {children}
-    </UserContext.Provider>
-  );
+  if (isError) {
+    // You could show an error message here
+    return <div>Error fetching user data</div>;
+  }
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }

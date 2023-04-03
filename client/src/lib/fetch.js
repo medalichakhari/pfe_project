@@ -308,13 +308,12 @@ export const DeleteSociete = async (id, token) => {
     return response;
 }
 
-//Recruteur
-
-export const CreateRecruteur = async (recruteurData, token) => {
-    let data = recruteurData;
+//secteur
+export const CreateSecteur = async (secteurData, token) => {
+    let data = secteurData;
     let config = {
         method: "post",
-        url: "http://localhost:8080/api/recruteurs",
+        url: "http://localhost:8080/api/secteurs",
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -325,10 +324,10 @@ export const CreateRecruteur = async (recruteurData, token) => {
     return response;
 };
 
-export const GetRecruteurs = async (token) => {
+export const GetSecteurs = async (token) => {
     let config = {
         method: "get",
-        url: "http://localhost:8080/api/recruteurs",
+        url: "http://localhost:8080/api/secteurs",
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -338,10 +337,10 @@ export const GetRecruteurs = async (token) => {
     return response.data;
 }
 
-export const GetRecruteur = async (id, token) => {
+export const GetSecteur = async (id, token) => {
     let config = {
         method: "get",
-        url: `http://localhost:8080/api/recruteurs/${id}`,
+        url: `http://localhost:8080/api/secteurs/${id}`,
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -351,11 +350,11 @@ export const GetRecruteur = async (id, token) => {
     return response.data;
 }
 
-export const UpdateRecruteur = async (id, recruteurData, token) => {
-    let data = recruteurData;
+export const UpdateSecteur = async (id, secteurData, token) => {
+    let data = secteurData;
     let config = {
         method: "put",
-        url: `http://localhost:8080/api/recruteurs/${id}`,
+        url: `http://localhost:8080/api/secteurs/${id}`,
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -366,10 +365,10 @@ export const UpdateRecruteur = async (id, recruteurData, token) => {
     return response;
 }
 
-export const DeleteRecruteur = async (id, token) => {
+export const DeleteSecteur = async (id, token) => {
     let config = {
         method: "delete",
-        url: `http://localhost:8080/api/recruteurs/${id}`,
+        url: `http://localhost:8080/api/secteurs/${id}`,
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

@@ -1,20 +1,25 @@
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
-import UploadImage from "../shared/UploadImage";
 import CompanyForm from "../companyform/CompanyForm";
 import { useUser } from "../../context/UserContext";
 import { useFormik } from "formik";
+import { GetSecteur, UpdateSociete } from "../../lib/fetch";
+import { useQuery } from "react-query";
+import { useAuth } from "../../context/AuthContext";
 
 const CompanyInfo = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const [image, setImage] = useState("");
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
-  const { company } = useUser();
-  console.log(company);
+  const { token } = useAuth();
+  const { company, refresh } = useUser();
+  const { data: activityAreaInfo, isLoading } = useQuery(
+    ["activityAreaInfo", company?.secteurId, token],
+    () => GetSecteur(company?.secteurId, token)
+  );
   const handleUpdateCompany = async (values, actions) => {
     console.log("companyId", company.id);
     let companyData = {
@@ -24,6 +29,7 @@ const CompanyInfo = () => {
     };
     UpdateSociete(company.id, companyData, token)
       .then((res) => {
+        refresh();
         console.log(res);
       })
       .catch((err) => console.log(err));
@@ -37,19 +43,20 @@ const CompanyInfo = () => {
     handleChange,
     handleSubmit,
   } = useFormik({
-    initialValues: !company
-      ? {
-          companyName: "",
-          companyAddress: "",
-          companyActivity: "",
-          companyDescription: "",
-        }
-      : {
-          companyName: company?.nom,
-          companyAddress: company?.adresse,
-          companyActivity: company?.secteur?.nom,
-          companyDescription: company?.description,
-        },
+    initialValues:
+      !company || isLoading
+        ? {
+            companyName: "",
+            companyAddress: "",
+            companyActivity: "",
+            companyDescription: "",
+          }
+        : {
+            companyName: company?.nom,
+            companyAddress: company?.adresse,
+            companyActivity: activityAreaInfo?.nom,
+            companyDescription: company?.description,
+          },
     onSubmit: handleUpdateCompany,
     enableReinitialize: true,
   });
@@ -124,9 +131,7 @@ const CompanyInfo = () => {
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               Company Description:
             </label>
-            <p className="mb-2 text-gray-500 text-sm">
-              {values.companyDescription}
-            </p>
+            <p className="mb-2 text-gray-500 text-sm">{company.description}</p>
           </div>
         </>
       )}

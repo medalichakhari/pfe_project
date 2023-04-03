@@ -5,15 +5,13 @@ import SecondaryButton from "../../components/buttons/SecondaryButton";
 import Layout from "../../components/layout/Layout";
 import JobOfferForm from "../../components/jobofferform/JobOfferForm";
 import { useAuth } from "../../context/AuthContext";
-import { useQuery } from "react-query";
-import { GetSocieteByUid, UpdateSociete, CreateOffre } from "../../lib/fetch";
+import { CreateOffre } from "../../lib/fetch";
 import CompanyInfo from "../../components/jobofferform/CompanyInfo";
 import { useUser } from "../../context/UserContext";
 
 const STEPS_AMOUNT = 1;
 
 const JobPosting = () => {
-  const [image, setImage] = useState("");
   const [formStep, setFormStep] = useState(0);
   const completeFormStep = () => {
     setFormStep(formStep + 1);
@@ -49,52 +47,8 @@ const JobPosting = () => {
       return null;
     }
   };
-  const { token, user } = useAuth();
-  const { candidate, company } = useUser();
-  const { data: companyInfo, isLoading: isLoadingCompanyInfo } = useQuery(
-    ["companyInfo", user?.user_id, token],
-    () => GetSocieteByUid(user?.user_id, token)
-  );
-  console.log(companyInfo);
-  let companyId = !isLoadingCompanyInfo && companyInfo[0]?.id;
-  const handleUpdateCompany = async (values, actions) => {
-    console.log("companyId", companyId);
-    let companyData = {
-      nom: values.companyName,
-      adresse: values.companyAddress,
-      description: values.companyDescription,
-    };
-    UpdateSociete(companyId, companyData, token)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
-  };
-  const {
-    values,
-    errors,
-    touched,
-    isSubmitting,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-  } = useFormik({
-    initialValues: isLoadingCompanyInfo
-      ? {
-          companyName: "",
-          companyAddress: "",
-          companyActivity: "",
-          companyDescription: "",
-        }
-      : {
-          companyName: company?.nom,
-          companyAddress: companyInfo[0]?.adresse,
-          companyActivity: companyInfo[0]?.secteur?.nom,
-          companyDescription: companyInfo[0]?.description,
-        },
-    onSubmit: handleUpdateCompany,
-    enableReinitialize: true,
-  });
+  const { token } = useAuth();
+  const { company } = useUser();
   const handleCreateJobOffer = async (values, actions) => {
     let offerData = {
       titre: jobOfferValues.title,
@@ -104,7 +58,7 @@ const JobPosting = () => {
       salaire: jobOfferValues.salary,
       competences: jobOfferValues.qualification,
       description: jobOfferValues.description,
-      societeId: companyInfo?.id,
+      societeId: company?.id,
     };
     CreateOffre(offerData, token)
       .then((res) => {
@@ -138,16 +92,7 @@ const JobPosting = () => {
       <div className="my-6 flex justify-center items-center bg-gray-50">
         <div className="w-full max-w-xl p-4 bg-white border border-gray-200 rounded-lg shadow-xl sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
           <div>
-            {formStep === 0 && (
-              <CompanyInfo
-                values={values}
-                handleChange={handleChange}
-                handleBlur={handleBlur}
-                handleSubmit={handleSubmit}
-                image={image}
-                setImage={setImage}
-              />
-            )}
+            {formStep === 0 && <CompanyInfo />}
             {renderCompanyButtons()}
           </div>
           <form onSubmit={jobOfferHandleSubmit}>
