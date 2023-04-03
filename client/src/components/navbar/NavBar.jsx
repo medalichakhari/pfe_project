@@ -12,6 +12,21 @@ import { IoLogOut } from "react-icons/io5";
 
 export default function NavBar() {
   const { user, logOut } = useAuth();
+  const handleNavigate = () => {
+    if (user?.roles?.includes("recruteur")) {
+      return (
+        <Navbar.Link href="/postjob" className="flex items-center">
+          {<BsBriefcase className="mr-1 text-gray-500" />}Post Job
+        </Navbar.Link>
+      );
+    } else {
+      return (
+        <Navbar.Link href="/companyaccount" className="flex items-center">
+          {<BsBriefcase className="mr-1 text-gray-500" />}Post Job
+        </Navbar.Link>
+      );
+    }
+  };
 
   const handleLogout = () => {
     logOut()
@@ -41,11 +56,7 @@ export default function NavBar() {
               arrowIcon={false}
               inline={true}
               label={
-                <Avatar
-                  alt="User settings"
-                  img={user.picture}
-                  rounded={true}
-                />
+                <Avatar alt="User settings" img={user.picture} rounded={true} />
               }
             >
               <Dropdown.Header>
@@ -96,9 +107,7 @@ export default function NavBar() {
           <Navbar.Link href="/" className="flex items-center">
             {<BsSearch className="mr-1 text-gray-500" />}Companies
           </Navbar.Link>
-          <Navbar.Link href="/postjob" className="flex items-center">
-            {<BsBriefcase className="mr-1 text-gray-500" />}Post Job
-          </Navbar.Link>
+          {handleNavigate()}
           <Navbar.Link href="/">Contact</Navbar.Link>
         </Navbar.Collapse>
       </Navbar>

@@ -10,11 +10,11 @@ const JobList = () => {
   const [showCount, setShowCount] = useState(5);
   console.log(token);
   const {
-    data: Data,
+    data: jobs,
     isLoading,
     error,
   } = useQuery(["jobs", token], () => GetOffres(token));
-  const jobsList = Data && Data?.slice(0, showCount);
+  const jobsList = jobs && jobs?.slice(0, showCount);
   const handleLoadMore = () => {
     setShowCount(showCount + 5);
   };
@@ -27,7 +27,7 @@ const JobList = () => {
           <JobCard key={job.id} job={job} />
         ))}
       </div>
-      {jobsList && (
+      {jobs.length >showCount && (
         <div className="mt-auto">
           <SecondaryButton onClick={handleLoadMore}>Load more</SecondaryButton>
         </div>

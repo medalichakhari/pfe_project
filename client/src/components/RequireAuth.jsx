@@ -1,26 +1,21 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import { useQuery } from "react-query";
-import { AuthContext } from "../context/AuthContext";
-import { GetUser } from "../lib/fetch";
+import { useAuth } from "../context/AuthContext";
 
-const RequireAuth = () => {
+const RequireAuth = ({ allowedRoles }) => {
   const location = useLocation();
-  const { user, token } = useContext(AuthContext);
-  console.log(user);
-  const { data: userInfo, isLoading } = useQuery(
-    ["userInfo", user?.user_id, token],
-    () => GetUser(user?.user_id, token)
+  const { user } = useAuth();
+  const hasAllowedRole = allowedRoles?.some((role) =>
+    user.roles.includes(role)
   );
-  return (
-    !isLoading &&
-    (user && userInfo ? (
-      <Outlet />
-    ) : user ? (
-      <Navigate to="/useraccount" state={{ from: location }} replace />
-    ) : (
-      <Navigate to="/signin" state={{ from: location }} replace />
-    ))
+  return user &&
+    user.roles &&
+    (hasAllowedRole || (!allowedRoles && user.roles.includes("user"))) ? (
+    <Outlet />
+  ) : user ? (
+    <Navigate to="/useraccount" state={{ from: location }} replace />
+  ) : (
+    <Navigate to="/signin" state={{ from: location }} replace />
   );
 };
 

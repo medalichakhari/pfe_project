@@ -1,25 +1,19 @@
 import { useFormik } from "formik";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import SecondaryButton from "../../components/buttons/SecondaryButton";
 import Layout from "../../components/layout/Layout";
-import CompanyForm from "../../components/recruiterform/CompanyForm";
-import JobOfferForm from "../../components/recruiterform/JobOfferForm";
+import JobOfferForm from "../../components/jobofferform/JobOfferForm";
 import { useAuth } from "../../context/AuthContext";
 import { useQuery } from "react-query";
-import {
-  GetUser,
-  CreateRecruteur,
-  UpdateRecruteur,
-  GetSocieteByRid,
-  CreateSociete,
-  UpdateSociete,
-  CreateOffre,
-} from "../../lib/fetch";
+import { GetSocieteByUid, UpdateSociete, CreateOffre } from "../../lib/fetch";
+import CompanyInfo from "../../components/jobofferform/CompanyInfo";
+import { useUser } from "../../context/UserContext";
 
 const STEPS_AMOUNT = 1;
 
 const JobPosting = () => {
+  const [image, setImage] = useState("");
   const [formStep, setFormStep] = useState(0);
   const completeFormStep = () => {
     setFormStep(formStep + 1);
@@ -31,7 +25,9 @@ const JobPosting = () => {
     if (formStep === 0) {
       return (
         <div className="flex flex-row-reverse">
-          <PrimaryButton type="submit">Next</PrimaryButton>
+          <PrimaryButton type="button" onClick={completeFormStep}>
+            Next
+          </PrimaryButton>
         </div>
       );
     } else {
@@ -53,90 +49,24 @@ const JobPosting = () => {
       return null;
     }
   };
-  const { token, user, refreshToken } = useAuth();
-  const { data: userInfo, isLoading: isLoadingUserInfo } = useQuery(
-    ["userInfo", user?.user_id, token],
-    () => GetUser(user?.user_id, token)
-  );
+  const { token, user } = useAuth();
+  const { candidate, company } = useUser();
   const { data: companyInfo, isLoading: isLoadingCompanyInfo } = useQuery(
-    ["companyInfo", userInfo?.recruteur?.id, token],
-    () => GetSocieteByRid(userInfo?.recruteur?.id, token)
+    ["companyInfo", user?.user_id, token],
+    () => GetSocieteByUid(user?.user_id, token)
   );
-  const [initialValues, setInitialValues] = useState({
-    profession: "",
-    companyName: "",
-    companyAddress: "",
-    companyDomain: "",
-    companyDescription: "",
-  });
-  useEffect(() => {
-    if (!isLoadingUserInfo && !isLoadingCompanyInfo) {
-      setInitialValues({
-        profession: userInfo?.recruteur?.titre_professionelle || "",
-        companyName: companyInfo[0]?.nom || "",
-        companyAddress: companyInfo[0]?.adresse || "",
-        companyDomain: "",
-        companyDescription: companyInfo[0]?.description || "",
-      });
-    }
-  }, [isLoadingUserInfo, isLoadingCompanyInfo, userInfo, companyInfo]);
-  const handleCreateCompany = async (values, actions) => {
-    let recruteurId = userInfo?.recruteur?.id;
-    let companyId = companyInfo && companyInfo[0]?.id;
-    let recruterData = {
-      titre_professionelle: values.profession,
-      userId: user?.user_id,
-    };
+  console.log(companyInfo);
+  let companyId = !isLoadingCompanyInfo && companyInfo[0]?.id;
+  const handleUpdateCompany = async (values, actions) => {
+    console.log("companyId", companyId);
     let companyData = {
       nom: values.companyName,
       adresse: values.companyAddress,
       description: values.companyDescription,
-      recruteurId: recruteurId,
     };
-    try {
-      if (!isLoadingUserInfo && recruteurId) {
-        await UpdateRecruteur(recruteurId, recruterData, token);
-        console.log("Recruteur updated");
-      } else {
-        await CreateRecruteur(recruterData, token).then(async (res) => {
-          console.log(res);
-          recruteurId = res.data.id;
-        });
-      }
-      if (recruteurId) {
-        if (!isLoadingCompanyInfo && companyId) {
-          await UpdateSociete(companyId, companyData, token);
-          console.log("Company updated");
-        } else {
-          companyData.recruteurId = recruteurId; // Set the recruiter ID for the company
-          await CreateSociete(companyData, token).then((res) =>
-            console.log(res)
-          );
-        }
-        completeFormStep();
-      } else {
-        console.log("Failed to create recruiter");
-      }
-    } catch (err) {
-      console.log("Something wrong happened", err);
-    }
-  };
-  const handleCreateJobOffer = async (values, actions) => {
-    let offerData = {
-      titre: jobOfferValues.title,
-      lieux: jobOfferValues.address,
-      domaine: jobOfferValues.domain,
-      type: jobOfferValues.type,
-      salaire: jobOfferValues.salary,
-      // competences: jobOfferValues.qualification,
-      description: jobOfferValues.description,
-      categorieId: 1,
-      recruteurId: userInfo?.recruteur?.id,
-    };
-    CreateOffre(offerData, token)
+    UpdateSociete(companyId, companyData, token)
       .then((res) => {
         console.log(res);
-        completeFormStep();
       })
       .catch((err) => console.log(err));
   };
@@ -149,10 +79,40 @@ const JobPosting = () => {
     handleChange,
     handleSubmit,
   } = useFormik({
-    initialValues,
-    onSubmit: handleCreateCompany,
+    initialValues: isLoadingCompanyInfo
+      ? {
+          companyName: "",
+          companyAddress: "",
+          companyActivity: "",
+          companyDescription: "",
+        }
+      : {
+          companyName: company?.nom,
+          companyAddress: companyInfo[0]?.adresse,
+          companyActivity: companyInfo[0]?.secteur?.nom,
+          companyDescription: companyInfo[0]?.description,
+        },
+    onSubmit: handleUpdateCompany,
     enableReinitialize: true,
   });
+  const handleCreateJobOffer = async (values, actions) => {
+    let offerData = {
+      titre: jobOfferValues.title,
+      lieux: jobOfferValues.address,
+      domaine: jobOfferValues.domain,
+      type: jobOfferValues.type,
+      salaire: jobOfferValues.salary,
+      competences: jobOfferValues.qualification,
+      description: jobOfferValues.description,
+      societeId: companyInfo?.id,
+    };
+    CreateOffre(offerData, token)
+      .then((res) => {
+        console.log(res);
+        completeFormStep();
+      })
+      .catch((err) => console.log(err));
+  };
   const {
     values: jobOfferValues,
     errors: jobOfferErrors,
@@ -177,24 +137,25 @@ const JobPosting = () => {
     <Layout>
       <div className="my-6 flex justify-center items-center bg-gray-50">
         <div className="w-full max-w-xl p-4 bg-white border border-gray-200 rounded-lg shadow-xl sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-          <form onSubmit={handleSubmit}>
+          <div>
             {formStep === 0 && (
-              <CompanyForm
+              <CompanyInfo
                 values={values}
                 handleChange={handleChange}
                 handleBlur={handleBlur}
                 handleSubmit={handleSubmit}
+                image={image}
+                setImage={setImage}
               />
             )}
             {renderCompanyButtons()}
-          </form>
+          </div>
           <form onSubmit={jobOfferHandleSubmit}>
             {formStep === 1 && (
               <JobOfferForm
                 values={jobOfferValues}
                 handleChange={jobOfferHandleChange}
                 handleBlur={jobOfferHandleBlur}
-                handleSubmit={jobOfferHandleSubmit}
               />
             )}
             {renderJobOfferButtons()}

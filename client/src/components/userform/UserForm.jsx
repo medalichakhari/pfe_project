@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import UploadImage from "../shared/UploadImage";
-import PrimaryButton from "../buttons/primarybutton";
+import PrimaryButton from "../buttons/PrimaryButton";
 import { CreateUser } from "../../lib/fetch";
 import Radio from "../inputs/Radio";
 
@@ -156,7 +156,7 @@ const UserForm = () => {
               type="text"
               name="address"
               id="address"
-              placeholder="Phone number with country code"
+              placeholder="Address with country code"
               className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             />
           </div>

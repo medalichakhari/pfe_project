@@ -10,7 +10,7 @@ import JobOffer from "./pages/joboffer/JobOffer";
 import Unauthorized from "./pages/Unauthorized";
 import NotFound from "./pages/NotFound";
 import { AuthContextProvider } from "./context/AuthContext";
-// import { UserProvider } from "./context/UserContext";
+import { StorageContextProvider } from "./context/StorageContext";
 import JobApplication from "./pages/jobapplication/JobApplication";
 import JobPosting from "./pages/jobposting/JobPosting";
 import RequireAuth from "./components/RequireAuth";
@@ -19,6 +19,8 @@ import ForgotPassword from "./pages/forgotresetpwd/ForgotPassword";
 import ResetPassword from "./pages/forgotresetpwd/ResetPassword";
 import CandidatSpace from "./pages/candidatspace/CandidatSpace";
 import RecruiterSpace from "./pages/recruiterspace/RecruiterSpace";
+import CompanyAccount from "./pages/companyaccount/CompanyAccount";
+import { UserProvider } from "./context/UserContext";
 
 const queryClient = new QueryClient();
 
@@ -26,33 +28,36 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        {/* <UserProvider> */}
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/candidatspace" element={<CandidatSpace />} />
-            <Route path="/offer/:offerId" element={<JobOffer />} />
-            <Route element={<RequireAuth />}>
-              <Route
-                path="/offer/:offerId/apply"
-                element={<JobApplication />}
-              />
-            </Route>
-            <Route path="/recruiterspace" element={<RecruiterSpace />} />
-            <Route element={<RequireAuth />}>
-              <Route path="/postjob" element={<JobPosting />} />
-            </Route>
-            <Route path="/companies/:categoryId" element={<Companies />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/forgotpassword" element={<ForgotPassword />} />
-            <Route path="/resetpassword" element={<ResetPassword />} />
-            <Route path="/useraccount" element={<UserForm />} />
-            <Route path="/unauthorized" element={<Unauthorized />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-        {/* </UserProvider> */}
+        <UserProvider>
+          <StorageContextProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/candidatspace" element={<CandidatSpace />} />
+                <Route path="/offer/:offerId" element={<JobOffer />} />
+                <Route element={<RequireAuth />}>
+                  <Route
+                    path="/offer/:offerId/apply"
+                    element={<JobApplication />}
+                  />
+                </Route>
+                <Route path="/companyspace" element={<RecruiterSpace />} />
+                <Route path="/companyaccount" element={<CompanyAccount />} />
+                <Route element={<RequireAuth />}>
+                  <Route path="/postjob" element={<JobPosting />} />
+                </Route>
+                <Route path="/companies/:categoryId" element={<Companies />} />
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/forgotpassword" element={<ForgotPassword />} />
+                <Route path="/resetpassword" element={<ResetPassword />} />
+                <Route path="/useraccount" element={<UserForm />} />
+                <Route path="/unauthorized" element={<Unauthorized />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </StorageContextProvider>
+        </UserProvider>
       </AuthContextProvider>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
     </QueryClientProvider>

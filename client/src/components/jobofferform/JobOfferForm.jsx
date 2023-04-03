@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const JobOfferForm = ({ values, handleChange, handleBlur, handleSubmit }) => {
+const JobOfferForm = ({ values, handleChange, handleBlur }) => {
   return (
     <>
       <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">

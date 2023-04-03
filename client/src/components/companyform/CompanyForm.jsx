@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import UploadImage from "../shared/UploadImage";
 import { CreateSociete } from "../../lib/fetch";
+import PrimaryButton from "../buttons/PrimaryButton";
 
-const CompanyForm = ({ values, handleChange, handleBlur, handleSubmit }) => {
-  const [image, setImage] = useState("");
+const CompanyForm = ({values, handleChange, handleBlur, image, setImage}) => {
+
   return (
-<>
+    <>
       <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
-        Recruiter account:
+        Company Info :
       </h4>
       <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
         Company logo: <span className="text-sm text-gray-400">(optional)</span>
@@ -17,22 +19,7 @@ const CompanyForm = ({ values, handleChange, handleBlur, handleSubmit }) => {
       <UploadImage image={image} setImage={setImage} />
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Profession:
-        </label>
-        <input
-          value={values.profession}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          type="text"
-          name="profession"
-          id="profession"
-          placeholder="Enter your profession e.g: Software Engineer"
-          className="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-        />
-      </div>
-      <div>
-        <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Company name:
+          Name:
         </label>
         <input
           value={values.companyName}
@@ -47,7 +34,7 @@ const CompanyForm = ({ values, handleChange, handleBlur, handleSubmit }) => {
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Company address:
+          Address:
         </label>
         <input
           value={values.companyAddress}
@@ -62,16 +49,16 @@ const CompanyForm = ({ values, handleChange, handleBlur, handleSubmit }) => {
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Company domain
+          Activity Area :
         </label>
         <select
-          value={values.companyDomain}
+          value={values.companyActivity}
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
-          name="companyDomain"
-          id="companyDomain"
-          placeholder="Please select it's domain"
+          name="companyActivity"
+          id="companyActivity"
+          placeholder="Please select it's activity area"
           className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
         >
           <option value="">Please select it's domain</option>
@@ -85,7 +72,7 @@ const CompanyForm = ({ values, handleChange, handleBlur, handleSubmit }) => {
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           Description:
         </label>
-        <input
+        <textarea
           value={values.companyDescription}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -96,7 +83,7 @@ const CompanyForm = ({ values, handleChange, handleBlur, handleSubmit }) => {
           className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
         />
       </div>
-</>
+    </>
   );
 };
 
