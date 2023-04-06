@@ -421,6 +421,19 @@ export const GetOffre = async (id, token) => {
     return response.data;
 }
 
+export const GetOffresBySociete = async (id, token) => {
+    let config = {
+        method: "get",
+        url: `http://localhost:8080/api/offres/societe/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    };
+    const response = await axios(config);
+    return response.data;
+}
+
 export const UpdateOffre = async (id, offreData, token) => {
     let data = offreData;
     let config = {

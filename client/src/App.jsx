@@ -21,6 +21,7 @@ import CandidatSpace from "./pages/candidatspace/CandidatSpace";
 import RecruiterSpace from "./pages/recruiterspace/RecruiterSpace";
 import CompanyAccount from "./pages/companyaccount/CompanyAccount";
 import { UserProvider } from "./context/UserContext";
+import Candidates from "./pages/candidates/Candidates";
 
 const queryClient = new QueryClient();
 
@@ -41,7 +42,11 @@ function App() {
                     element={<JobApplication />}
                   />
                 </Route>
-                <Route path="/companyspace" element={<RecruiterSpace />} />
+                <Route path="/recruiterspace" element={<RecruiterSpace />} />
+                <Route
+                  path="/recruiterspace/candidates"
+                  element={<Candidates />}
+                />
                 <Route path="/companyaccount" element={<CompanyAccount />} />
                 <Route element={<RequireAuth />}>
                   <Route path="/postjob" element={<JobPosting />} />

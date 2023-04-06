@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
 import PrimaryButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
@@ -12,7 +12,8 @@ import { IoLogOut } from "react-icons/io5";
 
 export default function NavBar() {
   const { user, logOut } = useAuth();
-  const handleNavigate = () => {
+  const navigate = useNavigate();
+  const navigateToJobPosting = () => {
     if (user?.roles?.includes("recruteur")) {
       return (
         <Navbar.Link href="/postjob" className="flex items-center">
@@ -27,7 +28,20 @@ export default function NavBar() {
       );
     }
   };
-
+  const navigateToRecruiterSpace = () => {
+    if (user?.roles?.includes("recruteur")) {
+      return navigate("/recruiterspace");
+    } else {
+      return navigate("/companyaccount");
+    }
+  };
+  const navigateToCandidatSpace = () => {
+    if (user?.roles?.includes("candidat")) {
+      return navigate("/candidatspace");
+    } else {
+      return navigate("/candidataccount");
+    }
+  };
   const handleLogout = () => {
     logOut()
       .then(() => {
@@ -65,11 +79,17 @@ export default function NavBar() {
                   {user.email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item className="flex items-center">
+              <Dropdown.Item
+                onClick={navigateToCandidatSpace}
+                className="flex items-center"
+              >
                 <FaUserGraduate size={15} className=" mr-1 text-gray-500" />
                 Candidat space
               </Dropdown.Item>
-              <Dropdown.Item className="flex items-center">
+              <Dropdown.Item
+                onClick={navigateToRecruiterSpace}
+                className="flex items-center"
+              >
                 <ImUserTie size={15} className="mr-1 text-gray-500" />
                 Recruiter space
               </Dropdown.Item>
@@ -107,7 +127,7 @@ export default function NavBar() {
           <Navbar.Link href="/" className="flex items-center">
             {<BsSearch className="mr-1 text-gray-500" />}Companies
           </Navbar.Link>
-          {handleNavigate()}
+          {navigateToJobPosting()}
           <Navbar.Link href="/">Contact</Navbar.Link>
         </Navbar.Collapse>
       </Navbar>

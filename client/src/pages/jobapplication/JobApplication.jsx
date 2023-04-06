@@ -4,7 +4,7 @@ import CandidatForm from "../../components/candidatform/CandidatForm";
 const JobApplication = () => {
   return (
     <Layout>
-      <CandidatForm />
+      
     </Layout>
   );
 };
