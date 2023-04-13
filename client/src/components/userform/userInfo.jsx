@@ -3,19 +3,20 @@ import { FaEdit } from "react-icons/fa";
 import UserForm from "./UserForm";
 import { useUser } from "../../context/UserContext";
 import { useFormik } from "formik";
-import { GetSecteur, UpdateSociete, UpdateUser } from "../../lib/fetch";
-import { useQuery } from "react-query";
+import { UpdateUser } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
+import { updateProfile } from "firebase/auth";
 
 const UserInfo = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [image, setImage] = useState("");
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
-  const { user, token } = useAuth();
+  const { currentUser, user, token } = useAuth();
   const { userInfo, refresh } = useUser();
+  const [image, setImage] = useState(user?.picture);
   const [selectedValue, setSelectedValue] = useState(userInfo?.genre);
+
   const handleUpdateUser = async (values, actions) => {
     let userData = {
       id: user.user_id,
@@ -27,13 +28,17 @@ const UserInfo = () => {
       adresse: values.address,
       genre: selectedValue,
     };
-    UpdateUser(user.user_id, userData, token)
-      .then((res) => {
+    try {
+      await UpdateUser(user.user_id, userData, token);
+      await updateProfile(currentUser, {
+        displayName: `${fName} ${lName}`,
+        photoURL: downloadURL,
+      }),
         refresh();
-        handleEditClick();
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+      handleEditClick();
+    } catch (err) {
+      console.log(err);
+    }
   };
   const {
     values,
@@ -46,22 +51,22 @@ const UserInfo = () => {
   } = useFormik({
     initialValues: !userInfo
       ? {
-          nom: "",
-          prenom: "",
+          fName: "",
+          lName: "",
           email: "",
-          dNaissance: "",
-          telephone: "",
-          adresse: "",
-          genre: "",
+          birthDate: "",
+          phoneNumber: "",
+          address: "",
+          gender: "",
         }
       : {
-          nom: userInfo.fName,
-          prenom: userInfo.lName,
+          fName: userInfo.fName,
+          lName: userInfo.lName,
           email: user.email,
-          dNaissance: userInfo.birthDate,
-          telephone: userInfo.phoneNumber,
-          adresse: userInfo.address,
-          genre: selectedValue,
+          birthDate: userInfo.birthDate,
+          phoneNumber: userInfo.phoneNumber,
+          address: userInfo.address,
+          gender: selectedValue,
         },
     onSubmit: handleUpdateUser,
     enableReinitialize: true,
@@ -82,11 +87,13 @@ const UserInfo = () => {
             </button>
           </div>
           <UserForm
+            image={image}
+            setImage={setImage}
+            selectedValue={selectedValue}
+            setSelectedValue={setSelectedValue}
             values={values}
             handleChange={handleChange}
             handleBlur={handleBlur}
-            image={image}
-            setImage={setImage}
           />
         </form>
       ) : (
@@ -142,7 +149,7 @@ const UserInfo = () => {
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               Address :
             </label>
-            <p className="mb-2 text-gray-500 text-sm">{userInfo?.address}</p>
+            <p className="mb-2 text-gray-500 text-sm">{userInfo?.adresse}</p>
           </div>
         </>
       )}

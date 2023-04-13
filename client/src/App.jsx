@@ -24,7 +24,7 @@ import Candidates from "./pages/candidates/Candidates";
 import ChatSystem from "./pages/chatsystem/ChatSystem";
 import { ChatContextProvider } from "./features/chat/context/ChatContext";
 import JobsByCategory from "./pages/jobsbycategory/JobsByCategory";
-import ProfilePage from "./pages/profile/ProfilePage";
+import Profile from "./pages/profile/Profile";
 import UserAccount from "./pages/signup/userAccount";
 
 const queryClient = new QueryClient();
@@ -38,7 +38,7 @@ function App() {
             <ChatContextProvider>
               <BrowserRouter>
                 <Routes>
-                  <Route path="/1234" element={<ProfilePage />} />
+                  <Route path="/1234" element={<Profile />} />
                   // Protected routes
                   <Route
                     element={
