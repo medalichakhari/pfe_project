@@ -11,16 +11,13 @@ import { GetOffresBySociete } from "../../lib/fetch";
 const CandidatSpace = () => {
   const { token } = useAuth();
   const { company } = useUser();
-  console.log(company);
-
   const {
     isLoading,
     error,
     data: jobsList,
-  } = useQuery(["candidates", company.id, token], () =>
-    GetOffresBySociete(company.id, token)
+  } = useQuery(["candidates", company?.id, token], () =>
+    GetOffresBySociete(company?.id, token)
   );
-  console.log(jobsList?.candidature?.length());
   return (
     <Layout>
       <h1 className="text-4xl font-bold ml-3 mt-8">Recruiter Space</h1>
@@ -41,15 +38,15 @@ const CandidatSpace = () => {
                   <SecondaryButton>Post a job</SecondaryButton>
                 </div>
               ) : (
-                jobsList.map(
+                jobsList?.map(
                   (job) => (
                     console.log("job", job),
                     (
                       <PostedJobCard
-                        key={job?.id}
-                        jobTitle={job?.titre}
-                        jobType={job?.type}
-                        numCandidates={job?.candidature?.length}
+                        key={job.id}
+                        jobTitle={job.titre}
+                        jobType={job.type}
+                        numCandidates={job.candidature?.length || 0}
                       />
                     )
                   )

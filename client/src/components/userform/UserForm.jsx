@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import UploadImage from "../shared/UploadImage";
-import PrimaryButton from "../buttons/PrimaryButton";
+import { useStorage } from "../../context/StorageContext";
+import { updateProfile } from "firebase/auth";
+import { db } from "../../services/firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
 import { CreateUser } from "../../lib/fetch";
+import UploadImage from "../shared/UploadImage";
+import PrimaryButton from "../buttons/primarybutton";
 import Radio from "../inputs/Radio";
+import { useToast } from "@chakra-ui/react";
 
 const UserForm = () => {
   const options = [
@@ -15,11 +20,14 @@ const UserForm = () => {
   ];
   const [selectedValue, setSelectedValue] = useState("");
   const [image, setImage] = useState("");
-  const { user, token } = useAuth();
+  const { currentUser, user, token } = useAuth();
+  const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const handleCreateUser = (values, actions) => {
+  const toast = useToast();
+  console.log("navigate to", from)
+  const handleCreateUser = async (values, actions) => {
     let userData = {
       id: user.user_id,
       nom: values.fName,
@@ -28,17 +36,50 @@ const UserForm = () => {
       dNaissance: values.birthDate,
       telephone: values.phoneNumber,
       adresse: values.address,
-      photo: image,
       genre: selectedValue,
     };
-    CreateUser(userData, token)
-      .then((res) => {
-        navigate(from, { replace: true });
-        console.log("res", res);
-      })
-      .catch((error) => {
-        console.log("error", error);
+    try {
+      await CreateUser(userData, token);
+
+      const { fName, lName } = values;
+      const { user_id, email } = user;
+      const path = `profileImages/${user_id}/${image.name}`;
+
+      await uploadFile(image, path);
+
+      const downloadURL = await downloadUrl(path);
+
+      await Promise.all([
+        updateProfile(currentUser, {
+          displayName: `${fName} ${lName}`,
+          photoURL: downloadURL,
+        }),
+        setDoc(doc(db, "users", user_id), {
+          uid: user_id,
+          displayName: `${fName} ${lName}`,
+          email,
+          photoURL: downloadURL,
+        }),
+        setDoc(doc(db, "userChats", user_id), {}),
+      ]);
+      navigate(from, { replace: true });
+      toast({
+        description: "User created.",
+        position: "bottom-left",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
       });
+    } catch (err) {
+      toast({
+        description: err.message,
+        position: "bottom-left",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+      console.log(err);
+    }
   };
   const {
     values,

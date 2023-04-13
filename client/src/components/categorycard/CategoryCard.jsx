@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const CategoryCard = ({ category, logo, count, categoryId }) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/companies/${categoryId}`);
+    navigate(`/category/${categoryId}/jobs`);
   };
   return (
     <div
@@ -17,7 +17,7 @@ const CategoryCard = ({ category, logo, count, categoryId }) => {
           <h3 className="ml-4 text-xl font-medium text-gray-900">{category}</h3>
         </div>
         <div className="mt-2 text-gray-600">
-          <span>{count} companies available</span>
+          <span>{count} job available</span>
         </div>
       </div>
     </div>

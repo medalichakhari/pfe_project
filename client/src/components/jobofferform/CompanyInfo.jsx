@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import GoogleIcon from "../../assets/svg/GoogleIcon";
 import CompanyForm from "../companyform/CompanyForm";
 import { useUser } from "../../context/UserContext";
 import { useFormik } from "formik";
@@ -101,12 +100,12 @@ const CompanyInfo = () => {
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               Company logo:
             </label>
-            <GoogleIcon />
-            {/* <img
-            src={companyImage}
-            alt={companyName}
-            className="w-full mb-4 rounded-lg"
-          /> */}
+            {/* <GoogleIcon /> */}
+            <img
+            src={company?.logo}
+            alt={company?.nom}
+            className="w-24 h-24 rounded-full object-cover font-light"
+          />
           </div>
 
           <div>

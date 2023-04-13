@@ -11,12 +11,10 @@ export function useUser() {
 
 export function UserProvider({ children }) {
   const { user, token } = useAuth();
-
   const { data, isLoading, isError, refetch } = useQuery(
     ["getUserData", user?.user_id, token],
     () => GetUser(user?.user_id, token)
   );
-
   const value = {
     company: data?.societe || null,
     setCompany: (company) => {

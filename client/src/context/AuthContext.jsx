@@ -3,6 +3,7 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
@@ -17,6 +18,7 @@ export const useAuth = () => useContext(AuthContext);
 const googleProvider = new GoogleAuthProvider();
 
 export const AuthContextProvider = ({ children }) => {
+  const [currentUser, setCurrenUser] = useState(null);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +26,9 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentuser) => {
       if (currentuser) {
+        setCurrenUser(currentuser);
         const idTokenResult = await currentuser.getIdTokenResult(true);
+
         setUser(idTokenResult.claims);
         setToken(idTokenResult.token);
       } else {
@@ -45,6 +49,9 @@ export const AuthContextProvider = ({ children }) => {
 
   const signInWithEmailAndPwd = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
+  };
+  const updateProfile = (updatedProfile) => {
+    return auth.currentUser.updateProfile(updatedProfile);
   };
   const logOut = async () => {
     await signOut(auth);
@@ -74,10 +81,12 @@ export const AuthContextProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        currentUser,
         user,
         token,
         signUpWithEmailAndPwd,
         signInWithEmailAndPwd,
+        updateProfile,
         logOut,
         googleSignUp,
         googleSignIn,

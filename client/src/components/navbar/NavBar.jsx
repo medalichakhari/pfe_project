@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
-import PrimaryButton from "../buttons/PrimaryButton";
+import PrimaryButton from "../buttons/primarybutton";
 import SecondaryButton from "../buttons/SecondaryButton";
 import { BsBriefcase, BsSearch } from "react-icons/bs";
 import { FaUserGraduate } from "react-icons/fa";
@@ -45,7 +45,8 @@ export default function NavBar() {
   const handleLogout = () => {
     logOut()
       .then(() => {
-        ("logout success");
+        console.log("logout success");
+        navigate("/");
       })
       .catch((err) => {
         err;

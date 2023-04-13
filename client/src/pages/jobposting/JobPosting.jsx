@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import PrimaryButton from "../../components/buttons/PrimaryButton";
+import PrimaryButton from "../../components/buttons/primarybutton";
 import SecondaryButton from "../../components/buttons/SecondaryButton";
 import Layout from "../../components/layout/Layout";
 import JobOfferForm from "../../components/jobofferform/JobOfferForm";

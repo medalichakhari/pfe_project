@@ -5,19 +5,14 @@ import {
   BsFillTrashFill,
 } from "react-icons/bs";
 
-const UploadImage = ({image, setImage}) => {
-
+const UploadImage = ({ image, setImage }) => {
   const handleDelete = () => {
     setImage("");
   };
 
   const handleUpload = (event) => {
     const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setImage(reader.result);
-    };
+    setImage(file);
   };
 
   return (

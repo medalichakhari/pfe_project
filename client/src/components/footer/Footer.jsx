@@ -1,66 +1,96 @@
-import React from "react";
-import { Footer as footer } from "flowbite-react";
-import {
-  BsFacebook,
-  BsInstagram,
-  BsTwitter,
-  BsGithub,
-  BsDribbble,
-} from "react-icons/bs";
+import { Link } from "react-router-dom";
+import { BsFacebook, BsInstagram, BsLinkedin } from "react-icons/bs";
 
 const Footer = () => {
   return (
-    <footer>
-      <div className="w-full mt-8">
-        <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-          <div className="ml-4">
-            {/* <footer.Brand
-              href="https://flowbite.com"
-              src="https://flowbite.com/docs/images/logo.svg"
-              alt="Flowbite Logo"
-              name="Flowbite"
-            /> */}
-            <span className="self-center whitespace-nowrap text-2xl font-bold dark:text-white">
+    <div className="pt-12">
+      <footer id="footer" className="relative z-50 dark:bg-gray-900 pt-24">
+        <div className=" border-t border-b border-gray-200 dark:border-gray-700 py-16">
+          <div className="mx-auto container px-4 xl:px-12 2xl:px-4">
+            <div className="lg:flex">
+              <div className="w-full lg:w-1/2 mb-16 lg:mb-0 flex">
+                <div className="w-full lg:w-1/2 px-6">
+                  <ul className="text-gray-800 dark:text-gray-50 text-sm lg:text-base leading-tight">
+                    <li>
+                      <Link to="/">Components</Link>
+                    </li>
+                    <li className="mt-6">
+                      <Link to="/">Templates</Link>
+                    </li>
+                    <li className="mt-6">
+                      <Link to="/">Pricing</Link>
+                    </li>
+                    <li className="mt-6">
+                      <Link to="/">FAQ</Link>
+                    </li>
+                    <li className="mt-6">
+                      <Link to="/">Documentation</Link>
+                    </li>
+                  </ul>
+                </div>
+                <div className="w-full lg:w-1/2 px-6">
+                  <ul className="text-gray-800 dark:text-gray-50 text-sm lg:text-base leading-tight">
+                    <li>
+                      <Link to="/">Free components</Link>
+                    </li>
+
+                    <li className="mt-6">
+                      <Link to="/">Blog</Link>
+                    </li>
+                    <li className="mt-6">
+                      <Link to="/">Changelog</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="w-full lg:w-1/2 flex">
+                <div className="w-full lg:w-1/2 px-6">
+                  <ul className="text-gray-800 dark:text-gray-50 text-sm lg:text-base leading-tight">
+                    <li>
+                      <Link to="/">Privacy policy</Link>
+                    </li>
+                    <li className="mt-6">
+                      <Link to="/">Terms of service</Link>
+                    </li>
+                  </ul>
+                </div>
+                <div className="w-full lg:w-1/2 px-6 flex flex-col justify-between">
+                  <div className="flex items-center mb-6">
+                    <a href="https://facebook.com">
+                      <BsFacebook
+                        size={30}
+                        className=" text-gray-500 cursor-pointer hover:text-gray-900 dark:hover:text-gray-50"
+                      />
+                    </a>
+                    <a href="https://instagram.com">
+                      <BsInstagram
+                        size={30}
+                        className="text-gray-500 ml-6 cursor-pointer hover:text-gray-900 dark:hover:text-gray-50"
+                      />
+                    </a>
+                    <a href="https://instagram.com">
+                      <BsLinkedin
+                        size={30}
+                        className="text-gray-500 ml-6 cursor-pointer hover:text-gray-900 dark:hover:text-gray-50"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="py-16 flex flex-col justify-center items-center">
+          <Link href="javascript:void(0)">
               Jobyssey
-            </span>
-          </div>
-          <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
-            <div>
-              <footer.Title title="about" />
-              <footer.LinkGroup col={true}>
-                <footer.Link href="#">Jobyssey</footer.Link>
-                <footer.Link href="#">Jobyssey</footer.Link>
-              </footer.LinkGroup>
-            </div>
-            <div>
-              <footer.Title title="Follow us" />
-              <footer.LinkGroup col={true}>
-                <footer.Link href="#">Github</footer.Link>
-                <footer.Link href="#">Discord</footer.Link>
-              </footer.LinkGroup>
-            </div>
-            <div>
-              <footer.Title title="Legal" />
-              <footer.LinkGroup col={true}>
-                <footer.Link href="#">Privacy Policy</footer.Link>
-                <footer.Link href="#">Terms & Conditions</footer.Link>
-              </footer.LinkGroup>
-            </div>
-          </div>
+              {/* <img src="/images/logo.svg" alt="logo" className="w-8" /> */}
+          </Link>
+          <p className="mt-6 text-xs lg:text-sm leading-none text-gray-900 dark:text-gray-50">
+            2021 Tailwind UI Kit. All Rights Reserved.
+          </p>
         </div>
-        <footer.Divider />
-        <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <footer.Copyright href="#" by="Jobyssey™" year={2022} />
-          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <footer.Icon href="#" icon={BsFacebook} />
-            <footer.Icon href="#" icon={BsInstagram} />
-            <footer.Icon href="#" icon={BsTwitter} />
-            <footer.Icon href="#" icon={BsGithub} />
-            <footer.Icon href="#" icon={BsDribbble} />
-          </div>
-        </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
   );
 };
 

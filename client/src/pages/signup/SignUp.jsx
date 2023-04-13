@@ -14,7 +14,7 @@ const SignUp = () => {
   const hundleSignUp = (values, actions) => {
     signUpWithEmailAndPwd(values.email, values.password)
       .then(() => {
-        navigate("/");
+        navigate("/userAccount");
       })
       .catch((error) => {
         console.log(error);
@@ -23,7 +23,7 @@ const SignUp = () => {
   const handleSignUpWithGoogle = () => {
     googleSignUp()
       .then(() => {
-        navigate("/");
+        navigate("/useraccount");
       })
       .catch((error) => {
         console.log(error);
