@@ -16,6 +16,15 @@ export function UserProvider({ children }) {
     () => GetUser(user?.user_id, token)
   );
   const value = {
+    userInfo: data || null,
+    setUserInfo: (userInfo) => {
+      if (userInfo) {
+        sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+      } else {
+        sessionStorage.removeItem("userInfo");
+      }
+      return data || null;
+    },
     company: data?.societe || null,
     setCompany: (company) => {
       if (company) {

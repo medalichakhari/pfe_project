@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import CompanyForm from "../companyform/CompanyForm";
+import CompanyForm from "./CompanyForm";
 import { useUser } from "../../context/UserContext";
 import { useFormik } from "formik";
 import { GetSecteur, UpdateSociete } from "../../lib/fetch";

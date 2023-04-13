@@ -29,10 +29,16 @@ const JobOfferDetails = () => {
         </div>
         <div className="flex my-10">
           <div className="w-1/2">
-            <GoogleIcon />
-            {/* <img src={job.logo} alt={job.company} className="w-32 h-32 rounded-full mx-auto" /> */}
+            {data.societe?.logo ? (
+              <img
+                src={data.societe?.logo}
+                alt={data.societe?.nom}
+                className="h-16 w-16 rounded-full object-cover"
+              />
+            ) : null}
+
             <h2 className="text-xl font-bold text-gray-800 mt-5">
-              Company name
+              {data.societe?.nom}
             </h2>
             <p className="flex justify-content text-gray-600 mt-2">
               <HiOutlineLocationMarker className="text-gray-500 m-1" />

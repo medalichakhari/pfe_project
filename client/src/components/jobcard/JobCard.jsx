@@ -1,8 +1,8 @@
 import React from "react";
 import { BiTimeFive } from "react-icons/bi";
-import { FaSuitcase } from "react-icons/fa";
+import { BsBriefcase } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const JobCard = ({ job }) => {
   const navigate = useNavigate();
@@ -40,16 +40,22 @@ const JobCard = ({ job }) => {
           <h6 className="text-[#ccc]">{job.lieux}</h6>
         </div>
         <div className="flex items-center mt-1">
-          <FaSuitcase className="mr-1 text-gray-500" />
+          <BsBriefcase className="mr-1 text-gray-500" />
           <h6 className="text-[#ccc]">{job.type}</h6>
         </div>
         <p className="text-[13px text-[#959595] pt-[20px] border-t-[2px] mt-[20px]">
           {truncatedDescription}
         </p>
         <div className="flex items-center gap-2">
-          <img src="" alt="" className="w-[10%]" />
+          {job.societe?.logo ? (
+            <img
+              src={job.societe?.logo}
+              alt="companyLogo"
+              className="w-7 h-7 rounded-full object-cover"
+            />
+          ) : null}
           <span className="text-[14px] py-[1rem] block group-hover:text-white">
-            Google
+            {job.societe?.nom}
           </span>
         </div>
         <button
