@@ -1,32 +1,33 @@
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import CompanyForm from "./CompanyForm";
+import UserForm from "./UserForm";
 import { useUser } from "../../context/UserContext";
 import { useFormik } from "formik";
-import { GetSecteur, UpdateSociete } from "../../lib/fetch";
+import { GetSecteur, UpdateSociete, UpdateUser } from "../../lib/fetch";
 import { useQuery } from "react-query";
 import { useAuth } from "../../context/AuthContext";
 
-const CompanyInfo = () => {
+const UserInfo = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [image, setImage] = useState("");
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
-  const { token } = useAuth();
-  const { company, refresh } = useUser();
-  const { data: activityAreaInfo, isLoading } = useQuery(
-    ["activityAreaInfo", company?.secteurId, token],
-    () => GetSecteur(company?.secteurId, token)
-  );
-  const handleUpdateCompany = async (values, actions) => {
-    console.log("companyId", company.id);
-    let companyData = {
-      nom: values.companyName,
-      adresse: values.companyAddress,
-      description: values.companyDescription,
+  const { user, token } = useAuth();
+  const { userInfo, refresh } = useUser();
+  const [selectedValue, setSelectedValue] = useState(userInfo?.genre);
+  const handleUpdateUser = async (values, actions) => {
+    let userData = {
+      id: user.user_id,
+      nom: values.fName,
+      prenom: values.lName,
+      email: user.email,
+      dNaissance: values.birthDate,
+      telephone: values.phoneNumber,
+      adresse: values.address,
+      genre: selectedValue,
     };
-    UpdateSociete(company.id, companyData, token)
+    UpdateUser(user.user_id, userData, token)
       .then((res) => {
         refresh();
         handleEditClick();
@@ -43,21 +44,26 @@ const CompanyInfo = () => {
     handleChange,
     handleSubmit,
   } = useFormik({
-    initialValues:
-      !company || isLoading
-        ? {
-            companyName: "",
-            companyAddress: "",
-            companyActivity: "",
-            companyDescription: "",
-          }
-        : {
-            companyName: company?.nom,
-            companyAddress: company?.adresse,
-            companyActivity: activityAreaInfo?.nom,
-            companyDescription: company?.description,
-          },
-    onSubmit: handleUpdateCompany,
+    initialValues: !userInfo
+      ? {
+          nom: "",
+          prenom: "",
+          email: "",
+          dNaissance: "",
+          telephone: "",
+          adresse: "",
+          genre: "",
+        }
+      : {
+          nom: userInfo.fName,
+          prenom: userInfo.lName,
+          email: user.email,
+          dNaissance: userInfo.birthDate,
+          telephone: userInfo.phoneNumber,
+          adresse: userInfo.address,
+          genre: selectedValue,
+        },
+    onSubmit: handleUpdateUser,
     enableReinitialize: true,
   });
   return (
@@ -75,7 +81,7 @@ const CompanyInfo = () => {
               Cancel
             </button>
           </div>
-          <CompanyForm
+          <UserForm
             values={values}
             handleChange={handleChange}
             handleBlur={handleBlur}
@@ -87,7 +93,7 @@ const CompanyInfo = () => {
         <>
           <div className="flex items-center justify-between">
             <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
-              Company Info :
+              User Info :
             </h4>
             <button
               onClick={handleEditClick}
@@ -96,37 +102,47 @@ const CompanyInfo = () => {
               <FaEdit />
             </button>
           </div>
-          {company?.logo ? (
+          <div>
+            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+              User picture:
+            </label>
             <img
-              src={company?.logo}
-              alt={company?.nom}
-              className="mb-1 w-24 h-24 rounded-full object-cover font-light"
+              src={user?.picture}
+              alt={user?.displayName}
+              className="w-24 h-24 rounded-full object-cover font-light"
             />
-          ) : null}
-
-          <div>
-            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Name:
-            </label>
-            <p className="text-gray-500 text-sm">{company?.nom}</p>
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Address:
-            </label>
-            <p className="text-gray-500 text-sm">{company?.adresse}</p>
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Activity area:
-            </label>
-            <p className="text-gray-500 text-sm">{}</p>
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Description:
+              Username:
             </label>
-            <p className="mb-2 text-gray-500 text-sm">{company?.description}</p>
+            <p className="text-gray-500 text-sm">
+              {userInfo?.nom + " " + userInfo?.prenom}
+            </p>
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+              Birthdate:
+            </label>
+            <p className="text-gray-500 text-sm">{userInfo?.dNaissance}</p>
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+              Gender
+            </label>
+            <p className="text-gray-500 text-sm">{userInfo.genre}</p>
+          </div>
+          <div>
+            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+              Phone number
+            </label>
+            <p className="mb-2 text-gray-500 text-sm">{userInfo?.telephone}</p>
+          </div>
+          <div>
+            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+              Address :
+            </label>
+            <p className="mb-2 text-gray-500 text-sm">{userInfo?.address}</p>
           </div>
         </>
       )}
@@ -134,4 +150,4 @@ const CompanyInfo = () => {
   );
 };
 
-export default CompanyInfo;
+export default UserInfo;

@@ -14,7 +14,6 @@ import { StorageContextProvider } from "./context/StorageContext";
 import JobApplication from "./pages/jobapplication/JobApplication";
 import JobPosting from "./pages/jobposting/JobPosting";
 import RequireAuth from "./components/RequireAuth";
-import UserForm from "./components/userform/UserForm";
 import ForgotPassword from "./pages/forgotresetpwd/ForgotPassword";
 import ResetPassword from "./pages/forgotresetpwd/ResetPassword";
 import CandidatSpace from "./pages/candidatspace/CandidatSpace";
@@ -26,6 +25,7 @@ import ChatSystem from "./pages/chatsystem/ChatSystem";
 import { ChatContextProvider } from "./features/chat/context/ChatContext";
 import JobsByCategory from "./pages/jobsbycategory/JobsByCategory";
 import ProfilePage from "./pages/profile/ProfilePage";
+import UserAccount from "./pages/signup/userAccount";
 
 const queryClient = new QueryClient();
 
@@ -71,7 +71,7 @@ function App() {
                   </Route>
                   // Candidate protected routes
                   <Route element={<RequireAuth allowedRoles={["candidat"]} />}>
-                    <Route path="/candidatspace" element={<CandidatSpace />} />
+                    <Route path="/candidatespace" element={<CandidatSpace />} />
                   </Route>
                   <Route element={<RequireAuth allowedRoles={["candidat"]} />}>
                     <Route
@@ -93,7 +93,7 @@ function App() {
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/forgotpassword" element={<ForgotPassword />} />
                   <Route path="/resetpassword" element={<ResetPassword />} />
-                  <Route path="/useraccount" element={<UserForm />} />
+                  <Route path="/useraccount" element={<UserAccount />} />
                   <Route path="/unauthorized" element={<Unauthorized />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
