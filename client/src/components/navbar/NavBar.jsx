@@ -9,6 +9,7 @@ import { FaUserGraduate } from "react-icons/fa";
 import { ImUserTie } from "react-icons/im";
 import { AiFillSetting } from "react-icons/ai";
 import { IoLogOut } from "react-icons/io5";
+import Slogan from "../../assets/svg/Slogan";
 
 export default function NavBar() {
   const { user, logOut } = useAuth();
@@ -56,14 +57,10 @@ export default function NavBar() {
     <>
       <Navbar fluid={true} rounded={true}>
         <Navbar.Brand href="#">
-          {/* <img
-      src=""
-      className="mr-3 h-6 sm:h-9"
-      alt="Jobyssey Logo"
-    /> */}
-          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+          <Slogan className="mr-3 h-4"/>
+          {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             Jobyssey
-          </span>
+          </span> */}
         </Navbar.Brand>
         {user ? (
           <div className="flex md:order-2">

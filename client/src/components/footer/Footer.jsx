@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { BsFacebook, BsInstagram, BsLinkedin } from "react-icons/bs";
+import Slogan from "../../assets/svg/Slogan";
 
 const Footer = () => {
   return (
@@ -82,8 +83,7 @@ const Footer = () => {
         </div>
         <div className="py-16 flex flex-col justify-center items-center">
           <Link href="javascript:void(0)">
-              Jobyssey
-              {/* <img src="/images/logo.svg" alt="logo" className="w-8" /> */}
+            <Slogan className="mr-3 h-4" />
           </Link>
           <p className="mt-6 text-xs lg:text-sm leading-none text-gray-900 dark:text-gray-50">
             2021 Tailwind UI Kit. All Rights Reserved.
