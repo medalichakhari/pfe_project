@@ -1,6 +1,24 @@
-import { useState } from "react";
+import Autocomplete from "../inputs/Autocomplete";
 
-const JobOfferForm = ({ values, handleChange, handleBlur }) => {
+const JobOfferForm = ({
+  values,
+  qualifications,
+  setQualifications,
+  handleChange,
+  handleBlur,
+}) => {
+  const skills = [
+    "ReactJS",
+    "Node.js",
+    "Python",
+    "Java",
+    "JavaScript",
+    "HTML",
+    "CSS",
+    "SQL",
+    "MongoDB",
+    "Git",
+  ];
   return (
     <>
       <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
@@ -92,17 +110,12 @@ const JobOfferForm = ({ values, handleChange, handleBlur }) => {
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Qualifications:
+          Qualifications :
         </label>
-        <textarea
-          value={values.qualification}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          type="text"
-          name="qualification"
-          id="qualification"
-          placeholder="Job qualifications"
-          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+        <Autocomplete
+          qualifications={qualifications}
+          setQualifications={setQualifications}
+          suggestions={skills}
         />
       </div>
       <div>

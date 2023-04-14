@@ -26,6 +26,7 @@ import { ChatContextProvider } from "./features/chat/context/ChatContext";
 import JobsByCategory from "./pages/jobsbycategory/JobsByCategory";
 import Profile from "./pages/profile/Profile";
 import UserAccount from "./pages/signup/userAccount";
+import CandidatAccount from "./pages/candidataccount/CandidatAccount";
 
 const queryClient = new QueryClient();
 
@@ -39,12 +40,12 @@ function App() {
               <BrowserRouter>
                 <Routes>
                   <Route path="/1234" element={<Profile />} />
-                  // Protected routes
                   <Route
-                    element={
-                      <RequireAuth allowedRoles={["recruteur", "candidat"]} />
-                    }
-                  >
+                    path="/candidataccount"
+                    element={<CandidatAccount />}
+                  />
+                  // Protected routes
+                  <Route element={<RequireAuth />}>
                     <Route path="/chat" element={<ChatSystem />} />
                   </Route>
                   <Route element={<RequireAuth />}>
@@ -73,7 +74,7 @@ function App() {
                   <Route element={<RequireAuth allowedRoles={["candidat"]} />}>
                     <Route path="/candidatespace" element={<CandidatSpace />} />
                   </Route>
-                  <Route element={<RequireAuth allowedRoles={["candidat"]} />}>
+                  <Route element={<RequireAuth allowedRoles={["user"]} />}>
                     <Route
                       path="/offer/:offerId/apply"
                       element={<JobApplication />}
