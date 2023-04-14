@@ -1,0 +1,119 @@
+import React, { useState } from "react";
+import UserForm from "../../components/userform/UserForm";
+import { useAuth } from "../../context/AuthContext";
+import { useStorage } from "../../context/StorageContext";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
+import { CreateUser } from "../../lib/fetch";
+import { useFormik } from "formik";
+import PrimaryButton from "../../components/buttons/primarybutton";
+import { updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../services/firebaseConfig";
+
+const UserAccount = () => {
+  const [selectedValue, setSelectedValue] = useState("");
+  const [image, setImage] = useState("");
+  const { currentUser, user, token } = useAuth();
+  const { uploadFile, downloadUrl } = useStorage();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const toast = useToast();
+  console.log("navigate to", from);
+  const handleCreateUser = async (values, actions) => {
+    let userData = {
+      id: user.user_id,
+      nom: values.fName,
+      prenom: values.lName,
+      email: user.email,
+      dNaissance: values.birthDate,
+      telephone: values.phoneNumber,
+      adresse: values.address,
+      genre: selectedValue,
+    };
+    try {
+      await CreateUser(userData, token);
+
+      const { fName, lName } = values;
+      const { user_id, email } = user;
+      const path = `profileImages/${user_id}/${image.name}`;
+
+      await uploadFile(image, path);
+
+      const downloadURL = await downloadUrl(path);
+
+      await Promise.all([
+        updateProfile(currentUser, {
+          displayName: `${fName} ${lName}`,
+          photoURL: downloadURL,
+        }),
+        setDoc(doc(db, "users", user_id), {
+          uid: user_id,
+          displayName: `${fName} ${lName}`,
+          email,
+          photoURL: downloadURL,
+        }),
+        setDoc(doc(db, "userChats", user_id), {}),
+      ]);
+      navigate(from, { replace: true });
+      toast({
+        description: "User created.",
+        position: "bottom-left",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+    } catch (err) {
+      toast({
+        description: err.message,
+        position: "bottom-left",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+      console.log(err);
+    }
+  };
+  const {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      fName: "",
+      lName: "",
+      birthDate: "",
+      gender: "",
+      phoneNumber: "",
+      address: "",
+    },
+    onSubmit: handleCreateUser,
+  });
+  return (
+    <div className="min-h-screen flex justify-center items-center bg-gray-50">
+      <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <form onSubmit={handleSubmit}>
+          <UserForm
+            image={image}
+            setImage={setImage}
+            selectedValue={selectedValue}
+            setSelectedValue={setSelectedValue}
+            values={values}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+          />
+          <PrimaryButton className="w-full" type="submit">
+            Create an account
+          </PrimaryButton>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default UserAccount;

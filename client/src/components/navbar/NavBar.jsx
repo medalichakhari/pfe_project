@@ -1,18 +1,20 @@
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
-import PrimaryButton from "../buttons/PrimaryButton";
+import PrimaryButton from "../buttons/primarybutton";
 import SecondaryButton from "../buttons/SecondaryButton";
 import { BsBriefcase, BsSearch } from "react-icons/bs";
 import { FaUserGraduate } from "react-icons/fa";
 import { ImUserTie } from "react-icons/im";
 import { AiFillSetting } from "react-icons/ai";
 import { IoLogOut } from "react-icons/io5";
+import Slogan from "../../assets/svg/Slogan";
 
 export default function NavBar() {
   const { user, logOut } = useAuth();
-  const handleNavigate = () => {
+  const navigate = useNavigate();
+  const navigateToJobPosting = () => {
     if (user?.roles?.includes("recruteur")) {
       return (
         <Navbar.Link href="/postjob" className="flex items-center">
@@ -27,11 +29,25 @@ export default function NavBar() {
       );
     }
   };
-
+  const navigateToRecruiterSpace = () => {
+    if (user?.roles?.includes("recruteur")) {
+      return navigate("/recruiterspace");
+    } else {
+      return navigate("/companyaccount");
+    }
+  };
+  const navigateToCandidatSpace = () => {
+    if (user?.roles?.includes("candidat")) {
+      return navigate("/candidatspace");
+    } else {
+      return navigate("/candidataccount");
+    }
+  };
   const handleLogout = () => {
     logOut()
       .then(() => {
-        ("logout success");
+        console.log("logout success");
+        navigate("/");
       })
       .catch((err) => {
         err;
@@ -41,14 +57,10 @@ export default function NavBar() {
     <>
       <Navbar fluid={true} rounded={true}>
         <Navbar.Brand href="#">
-          {/* <img
-      src=""
-      className="mr-3 h-6 sm:h-9"
-      alt="Jobyssey Logo"
-    /> */}
-          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+          <Slogan className="mr-3 h-4"/>
+          {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             Jobyssey
-          </span>
+          </span> */}
         </Navbar.Brand>
         {user ? (
           <div className="flex md:order-2">
@@ -65,11 +77,17 @@ export default function NavBar() {
                   {user.email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item className="flex items-center">
+              <Dropdown.Item
+                onClick={navigateToCandidatSpace}
+                className="flex items-center"
+              >
                 <FaUserGraduate size={15} className=" mr-1 text-gray-500" />
                 Candidat space
               </Dropdown.Item>
-              <Dropdown.Item className="flex items-center">
+              <Dropdown.Item
+                onClick={navigateToRecruiterSpace}
+                className="flex items-center"
+              >
                 <ImUserTie size={15} className="mr-1 text-gray-500" />
                 Recruiter space
               </Dropdown.Item>
@@ -107,7 +125,7 @@ export default function NavBar() {
           <Navbar.Link href="/" className="flex items-center">
             {<BsSearch className="mr-1 text-gray-500" />}Companies
           </Navbar.Link>
-          {handleNavigate()}
+          {navigateToJobPosting()}
           <Navbar.Link href="/">Contact</Navbar.Link>
         </Navbar.Collapse>
       </Navbar>

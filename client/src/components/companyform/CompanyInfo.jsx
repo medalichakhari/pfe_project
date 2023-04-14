@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import GoogleIcon from "../../assets/svg/GoogleIcon";
-import CompanyForm from "../companyform/CompanyForm";
+import CompanyForm from "./CompanyForm";
 import { useUser } from "../../context/UserContext";
 import { useFormik } from "formik";
 import { GetSecteur, UpdateSociete } from "../../lib/fetch";
@@ -30,6 +29,7 @@ const CompanyInfo = () => {
     UpdateSociete(company.id, companyData, token)
       .then((res) => {
         refresh();
+        handleEditClick();
         console.log(res);
       })
       .catch((err) => console.log(err));
@@ -96,40 +96,35 @@ const CompanyInfo = () => {
               <FaEdit />
             </button>
           </div>
+          {company?.logo ? (
+            <img
+              src={company?.logo}
+              alt={company?.nom}
+              className="mb-1 w-24 h-24 rounded-full object-cover font-light"
+            />
+          ) : null}
 
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Company logo:
-            </label>
-            <GoogleIcon />
-            {/* <img
-            src={companyImage}
-            alt={companyName}
-            className="w-full mb-4 rounded-lg"
-          /> */}
-          </div>
-
-          <div>
-            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Company name:
+              Name:
             </label>
             <p className="text-gray-500 text-sm">{company?.nom}</p>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Company Address:
+              Address:
             </label>
             <p className="text-gray-500 text-sm">{company?.adresse}</p>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Company Activity area:
+              Activity area:
             </label>
             <p className="text-gray-500 text-sm">{}</p>
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Company Description:
+              Description:
             </label>
             <p className="mb-2 text-gray-500 text-sm">{company?.description}</p>
           </div>

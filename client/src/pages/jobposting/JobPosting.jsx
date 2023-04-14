@@ -1,12 +1,12 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import PrimaryButton from "../../components/buttons/PrimaryButton";
+import PrimaryButton from "../../components/buttons/primarybutton";
 import SecondaryButton from "../../components/buttons/SecondaryButton";
 import Layout from "../../components/layout/Layout";
 import JobOfferForm from "../../components/jobofferform/JobOfferForm";
 import { useAuth } from "../../context/AuthContext";
 import { CreateOffre } from "../../lib/fetch";
-import CompanyInfo from "../../components/jobofferform/CompanyInfo";
+import CompanyInfo from "../../components/companyform/CompanyInfo";
 import { useUser } from "../../context/UserContext";
 
 const STEPS_AMOUNT = 1;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFormik } from "formik";
-import PrimaryButton from "../../components/buttons/primarybutton/index";
+import PrimaryButton from "../../components/buttons/primarybutton";
 import SecondaryButton from "../../components/buttons/secondarybutton";
 import { useAuth } from "../../context/AuthContext";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
@@ -9,13 +9,12 @@ import { signInSchema } from "../../utils/validationSchemas";
 import { useToast } from "@chakra-ui/react";
 
 const SignIn = () => {
-  const { signInWithEmailAndPwd } = useAuth();
-  const { googleSignIn } = useAuth();
+  const { signInWithEmailAndPwd, googleSignIn, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const toast = useToast();
   const from = location.state?.from?.pathname || "/";
-
+  console.log("navigate to", from);
   const handleSignIn = (values) => {
     signInWithEmailAndPwd(values.email, values.password)
       .then(() => {
@@ -42,6 +41,7 @@ const SignIn = () => {
   const handleSignInWithGoogle = () => {
     googleSignIn()
       .then(() => {
+        navigate(from, { replace: true });
         toast({
           description: "Logged In.",
           position: "bottom-left",
@@ -49,7 +49,6 @@ const SignIn = () => {
           duration: 9000,
           isClosable: true,
         });
-        navigate(from, { replace: true });
       })
       .catch((error) => {
         toast({

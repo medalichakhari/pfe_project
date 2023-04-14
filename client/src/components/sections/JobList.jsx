@@ -18,6 +18,7 @@ const JobList = () => {
   const handleLoadMore = () => {
     setShowCount(showCount + 5);
   };
+  console.log("jobs", jobs);
   return isLoading ? (
     <div>Loading...</div>
   ) : (
@@ -27,7 +28,7 @@ const JobList = () => {
           <JobCard key={job.id} job={job} />
         ))}
       </div>
-      {jobs.length >showCount && (
+      {jobs.length > showCount && (
         <div className="mt-auto">
           <SecondaryButton onClick={handleLoadMore}>Load more</SecondaryButton>
         </div>

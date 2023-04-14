@@ -2,7 +2,7 @@ import React from "react";
 import JobOfferDetails from "../../components/jobofferdetails/JobOfferDetails";
 import Layout from "../../components/layout/Layout";
 
-const Offer = () => {
+const JobOffer = () => {
   return (
     <Layout>
       <JobOfferDetails />
@@ -10,4 +10,4 @@ const Offer = () => {
   );
 };
 
-export default Offer;
+export default JobOffer;

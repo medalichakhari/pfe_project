@@ -1,15 +1,20 @@
 import React from "react";
 import { BiTimeFive } from "react-icons/bi";
-import { Link, useNavigate } from "react-router-dom";
+import { BsBriefcase } from "react-icons/bs";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 const JobCard = ({ job }) => {
   const navigate = useNavigate();
+
   const handleNavigate = () => {
     navigate(`/offer/${job.id}`);
   };
+
   const handleApply = () => {
     navigate(`/offer/${job.id}/apply`);
   };
+
   const truncatedTitle =
     job.titre.slice(0, 15) + (job.titre.length > 15 ? "..." : "");
   const truncatedDescription =
@@ -30,14 +35,27 @@ const JobCard = ({ job }) => {
             Now
           </span>
         </span>
-        <h6 className="text-[#ccc]">{job.lieu}</h6>
+        <div className=" flex items-center mt-1">
+          <HiOutlineLocationMarker className="text-gray-500 mr-1" />
+          <h6 className="text-[#ccc]">{job.lieux}</h6>
+        </div>
+        <div className="flex items-center mt-1">
+          <BsBriefcase className="mr-1 text-gray-500" />
+          <h6 className="text-[#ccc]">{job.type}</h6>
+        </div>
         <p className="text-[13px text-[#959595] pt-[20px] border-t-[2px] mt-[20px]">
           {truncatedDescription}
         </p>
         <div className="flex items-center gap-2">
-          <img src="" alt="" className="w-[10%]" />
+          {job.societe?.logo ? (
+            <img
+              src={job.societe?.logo}
+              alt="companyLogo"
+              className="w-7 h-7 rounded-full object-cover"
+            />
+          ) : null}
           <span className="text-[14px] py-[1rem] block group-hover:text-white">
-            Google
+            {job.societe?.nom}
           </span>
         </div>
         <button

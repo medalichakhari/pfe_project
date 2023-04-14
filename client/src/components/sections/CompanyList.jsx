@@ -1,14 +1,5 @@
 import React from "react";
-import CustomerIcon from "../../assets/svg/CustomerIcon";
-import BusinessIcon from "../../assets/svg/BusinessIcon";
-import FinanceIcon from "../../assets/svg/FinanceIcon";
-import HRIcon from "../../assets/svg/HRIcon";
-import DesignIcon from "../../assets/svg/DesignIcon";
-import MarketingIcon from "../../assets/svg/MarketingIcon";
-import CategoryCard from "../categorycard/CategoryCard";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
-import GovernmentIcon from "../../assets/svg/Government";
-import ManagmentIcon from "../../assets/svg/ManagmentIcon";
 import CompanyCard from "../companycard/CompanyCard";
 
 const comapanies = [

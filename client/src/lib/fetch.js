@@ -378,6 +378,77 @@ export const DeleteSecteur = async (id, token) => {
     return response;
 }
 
+//Categorie
+
+export const CreateCategorie = async (categorieData, token) => {
+    let data = categorieData;
+    let config = {
+        method: "post",
+        url: "http://localhost:8080/api/categories",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        data: data,
+    };
+    const response = await axios(config);
+    return response;
+};
+
+export const GetCategories = async (token) => {
+    let config = {
+        method: "get",
+        url: "http://localhost:8080/api/categories",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    };
+    const response = await axios(config);
+    return response.data;
+}
+
+export const GetCategorie = async (id, token) => {
+    let config = {
+        method: "get",
+        url: `http://localhost:8080/api/categories/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    };
+    const response = await axios(config);
+    return response.data;
+}
+
+export const UpdateCategorie = async (id, categorieData, token) => {
+    let data = categorieData;
+    let config = {
+        method: "put",
+        url: `http://localhost:8080/api/categories/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        data: data,
+    };
+    const response = await axios(config);
+    return response;
+}
+
+export const DeleteCategorie = async (id, token) => {
+    let config = {
+        method: "delete",
+        url: `http://localhost:8080/api/categories/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    };
+    const response = await axios(config);
+    return response;
+}
+
 //Offre
 
 export const CreateOffre = async (offreData, token) => {
@@ -412,6 +483,32 @@ export const GetOffre = async (id, token) => {
     let config = {
         method: "get",
         url: `http://localhost:8080/api/offres/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    };
+    const response = await axios(config);
+    return response.data;
+}
+
+export const GetOffresBySociete = async (id, token) => {
+    let config = {
+        method: "get",
+        url: `http://localhost:8080/api/offres/societe/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    };
+    const response = await axios(config);
+    return response.data;
+}
+
+export const GetOffresByCategorie = async (id, token) => {
+    let config = {
+        method: "get",
+        url: `http://localhost:8080/api/offres/categorie/${id}`,
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

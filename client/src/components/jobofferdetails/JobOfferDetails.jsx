@@ -2,10 +2,11 @@ import React from "react";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
-import PrimaryButton from "../buttons/PrimaryButton";
+import PrimaryButton from "../buttons/primarybutton";
 import { useAuth } from "../../context/AuthContext";
 import { useQuery } from "react-query";
 import { GetOffre } from "../../lib/fetch";
+import { BsBriefcase } from "react-icons/bs";
 
 const JobOfferDetails = () => {
   const { offerId } = useParams();
@@ -21,23 +22,32 @@ const JobOfferDetails = () => {
     <div>Loading...</div>
   ) : (
     <>
-      <div className="container mx-auto my-10">
+      <div className="container mx-auto my-10 px-6">
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold text-gray-800">{data.titre}</h1>
           <PrimaryButton onClick={handleNavigate}>Apply Now</PrimaryButton>
         </div>
         <div className="flex my-10">
           <div className="w-1/2">
-            <GoogleIcon />
-            {/* <img src={job.logo} alt={job.company} className="w-32 h-32 rounded-full mx-auto" /> */}
+            {data.societe?.logo ? (
+              <img
+                src={data.societe?.logo}
+                alt={data.societe?.nom}
+                className="h-16 w-16 rounded-full object-cover"
+              />
+            ) : null}
+
             <h2 className="text-xl font-bold text-gray-800 mt-5">
-              Company name
+              {data.societe?.nom}
             </h2>
             <p className="flex justify-content text-gray-600 mt-2">
               <HiOutlineLocationMarker className="text-gray-500 m-1" />
               {data.lieux}
             </p>
-            <p className="text-gray-600 mt-2 ml-2">{data.domaine}</p>
+            <p className="flex justify-content text-gray-600 mt-2">
+              <BsBriefcase className="text-gray-500 m-1" />
+              {data.domaine}
+            </p>
           </div>
           <div className="w-1/2">
             <h3 className="text-2xl font-bold text-gray-800 mb-5">
@@ -56,7 +66,7 @@ const JobOfferDetails = () => {
               <h3 className="text-xl font-bold text-gray-800 mb-2">Type</h3>
               <li className="text-gray-600">{data.type}</li>
             </div>
-          </div>{" "}
+          </div>
           <div className="w-1/2">
             <h3 className="text-xl font-bold text-gray-800 mb-5">
               Qualifications

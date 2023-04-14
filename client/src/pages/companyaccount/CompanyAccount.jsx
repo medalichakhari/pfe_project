@@ -1,27 +1,36 @@
 import { useState } from "react";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CompanyForm from "../../components/companyform/CompanyForm";
 import Layout from "../../components/layout/Layout";
 import { CreateSociete } from "../../lib/fetch";
-import PrimaryButton from "../../components/buttons/PrimaryButton";
+import PrimaryButton from "../../components/buttons/primarybutton";
 import { useAuth } from "../../context/AuthContext";
+import { useStorage } from "../../context/StorageContext";
 
 const CompanyAccount = () => {
   const [image, setImage] = useState("");
   const { token, user } = useAuth();
+  const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const handleCreateCompany = async (values, actions) => {
+    const { user_id } = user;
+    const path = `companyImages/${user_id}/${image.name}`;
+    await uploadFile(image, path);
+    const downloadURL = await downloadUrl(path);
     let companyData = {
+      logo: downloadURL,
       nom: values.companyName,
       adresse: values.companyAddress,
       description: values.companyDescription,
-      userId: user.user_id,
+      userId: user_id,
     };
     CreateSociete(companyData, token)
       .then((res) => {
         console.log(res);
-        navigate("/postjob");
+        navigate(from, { replace: true });
       })
       .catch((err) => console.log(err));
   };

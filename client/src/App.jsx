@@ -14,13 +14,18 @@ import { StorageContextProvider } from "./context/StorageContext";
 import JobApplication from "./pages/jobapplication/JobApplication";
 import JobPosting from "./pages/jobposting/JobPosting";
 import RequireAuth from "./components/RequireAuth";
-import UserForm from "./components/userform/UserForm";
 import ForgotPassword from "./pages/forgotresetpwd/ForgotPassword";
 import ResetPassword from "./pages/forgotresetpwd/ResetPassword";
 import CandidatSpace from "./pages/candidatspace/CandidatSpace";
 import RecruiterSpace from "./pages/recruiterspace/RecruiterSpace";
 import CompanyAccount from "./pages/companyaccount/CompanyAccount";
 import { UserProvider } from "./context/UserContext";
+import Candidates from "./pages/candidates/Candidates";
+import ChatSystem from "./pages/chatsystem/ChatSystem";
+import { ChatContextProvider } from "./features/chat/context/ChatContext";
+import JobsByCategory from "./pages/jobsbycategory/JobsByCategory";
+import Profile from "./pages/profile/Profile";
+import UserAccount from "./pages/signup/userAccount";
 
 const queryClient = new QueryClient();
 
@@ -30,32 +35,70 @@ function App() {
       <AuthContextProvider>
         <UserProvider>
           <StorageContextProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/candidatspace" element={<CandidatSpace />} />
-                <Route path="/offer/:offerId" element={<JobOffer />} />
-                <Route element={<RequireAuth />}>
+            <ChatContextProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/1234" element={<Profile />} />
+                  // Protected routes
                   <Route
-                    path="/offer/:offerId/apply"
-                    element={<JobApplication />}
+                    element={
+                      <RequireAuth allowedRoles={["recruteur", "candidat"]} />
+                    }
+                  >
+                    <Route path="/chat" element={<ChatSystem />} />
+                  </Route>
+                  <Route element={<RequireAuth />}>
+                    <Route
+                      path="/companyaccount"
+                      element={<CompanyAccount />}
+                    />
+                  </Route>
+                  // Recruiter protected routes
+                  <Route element={<RequireAuth allowedRoles={["recruteur"]} />}>
+                    <Route
+                      path="/recruiterspace"
+                      element={<RecruiterSpace />}
+                    />
+                  </Route>
+                  <Route element={<RequireAuth allowedRoles={["recruteur"]} />}>
+                    <Route
+                      path="/recruiterspace/candidates"
+                      element={<Candidates />}
+                    />
+                  </Route>
+                  <Route element={<RequireAuth allowedRoles={["recruteur"]} />}>
+                    <Route path="/postjob" element={<JobPosting />} />
+                  </Route>
+                  // Candidate protected routes
+                  <Route element={<RequireAuth allowedRoles={["candidat"]} />}>
+                    <Route path="/candidatespace" element={<CandidatSpace />} />
+                  </Route>
+                  <Route element={<RequireAuth allowedRoles={["candidat"]} />}>
+                    <Route
+                      path="/offer/:offerId/apply"
+                      element={<JobApplication />}
+                    />
+                  </Route>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/offer/:offerId" element={<JobOffer />} />
+                  <Route
+                    path="/category/:categoryId/jobs"
+                    element={<JobsByCategory />}
                   />
-                </Route>
-                <Route path="/companyspace" element={<RecruiterSpace />} />
-                <Route path="/companyaccount" element={<CompanyAccount />} />
-                <Route element={<RequireAuth />}>
-                  <Route path="/postjob" element={<JobPosting />} />
-                </Route>
-                <Route path="/companies/:categoryId" element={<Companies />} />
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/forgotpassword" element={<ForgotPassword />} />
-                <Route path="/resetpassword" element={<ResetPassword />} />
-                <Route path="/useraccount" element={<UserForm />} />
-                <Route path="/unauthorized" element={<Unauthorized />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
+                  <Route
+                    path="/companies/:categoryId"
+                    element={<Companies />}
+                  />
+                  <Route path="/signin" element={<SignIn />} />
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/forgotpassword" element={<ForgotPassword />} />
+                  <Route path="/resetpassword" element={<ResetPassword />} />
+                  <Route path="/useraccount" element={<UserAccount />} />
+                  <Route path="/unauthorized" element={<Unauthorized />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </ChatContextProvider>
           </StorageContextProvider>
         </UserProvider>
       </AuthContextProvider>

@@ -1,21 +1,21 @@
 import { createContext, useContext } from "react";
 import { storage } from "../services/firebaseConfig";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export const StorageContext = createContext();
 export const useStorage = () => useContext(StorageContext);
 
 export const StorageContextProvider = ({ children }) => {
   const uploadFile = (file, path) => {
-    const storageRef = storage.ref();
-    const fileRef = storageRef.child(path);
-    const uploadFile = fileRef.put(file);
-    return uploadFile;
+    const storageRef = ref(storage, path);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    return uploadTask;
   };
 
-  const downloadUrl = (path) => {
-    const storageRef = storage.ref();
-    const fileRef = storageRef.child(path);
-    return fileRef.getDownloadURL();
+  const downloadUrl = async (path) => {
+    const storageRef = ref(storage, path);
+    const downloadURL = await getDownloadURL(storageRef);
+    return downloadURL;
   };
 
   return (

@@ -1,10 +1,5 @@
-import React, { useState } from "react";
-import { useFormik } from "formik";
-import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import UploadImage from "../shared/UploadImage";
-import { CreateSociete } from "../../lib/fetch";
-import PrimaryButton from "../buttons/PrimaryButton";
 
 const CompanyForm = ({values, handleChange, handleBlur, image, setImage}) => {
 
