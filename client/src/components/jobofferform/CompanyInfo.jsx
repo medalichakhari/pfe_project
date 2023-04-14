@@ -131,7 +131,7 @@ const CompanyInfo = () => {
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               Company Description:
             </label>
-            <p className="mb-2 text-gray-500 text-sm">{company.description}</p>
+            <p className="mb-2 text-gray-500 text-sm">{company?.description}</p>
           </div>
         </>
       )}
