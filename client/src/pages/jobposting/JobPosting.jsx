@@ -12,6 +12,7 @@ import { useUser } from "../../context/UserContext";
 const STEPS_AMOUNT = 1;
 
 const JobPosting = () => {
+  const [qualifications, setQualifications] = useState("");
   const [formStep, setFormStep] = useState(0);
   const completeFormStep = () => {
     setFormStep(formStep + 1);
@@ -50,13 +51,14 @@ const JobPosting = () => {
   const { token } = useAuth();
   const { company } = useUser();
   const handleCreateJobOffer = async (values, actions) => {
+    console.log("qualifications", qualifications);
     let offerData = {
       titre: jobOfferValues.title,
       lieux: jobOfferValues.address,
       domaine: jobOfferValues.domain,
       type: jobOfferValues.type,
       salaire: jobOfferValues.salary,
-      competences: jobOfferValues.qualification,
+      competences: qualifications,
       description: jobOfferValues.description,
       societeId: company?.id,
     };
@@ -99,6 +101,8 @@ const JobPosting = () => {
             {formStep === 1 && (
               <JobOfferForm
                 values={jobOfferValues}
+                qualifications={qualifications}
+                setQualifications={setQualifications}
                 handleChange={jobOfferHandleChange}
                 handleBlur={jobOfferHandleBlur}
               />

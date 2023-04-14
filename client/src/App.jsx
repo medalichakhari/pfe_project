@@ -73,7 +73,7 @@ function App() {
                   <Route element={<RequireAuth allowedRoles={["candidat"]} />}>
                     <Route path="/candidatespace" element={<CandidatSpace />} />
                   </Route>
-                  <Route element={<RequireAuth allowedRoles={["candidat"]} />}>
+                  <Route element={<RequireAuth allowedRoles={["user"]} />}>
                     <Route
                       path="/offer/:offerId/apply"
                       element={<JobApplication />}
