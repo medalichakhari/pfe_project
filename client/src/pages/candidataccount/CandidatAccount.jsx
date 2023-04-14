@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import CandidatForm from "../../components/candidatform/CandidatForm";
 import Layout from "../../components/layout/Layout";
 import { CreateCandidat } from "../../lib/fetch";
-import PrimaryButton from "../../components/buttons/PrimaryButton";
+import PrimaryButton from "../../components/buttons/primarybutton";
 import { useAuth } from "../../context/AuthContext";
 
 const CandidatAccount = () => {
