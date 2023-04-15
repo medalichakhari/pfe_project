@@ -1,13 +1,11 @@
-import { useFormik } from "formik";
 import { useState } from "react";
 import Layout from "../../components/layout/Layout";
-import CandidatForm from "../../components/candidatform/CandidatForm";
 import PrimaryButton from "../../components/buttons/primarybutton";
-import SecondaryButton from "../../components/buttons/SecondaryButton";
 import { useAuth } from "../../context/AuthContext";
-import { CreateCandidat } from "../../lib/fetch";
+import { CreateCandidature } from "../../lib/fetch";
 import { useUser } from "../../context/UserContext";
 import CandidatInfo from "../../components/candidatinfo/CandidatInfo";
+import { useNavigate, useParams } from "react-router-dom";
 
 const STEPS_AMOUNT = 1;
 
@@ -19,11 +17,31 @@ const JobApplication = () => {
   const previousFormStep = () => {
     setFormStep(formStep - 1);
   };
+  const {offerId} = useParams();
+  const { token } = useAuth();
+  const { candidate } = useUser();
+  const navigate = useNavigate();
+  console.log("offre id", offerId)
+  console.log("czaaz id", candidate.id)
+  const handleApplyJob = async (values, actions) => {
+    let applicationData = {
+      etat: "Waiting",
+      candidatId: candidate.id,
+      offreId: offerId,
+    };
+    console.log("czaaazdad", applicationData)
+    CreateCandidature(applicationData, token)
+      .then((res) => {
+        console.log(res);
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
+  };
   const renderCandidatButtons = () => {
     if (formStep === 0) {
       return (
         <div className="flex flex-row-reverse">
-          <PrimaryButton type="button" onClick={completeFormStep}>
+          <PrimaryButton type="button" onClick={handleApplyJob}>
             Apply
           </PrimaryButton>
         </div>
@@ -32,36 +50,6 @@ const JobApplication = () => {
       return null;
     }
   };
-  const { token } = useAuth();
-  const { candidate } = useUser();
-  const handleCreateCandidat = async (values, actions) => {
-    let candidatData = {
-      grade: values.grade,
-      speciality: values.speciality,
-    };
-    CreateCandidat(candidatData, token)
-      .then((res) => {
-        console.log(res);
-        navigate("/JobApplication");
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const {
-    values: applyJobValues,
-    errors: applyJobErrors,
-    touched: applyJobTouched,
-    isSubmitting: applyJobIsSubmitting,
-    handleBlur: applyJobHandleBlur,
-    handleChange: applyJobHandleChange,
-    handleSubmit: applyJobHandleSubmit,
-  } = useFormik({
-    initialValues: {
-      speciality: "",
-      grade: "",
-    },
-    onSubmit: handleCreateCandidat,
-  });
   return (
     <Layout>
       <div className="my-6 flex justify-center items-center bg-gray-50">

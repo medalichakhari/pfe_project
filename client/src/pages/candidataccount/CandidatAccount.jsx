@@ -13,15 +13,14 @@ const CandidatAccount = () => {
   const handleCreateCandidat = async (values, actions) => {
     console.log(values);
     let candidatData = {
-    grade: values.grade,
-    specialite: values.speciality,
-    userId: user.user_id,
-
+      grade: values.grade,
+      specialite: values.speciality,
+      userId: user.user_id,
     };
     CreateCandidat(candidatData, token)
       .then((res) => {
         console.log(res);
-        navigate("/JobApplication");
+        navigate("/");
       })
       .catch((err) => console.log(err));
   };
@@ -36,10 +35,10 @@ const CandidatAccount = () => {
     handleSubmit,
   } = useFormik({
     initialValues: {
-        speciality: "",
-        grade: "",
-      },
-      onSubmit: handleCreateCandidat,
+      speciality: "",
+      grade: "",
+    },
+    onSubmit: handleCreateCandidat,
   });
   return (
     <Layout>

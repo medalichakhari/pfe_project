@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import GoogleIcon from "../../assets/svg/GoogleIcon";
 import { useUser } from "../../context/UserContext";
 import { useFormik } from "formik";
 import { UpdateCandidat } from "../../lib/fetch";
-import { useQuery } from "react-query";
 import { useAuth } from "../../context/AuthContext";
 import CandidatForm from "../candidatform/CandidatForm";
 
@@ -14,15 +12,14 @@ const CandidatInfo = () => {
     setIsEditing(!isEditing);
   };
   const { token } = useAuth();
-  const { candidat, refresh } = useUser();
+  const { candidate, refresh } = useUser();
 
   const handleUpdateCandidat = async (values, actions) => {
-    console.log("candidatId", candidat.id);
     let candidatData = {
-        grade: values.grade,
-        speciality: values.speciality,
-        };
-    UpdateCandidat(candidat.id, candidatData, token)
+      grade: values.grade,
+      specialite: values.speciality,
+    };
+    UpdateCandidat(candidate.id, candidatData, token)
       .then((res) => {
         refresh();
         console.log(res);
@@ -38,16 +35,15 @@ const CandidatInfo = () => {
     handleChange,
     handleSubmit,
   } = useFormik({
-    initialValues:
-      !candidat || isLoading
-        ? {
-            grade: "",
-            speciality: "",
-          }
-        : {
-            grade: company?.grade,
-            speciality: company?.speciality,
-          },
+    initialValues: !candidate
+      ? {
+          grade: "",
+          speciality: "",
+        }
+      : {
+          grade: candidate?.grade,
+          speciality: candidate?.specialite,
+        },
     onSubmit: handleUpdateCandidat,
     enableReinitialize: true,
   });
@@ -76,7 +72,7 @@ const CandidatInfo = () => {
         <>
           <div className="flex items-center justify-between">
             <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
-              Candidat Info :
+              Candidate Info :
             </h4>
             <button
               onClick={handleEditClick}
@@ -88,15 +84,15 @@ const CandidatInfo = () => {
 
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Candidat grade:
+              Candidate grade:
             </label>
-            <p className="text-gray-500 text-sm">{candidat?.nom}</p>
+            <p className="text-gray-500 text-sm">{candidate?.nom}</p>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Candidat speciality:
+              Candidate speciality:
             </label>
-            <p className="text-gray-500 text-sm">{candidat?.speciality}</p>
+            <p className="text-gray-500 text-sm">{candidate?.specialite}</p>
           </div>
         </>
       )}

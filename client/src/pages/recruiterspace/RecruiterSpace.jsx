@@ -7,8 +7,9 @@ import { useAuth } from "../../context/AuthContext";
 import { useUser } from "../../context/UserContext";
 import { useQuery } from "react-query";
 import { GetOffresBySociete } from "../../lib/fetch";
+import JobList from "../../components/sections/JobList";
 
-const CandidatSpace = () => {
+const RecruiterSpace = () => {
   const { token } = useAuth();
   const { company } = useUser();
   const {
@@ -18,6 +19,7 @@ const CandidatSpace = () => {
   } = useQuery(["candidates", company?.id, token], () =>
     GetOffresBySociete(company?.id, token)
   );
+  console.log("job", jobsList)
   return (
     <Layout>
       <h1 className="text-4xl font-bold ml-3 mt-8">Recruiter Space</h1>
@@ -62,4 +64,4 @@ const CandidatSpace = () => {
   );
 };
 
-export default CandidatSpace;
+export default RecruiterSpace;
