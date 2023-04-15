@@ -24,22 +24,6 @@ const JobApplication = () => {
       return (
         <div className="flex flex-row-reverse">
           <PrimaryButton type="button" onClick={completeFormStep}>
-            Next
-          </PrimaryButton>
-        </div>
-      );
-    } else {
-      return null;
-    }
-  };
-  const renderApplyJobButtons = () => {
-    if (formStep === STEPS_AMOUNT) {
-      return (
-        <div className="flex justify-between">
-          <SecondaryButton type="button" onClick={previousFormStep}>
-            Previous
-          </SecondaryButton>
-          <PrimaryButton type="submit" onClick={completeFormStep}>
             Apply
           </PrimaryButton>
         </div>
@@ -50,11 +34,10 @@ const JobApplication = () => {
   };
   const { token } = useAuth();
   const { candidate } = useUser();
-  const handleApplyJob = async (values, actions) => {
+  const handleCreateCandidat = async (values, actions) => {
     let candidatData = {
       grade: values.grade,
       speciality: values.speciality,
-      cv: values.cv,
     };
     CreateCandidat(candidatData, token)
       .then((res) => {
@@ -77,7 +60,7 @@ const JobApplication = () => {
       speciality: "",
       grade: "",
     },
-    onSubmit: handleApplyJob,
+    onSubmit: handleCreateCandidat,
   });
   return (
     <Layout>
@@ -88,18 +71,7 @@ const JobApplication = () => {
             {renderCandidatButtons()}
           </div>
           <div className="flex flex-row-reverse"></div>
-          <form onSubmit={applyJobHandleSubmit}>
-            {formStep === 1 && (
-              <CandidatForm
-                values={applyJobValues}
-                handleChange={applyJobHandleChange}
-                handleBlur={applyJobHandleBlur}
-              />
-            )}
-
-            {renderApplyJobButtons()}
-          </form>
-          {formStep === 2 && (
+          {formStep === 1 && (
             <div className="mb-2">
               <h2 className="font-semibold text-3xl mb-4">Request sent!</h2>
               <p>Good Luck</p>

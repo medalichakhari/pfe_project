@@ -26,7 +26,7 @@ import { ChatContextProvider } from "./features/chat/context/ChatContext";
 import JobsByCategory from "./pages/jobsbycategory/JobsByCategory";
 import Profile from "./pages/profile/Profile";
 import UserAccount from "./pages/signup/userAccount";
-import CandidatAccount from "./pages/candidataccount/CandidatAccount";
+import CandidatAccount from "./pages/candidataccount/candidataccount";
 
 const queryClient = new QueryClient();
 

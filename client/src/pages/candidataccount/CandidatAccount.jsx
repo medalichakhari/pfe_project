@@ -10,11 +10,13 @@ import { useAuth } from "../../context/AuthContext";
 const CandidatAccount = () => {
   const { token, user } = useAuth();
   const navigate = useNavigate();
-  const handleApplyJob = async (values, actions) => {
+  const handleCreateCandidat = async (values, actions) => {
+    console.log(values);
     let candidatData = {
     grade: values.grade,
-    speciality: values.speciality,
-    cv: values.cv,
+    specialite: values.speciality,
+    userId: user.user_id,
+
     };
     CreateCandidat(candidatData, token)
       .then((res) => {
@@ -37,7 +39,7 @@ const CandidatAccount = () => {
         speciality: "",
         grade: "",
       },
-      onSubmit: handleApplyJob,
+      onSubmit: handleCreateCandidat,
   });
   return (
     <Layout>
