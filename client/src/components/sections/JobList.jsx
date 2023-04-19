@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import SecondaryButton from "../buttons/SecondaryButton";
+import SecondaryButton from "../buttons/secondarybutton/SecondaryButton";
 import JobCard from "../jobcard/JobCard";
 import { GetOffres } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
@@ -18,7 +18,6 @@ const JobList = () => {
   const handleLoadMore = () => {
     setShowCount(showCount + 5);
   };
-  console.log("jobs", jobs);
   return isLoading ? (
     <div>Loading...</div>
   ) : (

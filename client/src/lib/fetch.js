@@ -589,6 +589,33 @@ export const GetCandidature = async (id, token) => {
     return response.data;
 }
 
+export const GetCandidaturesByOffre = async (id, token) => {
+    let config = {
+        method: "get",
+        url: `http://localhost:8080/api/candidatures/offre/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    };
+    const response = await axios(config);
+    return response.data;
+}
+
+export const GetCandidaturesByCandidat = async (id, token) => {
+    let config = {
+        method: "get",
+        url: `http://localhost:8080/api/candidatures/candidat/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    };
+    const response = await axios(config);
+    return response.data;
+}
+
+
 export const UpdateCandidature = async (id, candidatureData, token) => {
     let data = candidatureData;
     let config = {

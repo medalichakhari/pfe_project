@@ -25,7 +25,7 @@ import ChatSystem from "./pages/chatsystem/ChatSystem";
 import { ChatContextProvider } from "./features/chat/context/ChatContext";
 import JobsByCategory from "./pages/jobsbycategory/JobsByCategory";
 import Profile from "./pages/profile/Profile";
-import UserAccount from "./pages/signup/userAccount";
+import UserAccount from "./pages/signup/UserAccount";
 import CandidatAccount from "./pages/candidataccount/CandidatAccount";
 
 const queryClient = new QueryClient();
@@ -39,12 +39,10 @@ function App() {
             <ChatContextProvider>
               <BrowserRouter>
                 <Routes>
-                  <Route path="/1234" element={<Profile />} />
-                  <Route
-                    path="/candidataccount"
-                    element={<CandidatAccount />}
-                  />
                   // Protected routes
+                  <Route element={<RequireAuth />}>
+                    <Route path="/profile" element={<Profile />} />
+                  </Route>
                   <Route element={<RequireAuth />}>
                     <Route path="/chat" element={<ChatSystem />} />
                   </Route>
@@ -52,6 +50,12 @@ function App() {
                     <Route
                       path="/companyaccount"
                       element={<CompanyAccount />}
+                    />
+                  </Route>
+                  <Route element={<RequireAuth />}>
+                    <Route
+                      path="/candidateaccount"
+                      element={<CandidatAccount />}
                     />
                   </Route>
                   // Recruiter protected routes
@@ -63,7 +67,7 @@ function App() {
                   </Route>
                   <Route element={<RequireAuth allowedRoles={["recruteur"]} />}>
                     <Route
-                      path="/recruiterspace/candidates"
+                      path="/joboffer/:jobId/candidates"
                       element={<Candidates />}
                     />
                   </Route>
@@ -71,25 +75,23 @@ function App() {
                     <Route path="/postjob" element={<JobPosting />} />
                   </Route>
                   // Candidate protected routes
-                  <Route element={<RequireAuth />}>
+                  <Route element={<RequireAuth allowedRoles={["candidat"]} />}>
                     <Route path="/candidatespace" element={<CandidatSpace />} />
                   </Route>
-                  <Route element={<RequireAuth allowedRoles={["user"]} />}>
+                  <Route element={<RequireAuth allowedRoles={["candidat"]} />}>
                     <Route
                       path="/offer/:offerId/apply"
                       element={<JobApplication />}
                     />
                   </Route>
+                  // Public routes
                   <Route path="/" element={<Home />} />
                   <Route path="/offer/:offerId" element={<JobOffer />} />
                   <Route
                     path="/category/:categoryId/jobs"
                     element={<JobsByCategory />}
                   />
-                  <Route
-                    path="/companies/:categoryId"
-                    element={<Companies />}
-                  />
+                  <Route path="/companies" element={<Companies />} />
                   <Route path="/signin" element={<SignIn />} />
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/forgotpassword" element={<ForgotPassword />} />

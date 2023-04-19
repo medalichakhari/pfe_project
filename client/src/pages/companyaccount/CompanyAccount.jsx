@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CompanyForm from "../../components/companyform/CompanyForm";
 import Layout from "../../components/layout/Layout";
 import { CreateSociete } from "../../lib/fetch";
-import PrimaryButton from "../../components/buttons/primarybutton";
+import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
 

@@ -4,31 +4,54 @@ import { AiFillMessage } from "react-icons/ai";
 import Pagination from "../shared/Pagination";
 import EditStatusModal from "./EditStatusModal";
 import { Badge } from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
+import { useAuth } from "../../context/AuthContext";
+import { db } from "../../services/firebaseConfig";
 
-function CandidateTable({ data }) {
+function CandidateTable({ data, refetch }) {
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedCandidacyId, setSelectedCandidacyId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [candidatesPerPage] = useState(5);
 
-  const handleOpenModal = () => setIsOpen(!isOpen);
+  const handleOpenModal = (candidacyId) => {
+    setIsOpen(!isOpen);
+    setSelectedCandidacyId(candidacyId);
+  };
 
   function handleSearch(event) {
     setSearchQuery(event.target.value);
-    setCurrentPage(0); // Reset current page when search query changes
+    setCurrentPage(0);
   }
 
-  function filterCandidates(candidate) {
+  function filterCandidates(candidacy) {
+    console.log("ezab", candidacy);
     return (
-      candidate.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      candidate.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      candidate.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      candidate.status.toLowerCase().includes(searchQuery.toLowerCase())
+      candidacy?.candidat?.user?.nom
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      candidacy?.candidat?.user?.email
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      candidacy?.candidat?.user?.telephone
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      candidacy?.etat.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }
 
   const filteredCandidates = data.filter(filterCandidates);
-
+  console.log("filteredCandidates", filteredCandidates);
   const pageCount = Math.ceil(filteredCandidates.length / candidatesPerPage); // Calculate total number of pages
 
   function handlePageChange(selectedPage) {
@@ -38,6 +61,47 @@ function CandidateTable({ data }) {
   const startIndex = currentPage * candidatesPerPage;
   const endIndex = startIndex + candidatesPerPage;
   const displayedCandidates = filteredCandidates.slice(startIndex, endIndex);
+
+  //handle message
+  const handleSelect = async (selectedUser) => {
+    console.log("selectedUser", selectedUser);
+    //check whether the group(chats in firestore) exists, if not create
+    const combinedId =
+      user.user_id > selectedUser.id
+        ? user.user_id + selectedUser.id
+        : selectedUser.id + user.user_id;
+    try {
+      console.log("cominedId", combinedId);
+      const res = await getDoc(doc(db, "chats", combinedId));
+
+      if (!res.exists()) {
+        //create a chat in chats collection
+        await setDoc(doc(db, "chats", combinedId), { messages: [] });
+
+        //create user chats
+        await updateDoc(doc(db, "userChats", user.user_id), {
+          [combinedId + ".userInfo"]: {
+            uid: selectedUser.id,
+            displayName: selectedUser.displayName,
+            photoURL: selectedUser.photoURL,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
+        console.log("user chat created", user);
+        await updateDoc(doc(db, "userChats", selectedUser.id), {
+          [combinedId + ".userInfo"]: {
+            uid: user.user_id,
+            displayName: user.name,
+            photoURL: user.picture,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
+      }
+      navigate("/chat");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="max-w-7xl mx-auto py-16 sm:px-6 lg:px-8">
       <div className="flex justify-between items-center mb-4">
@@ -61,6 +125,8 @@ function CandidateTable({ data }) {
             <EditStatusModal
               isOpen={isOpen}
               handleOpenModal={handleOpenModal}
+              candidacyId={selectedCandidacyId}
+              refetch={refetch}
             />
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -89,37 +155,53 @@ function CandidateTable({ data }) {
                       </tr>
                     </thead>
                     <tbody>
-                      {displayedCandidates.map((candidate) => (
+                      {displayedCandidates.map((candidacy) => (
                         <tr
-                          key={candidate.id}
+                          key={candidacy.id}
                           className="bg-gray-100 hover:bg-gray-200 transition-colors"
                         >
                           <td className="px-4 py-2 text-center">
-                            {candidate.name}
+                            <div className="flex items-center">
+                              <div className="flex-shrink-0 h-10 w-10">
+                                <img
+                                  className="h-10 w-10 rounded-full"
+                                  src={candidacy?.candidat?.user?.photo}
+                                  alt=""
+                                />
+                              </div>
+                              <div className="ml-4">
+                                {candidacy?.candidat?.user?.nom} {candidacy?.candidat?.user?.nom}
+                              </div>
+                            </div>
                           </td>
                           <td className="px-4 py-2 text-center">
-                            {candidate.email}
+                            {candidacy?.candidat?.user?.email}
                           </td>
                           <td className="px-4 py-2 text-center">
-                            {candidate.phone}
+                            {candidacy?.candidat?.user?.telephone}
                           </td>
                           <td className="px-4 py-2 text-center">
-                            <a
-                              href="#"
+                            <Link
+                              to={candidacy?.candidat?.cv}
                               className="text-indigo-600 hover:text-indigo-900"
                             >
                               View
-                            </a>
+                            </Link>
                           </td>
                           <td className="px-4 py-2 text-center">
-                            <button className="text-primary hover:text-secondary">
+                            <button
+                              onClick={() =>
+                                handleSelect(candidacy?.candidat?.user)
+                              }
+                              className="text-primary hover:text-secondary"
+                            >
                               <AiFillMessage size={30} />
                             </button>
                           </td>
                           <td className="px-4 py-2 text-center">
-                            {candidate.status === "accepted" ? (
+                            {candidacy.etat === "accepted" ? (
                               <Badge colorScheme="green">Accepted</Badge>
-                            ) : candidate.status === "rejected" ? (
+                            ) : candidacy.etat === "rejected" ? (
                               <Badge colorScheme="red">Rejected</Badge>
                             ) : (
                               <Badge colorScheme="yellow">Pending</Badge>
@@ -127,9 +209,8 @@ function CandidateTable({ data }) {
                           </td>
                           <td className="px-4 py-2 text-center">
                             <a
-                              onClick={handleOpenModal}
-                              href="#"
-                              className="text-indigo-600 hover:text-indigo-900"
+                              onClick={() => handleOpenModal(candidacy.id)}
+                              className="text-indigo-600 hover:text-indigo-900 cursor-pointer"
                             >
                               Edit
                             </a>
@@ -148,9 +229,7 @@ function CandidateTable({ data }) {
           </>
         ) : (
           <div className="text-center py-10">
-            <p className="text-gray-500">
-              No candidates found. Please try a different search term
-            </p>
+            <p className="text-gray-500">No candidates found.</p>
           </div>
         )}
       </div>

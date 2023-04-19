@@ -1,24 +1,18 @@
-import Autocomplete from "../inputs/Autocomplete";
+import Select from "react-tailwindcss-select";
+import {skills} from "../../data/skills";
 
 const JobOfferForm = ({
   values,
-  qualifications,
-  setQualifications,
+  selectedValues,
+  setSelectedValues,
   handleChange,
   handleBlur,
 }) => {
-  const skills = [
-    "ReactJS",
-    "Node.js",
-    "Python",
-    "Java",
-    "JavaScript",
-    "HTML",
-    "CSS",
-    "SQL",
-    "MongoDB",
-    "Git",
-  ];
+  const handleChanges = (value) => {
+    console.log("value:", value);
+    setSelectedValues(value);
+  };
+
   return (
     <>
       <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
@@ -112,14 +106,33 @@ const JobOfferForm = ({
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           Qualifications :
         </label>
-        <Autocomplete
-          qualifications={qualifications}
-          setQualifications={setQualifications}
-          suggestions={skills}
+        <Select
+          value={selectedValues}
+          onChange={handleChanges}
+          options={skills}
+          isMultiple={true}
+          isSearchable={true}
+          isClearable={true}
+          placeholder="Select needed skills"
+          classNames={{
+            menuButton: ({ isDisabled }) =>
+              `flex text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none ${
+                isDisabled
+                  ? "bg-gray-200"
+                  : "bg-white hover:border-gray-400 focus:border-blue-500 focus:ring focus:ring-blue-500/20"
+              }`,
+            menu: "absolute z-10 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700",
+            listItem: ({ isSelected }) =>
+              `block transition duration-200 px-2 py-2 cursor-pointer select-none truncate rounded ${
+                isSelected
+                  ? `text-white bg-blue-500`
+                  : `text-gray-500 hover:bg-blue-100 hover:text-blue-500`
+              }`,
+          }}
         />
       </div>
       <div>
-        <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+        <label className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white">
           Description:
         </label>
         <textarea

@@ -2,7 +2,7 @@ import React from "react";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
-import PrimaryButton from "../buttons/primarybutton";
+import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { useQuery } from "react-query";
 import { GetOffre } from "../../lib/fetch";

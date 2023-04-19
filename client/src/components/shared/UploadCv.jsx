@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { AiOutlineCloudUpload } from "react-icons/ai";
+import React from "react";
+import { FiUpload } from "react-icons/fi";
 
 const UploadCv = ({ selectedFile, setSelectedFile }) => {
   function handleFileChange(event) {
@@ -13,7 +13,7 @@ const UploadCv = ({ selectedFile, setSelectedFile }) => {
           <p className="text-gray-500 font-bold">{selectedFile.name}</p>
         ) : (
           <div className="flex flex-col items-center justify-center">
-            <AiOutlineCloudUpload size={24} className="text-gray-500" />
+            <FiUpload size={24} className="text-gray-500" />
             <p className="text-sm text-gray-500 font-semibold">
               Click to upload
             </p>

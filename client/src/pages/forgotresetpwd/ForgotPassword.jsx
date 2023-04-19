@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import PrimaryButton from "../../components/buttons/primarybutton/index";
+import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 
 const ForgotPassword = () => {

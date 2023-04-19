@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useAuth } from "../../../context/AuthContext";
+import Slogan from "../../../assets/svg/Slogan";
 
 const Navbar = () => {
   const { user } = useAuth();

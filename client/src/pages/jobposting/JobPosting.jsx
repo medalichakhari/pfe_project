@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import PrimaryButton from "../../components/buttons/primarybutton";
-import SecondaryButton from "../../components/buttons/SecondaryButton";
+import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
+import SecondaryButton from "../../components/buttons/secondarybutton/SecondaryButton";
 import Layout from "../../components/layout/Layout";
 import JobOfferForm from "../../components/jobofferform/JobOfferForm";
 import { useAuth } from "../../context/AuthContext";
@@ -12,7 +12,7 @@ import { useUser } from "../../context/UserContext";
 const STEPS_AMOUNT = 1;
 
 const JobPosting = () => {
-  const [qualifications, setQualifications] = useState("");
+  const [selectedValues, setSelectedValues] = useState(null);
   const [formStep, setFormStep] = useState(0);
   const completeFormStep = () => {
     setFormStep(formStep + 1);
@@ -51,7 +51,8 @@ const JobPosting = () => {
   const { token } = useAuth();
   const { company } = useUser();
   const handleCreateJobOffer = async (values, actions) => {
-    console.log("qualifications", qualifications);
+    const qualificationsValue = selectedValues.map((option) => option.value);
+    const qualifications = qualificationsValue.join(",");
     let offerData = {
       titre: jobOfferValues.title,
       lieux: jobOfferValues.address,
@@ -62,6 +63,7 @@ const JobPosting = () => {
       description: jobOfferValues.description,
       societeId: company?.id,
     };
+    console.log(offerData);
     CreateOffre(offerData, token)
       .then((res) => {
         console.log(res);
@@ -101,8 +103,8 @@ const JobPosting = () => {
             {formStep === 1 && (
               <JobOfferForm
                 values={jobOfferValues}
-                qualifications={qualifications}
-                setQualifications={setQualifications}
+                selectedValues={selectedValues}
+                setSelectedValues={setSelectedValues}
                 handleChange={jobOfferHandleChange}
                 handleBlur={jobOfferHandleBlur}
               />

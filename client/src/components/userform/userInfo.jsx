@@ -16,7 +16,6 @@ const UserInfo = () => {
   const { userInfo, refresh } = useUser();
   const [image, setImage] = useState(user?.picture);
   const [selectedValue, setSelectedValue] = useState(userInfo?.genre);
-
   const handleUpdateUser = async (values, actions) => {
     let userData = {
       id: user.user_id,
@@ -32,7 +31,7 @@ const UserInfo = () => {
       await UpdateUser(user.user_id, userData, token);
       await updateProfile(currentUser, {
         displayName: `${fName} ${lName}`,
-        photoURL: downloadURL,
+        // photoURL: downloadURL,
       }),
         refresh();
       handleEditClick();
@@ -57,20 +56,19 @@ const UserInfo = () => {
           birthDate: "",
           phoneNumber: "",
           address: "",
-          gender: "",
         }
       : {
-          fName: userInfo.fName,
-          lName: userInfo.lName,
-          email: user.email,
-          birthDate: userInfo.birthDate,
-          phoneNumber: userInfo.phoneNumber,
-          address: userInfo.address,
-          gender: selectedValue,
+          fName: userInfo?.nom,
+          lName: userInfo?.prenom,
+          email: userInfo?.email,
+          birthDate: userInfo?.dNaissance,
+          phoneNumber: userInfo?.telephone,
+          address: userInfo?.adresse,
         },
     onSubmit: handleUpdateUser,
     enableReinitialize: true,
   });
+  console.log("userInfo", userInfo);
   return (
     <>
       {isEditing ? (

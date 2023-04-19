@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { GetOffresByCategorie } from "../../lib/fetch";
 import { useState } from "react";
 import { useQuery } from "react-query";
+import SecondaryButton from "../../components/buttons/secondarybutton/SecondaryButton";
 
 const JobsByCategory = () => {
   const [showCount, setShowCount] = useState(8);

@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import { CreateUser } from "../../lib/fetch";
 import { useFormik } from "formik";
-import PrimaryButton from "../../components/buttons/primarybutton";
+import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../services/firebaseConfig";
@@ -22,19 +22,7 @@ const UserAccount = () => {
   const toast = useToast();
   console.log("navigate to", from);
   const handleCreateUser = async (values, actions) => {
-    let userData = {
-      id: user.user_id,
-      nom: values.fName,
-      prenom: values.lName,
-      email: user.email,
-      dNaissance: values.birthDate,
-      telephone: values.phoneNumber,
-      adresse: values.address,
-      genre: selectedValue,
-    };
     try {
-      await CreateUser(userData, token);
-
       const { fName, lName } = values;
       const { user_id, email } = user;
       const path = `profileImages/${user_id}/${image.name}`;
@@ -56,6 +44,18 @@ const UserAccount = () => {
         }),
         setDoc(doc(db, "userChats", user_id), {}),
       ]);
+      let userData = {
+        id: user.user_id,
+        photo: downloadURL,
+        nom: values.fName,
+        prenom: values.lName,
+        email: user.email,
+        dNaissance: values.birthDate,
+        telephone: values.phoneNumber,
+        adresse: values.address,
+        genre: selectedValue,
+      };
+      await CreateUser(userData, token);
       navigate(from, { replace: true });
       toast({
         description: "User created.",

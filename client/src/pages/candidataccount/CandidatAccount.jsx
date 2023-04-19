@@ -4,18 +4,29 @@ import { useNavigate } from "react-router-dom";
 import CandidatForm from "../../components/candidatform/CandidatForm";
 import Layout from "../../components/layout/Layout";
 import { CreateCandidat } from "../../lib/fetch";
-import PrimaryButton from "../../components/buttons/primarybutton";
+import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
+import { useStorage } from "../../context/StorageContext";
 
 const CandidatAccount = () => {
   const { token, user } = useAuth();
+  const { uploadFile, downloadUrl } = useStorage();
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedValues, setSelectedValues] = useState(null);
   const navigate = useNavigate();
   const handleCreateCandidat = async (values, actions) => {
-    console.log(values);
+    const qualificationsValue = selectedValues.map((option) => option.value);
+    const qualifications = qualificationsValue.join(",");
+    const { user_id } = user;
+    const path = `candidatResumes/${user_id}/${selectedFile?.name}`;
+    selectedFile && (await uploadFile(selectedFile, path));
+    const downloadURL = await downloadUrl(path);
     let candidatData = {
-      grade: values.grade,
+      niveau: values.educationLevel,
       specialite: values.speciality,
-      userId: user.user_id,
+      competences: qualifications,
+      cv: downloadURL,
+      userId: user_id,
     };
     CreateCandidat(candidatData, token)
       .then((res) => {
@@ -36,7 +47,7 @@ const CandidatAccount = () => {
   } = useFormik({
     initialValues: {
       speciality: "",
-      grade: "",
+      educationLevel: "",
     },
     onSubmit: handleCreateCandidat,
   });
@@ -46,12 +57,16 @@ const CandidatAccount = () => {
         <div className="w-full max-w-xl p-4 bg-white border border-gray-200 rounded-lg shadow-xl sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
           <form onSubmit={handleSubmit}>
             <CandidatForm
+              selectedFile={selectedFile}
+              setSelectedFile={setSelectedFile}
+              selectedValues={selectedValues}
+              setSelectedValues={setSelectedValues}
               values={values}
               handleChange={handleChange}
               handleBlur={handleBlur}
             />
             <div className="flex flex-row-reverse">
-              <PrimaryButton type="submit">Apply</PrimaryButton>
+              <PrimaryButton type="submit">Create</PrimaryButton>
             </div>
           </form>
         </div>

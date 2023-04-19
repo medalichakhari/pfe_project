@@ -5,23 +5,39 @@ import { useFormik } from "formik";
 import { UpdateCandidat } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
 import CandidatForm from "../candidatform/CandidatForm";
+import { Link } from "react-router-dom";
+import { useStorage } from "../../context/StorageContext";
 
 const CandidatInfo = () => {
   const [isEditing, setIsEditing] = useState(false);
+
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
-  const { token } = useAuth();
-  const { candidate, refresh } = useUser();
 
+  const { token, user } = useAuth();
+  const { candidate, refresh } = useUser();
+  console.log(candidate);
+  const { uploadFile, downloadUrl } = useStorage();
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedValues, setSelectedValues] = useState(null);
   const handleUpdateCandidat = async (values, actions) => {
+    const qualificationsValue = selectedValues.map((option) => option.value);
+    const qualifications = qualificationsValue.join(",");
+    const { user_id } = user;
+    const path = `candidatResumes/${user_id}/${selectedFile?.name}`;
+    selectedFile && (await uploadFile(selectedFile, path));
+    const downloadURL = await downloadUrl(path);
     let candidatData = {
-      grade: values.grade,
+      niveau: values.niveau,
       specialite: values.speciality,
+      competences: qualifications,
+      cv: downloadURL,
     };
     UpdateCandidat(candidate.id, candidatData, token)
       .then((res) => {
         refresh();
+        handleEditClick();
         console.log(res);
       })
       .catch((err) => console.log(err));
@@ -37,11 +53,9 @@ const CandidatInfo = () => {
   } = useFormik({
     initialValues: !candidate
       ? {
-          grade: "",
           speciality: "",
         }
       : {
-          grade: candidate?.grade,
           speciality: candidate?.specialite,
         },
     onSubmit: handleUpdateCandidat,
@@ -64,6 +78,10 @@ const CandidatInfo = () => {
           </div>
           <CandidatForm
             values={values}
+            selectedFile={selectedFile}
+            setSelectedFile={setSelectedFile}
+            selectedValues={selectedValues}
+            setSelectedValues={setSelectedValues}
             handleChange={handleChange}
             handleBlur={handleBlur}
           />
@@ -84,15 +102,32 @@ const CandidatInfo = () => {
 
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Candidate grade:
+              Education level:
             </label>
-            <p className="text-gray-500 text-sm">{candidate?.nom}</p>
+            <p className="text-gray-500 text-sm">{candidate?.niveau}</p>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Candidate speciality:
+              Speciality:
             </label>
             <p className="text-gray-500 text-sm">{candidate?.specialite}</p>
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+              Qualification:
+            </label>
+            <p className="text-gray-500 text-sm">{candidate?.competences}</p>
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+              CV:
+            </label>
+            <Link
+              to={candidate?.cv}
+              className="text-blue-500 hover:text-blue-700"
+            >
+              View CV
+            </Link>
           </div>
         </>
       )}

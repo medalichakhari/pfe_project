@@ -1,6 +1,6 @@
 import React from "react";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
-import PrimaryButton from "../buttons/primarybutton";
+import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 

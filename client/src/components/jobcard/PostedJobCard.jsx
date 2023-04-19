@@ -1,9 +1,14 @@
 import { FaEdit, FaTrash, FaSuitcase, FaUserFriends } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-function PostedJobCard({ jobTitle, jobType, numCandidates }) {
+function PostedJobCard({jobId, jobTitle, jobType, numCandidates }) {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate(`/joboffer/${jobId}/candidates`);
+  };
   return (
     <div className="bg-white border rounded-lg p-4 flex items-center w-[320px] mb-4">
-      <div className="flex-1 cursor-pointer">
+      <div className="flex-1 cursor-pointer" onClick={handleNavigate}>
         <h2 className="text-lg font-medium mb-2">{jobTitle}</h2>
         <div className="flex items-center mb-1">
           <FaSuitcase className="mr-2 text-gray-500" />
@@ -11,7 +16,7 @@ function PostedJobCard({ jobTitle, jobType, numCandidates }) {
         </div>
         <div className="flex items-center">
           <FaUserFriends className="mr-2 text-gray-500" />
-          <p className="text-sm text-gray-500">{numCandidates} candidates</p>
+          <p className="text-sm text-gray-500">{numCandidates} candidate</p>
         </div>
       </div>
       <div className="flex-none flex items-center ml-4">

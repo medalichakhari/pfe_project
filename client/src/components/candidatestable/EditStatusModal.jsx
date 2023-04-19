@@ -4,21 +4,33 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
-  FormControl,
-  FormLabel,
 } from "@chakra-ui/react";
 import { Button, Input } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import PrimaryButton from "../buttons/PrimaryButton";
-function EditStatusModal({ isOpen, handleOpenModal }) {
+import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
+import { useAuth } from "../../context/AuthContext";
+import { UpdateCandidature } from "../../lib/fetch";
+function EditStatusModal({ isOpen, handleOpenModal, candidacyId, refetch }) {
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
-
+  const { token } = useAuth();
   const handleChangeStatus = (values, actions) => {
+    console.log("candidacyId", candidacyId);
     console.log("values", values);
+    let candidatureData = {
+      etat: values.status,
+    };
+    UpdateCandidature(candidacyId, candidatureData, token)
+      .then((res) => {
+        console.log(res);
+        refetch();
+        handleOpenModal();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const {
@@ -47,7 +59,7 @@ function EditStatusModal({ isOpen, handleOpenModal }) {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create your account</ModalHeader>
+          <ModalHeader>Change candidacy status</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <form onSubmit={handleSubmit}>
@@ -65,9 +77,9 @@ function EditStatusModal({ isOpen, handleOpenModal }) {
                 className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               >
                 <option value="">Select application status</option>
-                <option value="T1">Pending</option>
-                <option value="T2">Accepted</option>
-                <option value="T3">Refused</option>
+                <option value="pending">Pending</option>
+                <option value="accepted">Accepted</option>
+                <option value="rejected">Rejected</option>
               </select>
               <div className="flex flex-row-reverse">
                 <Button onClick={handleOpenModal}>Cancel</Button>

@@ -21,6 +21,7 @@ export default function Radio({
           className="ml-2 block text-sm font-medium text-gray-700"
         >
           <input
+            checked={selectedValue === option.value}
             type="radio"
             name={name}
             value={option.value}

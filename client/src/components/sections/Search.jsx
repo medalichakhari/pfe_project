@@ -1,7 +1,7 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import PrimaryButton from "../buttons/primarybutton";
+import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 
 const Search = () => {
   return (

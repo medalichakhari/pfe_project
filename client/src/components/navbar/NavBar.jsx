@@ -2,16 +2,20 @@ import React from "react";
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
-import PrimaryButton from "../buttons/primarybutton";
-import SecondaryButton from "../buttons/SecondaryButton";
+import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
+import SecondaryButton from "../buttons/secondarybutton/SecondaryButton";
 import { BsBriefcase, BsSearch } from "react-icons/bs";
 import { FaUserGraduate } from "react-icons/fa";
 import { ImUserTie } from "react-icons/im";
-import { AiFillSetting } from "react-icons/ai";
+import { AiFillMessage, AiFillSetting } from "react-icons/ai";
 import { IoLogOut } from "react-icons/io5";
 import Slogan from "../../assets/svg/Slogan";
+import { FiUpload } from "react-icons/fi";
+import SelectLanguage from "../shared/SelectLanguage";
+import { useTranslation } from "react-i18next";
 
 export default function NavBar() {
+  const { t } = useTranslation();
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
   const navigateToJobPosting = () => {
@@ -29,6 +33,9 @@ export default function NavBar() {
       );
     }
   };
+  const navigateToChat = () => {
+    navigate("/chat");
+  };
   const navigateToRecruiterSpace = () => {
     if (user?.roles?.includes("recruteur")) {
       return navigate("/recruiterspace");
@@ -38,10 +45,13 @@ export default function NavBar() {
   };
   const navigateToCandidatSpace = () => {
     if (user?.roles?.includes("candidat")) {
-      return navigate("/candidatspace");
+      return navigate("/candidatespace");
     } else {
-      return navigate("/candidataccount");
+      return navigate("/candidateaccount");
     }
+  };
+  const navigateToSettings = () => {
+    navigate("/profile");
   };
   const handleLogout = () => {
     logOut()
@@ -57,13 +67,28 @@ export default function NavBar() {
     <>
       <Navbar fluid={true} rounded={true}>
         <Navbar.Brand href="#">
-          <Slogan className="mr-3 h-4"/>
+          <Slogan className="mr-3 h-4" />
           {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             Jobyssey
           </span> */}
         </Navbar.Brand>
         {user ? (
           <div className="flex md:order-2">
+            
+<SelectLanguage/>
+          
+            {user?.roles?.includes("recruteur") ||
+            user?.roles?.includes("candidat") ? (
+              <div className="px-6 text-center">
+                <button
+                  className="text-primary hover:text-secondary"
+                  onClick={navigateToChat}
+                >
+                  <AiFillMessage size={30} />
+                </button>
+              </div>
+            ) : null}
+
             <Dropdown
               arrowIcon={false}
               inline={true}
@@ -91,7 +116,10 @@ export default function NavBar() {
                 <ImUserTie size={15} className="mr-1 text-gray-500" />
                 Recruiter space
               </Dropdown.Item>
-              <Dropdown.Item className="flex items-center">
+              <Dropdown.Item
+                onClick={navigateToSettings}
+                className="flex items-center"
+              >
                 <AiFillSetting size={15} className="mr-1 text-gray-500" />
                 Settings
               </Dropdown.Item>
@@ -119,11 +147,11 @@ export default function NavBar() {
 
         <Navbar.Collapse>
           <Navbar.Link href="/" active={true}>
-            Home
+            {t("home")}
           </Navbar.Link>
           <Navbar.Link href="/">About</Navbar.Link>
-          <Navbar.Link href="/" className="flex items-center">
-            {<BsSearch className="mr-1 text-gray-500" />}Companies
+          <Navbar.Link href="/candidateaccount" className="flex items-center">
+            {<FiUpload className="mr-1 text-gray-500" />}Upload CV
           </Navbar.Link>
           {navigateToJobPosting()}
           <Navbar.Link href="/">Contact</Navbar.Link>

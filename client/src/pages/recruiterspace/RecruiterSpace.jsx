@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../../components/layout/Layout";
 import { Tabs } from "flowbite-react";
 import PostedJobCard from "../../components/jobcard/PostedJobCard";
-import SecondaryButton from "../../components/buttons/SecondaryButton";
+import SecondaryButton from "../../components/buttons/secondarybutton/SecondaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { useUser } from "../../context/UserContext";
 import { useQuery } from "react-query";
@@ -19,7 +19,7 @@ const RecruiterSpace = () => {
   } = useQuery(["candidates", company?.id, token], () =>
     GetOffresBySociete(company?.id, token)
   );
-  console.log("job", jobsList)
+  console.log(jobsList);
   return (
     <Layout>
       <h1 className="text-4xl font-bold ml-3 mt-8">Recruiter Space</h1>
@@ -42,13 +42,14 @@ const RecruiterSpace = () => {
               ) : (
                 jobsList?.map(
                   (job) => (
-                    console.log("job", job),
+                    console.log("job", job.candidatures?.length),
                     (
                       <PostedJobCard
                         key={job.id}
                         jobTitle={job.titre}
                         jobType={job.type}
-                        numCandidates={job.candidature?.length || 0}
+                        numCandidates={job.candidatures?.length || 0}
+                        jobId={job.id}
                       />
                     )
                   )
