@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import Pagination from "../shared/Pagination";
-// import EditStatusModal from "./EditStatusModal";
 import { Badge } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { DeleteCandidature } from "../../lib/fetch";
+import DeleteAlertDialog from "../shared/AlertDialog";
+import moment from "moment";
+import { useAuth } from "../../context/AuthContext";
 
 function AppliedJobs({ data, refetch }) {
   console.log("data", data);
   const navigate = useNavigate();
+  const { token } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCandidacyId, setSelectedCandidacyId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,13 +22,23 @@ function AppliedJobs({ data, refetch }) {
     setIsOpen(!isOpen);
     setSelectedCandidacyId(candidacyId);
   };
-
+  const handleDeletCandidacy = () => {
+    DeleteCandidature(selectedCandidacyId, token)
+      .then((res) => {
+        console.log("res", res);
+        refetch();
+        handleOpenModal();
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
   function handleSearch(event) {
     setSearchQuery(event.target.value);
     setCurrentPage(0);
   }
 
-  function filterCandidates(candidacy) {
+  function filterCandidacy(candidacy) {
     return (
       candidacy?.offre?.titre
         .toLowerCase()
@@ -32,15 +46,16 @@ function AppliedJobs({ data, refetch }) {
       candidacy?.offre?.societe?.nom
         .toLowerCase()
         .includes(searchQuery.toLowerCase()) ||
-      candidacy?.offre?.lieux?.toLowerCase()
+      candidacy?.offre?.adresse
+        ?.toLowerCase()
         .includes(searchQuery.toLowerCase()) ||
       candidacy?.etat.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }
 
-  const filteredCandidates = data.filter(filterCandidates);
-  console.log("filteredCandidates", filteredCandidates);
-  const pageCount = Math.ceil(filteredCandidates.length / candidatesPerPage); // Calculate total number of pages
+  const filteredCandidacy = data.filter(filterCandidacy);
+  console.log("filteredCandidates", filteredCandidacy);
+  const pageCount = Math.ceil(filteredCandidacy.length / candidatesPerPage); // Calculate total number of pages
 
   function handlePageChange(selectedPage) {
     setCurrentPage(selectedPage.selected);
@@ -48,10 +63,9 @@ function AppliedJobs({ data, refetch }) {
 
   const startIndex = currentPage * candidatesPerPage;
   const endIndex = startIndex + candidatesPerPage;
-  const displayedCandidates = filteredCandidates.slice(startIndex, endIndex);
-
+  const displayedCandidates = filteredCandidacy.slice(startIndex, endIndex);
   return (
-    <div className="max-w-7xl mx-auto py-16 sm:px-6 lg:px-8">
+    <div className="max-w-3xl sm:px-1 lg:px-2">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mr-4">Job applications</h1>
         <div className="relative mb-2 md:mb-0 mx-2 md:mx-2 w-full md:w-auto">
@@ -70,15 +84,15 @@ function AppliedJobs({ data, refetch }) {
       <div className="flex flex-col">
         {data.length > 0 ? (
           <>
-            {/* <EditStatusModal
+            <DeleteAlertDialog
+            label={"Delete Candidacy"}
               isOpen={isOpen}
               handleOpenModal={handleOpenModal}
-              candidacyId={selectedCandidacyId}
-              refetch={refetch}
-            /> */}
-            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="py-2 align-middle inline-block  sm:px-6 lg:px-8">
-                <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              handleDelete={handleDeletCandidacy}
+            />
+            <div className="-my-2 overflow-y-hidden sm:-mx-6 lg:-mx-8">
+              <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div className="shadow  border-b border-gray-200 sm:rounded-lg">
                   <table className="table w-full border-collapse">
                     <thead>
                       <tr>
@@ -92,6 +106,9 @@ function AppliedJobs({ data, refetch }) {
                           Location
                         </th>
                         <th className="px-4 py-2 text-center text-gray-700">
+                          Date
+                        </th>
+                        <th className="px-4 py-2 text-center text-gray-700">
                           Status
                         </th>
                       </tr>
@@ -102,7 +119,12 @@ function AppliedJobs({ data, refetch }) {
                           key={candidacy.id}
                           className="bg-gray-100 hover:bg-gray-200 transition-colors"
                         >
-                          <td className="px-4 py-2 text-center">
+                          <td
+                            className="px-4 py-2 text-center cursor-pointer"
+                            onClick={() =>
+                              navigate(`/offer/${candidacy?.offre?.id}`)
+                            }
+                          >
                             <div className="flex items-center">
                               <div className="flex-shrink-0 h-10 w-10">
                                 <img
@@ -123,6 +145,9 @@ function AppliedJobs({ data, refetch }) {
                             {candidacy?.offre?.societe?.adresse}
                           </td>
                           <td className="px-4 py-2 text-center">
+                            {moment(candidacy?.updatedAt).fromNow()}
+                          </td>
+                          <td className="px-4 py-2 text-center">
                             {candidacy.etat === "accepted" ? (
                               <Badge colorScheme="green">Accepted</Badge>
                             ) : candidacy.etat === "rejected" ? (
@@ -134,9 +159,9 @@ function AppliedJobs({ data, refetch }) {
                           <td className="px-4 py-2 text-center">
                             <a
                               onClick={() => handleOpenModal(candidacy.id)}
-                              className="text-indigo-600 hover:text-indigo-900 cursor-pointer"
+                              className="text-red-500 hover:text-red-700 cursor-pointer"
                             >
-                              Edit
+                              Delete
                             </a>
                           </td>
                         </tr>
@@ -145,10 +170,12 @@ function AppliedJobs({ data, refetch }) {
                   </table>
                 </div>
               </div>
-              <Pagination
-                pageCount={pageCount}
-                onPageChange={handlePageChange}
-              />
+              {displayedCandidates.length > candidatesPerPage && (
+                <Pagination
+                  pageCount={pageCount}
+                  onPageChange={handlePageChange}
+                />
+              )}
             </div>
           </>
         ) : (

@@ -12,6 +12,7 @@ import { useFormik } from "formik";
 import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { UpdateCandidature } from "../../lib/fetch";
+
 function EditStatusModal({ isOpen, handleOpenModal, candidacyId, refetch }) {
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);

@@ -143,7 +143,7 @@ const SignIn = () => {
               </label>
             </div>
             <a
-              href="#"
+              href="/forgotpassword"
               className="ml-auto text-sm text-secondary hover:underline dark:text-primary"
             >
               Lost Password?

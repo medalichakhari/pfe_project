@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { UpdateUser } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
 import { updateProfile } from "firebase/auth";
+import { useStorage } from "../../context/StorageContext";
 
 const UserInfo = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -16,25 +17,43 @@ const UserInfo = () => {
   const { userInfo, refresh } = useUser();
   const [image, setImage] = useState(user?.picture);
   const [selectedValue, setSelectedValue] = useState(userInfo?.genre);
+  const { uploadFile, downloadUrl } = useStorage();
   const handleUpdateUser = async (values, actions) => {
-    let userData = {
-      id: user.user_id,
-      nom: values.fName,
-      prenom: values.lName,
-      email: user.email,
-      dNaissance: values.birthDate,
-      telephone: values.phoneNumber,
-      adresse: values.address,
-      genre: selectedValue,
-    };
     try {
-      await UpdateUser(user.user_id, userData, token);
-      await updateProfile(currentUser, {
+      const { fName, lName } = values;
+      const { user_id } = user;
+      const path = `profileImages/${user_id}/${image.name}`;
+      await uploadFile(image, path);
+      const downloadURL = await downloadUrl(path);
+      updateProfile(currentUser, {
         displayName: `${fName} ${lName}`,
-        // photoURL: downloadURL,
-      }),
-        refresh();
-      handleEditClick();
+        photoURL: downloadURL,
+      })
+        .then(() => {
+          console.log("updated");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      let userData = {
+        id: user.user_id,
+        nom: values.fName,
+        prenom: values.lName,
+        email: user.email,
+        dNaissance: values.birthDate,
+        telephone: values.phoneNumber,
+        adresse: values.address,
+        genre: selectedValue,
+      };
+      UpdateUser(user.user_id, userData, token)
+        .then((res) => {
+          console.log(res);
+          refresh();
+          handleEditClick();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (err) {
       console.log(err);
     }
@@ -68,7 +87,6 @@ const UserInfo = () => {
     onSubmit: handleUpdateUser,
     enableReinitialize: true,
   });
-  console.log("userInfo", userInfo);
   return (
     <>
       {isEditing ? (

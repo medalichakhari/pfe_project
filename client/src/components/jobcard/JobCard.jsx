@@ -3,8 +3,10 @@ import { BiTimeFive } from "react-icons/bi";
 import { BsBriefcase } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import moment from 'moment';
 
 const JobCard = ({ job }) => {
+  console.log("jod", job.updatedAt);
   const navigate = useNavigate();
 
   const handleNavigate = () => {
@@ -32,12 +34,12 @@ const JobCard = ({ job }) => {
           </h1>
           <span className="flex items-center text-[#ccc] gap-1">
             <BiTimeFive />
-            Now
+            {moment(job.updatedAt).fromNow()}
           </span>
         </span>
         <div className=" flex items-center mt-1">
           <HiOutlineLocationMarker className="text-gray-500 mr-1" />
-          <h6 className="text-[#ccc]">{job.lieux}</h6>
+          <h6 className="text-[#ccc]">{job.adresse}</h6>
         </div>
         <div className="flex items-center mt-1">
           <BsBriefcase className="mr-1 text-gray-500" />

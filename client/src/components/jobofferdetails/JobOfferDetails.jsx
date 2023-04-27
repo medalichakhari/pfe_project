@@ -10,13 +10,15 @@ import { BsBriefcase } from "react-icons/bs";
 
 const JobOfferDetails = () => {
   const { offerId } = useParams();
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const { data, isLoading } = useQuery(["offer", offerId, token], () =>
     GetOffre(offerId, token)
   );
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate(`/offer/${offerId}/apply`);
+    user.roles.includes("candidat")
+      ? navigate(`/offer/${offerId}/apply`)
+      : navigate("/candidateaccount");
   };
   return isLoading ? (
     <div>Loading...</div>
@@ -42,7 +44,7 @@ const JobOfferDetails = () => {
             </h2>
             <p className="flex justify-content text-gray-600 mt-2">
               <HiOutlineLocationMarker className="text-gray-500 m-1" />
-              {data.lieux}
+              {data.adresse}
             </p>
             <p className="flex justify-content text-gray-600 mt-2">
               <BsBriefcase className="text-gray-500 m-1" />

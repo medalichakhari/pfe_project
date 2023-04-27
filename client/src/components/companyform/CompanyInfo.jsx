@@ -6,22 +6,29 @@ import { useFormik } from "formik";
 import { GetSecteur, UpdateSociete } from "../../lib/fetch";
 import { useQuery } from "react-query";
 import { useAuth } from "../../context/AuthContext";
+import { useStorage } from "../../context/StorageContext";
 
 const CompanyInfo = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [image, setImage] = useState("");
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const { company, refresh } = useUser();
+  const [image, setImage] = useState(company?.logo);
+  const { uploadFile, downloadUrl } = useStorage();
   const { data: activityAreaInfo, isLoading } = useQuery(
     ["activityAreaInfo", company?.secteurId, token],
     () => GetSecteur(company?.secteurId, token)
   );
   const handleUpdateCompany = async (values, actions) => {
+    const { user_id } = user;
     console.log("companyId", company.id);
+    const path = `companyImages/${user_id}/${image.name}`;
+    image && (await uploadFile(image, path));
+    const downloadURL = await downloadUrl(path);
     let companyData = {
+      logo: downloadURL,
       nom: values.companyName,
       adresse: values.companyAddress,
       description: values.companyDescription,
@@ -54,7 +61,7 @@ const CompanyInfo = () => {
         : {
             companyName: company?.nom,
             companyAddress: company?.adresse,
-            companyActivity: activityAreaInfo?.nom,
+            companyActivity: "",
             companyDescription: company?.description,
           },
     onSubmit: handleUpdateCompany,

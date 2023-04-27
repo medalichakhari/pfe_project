@@ -17,7 +17,6 @@ const CandidatInfo = () => {
 
   const { token, user } = useAuth();
   const { candidate, refresh } = useUser();
-  console.log(candidate);
   const { uploadFile, downloadUrl } = useStorage();
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedValues, setSelectedValues] = useState(null);
@@ -25,15 +24,18 @@ const CandidatInfo = () => {
     const qualificationsValue = selectedValues.map((option) => option.value);
     const qualifications = qualificationsValue.join(",");
     const { user_id } = user;
+
     const path = `candidatResumes/${user_id}/${selectedFile?.name}`;
     selectedFile && (await uploadFile(selectedFile, path));
     const downloadURL = await downloadUrl(path);
     let candidatData = {
-      niveau: values.niveau,
+      niveau: values.educationLevel,
       specialite: values.speciality,
       competences: qualifications,
+      experience: values.experience,
       cv: downloadURL,
     };
+    console.log("speciality", values.niveau);
     UpdateCandidat(candidate.id, candidatData, token)
       .then((res) => {
         refresh();
@@ -53,9 +55,11 @@ const CandidatInfo = () => {
   } = useFormik({
     initialValues: !candidate
       ? {
+          educationLevel: "",
           speciality: "",
         }
       : {
+          educationLevel: candidate?.niveau,
           speciality: candidate?.specialite,
         },
     onSubmit: handleUpdateCandidat,

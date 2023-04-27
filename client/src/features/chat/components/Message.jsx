@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
+import moment from "moment";
 
 const Message = ({ message }) => {
   const { user } = useAuth();
@@ -11,7 +12,7 @@ const Message = ({ message }) => {
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
-
+  console.log("message", message);
   return (
     <div
       ref={ref}
@@ -29,7 +30,9 @@ const Message = ({ message }) => {
           }
           alt=""
         />
-        <span className="text-sm">just now</span>
+        <span className="text-sm">
+          {moment(message.date.seconds * 1000).fromNow()}
+        </span>
       </div>
       <div className="flex flex-col max-w-80 messageContent gap-4">
         <p

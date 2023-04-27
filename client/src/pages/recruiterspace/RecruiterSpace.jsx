@@ -42,7 +42,6 @@ const RecruiterSpace = () => {
               ) : (
                 jobsList?.map(
                   (job) => (
-                    console.log("job", job.candidatures?.length),
                     (
                       <PostedJobCard
                         key={job.id}

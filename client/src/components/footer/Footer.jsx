@@ -11,41 +11,50 @@ const Footer = () => {
             <div className="lg:flex">
               <div className="w-full lg:w-1/2 mb-16 lg:mb-0 flex">
                 <div className="w-full lg:w-1/2 px-6">
+                  <h3 className="text-gray-800 dark:text-gray-50 font-bold text-md lg:text-base leading-tight mb-6">
+                    Feautures
+                  </h3>
                   <ul className="text-gray-800 dark:text-gray-50 text-sm lg:text-base leading-tight">
                     <li>
-                      <Link to="/">Components</Link>
+                      <Link to="/">Home</Link>
                     </li>
                     <li className="mt-6">
-                      <Link to="/">Templates</Link>
+                      <Link to="/candidatespace">Candidate</Link>
                     </li>
                     <li className="mt-6">
-                      <Link to="/">Pricing</Link>
+                      <Link to="/recruiterspace">Recruiter</Link>
                     </li>
                     <li className="mt-6">
-                      <Link to="/">FAQ</Link>
-                    </li>
-                    <li className="mt-6">
-                      <Link to="/">Documentation</Link>
+                      <Link to="/about">About</Link>
                     </li>
                   </ul>
                 </div>
                 <div className="w-full lg:w-1/2 px-6">
+                  <h3 className="text-gray-800 dark:text-gray-50 font-bold text-md lg:text-base leading-tight mb-6">
+                    Services
+                  </h3>
                   <ul className="text-gray-800 dark:text-gray-50 text-sm lg:text-base leading-tight">
                     <li>
-                      <Link to="/">Free components</Link>
+                      <Link to="/chat">Chat</Link>
                     </li>
 
                     <li className="mt-6">
-                      <Link to="/">Blog</Link>
+                      <Link to="/candidateaccount">Candiat</Link>
                     </li>
                     <li className="mt-6">
-                      <Link to="/">Changelog</Link>
+                      <Link to="/companyaccount">Company</Link>
+                    </li>
+                    <li className="mt-6">
+                      <Link to="/abou">Company</Link>
                     </li>
                   </ul>
                 </div>
               </div>
               <div className="w-full lg:w-1/2 flex">
                 <div className="w-full lg:w-1/2 px-6">
+                  <h3 className="text-gray-800 dark:text-gray-50 font-bold text-md lg:text-base leading-tight mb-6">
+                    Privacy
+                  </h3>
                   <ul className="text-gray-800 dark:text-gray-50 text-sm lg:text-base leading-tight">
                     <li>
                       <Link to="/">Privacy policy</Link>

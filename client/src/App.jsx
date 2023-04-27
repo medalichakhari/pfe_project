@@ -27,6 +27,8 @@ import JobsByCategory from "./pages/jobsbycategory/JobsByCategory";
 import Profile from "./pages/profile/Profile";
 import UserAccount from "./pages/signup/UserAccount";
 import CandidatAccount from "./pages/candidataccount/CandidatAccount";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 const queryClient = new QueryClient();
 
@@ -78,7 +80,7 @@ function App() {
                   <Route element={<RequireAuth allowedRoles={["candidat"]} />}>
                     <Route path="/candidatespace" element={<CandidatSpace />} />
                   </Route>
-                  <Route element={<RequireAuth allowedRoles={["candidat"]} />}>
+                  <Route element={<RequireAuth allowedRoles={["user"]} />}>
                     <Route
                       path="/offer/:offerId/apply"
                       element={<JobApplication />}
@@ -97,6 +99,9 @@ function App() {
                   <Route path="/forgotpassword" element={<ForgotPassword />} />
                   <Route path="/resetpassword" element={<ResetPassword />} />
                   <Route path="/useraccount" element={<UserAccount />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
+                  // Error routes
                   <Route path="/unauthorized" element={<Unauthorized />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>

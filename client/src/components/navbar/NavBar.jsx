@@ -74,12 +74,13 @@ export default function NavBar() {
         </Navbar.Brand>
         {user ? (
           <div className="flex md:order-2">
-            
-<SelectLanguage/>
-          
+            <div className="pr-6">
+              <SelectLanguage />
+            </div>
+
             {user?.roles?.includes("recruteur") ||
             user?.roles?.includes("candidat") ? (
-              <div className="px-6 text-center">
+              <div className="pr-6 text-center">
                 <button
                   className="text-primary hover:text-secondary"
                   onClick={navigateToChat}
@@ -149,12 +150,12 @@ export default function NavBar() {
           <Navbar.Link href="/" active={true}>
             {t("home")}
           </Navbar.Link>
-          <Navbar.Link href="/">About</Navbar.Link>
+          <Navbar.Link href="/about">About</Navbar.Link>
           <Navbar.Link href="/candidateaccount" className="flex items-center">
             {<FiUpload className="mr-1 text-gray-500" />}Upload CV
           </Navbar.Link>
           {navigateToJobPosting()}
-          <Navbar.Link href="/">Contact</Navbar.Link>
+          <Navbar.Link href="/contact">Contact</Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
     </>

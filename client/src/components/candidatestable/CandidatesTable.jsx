@@ -128,9 +128,9 @@ function CandidateTable({ data, refetch }) {
               candidacyId={selectedCandidacyId}
               refetch={refetch}
             />
-            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div className="-my-2 overflow-y-hidden sm:-mx-6 lg:-mx-8">
               <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                <div className="shadow border-b border-gray-200 sm:rounded-lg">
                   <table className="table w-full border-collapse">
                     <thead>
                       <tr>
@@ -170,7 +170,8 @@ function CandidateTable({ data, refetch }) {
                                 />
                               </div>
                               <div className="ml-4">
-                                {candidacy?.candidat?.user?.nom} {candidacy?.candidat?.user?.nom}
+                                {candidacy?.candidat?.user?.nom}{" "}
+                                {candidacy?.candidat?.user?.nom}
                               </div>
                             </div>
                           </td>
@@ -221,10 +222,12 @@ function CandidateTable({ data, refetch }) {
                   </table>
                 </div>
               </div>
-              <Pagination
-                pageCount={pageCount}
-                onPageChange={handlePageChange}
-              />
+              {displayedCandidates.length > candidatesPerPage && (
+                <Pagination
+                  pageCount={pageCount}
+                  onPageChange={handlePageChange}
+                />
+              )}
             </div>
           </>
         ) : (

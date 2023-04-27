@@ -55,7 +55,7 @@ const JobPosting = () => {
     const qualifications = qualificationsValue.join(",");
     let offerData = {
       titre: jobOfferValues.title,
-      lieux: jobOfferValues.address,
+      adresse: jobOfferValues.address,
       domaine: jobOfferValues.domain,
       type: jobOfferValues.type,
       salaire: jobOfferValues.salary,
