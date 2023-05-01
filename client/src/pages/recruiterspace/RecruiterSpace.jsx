@@ -24,10 +24,8 @@ const RecruiterSpace = () => {
     <Layout>
       <h1 className="text-4xl font-bold ml-3 mt-8">Recruiter Space</h1>
       <Tabs.Group style="underline">
-        <Tabs.Item title="Profile" active={true}>
-          Profile content
-        </Tabs.Item>
-        <Tabs.Item title="Jobs">
+        <Tabs.Item title="Profile">Profile content</Tabs.Item>
+        <Tabs.Item title="Jobs" active={true}>
           {isLoading ? (
             <div>Loading...</div>
           ) : (
@@ -40,19 +38,15 @@ const RecruiterSpace = () => {
                   <SecondaryButton>Post a job</SecondaryButton>
                 </div>
               ) : (
-                jobsList?.map(
-                  (job) => (
-                    (
-                      <PostedJobCard
-                        key={job.id}
-                        jobTitle={job.titre}
-                        jobType={job.type}
-                        numCandidates={job.candidatures?.length || 0}
-                        jobId={job.id}
-                      />
-                    )
-                  )
-                )
+                jobsList?.map((job) => (
+                  <PostedJobCard
+                    key={job.id}
+                    jobTitle={job.titre}
+                    jobType={job.type}
+                    numCandidates={job.candidatures?.length || 0}
+                    jobId={job.id}
+                  />
+                ))
               )}
             </div>
           )}

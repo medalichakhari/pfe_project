@@ -71,30 +71,35 @@ function CandidateTable({ data, refetch }) {
         ? user.user_id + selectedUser.id
         : selectedUser.id + user.user_id;
     try {
-      console.log("cominedId", combinedId);
+      console.log("combinedId", combinedId);
       const res = await getDoc(doc(db, "chats", combinedId));
-
+      console.log(res);
+      console.log("user chat created", user);
       if (!res.exists()) {
         //create a chat in chats collection
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
-
+  
         //create user chats
         await updateDoc(doc(db, "userChats", user.user_id), {
-          [combinedId + ".userInfo"]: {
-            uid: selectedUser.id,
-            displayName: selectedUser.displayName,
-            photoURL: selectedUser.photoURL,
+          [combinedId]: {
+            userInfo: {
+              uid: selectedUser.id,
+              displayName: selectedUser.nom,
+              photoURL: selectedUser.photo,
+            },
+            date: serverTimestamp(),
           },
-          [combinedId + ".date"]: serverTimestamp(),
         });
-        console.log("user chat created", user);
+  
         await updateDoc(doc(db, "userChats", selectedUser.id), {
-          [combinedId + ".userInfo"]: {
-            uid: user.user_id,
-            displayName: user.name,
-            photoURL: user.picture,
+          [combinedId]: {
+            userInfo: {
+              uid: user.user_id,
+              displayName: user.name,
+              photoURL: user.picture,
+            },
+            date: serverTimestamp(),
           },
-          [combinedId + ".date"]: serverTimestamp(),
         });
       }
       navigate("/chat");
@@ -209,12 +214,14 @@ function CandidateTable({ data, refetch }) {
                             )}
                           </td>
                           <td className="px-4 py-2 text-center">
-                            <a
-                              onClick={() => handleOpenModal(candidacy.id)}
-                              className="text-indigo-600 hover:text-indigo-900 cursor-pointer"
-                            >
-                              Edit
-                            </a>
+                            {candidacy.etat === "pending" ? (
+                              <a
+                                onClick={() => handleOpenModal(candidacy.id)}
+                                className="text-indigo-600 hover:text-indigo-900 cursor-pointer"
+                              >
+                                Change Status
+                              </a>
+                            ) : null}
                           </td>
                         </tr>
                       ))}

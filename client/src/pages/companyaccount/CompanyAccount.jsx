@@ -7,10 +7,12 @@ import { CreateSociete } from "../../lib/fetch";
 import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
+import { useUser } from "../../context/UserContext";
 
 const CompanyAccount = () => {
   const [image, setImage] = useState("");
   const { token, user } = useAuth();
+  const { refresh } = useUser();
   const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,11 +27,14 @@ const CompanyAccount = () => {
       nom: values.companyName,
       adresse: values.companyAddress,
       description: values.companyDescription,
+      secteurId: values.companyActivity,
       userId: user_id,
     };
     CreateSociete(companyData, token)
       .then((res) => {
+        refresh();
         console.log(res);
+
         navigate(from, { replace: true });
       })
       .catch((err) => console.log(err));

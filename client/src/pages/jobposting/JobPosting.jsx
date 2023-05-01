@@ -13,6 +13,7 @@ const STEPS_AMOUNT = 1;
 
 const JobPosting = () => {
   const [selectedValues, setSelectedValues] = useState(null);
+  const [editorValue, setEditorValue] = useState("");
   const [formStep, setFormStep] = useState(0);
   const completeFormStep = () => {
     setFormStep(formStep + 1);
@@ -56,11 +57,11 @@ const JobPosting = () => {
     let offerData = {
       titre: jobOfferValues.title,
       adresse: jobOfferValues.address,
-      domaine: jobOfferValues.domain,
       type: jobOfferValues.type,
       salaire: jobOfferValues.salary,
       competences: qualifications,
-      description: jobOfferValues.description,
+      description: editorValue,
+      categorieId: jobOfferValues.domain,
       societeId: company?.id,
     };
     console.log(offerData);
@@ -87,7 +88,6 @@ const JobPosting = () => {
       domain: "",
       salary: "",
       qualification: "",
-      description: "",
     },
     onSubmit: handleCreateJobOffer,
   });
@@ -105,6 +105,8 @@ const JobPosting = () => {
                 values={jobOfferValues}
                 selectedValues={selectedValues}
                 setSelectedValues={setSelectedValues}
+                editorValue={editorValue}
+                setEditorValue={setEditorValue}
                 handleChange={jobOfferHandleChange}
                 handleBlur={jobOfferHandleBlur}
               />

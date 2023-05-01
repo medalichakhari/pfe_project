@@ -12,6 +12,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../services/firebaseConfig";
 
 const UserAccount = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
   const [image, setImage] = useState("");
   const { currentUser, user, token } = useAuth();
@@ -23,6 +24,7 @@ const UserAccount = () => {
   console.log("navigate to", from);
   const handleCreateUser = async (values, actions) => {
     try {
+      setIsLoading(true);
       const { fName, lName } = values;
       const { user_id, email } = user;
       const path = `profileImages/${user_id}/${image.name}`;
@@ -56,6 +58,7 @@ const UserAccount = () => {
         genre: selectedValue,
       };
       await CreateUser(userData, token);
+      setIsLoading(false);
       navigate(from, { replace: true });
       toast({
         description: "User created.",
@@ -107,7 +110,7 @@ const UserAccount = () => {
             handleChange={handleChange}
             handleBlur={handleBlur}
           />
-          <PrimaryButton className="w-full" type="submit">
+          <PrimaryButton className="w-full" type="submit" isLoading={isLoading}>
             Create an account
           </PrimaryButton>
         </form>

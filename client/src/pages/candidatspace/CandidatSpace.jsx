@@ -21,10 +21,10 @@ const CandidatSpace = () => {
     <Layout>
       <h1 className="text-4xl font-bold ml-3 mt-8">Candidat Space</h1>
       <Tabs.Group style="underline">
-        <Tabs.Item title="Profile" active={true}>
+        <Tabs.Item title="Profile">
           Profile content
         </Tabs.Item>
-        <Tabs.Item title="Applications">
+        <Tabs.Item title="Applications" active={true}>
           {!isLoading && candidatures && (
             <AppliedJobs data={candidatures} refetch={refetch} />
           )}

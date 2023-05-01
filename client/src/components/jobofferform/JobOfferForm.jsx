@@ -1,18 +1,29 @@
 import Select from "react-tailwindcss-select";
-import {skills} from "../../data/skills";
+import { skills } from "../../data/skills";
+import { useQuery } from "react-query";
+import { GetCategories } from "../../lib/fetch";
+import { useAuth } from "../../context/AuthContext";
+import TextEditor from "../inputs/TextEditor";
+import { useState } from "react";
 
 const JobOfferForm = ({
   values,
   selectedValues,
   setSelectedValues,
+  editorValue,
+  setEditorValue,
   handleChange,
   handleBlur,
 }) => {
+  const { token } = useAuth();
   const handleChanges = (value) => {
     console.log("value:", value);
     setSelectedValues(value);
   };
 
+  const { data, isLoading } = useQuery(["domains", token], () =>
+    GetCategories(token)
+  );
   return (
     <>
       <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
@@ -48,7 +59,15 @@ const JobOfferForm = ({
           className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
         >
           <option value="">Please select it's domain</option>
-          <option value="Student">IT</option>
+          {isLoading ? (
+            <option value="">Loading...</option>
+          ) : (
+            data?.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.nom}
+              </option>
+            ))
+          )}
         </select>
       </div>
       <div>
@@ -135,16 +154,13 @@ const JobOfferForm = ({
         <label className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white">
           Description:
         </label>
-        <textarea
-          value={values.description}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          type="text"
-          name="description"
-          id="description"
-          placeholder="Job description"
-          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-        />
+        <div className="mb-2">
+          <TextEditor
+            value={editorValue}
+            setValue={setEditorValue}
+            
+          />
+        </div>
       </div>
     </>
   );

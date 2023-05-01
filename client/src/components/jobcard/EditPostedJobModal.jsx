@@ -16,6 +16,7 @@ import { useState } from "react";
 import Select from "react-tailwindcss-select";
 import { skills } from "../../data/skills";
 import { useQuery } from "react-query";
+import TextEditor from "../inputs/TextEditor";
 
 function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
   const [selectedValues, setSelectedValues] = useState(null);
@@ -27,7 +28,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
     ["jobOfferInfo", jobId, token],
     () => GetOffre(jobId, token)
   );
-
+  const [editorValue, setEditorValue] = useState(data?.description);
   const handleChanges = (value) => {
     setSelectedValues(value);
   };
@@ -43,7 +44,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
       type: values.type,
       salaire: values.salary,
       competences: qualifications,
-      description: values.description,
+      description: editorValue,
     };
     UpdateOffre(jobId, jobOfferData, token)
       .then((res) => {
@@ -72,7 +73,6 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
           domain: "",
           salary: "",
           qualification: "",
-          description: "",
         }
       : {
           title: data?.titre,
@@ -81,7 +81,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
           domain: data?.domaine,
           salary: data?.salaire,
           qualification: "",
-          description: data?.description,
+  
         },
 
     onSubmit: handleUpdateJobOffer,
@@ -221,16 +221,9 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                 <label className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white">
                   Description:
                 </label>
-                <textarea
-                  value={values.description}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  type="text"
-                  name="description"
-                  id="description"
-                  placeholder="Job description"
-                  className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                />
+                <div className="mb-2">
+                  <TextEditor value={editorValue} setValue={setEditorValue} />
+                </div>
               </div>
               <div className="flex flex-row-reverse gap-4">
                 <button

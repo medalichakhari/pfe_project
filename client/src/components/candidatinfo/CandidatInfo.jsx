@@ -31,9 +31,9 @@ const CandidatInfo = () => {
     let candidatData = {
       niveau: values.educationLevel,
       specialite: values.speciality,
-      competences: qualifications,
+      competences: selectedValues ? qualifications : candidate.competences,
       experience: values.experience,
-      cv: downloadURL,
+      cv: downloadURL ? downloadURL : candidate.cv,
     };
     console.log("speciality", values.niveau);
     UpdateCandidat(candidate.id, candidatData, token)
@@ -57,10 +57,12 @@ const CandidatInfo = () => {
       ? {
           educationLevel: "",
           speciality: "",
+          experience: "",
         }
       : {
           educationLevel: candidate?.niveau,
           speciality: candidate?.specialite,
+          experience: candidate?.experience,
         },
     onSubmit: handleUpdateCandidat,
     enableReinitialize: true,
@@ -104,7 +106,7 @@ const CandidatInfo = () => {
             </button>
           </div>
 
-          <div>
+          <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               Education level:
             </label>
@@ -121,6 +123,12 @@ const CandidatInfo = () => {
               Qualification:
             </label>
             <p className="text-gray-500 text-sm">{candidate?.competences}</p>
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+              Years of experience:
+            </label>
+            <p className="text-gray-500 text-sm">{candidate?.experience}</p>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">

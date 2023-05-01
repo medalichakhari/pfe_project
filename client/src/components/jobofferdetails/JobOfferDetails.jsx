@@ -55,7 +55,7 @@ const JobOfferDetails = () => {
             <h3 className="text-2xl font-bold text-gray-800 mb-5">
               Job Description
             </h3>
-            <p className="text-gray-600">{data.description}</p>
+            <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: data.description }}/>
           </div>
         </div>
         <div className="flex my-10">

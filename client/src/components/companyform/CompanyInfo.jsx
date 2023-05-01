@@ -21,6 +21,7 @@ const CompanyInfo = () => {
     ["activityAreaInfo", company?.secteurId, token],
     () => GetSecteur(company?.secteurId, token)
   );
+  console.log("wiiw", activityAreaInfo);
   const handleUpdateCompany = async (values, actions) => {
     const { user_id } = user;
     console.log("companyId", company.id);
@@ -61,7 +62,7 @@ const CompanyInfo = () => {
         : {
             companyName: company?.nom,
             companyAddress: company?.adresse,
-            companyActivity: "",
+            companyActivity: company?.secteurId,
             companyDescription: company?.description,
           },
     onSubmit: handleUpdateCompany,
@@ -82,7 +83,7 @@ const CompanyInfo = () => {
               Cancel
             </button>
           </div>
-          <CompanyForm
+          <CompanyForm 
             values={values}
             handleChange={handleChange}
             handleBlur={handleBlur}
@@ -127,7 +128,7 @@ const CompanyInfo = () => {
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               Activity area:
             </label>
-            <p className="text-gray-500 text-sm">{}</p>
+            <p className="text-gray-500 text-sm">{activityAreaInfo?.nom}</p>
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
