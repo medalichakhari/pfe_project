@@ -5,8 +5,10 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { useAuth } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const JobCard = ({ job }) => {
+  const { t } = useTranslation();
   console.log("jod", job.updatedAt);
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -68,7 +70,7 @@ const JobCard = ({ job }) => {
           className="border-[2px] rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-white group-hover/item:text-textColor group-hover:text-textColor"
           onClick={handleApply}
         >
-          Apply Now
+          {t("apply")}
         </button>
       </div>
     </div>

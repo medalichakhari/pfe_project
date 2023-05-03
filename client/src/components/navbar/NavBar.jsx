@@ -22,13 +22,15 @@ export default function NavBar() {
     if (user?.roles?.includes("recruteur")) {
       return (
         <Navbar.Link href="/postjob" className="flex items-center">
-          {<BsBriefcase className="mr-1 text-gray-500" />}Post Job
+          {<BsBriefcase className="mr-1 text-gray-500" />}
+          {t("nav.postJob")}
         </Navbar.Link>
       );
     } else {
       return (
         <Navbar.Link href="/companyaccount" className="flex items-center">
-          {<BsBriefcase className="mr-1 text-gray-500" />}Post Job
+          {<BsBriefcase className="mr-1 text-gray-500" />}
+          {t("nav.postJob")}
         </Navbar.Link>
       );
     }
@@ -77,7 +79,6 @@ export default function NavBar() {
             <div className="pr-6">
               <SelectLanguage />
             </div>
-
             {user?.roles?.includes("recruteur") ||
             user?.roles?.includes("candidat") ? (
               <div className="pr-6 text-center">
@@ -108,39 +109,43 @@ export default function NavBar() {
                 className="flex items-center"
               >
                 <FaUserGraduate size={15} className=" mr-1 text-gray-500" />
-                Candidat space
+                {t("nav.candidateSpace")}
               </Dropdown.Item>
               <Dropdown.Item
                 onClick={navigateToRecruiterSpace}
                 className="flex items-center"
               >
                 <ImUserTie size={15} className="mr-1 text-gray-500" />
-                Recruiter space
+                {t("nav.recruiterSpace")}
               </Dropdown.Item>
               <Dropdown.Item
                 onClick={navigateToSettings}
                 className="flex items-center"
               >
                 <AiFillSetting size={15} className="mr-1 text-gray-500" />
-                Settings
+                {t("nav.profile")}
               </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item
                 className="flex items-center"
                 onClick={handleLogout}
               >
-                <IoLogOut size={15} className="mr-1 text-gray-500" /> Sign out
+                <IoLogOut size={15} className="mr-1 text-gray-500" />{" "}
+                {t("nav.signOut")}
               </Dropdown.Item>
             </Dropdown>
             <Navbar.Toggle />
           </div>
         ) : (
-          <div className="flex md:order-2 gap-4">
+          <div className="flex md:order-2 gap-2">
+
+              <SelectLanguage />
+
             <Link to="/signin">
-              <SecondaryButton>Sign In</SecondaryButton>
+              <SecondaryButton>{t("nav.signIn")}</SecondaryButton>
             </Link>
             <Link to="/signup">
-              <PrimaryButton>sign Up</PrimaryButton>
+              <PrimaryButton>{t("nav.signUp")}</PrimaryButton>
             </Link>
             <Navbar.Toggle />
           </div>
@@ -148,14 +153,15 @@ export default function NavBar() {
 
         <Navbar.Collapse>
           <Navbar.Link href="/" active={true}>
-            {t("home")}
+            {t("nav.home")}
           </Navbar.Link>
-          <Navbar.Link href="/about">About</Navbar.Link>
+          <Navbar.Link href="/about">{t("nav.about")}</Navbar.Link>
           <Navbar.Link href="/candidateaccount" className="flex items-center">
-            {<FiUpload className="mr-1 text-gray-500" />}Upload CV
+            {<FiUpload className="mr-1 text-gray-500" />}
+            {t("nav.uploadCV")}
           </Navbar.Link>
           {navigateToJobPosting()}
-          <Navbar.Link href="/contact">Contact</Navbar.Link>
+          <Navbar.Link href="/contact">{t("nav.contact")}</Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
     </>

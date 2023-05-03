@@ -7,8 +7,10 @@ import { useAuth } from "../../context/AuthContext";
 import CandidatForm from "../candidatform/CandidatForm";
 import { Link } from "react-router-dom";
 import { useStorage } from "../../context/StorageContext";
+import { useTranslation } from "react-i18next";
 
 const CandidatInfo = () => {
+  const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEditClick = () => {
@@ -76,10 +78,10 @@ const CandidatInfo = () => {
               type="submit"
               className="text-primary hover:text-secondary mr-2"
             >
-              Save
+              {t("save")}
             </button>
             <button className="hover:text-red-600" onClick={handleEditClick}>
-              Cancel
+              {t("cancel")}
             </button>
           </div>
           <CandidatForm
@@ -96,7 +98,7 @@ const CandidatInfo = () => {
         <>
           <div className="flex items-center justify-between">
             <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
-              Candidate Info :
+              {t("candidateInfo.candidateInformation")}
             </h4>
             <button
               onClick={handleEditClick}
@@ -108,37 +110,37 @@ const CandidatInfo = () => {
 
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Education level:
+              {t("candidateInfo.educationLevel")}
             </label>
             <p className="text-gray-500 text-sm">{candidate?.niveau}</p>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Speciality:
+              {t("candidateInfo.speciality")}
             </label>
             <p className="text-gray-500 text-sm">{candidate?.specialite}</p>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Qualification:
+              {t("candidateInfo.qualifications")}
             </label>
             <p className="text-gray-500 text-sm">{candidate?.competences}</p>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Years of experience:
+              {t("candidateInfo.experience")}
             </label>
             <p className="text-gray-500 text-sm">{candidate?.experience}</p>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              CV:
+              {t("candidateInfo.curriculumVitae")}
             </label>
             <Link
               to={candidate?.cv}
               className="text-blue-500 hover:text-blue-700"
             >
-              View CV
+              {t("candidateInfo.view")}
             </Link>
           </div>
         </>

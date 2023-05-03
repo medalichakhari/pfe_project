@@ -6,8 +6,10 @@ import SecondaryButton from "../../components/buttons/secondarybutton/SecondaryB
 import { useAuth } from "../../context/AuthContext";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
 import { signUpSchema } from "../../utils/validationSchemas";
+import { useTranslation } from "react-i18next";
 
 const SignUp = () => {
+  const { t } = useTranslation();
   const { signUpWithEmailAndPwd } = useAuth();
   const { googleSignUp } = useAuth();
   const navigate = useNavigate();
@@ -52,11 +54,11 @@ const SignUp = () => {
       <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
         <form onSubmit={handleSubmit}>
           <h4 className="mb-2 text-xl font-medium text-gray-900 dark:text-white">
-            Sign up to our platform
+            {t("signUp.ourPlatform")}
           </h4>
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Your email
+              {t("signUp.email")}
             </label>
             <input
               value={values.email}
@@ -78,7 +80,7 @@ const SignUp = () => {
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Your password
+              {t("signUp.password")}
             </label>
             <input
               value={values.password}
@@ -100,7 +102,7 @@ const SignUp = () => {
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Retype your password
+            {t("signUp.confirmPassword")}
             </label>
             <input
               value={values.confirmPassword}
@@ -123,7 +125,7 @@ const SignUp = () => {
             )}
           </div>
           <PrimaryButton className="w-full" type="submit">
-            SignUp
+            {t("signUp.signUp")}
           </PrimaryButton>
           <div className="flex items-center justify-center">
             <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
@@ -139,16 +141,16 @@ const SignUp = () => {
               <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600">
                 <GoogleIcon />
               </div>
-              <span className="ml-2">Register with Google</span>
+              <span className="ml-2">{t("signUp.googleSignUp")}</span>
             </div>
           </SecondaryButton>
           <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-            Registered?{" "}
+          {t("signUp.registered")}
             <a
               href="/signin"
               className="text-secondary hover:underline dark:text-primary"
             >
-              Login to you account
+              {t("signUp.login")}
             </a>
           </div>
         </form>

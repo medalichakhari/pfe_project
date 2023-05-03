@@ -1,3 +1,182 @@
 {
-    "home": "Home"
+    "nav": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "uploadCV": "Upload CV",
+    "postJob": "Post Job",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "profile": "Profile",
+    "recruiterSpace": "Recruiter Space",
+    "candidateSpace": "Candidate Space"
+},
+"hero":{
+    "findYour" : "Find your ",
+    "dreamJob" : "dream job",
+    "browseThrough" : "Browse through thousands of job listings and apply to the ones that match your skills and experience, or post your own joblisting to attract qualified candidates."
+},
+"search": {
+    "search" : "Search",
+    "keyword" : "Job title, Skills, company ...",
+    "location" : "Location"
+},
+"categoryList": {
+    "browseCategory" : "Browse by Category",
+    "marketing" : "Marketing et Communication",
+    "design" : "Design et Développement",
+    "hr" : "Recherche Humaine",
+    "finance" : "Finance et Gestion",
+    "government" : "Emplois gouvernementaux",
+    "business" : "Affaires et Conseil",
+    "customer" : "Support client",
+    "managment" : "Gestion de projet"
+  },
+  "footer" : {
+    "features"  : "Features",
+    "about" : "About",
+    "contact" : "Contact",
+    "terms" : "Terms of Use",
+    "privacy" : "Privacy",
+    "security" : "Security",
+    "recruiter" : "Recruiter",
+    "candidate" : "Candidate",
+    "services" : "Services",
+    "chat" : "Chat"
+  },
+  "signUp" : {
+    "signUp" : "Sign Up",
+    "googleSignUp" : "Sign up with Google",
+    "registered" : "Already registered? ",
+    "login" : "Login to you account",
+    "ourPlatform" : "Sign up to our platform",
+    "email" : "Your email",
+    "password" : "Your password",
+    "confirmPassword" : "Confirm your password"
+  },
+  "signIn" : {
+    "signIn" : "Sign In",
+    "googleSignIn" : "Sign in with Google",
+    "notRegistered" : "Not registered? ",
+    "signUp" : "Sign up now",
+    "ourPlatform" : "Sign in to our platform",
+    "email" : "Your email",
+    "password" : "Your password",
+    "forgotPassword" : "Forgot your password?",
+    "rememberMe" : "Remember me"
+  },
+  "userInfo":{
+    "userInformation" : "User Information",
+    "userPicture" : "User Picture",
+    "userName" : "User Name",
+    "birthdate" : "Birthdate",
+    "gender" : "Gender",
+    "phoneNumber" : "Phone Number",
+    "address" : "Address"
+    
+  },
+  "userForm" : {
+      "personalInformation" : "Personal Information",
+      "userPicture" : "User Picture",
+      "firstName" : "First Name",
+      "lastName" : "Last Name",
+      "birthdate" : "Birthdate",
+      "gender" : "Gender",
+      "phoneNumber" : "Phone Number",
+      "address" : "Address"
+  },
+  "candidateInfo" : {
+    "candidateInformation" : "Candidate Information",
+    "educationLevel" : "Education Level",
+    "speciality" : "Speciality",
+    "qualifications" : "Qualifications",
+    "experience" : "Years of Experience",
+    "curriculumVitae" : "Curriculum Vitae",
+    "view" : "View"
+  },
+  "companyInfo" : {
+    "companyInformation" : "Company Information",
+    "companyName" : "Company Name",
+    "companyLogo" : "Company Logo",
+    "companyAddress" : "Company Address",
+    "companyPhoneNumber" : "Company Phone Number",
+    "companyDescription" : "Company Description",
+    "activityArea" : "Activity Area"
+  },
+  "jobOfferDetails" : {
+    "applyNow" : "Apply Now",
+    "jobDetails" : "Job Details",
+    "salary" : "Salary",
+    "jobType" : "Job Type",
+    "qualifications" : "Qualifications"
+  },
+  "jobOfferForm" : {
+    "jobOfferInformation" : "Job Offer Information",
+    "jobTitle" : "Job Title",
+    "domain"  : "Domain",
+    "address" : "Address",
+    "jobType" : "Job Type",
+    "salary" : "Salary",
+    "qualifications" : "Qualifications",
+    "jobDescription" : "Job Description",  "next"  : "Next",
+  "previous" : "Previous",
+  "createJob" : "Create Job Offer"
+  },
+  "jobsByCategory" : {
+    "noJob" : "No Job Found",
+    "unlockYour" : "Unlock Your Dream Career: Explore Our Diverse and Exciting Job Opportunities! "
+  },
+  "candidateSpace" : {
+    "candidateSpace" : "Candidate Space",
+    "applications" : "Applications",
+    "profile" : "Profile",
+    "accepted" : "Accepted",
+    "rejected" : "Rejected"
+  },
+  "appliedJobs" : {
+    "jobApplication" : "Job applications",
+    "searchJob" : "Search Job Offer",
+    "company" : "Company",
+    "jobOffer" : "Job offer",
+    "address" : "Address",
+    "date" : "Date",
+    "status" : "Status",
+    "delete" : "Delete" ,
+    "noJob" : "No Job Found"
+  },
+  "alertDialog" : {
+    "areyousure" : "Are you sure? You can't undo this action afterwards.",
+    "proceed" : "Proceed"
+  },
+  "candidatesTable" : {
+    "candidates" : "Candidates",
+    "searchCandidate" : "Search Candidate",
+    "name" : "Name",
+    "email" : "Email",
+    "phone" : "Phone",
+    "curriculumVitae" : "Curriculum Vitae",
+    "chat" : "Chat",
+    "status" : "Status",
+    "changeStatus" : "Change Status"
+  },
+  "editStatusModal" : {
+    "candidacyStatus" : "Candidacy Status",
+    "changeStatus" : "Change Candidacy Status"
+  },
+  "editPostedJobCard" : {
+    "editJobOffer" : "Edit Job Offer",
+    "jobTitle" : "Job Title",
+    "domain" : "Domain",
+    "address" : "Address",
+    "jobType" : "Job Type",
+    "salary" : "Salary",
+    "qualifications" : "Qualifications",
+    "jobDescription" : "Job Description"
+  },
+  "save" : "Save",
+  "cancel" : "Cancel",
+  "createAccount" : "Create Account",
+"apply" : "Apply","readMore" : "Read More",
+"loadMore" : "Load More" 
 }

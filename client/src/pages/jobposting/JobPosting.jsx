@@ -8,10 +8,12 @@ import { useAuth } from "../../context/AuthContext";
 import { CreateOffre } from "../../lib/fetch";
 import CompanyInfo from "../../components/companyform/CompanyInfo";
 import { useUser } from "../../context/UserContext";
+import { useTranslation } from "react-i18next";
 
 const STEPS_AMOUNT = 1;
 
 const JobPosting = () => {
+  const { t } = useTranslation();
   const [selectedValues, setSelectedValues] = useState(null);
   const [editorValue, setEditorValue] = useState("");
   const [formStep, setFormStep] = useState(0);
@@ -26,7 +28,7 @@ const JobPosting = () => {
       return (
         <div className="flex flex-row-reverse">
           <PrimaryButton type="button" onClick={completeFormStep}>
-            Next
+            {t("jobOfferForm.next")}
           </PrimaryButton>
         </div>
       );
@@ -40,9 +42,11 @@ const JobPosting = () => {
       return (
         <div className="flex justify-between">
           <SecondaryButton type="button" onClick={previousFormStep}>
-            Previous
+            {t("jobOfferForm.previous")}
           </SecondaryButton>
-          <PrimaryButton type="submit">Create Job Offer</PrimaryButton>
+          <PrimaryButton type="submit">
+            {t("jobOfferForm.createJob")}
+          </PrimaryButton>
         </div>
       );
     } else {

@@ -1,3 +1,182 @@
 {
-    "home" : "Accueil"
+    "nav": {
+        "home": "Acceuil",
+        "about": "A propos",
+        "contact": "Contact",
+        "uploadCV": "Téléverser CV",
+        "postJob": "Publier Offre",
+        "signIn": "Se connecter",
+        "signUp": "S'inscrire",
+        "signOut": "Se déconnecter",
+        "profile": "Profil",
+        "recruiterSpace": "Espace Recruteur",
+        "candidateSpace": "Espace Candidat"
+    },
+    "hero": {
+        "findYour" : "Trouvez votre ",
+        "dreamJob" : "emploi de rêve",
+        "browseThrough" : "Parcourez des milliers d'offres d'emploi et postulez à celles qui correspondent à vos compétences et à votre expérience, ou publiez votre propre annonce d'emploi pour attirer des candidats qualifiés."
+      },
+      "search": {
+        "search" : "Rechercher",
+        "keyword" : "Titre de l'emploi",
+        "location" : "Emplacement"
+      },
+      "categoryList": {
+        "browseCategory" : "Parcourir les catégories",
+        "marketing" : "Marketing et Communication",
+        "design" : "Design et Développement",
+        "hr" : "Recherche Humaine",
+        "finance" : "Finance et Gestion",
+        "government" : "Emplois gouvernementaux",
+        "business" : "Affaires et Conseil",
+        "customer" : "Support client",
+        "managment" : "Gestion de projet"
+      },
+      "footer" : {
+        "features"  : "Fonctionnalités",
+        "about" : "À propos",
+        "contact" : "Contact",
+        "terms" : "Conditions d'utilisation",
+        "privacy" : "Confidentialité",
+        "security" : "Sécurité",
+        "recruiter" : "Recruteur",
+        "candidate" : "Candidat",
+        "services" : "Services",
+        "chat" : "Chat"
+      },
+      "signUp" : {
+        "signUp" : "S'inscrire",
+        "googleSignUp" : "S'inscrire avec Google",
+        "registered" : "Déjà inscrit? ",
+        "login" : "Connectez-vous à votre compte",
+        "ourPlatform" : "Inscrivez-vous sur notre plateforme",
+        "email" : "Votre adresse e-mail",
+        "password" : "Votre mot de passe",
+        "confirmPassword" : "Confirmez votre mot de passe"
+      },
+      "signIn" : {
+        "signIn" : "Se connecter",
+        "googleSignIn" : "Se connecter avec Google",
+        "notRegistered" : "Pas encore inscrit? ",
+        "signUp" : "Inscrivez-vous sur notre plateforme",
+        "ourPlatform" : "Connectez-vous à votre compte",
+        "email" : "Votre adresse e-mail",
+        "password" : "Votre mot de passe",
+        "forgotPassword" : "Mot de passe oublié?",
+        "rememberMe" : "Se souvenir de moi"
+      },
+      "userInfo":{
+        "userInformation" : "Informations sur l'utilisateur",
+        "userPicture" : "Photo de profil",
+        "userName" : "Nom d'utilisateur",
+        "birthdate" : "Date de naissance",
+        "gender" : "Sexe",
+        "phoneNumber" : "Numéro de téléphone",
+        "address" : "Adresse"      
+      },
+      "userForm" : {
+        "personalInformation" : "Informations personnelles",
+        "userPicture" : "Photo de profil",
+        "firstName" : "Prénom",
+        "lastName" : "Nom de famille",
+        "birthdate" : "Date de naissance",
+        "gender" : "Sexe",
+        "phoneNumber" : "Numéro de téléphone",
+        "address" : "Adresse"
+    },
+    "candidateInfo" : {
+      "candidateInformation" : "Informations sur le candidat",
+      "educationLevel" : "Niveau d'éducation",
+      "speciality" : "Spécialité",
+      "qualifications" : "Qualifications",
+      "experience" : "Années d'expérience",
+      "curriculumVitae" : "Curriculum Vitae",
+      "view" : "View"
+    },
+    "companyInfo" : {
+      "companyInformation" : "Informations sur la société",
+      "companyName" : "Nom de l'entreprise",
+      "companyLogo" : "Logo de l'entreprise",
+      "companyAddress" : "Adresse de l'entreprise",
+      "companyPhoneNumber" : "Numéro de téléphone de l'entreprise",
+      "companyDescription" : "Description de l'entreprise",
+      "activityArea" : "Domaine d'activité"
+    },
+    "jobOfferDetails" : {
+      "applyNow" : "Postuler maintenant",
+      "jobDetails" : "Détails de l'emploi",
+      "salary" : "Salaire",
+      "jobType" : "Type d'emploi",
+      "qualifications" : "Qualifications"
+    },
+    "jobOfferForm" : {
+      "jobOfferInformation" : "Informations sur l'offre d'emploi",
+      "jobTitle" : "Titre de l'emploi",
+      "domain"  : "Domaine",
+      "address" : "Adresse",
+      "jobType" : "Type d'emploi",
+      "salary" : "Salaire",
+      "qualifications" : "Qualifications",
+      "jobDescription" : "Description de l'emploi",    "next"  : "Suivant",
+    "previous" : "Précédent",
+    "createJob" : "Créer un emploi"
+    },
+    "jobsByCategory" : {
+      "noJob" : "Aucun emploi trouvé",
+      "unlockYour" : "Déverrouillez la carrière de vos rêves : explorez nos opportunités de travail diversifiées et passionnantes !"
+    },
+    "candidateSpace" : {
+      "candidateSpace" : "Espace Candidat",
+      "applications" : "Applications",
+      "profile" : "Profil",
+      "accepted" : "Accepté",
+      "rejected" : "Rejeté"
+    },
+    "appliedJobs" : {
+      "jobApplication" : "Candidature à l'emploi",
+      "searchJob" : "Rechercher un emploi",
+      "company" : "Entreprise",
+      "jobOffer" : "Offre d'emploi",
+      "address" : "Adresse",
+      "date" : "Date",
+      "status" : "Etat",
+      "delete" : "Supprimer" ,
+      "noJob" : "Aucun emploi trouvé"
+    },
+    "alertDialog" : {
+      "areyousure" : "Êtes-vous sûr? Vous ne pourrez pas revenir en arrière!",
+      "proceed" : "Procéder"
+    },
+    "candidatesTable" : {
+      "candidates" : "Candidats",
+      "searchCandidate" : "Rechercher un candidat",
+      "name" : "Nom",
+      "email" : "Email",
+      "phone" : "Téléphone",
+      "curriculumVitae" : "Curriculum Vitae",
+      "chat" : "Message",
+      "status" : "Etat",
+      "changeStatus" : "Changer l'état"
+    },
+    "editStatusModal" : {
+      "candidacyStatus" : "Statut de la candidature",
+      "changeStatus" : "Changer l'état de la candidature"
+    },
+    "editPostedJobCard" : {
+      "editJobOffer" : "Edit Job Offer",
+      "jobTitle" : "Job Title",
+      "domain" : "Domain",
+      "address" : "Adresse",
+      "jobType" : "Job Type",
+      "salary" : "Salaire",
+      "qualifications" : "Qualifications",
+      "jobDescription" : "Description de l'emploi"
+    },
+      "save" : "Enregistrer",
+      "cancel" : "Annuler",
+      "createAccount" : "Créer un compte",
+      "apply" : "Postuler",
+      "readMore" : "Lire la suite",
+      "loadMore" : "Charger plus"
 }

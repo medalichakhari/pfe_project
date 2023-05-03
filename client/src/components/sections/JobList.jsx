@@ -4,8 +4,10 @@ import SecondaryButton from "../buttons/secondarybutton/SecondaryButton";
 import JobCard from "../jobcard/JobCard";
 import { GetOffres } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const JobList = () => {
+  const { t } = useTranslation();
   const { token } = useAuth();
   const [showCount, setShowCount] = useState(5);
   console.log(token);
@@ -29,7 +31,9 @@ const JobList = () => {
       </div>
       {jobs.length > showCount && (
         <div className="mt-auto">
-          <SecondaryButton onClick={handleLoadMore}>Load more</SecondaryButton>
+          <SecondaryButton onClick={handleLoadMore}>
+            {t("loadMore")}
+          </SecondaryButton>
         </div>
       )}
     </div>

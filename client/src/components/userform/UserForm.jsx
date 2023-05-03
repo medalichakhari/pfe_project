@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import UploadImage from "../shared/UploadImage";
 import Radio from "../inputs/Radio";
+import { useTranslation } from "react-i18next";
 
 const UserForm = ({
   image,
@@ -11,6 +12,7 @@ const UserForm = ({
   handleChange,
   handleBlur,
 }) => {
+  const { t } = useTranslation();
   const options = [
     { label: "Male", value: "male" },
     { label: "Female", value: "female" },
@@ -20,16 +22,17 @@ const UserForm = ({
   return (
     <>
       <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
-        Personal Info:
+        {t("userForm.personalInformation")}
       </h4>
       <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        Avatar: <span className="text-sm text-gray-400">(optional)</span>
+        {t("userForm.userPicture")}{" "}
+        <span className="text-sm text-gray-400">(optional)</span>
       </label>
       <UploadImage image={image} setImage={setImage} />
       <div className="flex flex-col-2">
         <div className="mr-2">
           <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-            First Name:
+            {t("userForm.firstName")}
           </label>
           <input
             value={values.fName}
@@ -44,7 +47,7 @@ const UserForm = ({
         </div>
         <div>
           <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-            Last Name:
+            {t("userForm.lastName")}
           </label>
           <input
             value={values.lName}
@@ -60,7 +63,7 @@ const UserForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          BirthDate:
+          {t("userForm.birthdate")}:
         </label>
         <input
           value={values.birthDate}
@@ -75,7 +78,7 @@ const UserForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Gender:
+          {t("userForm.gender")}:
         </label>
         <div className="flex items-center">
           <Radio
@@ -88,7 +91,7 @@ const UserForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Phone Number:
+          {t("userForm.phoneNumber")}
         </label>
         <input
           value={values.phoneNumber}
@@ -103,7 +106,7 @@ const UserForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Address:
+          {t("userForm.address")}
         </label>
         <input
           value={values.address}

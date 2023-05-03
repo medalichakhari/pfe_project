@@ -6,8 +6,10 @@ import { GetCandidaturesByCandidat } from "../../lib/fetch";
 import { useUser } from "../../context/UserContext";
 import { useQuery } from "react-query";
 import { useAuth } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const CandidatSpace = () => {
+  const { t } = useTranslation();
   const { token } = useAuth();
   const { candidate } = useUser();
   const {
@@ -19,18 +21,18 @@ const CandidatSpace = () => {
   );
   return (
     <Layout>
-      <h1 className="text-4xl font-bold ml-3 mt-8">Candidat Space</h1>
+      <h1 className="text-4xl font-bold ml-3 mt-8">
+        {t("candidateSpace.candidateSpace")}
+      </h1>
       <Tabs.Group style="underline">
-        <Tabs.Item title="Profile">
-          Profile content
-        </Tabs.Item>
+        <Tabs.Item title={t("candidateSpace.profile")}>{t("candidateSpace.profile")}</Tabs.Item>
         <Tabs.Item title="Applications" active={true}>
           {!isLoading && candidatures && (
             <AppliedJobs data={candidatures} refetch={refetch} />
           )}
         </Tabs.Item>
-        <Tabs.Item title="Accepted">Accepted</Tabs.Item>
-        <Tabs.Item title="Refused">Refused</Tabs.Item>
+        <Tabs.Item title={t("candidateSpace.accepted")}>{t("candidateSpace.accepted")}</Tabs.Item>
+        <Tabs.Item title={t("candidateSpace.rejected")}>{t("candidateSpace.rejected")}</Tabs.Item>
       </Tabs.Group>
     </Layout>
   );

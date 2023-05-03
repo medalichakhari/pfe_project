@@ -2,6 +2,7 @@ import React from "react";
 import Select from "react-tailwindcss-select";
 import { skills } from "../../data/skills";
 import UploadCv from "../shared/UploadCv";
+import { useTranslation } from "react-i18next";
 
 const CandidatForm = ({
   selectedFile,
@@ -12,6 +13,7 @@ const CandidatForm = ({
   handleChange,
   handleBlur,
 }) => {
+  const { t } = useTranslation();
   const handleChanges = (value) => {
     console.log("value:", value);
     setSelectedValues(value);
@@ -19,12 +21,12 @@ const CandidatForm = ({
   return (
     <>
       <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
-        Candidat account:
+        {t("candidateInfo.candidateInformation")}
       </h4>
 
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Education level:
+        {t("candidateInfo.educationLevel")}
         </label>
         <select
           value={values.educationLevel}
@@ -46,7 +48,7 @@ const CandidatForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Speciality:
+        {t("candidateInfo.speciality")}
         </label>
         <input
           value={values.speciality}
@@ -61,7 +63,7 @@ const CandidatForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Qualifications :
+        {t("candidateInfo.qualifications")}
         </label>
         <Select
           value={selectedValues}
@@ -90,7 +92,7 @@ const CandidatForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Years of experience:
+        {t("candidateInfo.experience")}
         </label>
         <input
           value={values.experience}
@@ -105,7 +107,7 @@ const CandidatForm = ({
       </div>
       <div>
         <label className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Upload Your Resume:
+        {t("candidateInfo.curriculumVitae")}
         </label>
         <UploadCv
           selectedFile={selectedFile}

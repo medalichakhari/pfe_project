@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { BsFacebook, BsInstagram, BsLinkedin } from "react-icons/bs";
 import Slogan from "../../assets/svg/Slogan";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <div className="pt-12">
       <footer id="footer" className="relative z-50 dark:bg-gray-900 pt-24">
@@ -12,20 +14,20 @@ const Footer = () => {
               <div className="w-full lg:w-1/2 mb-16 lg:mb-0 flex">
                 <div className="w-full lg:w-1/2 px-6">
                   <h3 className="text-gray-800 dark:text-gray-50 font-bold text-md lg:text-base leading-tight mb-6">
-                    Feautures
+                    {t("footer.features")}
                   </h3>
                   <ul className="text-gray-800 dark:text-gray-50 text-sm lg:text-base leading-tight">
-                    <li>
-                      <Link to="/">Home</Link>
+                    <li className="mt-6">
+                      <Link to="/about">{t("footer.about")}</Link>
                     </li>
                     <li className="mt-6">
-                      <Link to="/candidatespace">Candidate</Link>
+                      <Link to="/candidatespace">{t("footer.candidate")}</Link>
                     </li>
                     <li className="mt-6">
-                      <Link to="/recruiterspace">Recruiter</Link>
+                      <Link to="/recruiterspace">{t("footer.recruiter")}</Link>
                     </li>
                     <li className="mt-6">
-                      <Link to="/about">About</Link>
+                      <Link to="/conact">{t("footer.contact")}</Link>
                     </li>
                   </ul>
                 </div>
@@ -35,17 +37,14 @@ const Footer = () => {
                   </h3>
                   <ul className="text-gray-800 dark:text-gray-50 text-sm lg:text-base leading-tight">
                     <li>
-                      <Link to="/chat">Chat</Link>
+                      <Link to="/chat">{t("footer.chat")}</Link>
                     </li>
 
                     <li className="mt-6">
-                      <Link to="/candidateaccount">Candiat</Link>
+                      <Link to="/candidateaccount">{t("footer.candidate")}</Link>
                     </li>
                     <li className="mt-6">
-                      <Link to="/companyaccount">Company</Link>
-                    </li>
-                    <li className="mt-6">
-                      <Link to="/abou">Company</Link>
+                      <Link to="/companyaccount">{t("footer.recruiter")}</Link>
                     </li>
                   </ul>
                 </div>
@@ -53,14 +52,14 @@ const Footer = () => {
               <div className="w-full lg:w-1/2 flex">
                 <div className="w-full lg:w-1/2 px-6">
                   <h3 className="text-gray-800 dark:text-gray-50 font-bold text-md lg:text-base leading-tight mb-6">
-                    Privacy
+                  {t("footer.privacy")}
                   </h3>
                   <ul className="text-gray-800 dark:text-gray-50 text-sm lg:text-base leading-tight">
                     <li>
-                      <Link to="/">Privacy policy</Link>
+                      <Link to="/">{t("footer.security")}</Link>
                     </li>
                     <li className="mt-6">
-                      <Link to="/">Terms of service</Link>
+                      <Link to="/">{t("footer.terms")}</Link>
                     </li>
                   </ul>
                 </div>

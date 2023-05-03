@@ -7,8 +7,10 @@ import { UpdateUser } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
 import { updateProfile } from "firebase/auth";
 import { useStorage } from "../../context/StorageContext";
+import { useTranslation } from "react-i18next";
 
 const UserInfo = () => {
+  const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -96,10 +98,10 @@ const UserInfo = () => {
               type="submit"
               className="text-primary hover:text-secondary mr-2"
             >
-              Save
+              {t("save")}
             </button>
             <button className="hover:text-red-600" onClick={handleEditClick}>
-              Cancel
+              {t("cancel")}
             </button>
           </div>
           <UserForm
@@ -116,7 +118,7 @@ const UserInfo = () => {
         <>
           <div className="flex items-center justify-between">
             <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
-              User Info :
+              {t("userInfo.userInformation")}
             </h4>
             <button
               onClick={handleEditClick}
@@ -127,7 +129,7 @@ const UserInfo = () => {
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              User picture:
+              {t("userInfo.userPicture")}
             </label>
             <img
               src={user?.picture}
@@ -137,7 +139,7 @@ const UserInfo = () => {
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Username:
+              {t("userInfo.userName")}
             </label>
             <p className="text-gray-500 text-sm">
               {userInfo?.nom + " " + userInfo?.prenom}
@@ -145,25 +147,25 @@ const UserInfo = () => {
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Birthdate:
+              {t("userInfo.birthdate")}
             </label>
             <p className="text-gray-500 text-sm">{userInfo?.dNaissance}</p>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Gender
+              {t("userInfo.gender")}
             </label>
             <p className="text-gray-500 text-sm">{userInfo.genre}</p>
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Phone number
+              {t("userInfo.phoneNumber")}
             </label>
             <p className="mb-2 text-gray-500 text-sm">{userInfo?.telephone}</p>
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Address :
+              {t("userInfo.address")}
             </label>
             <p className="mb-2 text-gray-500 text-sm">{userInfo?.adresse}</p>
           </div>

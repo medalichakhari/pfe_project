@@ -14,8 +14,10 @@ import {
 } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
 import { db } from "../../services/firebaseConfig";
+import { useTranslation } from "react-i18next";
 
 function CandidateTable({ data, refetch }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
@@ -78,7 +80,7 @@ function CandidateTable({ data, refetch }) {
       if (!res.exists()) {
         //create a chat in chats collection
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
-  
+
         //create user chats
         await updateDoc(doc(db, "userChats", user.user_id), {
           [combinedId]: {
@@ -90,7 +92,7 @@ function CandidateTable({ data, refetch }) {
             date: serverTimestamp(),
           },
         });
-  
+
         await updateDoc(doc(db, "userChats", selectedUser.id), {
           [combinedId]: {
             userInfo: {
@@ -110,11 +112,13 @@ function CandidateTable({ data, refetch }) {
   return (
     <div className="max-w-7xl mx-auto py-16 sm:px-6 lg:px-8">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mr-4">Candidates</h1>
+        <h1 className="text-2xl font-bold mr-4">
+          {t("candidatesTable.candidates")}
+        </h1>
         <div className="relative mb-2 md:mb-0 mx-2 md:mx-2 w-full md:w-auto">
           <input
             type="text"
-            placeholder="Search candidates"
+            placeholder={t("candidatesTable.searchCandidate")}
             className="bg-white text-gray-800 rounded-full py-2 px-10 pl-10 focus:outline-none focus:shadow-outline w-full md:w-auto"
             value={searchQuery}
             onChange={handleSearch}
@@ -140,22 +144,22 @@ function CandidateTable({ data, refetch }) {
                     <thead>
                       <tr>
                         <th className="px-4 py-2 text-center text-gray-700">
-                          Name
+                          {t("candidatesTable.name")}
                         </th>
                         <th className="px-4 py-2 text-center text-gray-700">
-                          Email
+                          {t("candidatesTable.email")}
                         </th>
                         <th className="px-4 py-2 text-center text-gray-700">
-                          Phone
+                          {t("candidatesTable.phone")}
                         </th>
                         <th className="px-4 py-2 text-center text-gray-700">
-                          CV
+                          {t("candidatesTable.curriculumVitae")}
                         </th>
                         <th className="px-4 py-2 text-center text-gray-700">
-                          Message
+                          {t("candidatesTable.chat")}
                         </th>
                         <th className="px-4 py-2 text-center text-gray-700">
-                          Status
+                          {t("candidatesTable.status")}
                         </th>
                       </tr>
                     </thead>
@@ -219,7 +223,7 @@ function CandidateTable({ data, refetch }) {
                                 onClick={() => handleOpenModal(candidacy.id)}
                                 className="text-indigo-600 hover:text-indigo-900 cursor-pointer"
                               >
-                                Change Status
+                                {t("candidatesTable.changeStatus")}
                               </a>
                             ) : null}
                           </td>

@@ -7,8 +7,10 @@ import { GetSecteur, UpdateSociete } from "../../lib/fetch";
 import { useQuery } from "react-query";
 import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
+import { useTranslation } from "react-i18next";
 
 const CompanyInfo = () => {
+  const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -77,10 +79,10 @@ const CompanyInfo = () => {
               type="submit"
               className="text-primary hover:text-secondary mr-2"
             >
-              Save
+              {t("save")}
             </button>
             <button className="hover:text-red-600" onClick={handleEditClick}>
-              Cancel
+              {t("cancel")}
             </button>
           </div>
           <CompanyForm 
@@ -95,7 +97,7 @@ const CompanyInfo = () => {
         <>
           <div className="flex items-center justify-between">
             <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
-              Company Info :
+              {t("companyInfo.companyInformation")}
             </h4>
             <button
               onClick={handleEditClick}
@@ -114,25 +116,25 @@ const CompanyInfo = () => {
 
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Name:
+            {t("companyInfo.companyName")}
             </label>
             <p className="text-gray-500 text-sm">{company?.nom}</p>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Address:
+            {t("companyInfo.companyAddress")}
             </label>
             <p className="text-gray-500 text-sm">{company?.adresse}</p>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Activity area:
+            {t("companyInfo.activityArea")}
             </label>
             <p className="text-gray-500 text-sm">{activityAreaInfo?.nom}</p>
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              Description:
+            {t("companyInfo.companyDescription")}
             </label>
             <p className="mb-2 text-gray-500 text-sm">{company?.description}</p>
           </div>

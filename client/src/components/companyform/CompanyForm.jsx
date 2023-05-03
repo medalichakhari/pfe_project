@@ -3,8 +3,10 @@ import UploadImage from "../shared/UploadImage";
 import { GetSecteurs } from "../../lib/fetch";
 import { useQuery } from "react-query";
 import { useAuth } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const CompanyForm = ({ values, handleChange, handleBlur, image, setImage }) => {
+  const { t } = useTranslation();
   console.log("values", values.companyActivity);
   const { token } = useAuth();
   const { data, isLoading } = useQuery(["activityAreaInfo", token], () =>
@@ -13,15 +15,15 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage }) => {
   return (
     <>
       <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
-        Company Info :
+      {t("companyInfo.companyInformation")}
       </h4>
       <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        Company logo: <span className="text-sm text-gray-400">(optional)</span>
+      {t("companyInfo.companyLogo")} <span className="text-sm text-gray-400">(optional)</span>
       </label>
       <UploadImage image={image} setImage={setImage} />
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Name:
+        {t("companyInfo.companyName")}
         </label>
         <input
           value={values.companyName}
@@ -36,7 +38,7 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage }) => {
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Address:
+        {t("companyInfo.companyAddress")}
         </label>
         <input
           value={values.companyAddress}
@@ -51,7 +53,7 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage }) => {
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Activity Area :
+        {t("companyInfo.activityArea")}
         </label>
         <select
           value={values.companyActivity}
@@ -77,7 +79,7 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage }) => {
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Description:
+        {t("companyInfo.companyDescription")}
         </label>
         <textarea
           value={values.companyDescription}

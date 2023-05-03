@@ -12,8 +12,10 @@ import { useFormik } from "formik";
 import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { UpdateCandidature } from "../../lib/fetch";
+import { useTranslation } from "react-i18next";
 
 function EditStatusModal({ isOpen, handleOpenModal, candidacyId, refetch }) {
+  const { t } = useTranslation();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const { token } = useAuth();
@@ -60,12 +62,12 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacyId, refetch }) {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Change candidacy status</ModalHeader>
+          <ModalHeader>{t("editStatusModal.candidacyStatus")}</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <form onSubmit={handleSubmit}>
               <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                Change application status :
+                {t("editStatusModal.changeStatus")}
               </label>
               <select
                 value={values.status}
@@ -83,8 +85,13 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacyId, refetch }) {
                 <option value="rejected">Rejected</option>
               </select>
               <div className="flex flex-row-reverse">
-                <Button onClick={handleOpenModal}>Cancel</Button>
-                <PrimaryButton type="submit">Save</PrimaryButton>
+                <button
+                  onClick={handleOpenModal}
+                  className="ml-2 text-white rounded-full py-1.5 px-5 md:py-1.5 md:px-5 bg-gradient-to-br hover:bg-gradient-to-r transition-all duration-300 from-red-500 to-red-700 hover:bg-blend-darken"
+                >
+                  {t("cancel")}
+                </button>
+                <PrimaryButton type="submit">{t("save")}</PrimaryButton>
               </div>
             </form>
           </ModalBody>

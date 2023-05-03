@@ -10,8 +10,10 @@ import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton"
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../services/firebaseConfig";
+import { useTranslation } from "react-i18next";
 
 const UserAccount = () => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
   const [image, setImage] = useState("");
@@ -111,7 +113,7 @@ const UserAccount = () => {
             handleBlur={handleBlur}
           />
           <PrimaryButton className="w-full" type="submit" isLoading={isLoading}>
-            Create an account
+            {t("createAccount")}
           </PrimaryButton>
         </form>
       </div>

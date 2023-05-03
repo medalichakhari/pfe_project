@@ -7,8 +7,10 @@ import { DeleteCandidature } from "../../lib/fetch";
 import DeleteAlertDialog from "../shared/AlertDialog";
 import moment from "moment";
 import { useAuth } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 function AppliedJobs({ data, refetch }) {
+  const { t } = useTranslation();
   console.log("data", data);
   const navigate = useNavigate();
   const { token } = useAuth();
@@ -67,11 +69,13 @@ function AppliedJobs({ data, refetch }) {
   return (
     <div className="max-w-3xl sm:px-1 lg:px-2">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mr-4">Job applications</h1>
+        <h1 className="text-2xl font-bold mr-4">
+          {t("appliedJobs.jobApplication")}
+        </h1>
         <div className="relative mb-2 md:mb-0 mx-2 md:mx-2 w-full md:w-auto">
           <input
             type="text"
-            placeholder="Search candidates"
+            placeholder={t("appliedJobs.searchJob")}
             className="bg-white text-gray-800 rounded-full py-2 px-10 pl-10 focus:outline-none focus:shadow-outline w-full md:w-auto"
             value={searchQuery}
             onChange={handleSearch}
@@ -85,9 +89,9 @@ function AppliedJobs({ data, refetch }) {
         {data.length > 0 ? (
           <>
             <DeleteAlertDialog
-            label={"Delete Candidacy"}
+              label={"Delete Candidacy"}
               isOpen={isOpen}
-              handleOpenModal={handleOpenModal}
+              handleOpenDeleteModal={handleOpenModal}
               handleDelete={handleDeletCandidacy}
             />
             <div className="-my-2 overflow-y-hidden sm:-mx-6 lg:-mx-8">
@@ -97,19 +101,19 @@ function AppliedJobs({ data, refetch }) {
                     <thead>
                       <tr>
                         <th className="px-4 py-2 text-center text-gray-700">
-                          Company
+                          {t("appliedJobs.company")}
                         </th>
                         <th className="px-4 py-2 text-center text-gray-700">
-                          Job offer
+                          {t("appliedJobs.jobOffer")}
                         </th>
                         <th className="px-4 py-2 text-center text-gray-700">
-                          Location
+                          {t("appliedJobs.address")}
                         </th>
                         <th className="px-4 py-2 text-center text-gray-700">
-                          Date
+                          {t("appliedJobs.date")}
                         </th>
                         <th className="px-4 py-2 text-center text-gray-700">
-                          Status
+                          {t("appliedJobs.status")}
                         </th>
                       </tr>
                     </thead>
@@ -161,7 +165,7 @@ function AppliedJobs({ data, refetch }) {
                               onClick={() => handleOpenModal(candidacy.id)}
                               className="text-red-500 hover:text-red-700 cursor-pointer"
                             >
-                              Delete
+                              {t("appliedJobs.delete")}
                             </a>
                           </td>
                         </tr>
@@ -180,7 +184,7 @@ function AppliedJobs({ data, refetch }) {
           </>
         ) : (
           <div className="text-center py-10">
-            <p className="text-gray-500">No jobs found.</p>
+            <p className="text-gray-500">{t("appliedJobs.noJob")}</p>
           </div>
         )}
       </div>

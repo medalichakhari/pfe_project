@@ -7,27 +7,32 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
-import { GetOffre, UpdateOffre } from "../../lib/fetch";
+import { GetCategories, GetOffre, UpdateOffre } from "../../lib/fetch";
 import { useState } from "react";
 import Select from "react-tailwindcss-select";
 import { skills } from "../../data/skills";
 import { useQuery } from "react-query";
 import TextEditor from "../inputs/TextEditor";
+import { useTranslation } from "react-i18next";
 
 function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
+  const { t } = useTranslation();
   const [selectedValues, setSelectedValues] = useState(null);
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const { token } = useAuth();
-
+  const { data: categories, isLoading: isLoadingCategories } = useQuery(
+    ["domains", token],
+    () => GetCategories(token)
+  );
   const { data, isLoading, refetch } = useQuery(
     ["jobOfferInfo", jobId, token],
     () => GetOffre(jobId, token)
   );
+  console.log("data", data);
   const [editorValue, setEditorValue] = useState(data?.description);
   const handleChanges = (value) => {
     setSelectedValues(value);
@@ -78,10 +83,9 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
           title: data?.titre,
           address: data?.adresse,
           type: data?.type,
-          domain: data?.domaine,
+          domain: data?.categorie?.id,
           salary: data?.salaire,
           qualification: "",
-  
         },
 
     onSubmit: handleUpdateJobOffer,
@@ -99,13 +103,13 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Edit Job Offer</ModalHeader>
+          <ModalHeader>{t("editJobOffer")}</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <form onSubmit={handleSubmit}>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                  Title:
+                  {t("editPostedJobCard.jobTitle")}:
                 </label>
                 <input
                   value={values.title}
@@ -120,7 +124,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                  Domain:
+                  {t("jobOfferForm.domain")}
                 </label>
                 <select
                   value={values.domain}
@@ -133,12 +137,20 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                   className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 >
                   <option value="">Please select it's domain</option>
-                  <option value="Student">IT</option>
+                  {isLoadingCategories ? (
+                    <option value="">Loading...</option>
+                  ) : (
+                    categories?.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.nom}
+                      </option>
+                    ))
+                  )}
                 </select>
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                  Address:
+                  {t("editPostedJobCard.address")}
                 </label>
                 <input
                   value={values.address}
@@ -153,7 +165,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                  Type:
+                  {t("editPostedJobCard.jobType")}
                 </label>
                 <select
                   value={values.type}
@@ -174,7 +186,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                  Salary:
+                  {t("editPostedJobCard.salary")}
                   <span className="text-sm text-gray-400">(optional)</span>
                 </label>
                 <input
@@ -190,7 +202,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                  Qualifications :
+                  {t("editPostedJobCard.editJobOffer")}
                 </label>
                 <Select
                   value={selectedValues}
@@ -219,7 +231,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
               </div>
               <div>
                 <label className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                  Description:
+                  {t("editPostedJobCard.jobDescription")}
                 </label>
                 <div className="mb-2">
                   <TextEditor value={editorValue} setValue={setEditorValue} />
@@ -231,9 +243,9 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                   className="text-white rounded-full py-1.5 px-5 md:py-1.5 md:px-5 bg-gradient-to-br hover:bg-gradient-to-r transition-all duration-300 from-red-500 to-red-700 hover:bg-blend-darken"
                   onClick={handleOpenEditModal}
                 >
-                  Cancel
+                  {t("cancel")}
                 </button>
-                <PrimaryButton type="submit">Save</PrimaryButton>
+                <PrimaryButton type="submit">{t("save")}</PrimaryButton>
               </div>
             </form>
           </ModalBody>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { HiTranslate } from "react-icons/hi";
 
@@ -6,8 +6,17 @@ function SelectLanguage() {
   const { i18n } = useTranslation();
 
   function handleChange(event) {
-    i18n.changeLanguage(event.target.value);
+    const selectedLanguage = event.target.value;
+    i18n.changeLanguage(selectedLanguage);
+    localStorage.setItem("selectedLanguage", selectedLanguage);
   }
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("selectedLanguage");
+    if (storedLanguage) {
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, [i18n]);
 
   return (
     <div className="relative">

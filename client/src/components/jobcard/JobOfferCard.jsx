@@ -3,8 +3,10 @@ import GoogleIcon from "../../assets/svg/GoogleIcon";
 import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const JobOfferCard = ({ jobOffer }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const handleReadMore = () => {
     navigate(`/offer/${jobOffer.id}`);
@@ -37,7 +39,7 @@ const JobOfferCard = ({ jobOffer }) => {
         {jobOffer.description}
       </p>
       <PrimaryButton className="mt-4 w-full" onClick={handleReadMore}>
-        Read more
+        {t("readMore")}
       </PrimaryButton>
     </div>
   );

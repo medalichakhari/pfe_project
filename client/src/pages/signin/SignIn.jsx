@@ -7,8 +7,10 @@ import { useAuth } from "../../context/AuthContext";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
 import { signInSchema } from "../../utils/validationSchemas";
 import { useToast } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 
 const SignIn = () => {
+  const { t } = useTranslation();
   const { signInWithEmailAndPwd, googleSignIn, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -82,11 +84,11 @@ const SignIn = () => {
       <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
         <form className="space-y-4" onSubmit={handleSubmit}>
           <h4 className="text-xl font-medium text-gray-900 dark:text-white">
-            Sign in to our platform
+            {t("signIn.ourPlatform")}
           </h4>
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Your email
+            {t("signIn.email")}
             </label>
             <input
               value={values.email}
@@ -108,7 +110,7 @@ const SignIn = () => {
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Your password
+            {t("signIn.password")}
             </label>
             <input
               value={values.password}
@@ -139,18 +141,18 @@ const SignIn = () => {
                 />
               </div>
               <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                Remember me
+              {t("signIn.rememberMe")}
               </label>
             </div>
             <a
               href="/forgotpassword"
               className="ml-auto text-sm text-secondary hover:underline dark:text-primary"
             >
-              Lost Password?
+              {t("signIn.forgotPassword")}
             </a>
           </div>
           <PrimaryButton className="w-full">
-            Login to your account
+          {t("signIn.signIn")}
           </PrimaryButton>
           <div className="flex items-center justify-center">
             <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
@@ -166,16 +168,16 @@ const SignIn = () => {
               <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600">
                 <GoogleIcon />
               </div>
-              <span className="ml-2">Login with Google</span>
+              <span className="ml-2">{t("signIn.googleSignIn")}</span>
             </div>
           </SecondaryButton>
           <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-            Not registered?{" "}
+          {t("signIn.notRegistered")}
             <a
               href="/signup"
               className="text-secondary hover:underline dark:text-primary"
             >
-              Create account
+              {t("signIn.signUp")}
             </a>
           </div>
         </form>

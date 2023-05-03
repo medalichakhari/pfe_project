@@ -7,9 +7,11 @@ import { GetOffresByCategorie } from "../../lib/fetch";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import SecondaryButton from "../../components/buttons/secondarybutton/SecondaryButton";
+import { useTranslation } from "react-i18next";
 
 const JobsByCategory = () => {
-  const [showCount, setShowCount] = useState(8);
+  const { t } = useTranslation();
+  const [showCount, setShowCount] = useState(9);
   const { categoryId } = useParams();
   console.log(categoryId);
   const { data: jobOffers, isLoading } = useQuery(
@@ -24,23 +26,25 @@ const JobsByCategory = () => {
   return isLoading ? (
     <div>Loading...</div>
   ) : !jobOffers.length > 0 ? (
-    <div>no job aviailable</div>
+    <div>{t("jobsByCategory.noJob")}</div>
   ) : (
     <Layout>
-      <div className="text-center my-8">
-        <h2 className="text-gray-900 text-3xl font-bold">
-          Unlock Your Dream Career: Explore Our Diverse and Exciting Job
-          Opportunities!
-        </h2>
+<div className="my-8 mx-auto max-w-4xl">
+  <h2 className="text-center text-3xl font-bold text-gray-900">
+    {t("jobsByCategory.unlockYour")}
+  </h2>
+</div>
+      <Search placeholder={t("jobsByCategory.searchPlaceholder")} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {jobOffersList?.map((jobOffer) => (
+          <JobOfferCard key={jobOffer.id} jobOffer={jobOffer} />
+        ))}
       </div>
-      <Search />
-      {jobOffersList?.map((jobOffer) => (
-        <JobOfferCard key={jobOffer.id} jobOffer={jobOffer} />
-      ))}
-
       {jobOffers.length > showCount && (
-        <div className="mt-auto">
-          <SecondaryButton onClick={handleLoadMore}>Load more</SecondaryButton>
+        <div className="mt-8 flex justify-center">
+          <SecondaryButton onClick={handleLoadMore}>
+            {t("jobsByCategory.loadMore")}
+          </SecondaryButton>
         </div>
       )}
     </Layout>

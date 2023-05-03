@@ -7,6 +7,7 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 function DeleteAlertDialog({
   label,
@@ -14,6 +15,7 @@ function DeleteAlertDialog({
   handleOpenDeleteModal,
   handleDelete,
 }) {
+  const { t } = useTranslation();
   const cancelRef = useRef();
 
   return (
@@ -31,23 +33,21 @@ function DeleteAlertDialog({
               {label}
             </AlertDialogHeader>
 
-            <AlertDialogBody>
-              Are you sure? You can't undo this action afterwards.
-            </AlertDialogBody>
+            <AlertDialogBody>{t("alertDialog.areyousure")}</AlertDialogBody>
 
             <AlertDialogFooter>
               <button
                 onClick={handleDelete}
                 className="mr-2 text-white rounded-full py-1.5 px-5 md:py-1.5 md:px-5 bg-gradient-to-br hover:bg-gradient-to-r transition-all duration-300 from-red-500 to-red-700 hover:bg-blend-darken"
               >
-                Proceed
+                {t("alertDialog.proceed")}
               </button>
               <button
                 ref={cancelRef}
                 onClick={handleOpenDeleteModal}
                 className="border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 rounded-full py-1.5 px-5 md:py-1.5 md:px-5"
               >
-                Cancel
+                {t("cancel")}
               </button>
             </AlertDialogFooter>
           </AlertDialogContent>

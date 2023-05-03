@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { GetCategories } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
 import TextEditor from "../inputs/TextEditor";
-import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const JobOfferForm = ({
   values,
@@ -15,6 +15,7 @@ const JobOfferForm = ({
   handleChange,
   handleBlur,
 }) => {
+  const { t } = useTranslation();
   const { token } = useAuth();
   const handleChanges = (value) => {
     console.log("value:", value);
@@ -27,11 +28,11 @@ const JobOfferForm = ({
   return (
     <>
       <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
-        Job offer details:
+        {t("jobOfferForm.jobOfferInformation")}
       </h4>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Title:
+          {t("jobOfferForm.jobTitle")}
         </label>
         <input
           value={values.title}
@@ -46,7 +47,7 @@ const JobOfferForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Domain:
+          {t("jobOfferForm.domain")}
         </label>
         <select
           value={values.domain}
@@ -72,7 +73,7 @@ const JobOfferForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Address:
+          {t("jobOfferForm.address")}
         </label>
         <input
           value={values.address}
@@ -87,7 +88,7 @@ const JobOfferForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Type:
+          {t("jobOfferForm.jobType")}
         </label>
         <select
           value={values.type}
@@ -108,7 +109,8 @@ const JobOfferForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Salary:<span className="text-sm text-gray-400">(optional)</span>
+          {t("jobOfferForm.salary")} 
+          <span className="text-sm text-gray-400">(optional)</span>
         </label>
         <input
           value={values.salary}
@@ -123,7 +125,7 @@ const JobOfferForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Qualifications :
+          {t("jobOfferForm.qualifications")}
         </label>
         <Select
           value={selectedValues}
@@ -152,14 +154,10 @@ const JobOfferForm = ({
       </div>
       <div>
         <label className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          Description:
+          {t("jobOfferForm.jobDescription")}
         </label>
         <div className="mb-2">
-          <TextEditor
-            value={editorValue}
-            setValue={setEditorValue}
-            
-          />
+          <TextEditor value={editorValue} setValue={setEditorValue} />
         </div>
       </div>
     </>

@@ -3,32 +3,36 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
+import { useToast } from "@chakra-ui/react";
 
 const ForgotPassword = () => {
   const { forgotPassword } = useAuth();
+  const toast = useToast();
   const navigate = useNavigate();
-  const hadleForgotPassword = (values, actions) => {
-    forgotPassword(values.email)
-      .then(() => {
-        console.log("email sent");
-        toast({
-          description: "Email sent.",
-          position: "bottom-left",
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        toast({
-          description: error.message,
-          position: "bottom-left",
-          status: "error",
-          duration: 9000,
-          isClosable: true,
-        });
-      });
+  const hadleForgotPassword = async (values, actions) => {
+    await forgotPassword(values.email);
+    navigate("/signin");
+    // .then(() => {
+    //   console.log("email sent");
+    //   navigate("/signin");
+    //   // toast({
+    //   //   description: "Email sent.",
+    //   //   position: "bottom-left",
+    //   //   status: "success",
+    //   //   duration: 9000,
+    //   //   isClosable: true,
+    //   // });
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    //   // toast({
+    //   //   description: error.message,
+    //   //   position: "bottom-left",
+    //   //   status: "error",
+    //   //   duration: 9000,
+    //   //   isClosable: true,
+    //   // });
+    // });
   };
 
   const {
@@ -78,20 +82,20 @@ const ForgotPassword = () => {
           <PrimaryButton className="w-full" type="submit">
             Send reset link
           </PrimaryButton>
-          <div className="flex items-center justify-center">
-            <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
-            <div className="px-2 text-gray-500 dark:text-gray-300">or</div>
-            <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
-          </div>
-          <div className="flex justify-center">
-            <a
-              href="/signin"
-              className="text-secondary hover:underline dark:text-primary"
-            >
-              Login to you account
-            </a>
-          </div>
         </form>
+        <div className="flex items-center justify-center">
+          <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
+          <div className="px-2 text-gray-500 dark:text-gray-300">or</div>
+          <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
+        </div>
+        <div className="flex justify-center">
+          <a
+            href="/signin"
+            className="text-secondary hover:underline dark:text-primary"
+          >
+            Login to you account
+          </a>
+        </div>
       </div>
     </div>
   );
