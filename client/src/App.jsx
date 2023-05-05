@@ -82,7 +82,7 @@ function App() {
                   </Route>
                   <Route element={<RequireAuth allowedRoles={["user"]} />}>
                     <Route
-                      path="/offer/:offerId/apply"
+                      path="/offer/:offerId/apply/:companyId"
                       element={<JobApplication />}
                     />
                   </Route>

@@ -643,3 +643,44 @@ export const DeleteCandidature = async (id, token) => {
     const response = await axios(config);
     return response;
 }
+
+// Notification
+export const GetNotifications = async (token) => {
+    let config = {
+        method: "get",
+        url: "http://localhost:8080/api/notifications",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    };
+    const response = await axios(config);
+    return response.data;
+}
+
+export const GetNotificationBySociete = async (id, token) => {
+    let config = {
+        method: "get",
+        url: `http://localhost:8080/api/notifications/societe/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    };
+    const response = await axios(config);
+    return response.data;   
+}
+
+export const GetNotificationByCandidat = async (id, token) => {
+    let config = {
+        method: "get",
+        url: `http://localhost:8080/api/notifications/candidat/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    };
+    const response = await axios(config);
+    return response.data;   
+}
+        

@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 
 const JobCard = ({ job }) => {
   const { t } = useTranslation();
-  console.log("jod", job.updatedAt);
+  console.log("jobzzzzzzzzzzzz", job);
   const navigate = useNavigate();
   const { user } = useAuth();
   const handleNavigate = () => {
@@ -18,7 +18,7 @@ const JobCard = ({ job }) => {
 
   const handleApply = () => {
     user?.roles?.includes("candidat")
-      ? navigate(`/offer/${job.id}/apply`)
+      ? navigate(`/offer/${job.id}/apply/${job.societe.id}`)
       : navigate("/candidateaccount");
   };
 

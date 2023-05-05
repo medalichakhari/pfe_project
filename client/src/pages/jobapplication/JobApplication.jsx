@@ -9,12 +9,15 @@ import { useNavigate, useParams } from "react-router-dom";
 const JobApplication = () => {
   const { token } = useAuth();
   const { offerId } = useParams();
+  const { companyId } = useParams();
+  console.log("companyId", companyId);
   const { candidate } = useUser();
   const navigate = useNavigate();
   const handleApplyJob = async (values, actions) => {
     let applicationData = {
       candidatId: candidate.id,
       offreId: offerId,
+      societeId: companyId,
     };
     CreateCandidature(applicationData, token)
       .then((res) => {
