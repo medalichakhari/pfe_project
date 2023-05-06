@@ -7,14 +7,19 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { Button, Input } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { UpdateCandidature } from "../../lib/fetch";
 import { useTranslation } from "react-i18next";
 
-function EditStatusModal({ isOpen, handleOpenModal, candidacyId, refetch }) {
+function EditStatusModal({
+  isOpen,
+  handleOpenModal,
+  candidacyId,
+  candidateId,
+  refetch,
+}) {
   const { t } = useTranslation();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -24,6 +29,7 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacyId, refetch }) {
     console.log("values", values);
     let candidatureData = {
       etat: values.status,
+      candidatId: candidateId,
     };
     UpdateCandidature(candidacyId, candidatureData, token)
       .then((res) => {

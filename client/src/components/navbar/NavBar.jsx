@@ -29,7 +29,6 @@ export default function NavBar() {
   const { t } = useTranslation();
   const { user, logOut, token } = useAuth();
   const { company, candidate } = useUser();
-  console.log("COMPANY", company.id);
   const navigate = useNavigate();
   const { data: recruiterNotifs, isLoading: isLoadingRecruiterNotifs } =
     useQuery(["recruiterNotifs", company?.id, token], () => {

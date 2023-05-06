@@ -22,13 +22,15 @@ function CandidateTable({ data, refetch }) {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCandidacyId, setSelectedCandidacyId] = useState(null);
+  const [selectedCandidateId, setSelectedCandidateId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [candidatesPerPage] = useState(5);
 
-  const handleOpenModal = (candidacyId) => {
+  const handleOpenModal = (candidacyId, candidateId) => {
     setIsOpen(!isOpen);
     setSelectedCandidacyId(candidacyId);
+    setSelectedCandidateId(candidateId);
   };
 
   function handleSearch(event) {
@@ -135,6 +137,7 @@ function CandidateTable({ data, refetch }) {
               isOpen={isOpen}
               handleOpenModal={handleOpenModal}
               candidacyId={selectedCandidacyId}
+              candidateId={selectedCandidateId}
               refetch={refetch}
             />
             <div className="-my-2 overflow-y-hidden sm:-mx-6 lg:-mx-8">
@@ -220,7 +223,7 @@ function CandidateTable({ data, refetch }) {
                           <td className="px-4 py-2 text-center">
                             {candidacy.etat === "pending" ? (
                               <a
-                                onClick={() => handleOpenModal(candidacy.id)}
+                                onClick={() => handleOpenModal(candidacy.id, candidacy.candidat.id)}
                                 className="text-indigo-600 hover:text-indigo-900 cursor-pointer"
                               >
                                 {t("candidatesTable.changeStatus")}
