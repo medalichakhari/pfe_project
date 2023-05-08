@@ -11,8 +11,7 @@ import CandidatInfo from "../../components/candidatinfo/CandidatInfo";
 import { useUser } from "../../context/UserContext";
 
 const CandidatAccount = () => {
-  const { token, user } = useAuth();
-  const { refresh } = useUser();
+  const { token, user, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedValues, setSelectedValues] = useState(null);
@@ -36,13 +35,14 @@ const CandidatAccount = () => {
     };
     CreateCandidat(candidatData, token)
       .then((res) => {
-        refresh();
         console.log(res);
-
-        navigate(from, { replace: true });
+        refreshUser()
+          .then(() => navigate(from, { replace: true }))
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   };
+  
 
   const {
     values,

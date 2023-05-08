@@ -50,8 +50,23 @@ export default function NavBar() {
       }
     });
   console.log("recruiterNotifs", recruiterNotifs);
+  const hasRecruiterRole = user?.roles?.includes("recruteur");
+  const hasCandidateRole = user?.roles?.includes("candidat");
+  let unreadCount;
+
+  if (hasRecruiterRole && hasCandidateRole) {
+    unreadCount =
+      recruiterNotifs?.filter((n) => !n.isread).length +
+      candidateNotifs?.filter((n) => !n.isread).length;
+  } else if (hasRecruiterRole) {
+    unreadCount = recruiterNotifs?.filter((n) => !n.isread).length;
+  } else if (hasCandidateRole) {
+    unreadCount = candidateNotifs?.filter((n) => !n.isread).length;
+  } else {
+    unreadCount = 0;
+  }
   const navigateToJobPosting = () => {
-    if (user?.roles?.includes("recruteur")) {
+    if (hasRecruiterRole) {
       return (
         <Navbar.Link href="/postjob" className="flex items-center">
           {<BsBriefcase className="mr-1 text-gray-500" />}
@@ -71,14 +86,14 @@ export default function NavBar() {
     navigate("/chat");
   };
   const navigateToRecruiterSpace = () => {
-    if (user?.roles?.includes("recruteur")) {
+    if (hasRecruiterRole) {
       return navigate("/recruiterspace");
     } else {
       return navigate("/companyaccount");
     }
   };
-  const navigateToCandidatSpace = () => {
-    if (user?.roles?.includes("candidat")) {
+  const navigateToCandidateSpace = () => {
+    if (hasCandidateRole) {
       return navigate("/candidatespace");
     } else {
       return navigate("/candidateaccount");
@@ -111,8 +126,7 @@ export default function NavBar() {
             <div className="pr-5">
               <SelectLanguage />
             </div>
-            {user?.roles?.includes("recruteur") ||
-            user?.roles?.includes("candidat") ? (
+            {hasRecruiterRole || hasCandidateRole ? (
               <div className="flex justify-center items-center">
                 <button
                   className="pr-5 text-primary hover:text-secondary"
@@ -124,8 +138,13 @@ export default function NavBar() {
                   arrowIcon={false}
                   inline={true}
                   label={
-                    <button className="pr-5 text-primary hover:text-secondary">
+                    <button className="relative pr-5 text-primary hover:text-secondary">
                       <IoNotifications size={30} />
+                      {unreadCount > 0 && (
+                        <span className="absolute top-0 right-0 mr-5 bg-red-500 text-white font-bold text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                          {unreadCount}
+                        </span>
+                      )}
                     </button>
                   }
                 >
@@ -134,46 +153,72 @@ export default function NavBar() {
                       Notifications
                     </span>
                   </Dropdown.Header>
-                  {user?.roles?.includes("recruteur") ? (
-                    <Dropdown.Item className="flex items-center">
-                      <ImUserTie size={15} className="mr-1 text-gray-500" />
-                      For Recruiters
-                    </Dropdown.Item>
-                  ) : null}
-                  {!isLoadingRecruiterNotifs && recruiterNotifs?.length > 0 ? (
-                    recruiterNotifs.map((notification, index) => (
-                      <Dropdown.Item key={index}>
-                        {notification.message}
+                  {hasRecruiterRole && (
+                    <>
+                      <Dropdown.Item className="flex items-center">
+                        <ImUserTie size={15} className="mr-1 text-gray-500" />
+                        For Recruiters
                       </Dropdown.Item>
-                    ))
-                  ) : (
-                    <Dropdown.Item>
-                      No recruiter notifications available
-                    </Dropdown.Item>
+                      {!isLoadingRecruiterNotifs &&
+                      recruiterNotifs?.length > 0 ? (
+                        recruiterNotifs
+                          .slice(0, 5)
+                          .map((notification, index) => (
+                            <Dropdown.Item
+                              key={index}
+                              className={
+                                notification.isread
+                                  ? "text-gray-400"
+                                  : "text-gray-800"
+                              }
+                            >
+                              {notification.message}
+                            </Dropdown.Item>
+                          ))
+                      ) : (
+                        <Dropdown.Item>
+                          No recruiter notifications available
+                        </Dropdown.Item>
+                      )}
+                    </>
                   )}
-                  <Dropdown.Divider />
-                  {user?.roles?.includes("candidat") ? (
-                    <Dropdown.Item
-                      onClick={navigateToCandidatSpace}
-                      className="flex items-center"
-                    >
-                      <FaUserGraduate
-                        size={15}
-                        className=" mr-1 text-gray-500"
-                      />
-                      For Candidates
-                    </Dropdown.Item>
-                  ) : null}
-                  {!isLoadingCandidateNotifs && candidateNotifs?.length > 0 ? (
-                    candidateNotifs.map((notification, index) => (
-                      <Dropdown.Item key={index}>
-                        {notification.message}
+                  {hasCandidateRole && (
+                    <>
+                      <Dropdown.Item
+                        onClick={navigateToCandidateSpace}
+                        className="flex items-center"
+                      >
+                        <FaUserGraduate
+                          size={15}
+                          className="mr-1 text-gray-500"
+                        />
+                        For Candidates
                       </Dropdown.Item>
-                    ))
-                  ) : (
-                    <Dropdown.Item>
-                      No candidate notifications available
-                    </Dropdown.Item>
+                      {!isLoadingCandidateNotifs &&
+                      candidateNotifs?.length > 0 ? (
+                        candidateNotifs
+                          .slice(0, 5)
+                          .map((notification, index) => (
+                            <Dropdown.Item
+                              key={index}
+                              className={
+                                notification.isread
+                                  ? "text-gray-400"
+                                  : "text-gray-800"
+                              }
+                            >
+                              {notification.message}
+                            </Dropdown.Item>
+                          ))
+                      ) : (
+                        <Dropdown.Item>
+                          No candidate notifications available
+                        </Dropdown.Item>
+                      )}
+                    </>
+                  )}
+                  {!hasRecruiterRole && !hasCandidateRole && (
+                    <Dropdown.Item>No notifications available</Dropdown.Item>
                   )}
                 </Dropdown>
               </div>
@@ -193,7 +238,7 @@ export default function NavBar() {
                 </span>
               </Dropdown.Header>
               <Dropdown.Item
-                onClick={navigateToCandidatSpace}
+                onClick={navigateToCandidateSpace}
                 className="flex items-center"
               >
                 <FaUserGraduate size={15} className=" mr-1 text-gray-500" />

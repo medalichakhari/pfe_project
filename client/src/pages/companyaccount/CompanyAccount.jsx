@@ -11,12 +11,9 @@ import { useUser } from "../../context/UserContext";
 
 const CompanyAccount = () => {
   const [image, setImage] = useState("");
-  const { token, user } = useAuth();
-  const { refresh } = useUser();
+  const { token, user, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
   const handleCreateCompany = async (values, actions) => {
     const { user_id } = user;
     const path = `companyImages/${user_id}/${image.name}`;
@@ -30,14 +27,13 @@ const CompanyAccount = () => {
       secteurId: values.companyActivity,
       userId: user_id,
     };
-    CreateSociete(companyData, token)
-      .then((res) => {
-        refresh();
-        console.log(res);
-
-        navigate(from, { replace: true });
-      })
-      .catch((err) => console.log(err));
+    try {
+      await CreateSociete(companyData, token);
+      await refreshUser();
+      navigate("/postjob");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const {

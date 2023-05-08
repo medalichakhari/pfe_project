@@ -43,6 +43,14 @@ export const AuthContextProvider = ({ children }) => {
     };
   }, []);
 
+  const refreshUser = async () => {
+    if (currentUser) {
+      const idTokenResult = await currentUser.getIdTokenResult(true);
+      setUser(idTokenResult.claims);
+      setToken(idTokenResult.token);
+    }
+  };
+
   const signUpWithEmailAndPwd = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -71,9 +79,7 @@ export const AuthContextProvider = ({ children }) => {
   const resetPassword = (oobCode, newPassword) => {
     return confirmPasswordReset(auth, oobCode, newPassword);
   };
-  const refreshToken = () => {
-    return auth.currentUser.getIdToken(true);
-  };
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -92,7 +98,7 @@ export const AuthContextProvider = ({ children }) => {
         googleSignIn,
         forgotPassword,
         resetPassword,
-        refreshToken,
+        refreshUser,
       }}
     >
       {children}

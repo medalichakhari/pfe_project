@@ -17,7 +17,7 @@ const UserAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
   const [image, setImage] = useState("");
-  const { currentUser, user, token } = useAuth();
+  const { currentUser, user, token, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,28 +29,28 @@ const UserAccount = () => {
       setIsLoading(true);
       const { fName, lName } = values;
       const { user_id, email } = user;
-      const path = `profileImages/${user_id}/${image.name}`;
-
-      await uploadFile(image, path);
-
-      const downloadURL = await downloadUrl(path);
-
+      let downloadURL = "";
+      if (image) {
+        const path = `profileImages/${user_id}/${image.name}`;
+        await uploadFile(image, path);
+        downloadURL = await downloadUrl(path);
+      }
       await Promise.all([
         updateProfile(currentUser, {
           displayName: `${fName} ${lName}`,
-          photoURL: downloadURL,
+          ...(downloadURL && { photoURL: downloadURL }),
         }),
         setDoc(doc(db, "users", user_id), {
           uid: user_id,
           displayName: `${fName} ${lName}`,
           email,
-          photoURL: downloadURL,
+          ...(downloadURL && { photoURL: downloadURL }),
         }),
         setDoc(doc(db, "userChats", user_id), {}),
       ]);
       let userData = {
         id: user.user_id,
-        photo: downloadURL,
+        ...(downloadURL && { photo: downloadURL }),
         nom: values.fName,
         prenom: values.lName,
         email: user.email,
@@ -60,6 +60,7 @@ const UserAccount = () => {
         genre: selectedValue,
       };
       await CreateUser(userData, token);
+      await refreshUser();
       setIsLoading(false);
       navigate(from, { replace: true });
       toast({
@@ -80,6 +81,7 @@ const UserAccount = () => {
       console.log(err);
     }
   };
+  
   const {
     values,
     errors,

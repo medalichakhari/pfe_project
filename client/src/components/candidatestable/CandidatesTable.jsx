@@ -26,7 +26,7 @@ function CandidateTable({ data, refetch }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [candidatesPerPage] = useState(5);
-
+  console.log("candidatesPerPage", candidatesPerPage);
   const handleOpenModal = (candidacyId, candidateId) => {
     setIsOpen(!isOpen);
     setSelectedCandidacyId(candidacyId);
@@ -57,7 +57,7 @@ function CandidateTable({ data, refetch }) {
   const filteredCandidates = data.filter(filterCandidates);
   console.log("filteredCandidates", filteredCandidates);
   const pageCount = Math.ceil(filteredCandidates.length / candidatesPerPage); // Calculate total number of pages
-
+  console.log("filteredCandidates", filteredCandidates);
   function handlePageChange(selectedPage) {
     setCurrentPage(selectedPage.selected);
   }
@@ -65,7 +65,7 @@ function CandidateTable({ data, refetch }) {
   const startIndex = currentPage * candidatesPerPage;
   const endIndex = startIndex + candidatesPerPage;
   const displayedCandidates = filteredCandidates.slice(startIndex, endIndex);
-
+  console.log("displayedCandidates", displayedCandidates);
   //handle message
   const handleSelect = async (selectedUser) => {
     console.log("selectedUser", selectedUser);
@@ -223,7 +223,12 @@ function CandidateTable({ data, refetch }) {
                           <td className="px-4 py-2 text-center">
                             {candidacy.etat === "pending" ? (
                               <a
-                                onClick={() => handleOpenModal(candidacy.id, candidacy.candidat.id)}
+                                onClick={() =>
+                                  handleOpenModal(
+                                    candidacy.id,
+                                    candidacy.candidat.id
+                                  )
+                                }
                                 className="text-indigo-600 hover:text-indigo-900 cursor-pointer"
                               >
                                 {t("candidatesTable.changeStatus")}
@@ -236,7 +241,7 @@ function CandidateTable({ data, refetch }) {
                   </table>
                 </div>
               </div>
-              {displayedCandidates.length > candidatesPerPage && (
+              {filteredCandidates.length >= 5 && (
                 <Pagination
                   pageCount={pageCount}
                   onPageChange={handlePageChange}
