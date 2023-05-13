@@ -155,7 +155,7 @@ const UserInfo = () => {
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("userInfo.gender")}
             </label>
-            <p className="text-gray-500 text-sm">{userInfo.genre}</p>
+            <p className="text-gray-500 text-sm">{userInfo?.genre}</p>
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">

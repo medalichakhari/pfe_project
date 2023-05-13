@@ -7,6 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
 import { signUpSchema } from "../../utils/validationSchemas";
 import { useTranslation } from "react-i18next";
+import Slogan from "../../assets/svg/Slogan";
 
 const SignUp = () => {
   const { t } = useTranslation();
@@ -52,6 +53,9 @@ const SignUp = () => {
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-50">
       <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div className="mb-4 flex justify-center items-center ">
+          <Slogan className="h-6" />
+        </div>
         <form onSubmit={handleSubmit}>
           <h4 className="mb-2 text-xl font-medium text-gray-900 dark:text-white">
             {t("signUp.ourPlatform")}
@@ -102,7 +106,7 @@ const SignUp = () => {
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            {t("signUp.confirmPassword")}
+              {t("signUp.confirmPassword")}
             </label>
             <input
               value={values.confirmPassword}
@@ -145,7 +149,7 @@ const SignUp = () => {
             </div>
           </SecondaryButton>
           <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-          {t("signUp.registered")}
+            {t("signUp.registered")}
             <a
               href="/signin"
               className="text-secondary hover:underline dark:text-primary"

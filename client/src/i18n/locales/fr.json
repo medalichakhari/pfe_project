@@ -164,11 +164,11 @@
       "changeStatus" : "Changer l'état de la candidature"
     },
     "editPostedJobCard" : {
-      "editJobOffer" : "Edit Job Offer",
-      "jobTitle" : "Job Title",
-      "domain" : "Domain",
+      "editJobOffer" : "Modifier l'offre d'emploi",
+      "jobTitle" : "Titre de l'emploi",
+      "domain" : "Domaine",
       "address" : "Adresse",
-      "jobType" : "Job Type",
+      "jobType" : "Type d'emploi",
       "salary" : "Salaire",
       "qualifications" : "Qualifications",
       "jobDescription" : "Description de l'emploi"

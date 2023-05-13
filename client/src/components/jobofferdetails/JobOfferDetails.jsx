@@ -19,7 +19,7 @@ const JobOfferDetails = () => {
   const navigate = useNavigate();
   const handleNavigate = () => {
     user && user.roles.includes("candidat")
-      ? navigate(`/offer/${offerId}/apply`)
+      ? navigate(`/offer/${offerId}/apply/${data.societe.id}`)
       : navigate("/candidateaccount");
   };
   return isLoading ? (

@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 
 const CompanyForm = ({ values, handleChange, handleBlur, image, setImage }) => {
   const { t } = useTranslation();
-  console.log("values", values.companyActivity);
   const { token } = useAuth();
   const { data, isLoading } = useQuery(["activityAreaInfo", token], () =>
     GetSecteurs(token)

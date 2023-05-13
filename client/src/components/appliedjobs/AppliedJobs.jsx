@@ -11,14 +11,15 @@ import { useTranslation } from "react-i18next";
 
 function AppliedJobs({ data, refetch }) {
   const { t } = useTranslation();
-  console.log("data", data);
   const navigate = useNavigate();
   const { token } = useAuth();
+  const jobList =
+    data && data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCandidacyId, setSelectedCandidacyId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
-  const [candidatesPerPage] = useState(5);
+  const [jobsPerPage] = useState(5);
 
   const handleOpenModal = (candidacyId) => {
     setIsOpen(!isOpen);
@@ -55,16 +56,15 @@ function AppliedJobs({ data, refetch }) {
     );
   }
 
-  const filteredCandidacy = data.filter(filterCandidacy);
-  console.log("filteredCandidates", filteredCandidacy);
-  const pageCount = Math.ceil(filteredCandidacy.length / candidatesPerPage); // Calculate total number of pages
+  const filteredCandidacy = jobList.filter(filterCandidacy);
+  const pageCount = Math.ceil(filteredCandidacy.length / jobsPerPage); // Calculate total number of pages
 
   function handlePageChange(selectedPage) {
     setCurrentPage(selectedPage.selected);
   }
 
-  const startIndex = currentPage * candidatesPerPage;
-  const endIndex = startIndex + candidatesPerPage;
+  const startIndex = currentPage * jobsPerPage;
+  const endIndex = startIndex + jobsPerPage;
   const displayedCandidates = filteredCandidacy.slice(startIndex, endIndex);
   return (
     <div className="max-w-3xl sm:px-1 lg:px-2">
@@ -174,7 +174,7 @@ function AppliedJobs({ data, refetch }) {
                   </table>
                 </div>
               </div>
-              {displayedCandidates.length > candidatesPerPage && (
+              {filteredCandidacy.length > jobsPerPage && (
                 <Pagination
                   pageCount={pageCount}
                   onPageChange={handlePageChange}

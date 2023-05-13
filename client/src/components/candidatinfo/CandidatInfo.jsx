@@ -37,7 +37,6 @@ const CandidatInfo = () => {
       experience: values.experience,
       cv: downloadURL ? downloadURL : candidate.cv,
     };
-    console.log("speciality", values.niveau);
     UpdateCandidat(candidate.id, candidatData, token)
       .then((res) => {
         refresh();

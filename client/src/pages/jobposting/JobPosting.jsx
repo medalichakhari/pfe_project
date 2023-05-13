@@ -9,11 +9,15 @@ import { CreateOffre } from "../../lib/fetch";
 import CompanyInfo from "../../components/companyform/CompanyInfo";
 import { useUser } from "../../context/UserContext";
 import { useTranslation } from "react-i18next";
+import { useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const STEPS_AMOUNT = 1;
 
 const JobPosting = () => {
   const { t } = useTranslation();
+  const toast = useToast();
+  const navigate = useNavigate();
   const [selectedValues, setSelectedValues] = useState(null);
   const [editorValue, setEditorValue] = useState("");
   const [formStep, setFormStep] = useState(0);
@@ -70,13 +74,27 @@ const JobPosting = () => {
       categorieId: jobOfferValues.domain,
       societeId: company?.id,
     };
-    console.log(offerData);
     CreateOffre(offerData, token)
       .then((res) => {
         console.log(res);
-        completeFormStep();
+        toast({
+          description: "Joboffer added successfully .",
+          position: "bottom-left",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+        navigate("/recruiterSpace");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast({
+          description: error.message,
+          position: "bottom-left",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      });
   };
   const {
     values: jobOfferValues,
@@ -121,12 +139,6 @@ const JobPosting = () => {
             )}
             {renderJobOfferButtons()}
           </form>
-          {formStep === 2 && (
-            <div className="mb-2">
-              <h2 className="font-semibold text-3xl mb-4">Congratulations!</h2>
-              <p>You can browse your jobs offer in your dashboard!</p>
-            </div>
-          )}
         </div>
       </div>
     </Layout>

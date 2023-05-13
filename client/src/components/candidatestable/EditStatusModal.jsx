@@ -25,8 +25,6 @@ function EditStatusModal({
   const finalRef = React.useRef(null);
   const { token } = useAuth();
   const handleChangeStatus = (values, actions) => {
-    console.log("candidacyId", candidacyId);
-    console.log("values", values);
     let candidatureData = {
       etat: values.status,
       candidatId: candidateId,

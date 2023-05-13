@@ -13,7 +13,6 @@ const Candidates = () => {
     ["candidatures", jobId, token],
     () => GetCandidaturesByOffre(jobId, token)
   );
-  console.log("data", candidatures);
   return (
     <Layout>{!isLoading && <CandidatesTable data={candidatures} refetch={refetch}/>}</Layout>
   );

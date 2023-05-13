@@ -5,12 +5,14 @@ import { CreateCandidature } from "../../lib/fetch";
 import { useUser } from "../../context/UserContext";
 import CandidatInfo from "../../components/candidatinfo/CandidatInfo";
 import { useNavigate, useParams } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 const JobApplication = () => {
+  const toast = useToast();
   const { token } = useAuth();
   const { offerId } = useParams();
   const { companyId } = useParams();
-  console.log("companyId", companyId);
+
   const { candidate } = useUser();
   const navigate = useNavigate();
   const handleApplyJob = async (values, actions) => {
@@ -22,9 +24,25 @@ const JobApplication = () => {
     CreateCandidature(applicationData, token)
       .then((res) => {
         console.log(res);
-        navigate("/");
+        toast({
+          description: "succesfully applied",
+          position: "bottom-left",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+        navigate("/candidatespace");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        toast({
+          description: err.message,
+          position: "bottom-left",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      });
   };
   return (
     <Layout>

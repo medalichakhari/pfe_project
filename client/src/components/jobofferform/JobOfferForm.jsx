@@ -18,7 +18,6 @@ const JobOfferForm = ({
   const { t } = useTranslation();
   const { token } = useAuth();
   const handleChanges = (value) => {
-    console.log("value:", value);
     setSelectedValues(value);
   };
 

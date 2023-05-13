@@ -13,12 +13,10 @@ const JobsByCategory = () => {
   const { t } = useTranslation();
   const [showCount, setShowCount] = useState(9);
   const { categoryId } = useParams();
-  console.log(categoryId);
   const { data: jobOffers, isLoading } = useQuery(
     ["jobOffers", categoryId],
     () => GetOffresByCategorie(categoryId)
   );
-  console.log(jobOffers);
   const jobOffersList = jobOffers && jobOffers?.slice(0, showCount);
   const handleLoadMore = () => {
     setShowCount(showCount + 8);

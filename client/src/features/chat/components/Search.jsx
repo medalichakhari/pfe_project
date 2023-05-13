@@ -63,7 +63,6 @@ const Search = () => {
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
-        console.log("user chat created", user);
         await updateDoc(doc(db, "userChats", searchedUser.uid), {
           [combinedId + ".userInfo"]: {
             uid: user.user_id,

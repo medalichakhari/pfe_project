@@ -15,7 +15,6 @@ const CandidatForm = ({
 }) => {
   const { t } = useTranslation();
   const handleChanges = (value) => {
-    console.log("value:", value);
     setSelectedValues(value);
   };
   return (

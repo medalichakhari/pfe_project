@@ -20,13 +20,13 @@ function CandidateTable({ data, refetch }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const candidates = data && data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCandidacyId, setSelectedCandidacyId] = useState(null);
   const [selectedCandidateId, setSelectedCandidateId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [candidatesPerPage] = useState(5);
-  console.log("candidatesPerPage", candidatesPerPage);
   const handleOpenModal = (candidacyId, candidateId) => {
     setIsOpen(!isOpen);
     setSelectedCandidacyId(candidacyId);
@@ -39,7 +39,6 @@ function CandidateTable({ data, refetch }) {
   }
 
   function filterCandidates(candidacy) {
-    console.log("ezab", candidacy);
     return (
       candidacy?.candidat?.user?.nom
         .toLowerCase()
@@ -54,10 +53,8 @@ function CandidateTable({ data, refetch }) {
     );
   }
 
-  const filteredCandidates = data.filter(filterCandidates);
-  console.log("filteredCandidates", filteredCandidates);
+  const filteredCandidates = candidates.filter(filterCandidates);
   const pageCount = Math.ceil(filteredCandidates.length / candidatesPerPage); // Calculate total number of pages
-  console.log("filteredCandidates", filteredCandidates);
   function handlePageChange(selectedPage) {
     setCurrentPage(selectedPage.selected);
   }
@@ -65,20 +62,15 @@ function CandidateTable({ data, refetch }) {
   const startIndex = currentPage * candidatesPerPage;
   const endIndex = startIndex + candidatesPerPage;
   const displayedCandidates = filteredCandidates.slice(startIndex, endIndex);
-  console.log("displayedCandidates", displayedCandidates);
   //handle message
   const handleSelect = async (selectedUser) => {
-    console.log("selectedUser", selectedUser);
     //check whether the group(chats in firestore) exists, if not create
     const combinedId =
       user.user_id > selectedUser.id
         ? user.user_id + selectedUser.id
         : selectedUser.id + user.user_id;
     try {
-      console.log("combinedId", combinedId);
       const res = await getDoc(doc(db, "chats", combinedId));
-      console.log(res);
-      console.log("user chat created", user);
       if (!res.exists()) {
         //create a chat in chats collection
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
@@ -241,7 +233,7 @@ function CandidateTable({ data, refetch }) {
                   </table>
                 </div>
               </div>
-              {filteredCandidates.length >= 5 && (
+              {filteredCandidates.length >= candidatesPerPage && (
                 <Pagination
                   pageCount={pageCount}
                   onPageChange={handlePageChange}

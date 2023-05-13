@@ -23,7 +23,6 @@ const UserAccount = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const toast = useToast();
-  console.log("navigate to", from);
   const handleCreateUser = async (values, actions) => {
     try {
       setIsLoading(true);

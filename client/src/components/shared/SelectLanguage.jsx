@@ -1,19 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { HiTranslate } from "react-icons/hi";
 
 function SelectLanguage() {
   const { i18n } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
   function handleChange(event) {
-    const selectedLanguage = event.target.value;
-    i18n.changeLanguage(selectedLanguage);
-    localStorage.setItem("selectedLanguage", selectedLanguage);
+    const language = event.target.value;
+    setSelectedLanguage(language);
+    i18n.changeLanguage(language);
+    localStorage.setItem("selectedLanguage", language);
   }
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem("selectedLanguage");
     if (storedLanguage) {
+      setSelectedLanguage(storedLanguage);
       i18n.changeLanguage(storedLanguage);
     }
   }, [i18n]);
@@ -21,8 +24,8 @@ function SelectLanguage() {
   return (
     <div className="relative">
       <select
-        className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white appearance-none"
-        value={i18n.language}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white appearance-none"
+        value={selectedLanguage}
         onChange={handleChange}
       >
         <option value="en">English</option>
@@ -35,4 +38,4 @@ function SelectLanguage() {
   );
 }
 
-export default SelectLanguage;
+export default SelectLanguage; 

@@ -35,7 +35,6 @@ export default function NavBar() {
       if (user?.roles?.includes("recruteur")) {
         return GetNotificationBySociete(company?.id, token);
       } else {
-        // Return an empty array if the user is not a recruiter
         return Promise.resolve([]);
       }
     });
@@ -45,23 +44,28 @@ export default function NavBar() {
       if (user?.roles?.includes("candidat")) {
         return GetNotificationByCandidat(candidate?.id, token);
       } else {
-        // Return an empty array if the user is not a candidate
         return Promise.resolve([]);
       }
     });
-  console.log("recruiterNotifs", recruiterNotifs);
   const hasRecruiterRole = user?.roles?.includes("recruteur");
   const hasCandidateRole = user?.roles?.includes("candidat");
   let unreadCount;
 
   if (hasRecruiterRole && hasCandidateRole) {
     unreadCount =
+      recruiterNotifs?.length > 0 &&
       recruiterNotifs?.filter((n) => !n.isread).length +
+        candidateNotifs?.length >
+        0 &&
       candidateNotifs?.filter((n) => !n.isread).length;
   } else if (hasRecruiterRole) {
-    unreadCount = recruiterNotifs?.filter((n) => !n.isread).length;
+    unreadCount =
+      recruiterNotifs?.length > 0 &&
+      recruiterNotifs?.filter((n) => !n.isread).length;
   } else if (hasCandidateRole) {
-    unreadCount = candidateNotifs?.filter((n) => !n.isread).length;
+    unreadCount =
+      candidateNotifs?.length > 0 &&
+      candidateNotifs?.filter((n) => !n.isread).length;
   } else {
     unreadCount = 0;
   }
@@ -116,10 +120,9 @@ export default function NavBar() {
     <>
       <Navbar fluid={true} rounded={true}>
         <Navbar.Brand href="#">
-          <Slogan className="mr-3 h-4" />
-          {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-            Jobyssey
-          </span> */}
+          <div onClick={() => navigate("/")}>
+            <Slogan className="mr-3 h-4" />
+          </div>
         </Navbar.Brand>
         {user ? (
           <div className="flex md:order-2">
@@ -273,12 +276,14 @@ export default function NavBar() {
           <div className="flex md:order-2 gap-2">
             <SelectLanguage />
 
-            <Link to="/signin">
-              <SecondaryButton>{t("nav.signIn")}</SecondaryButton>
-            </Link>
-            <Link to="/signup">
-              <PrimaryButton>{t("nav.signUp")}</PrimaryButton>
-            </Link>
+            <SecondaryButton onClick={() => navigate("/signin")}>
+              {t("nav.signIn")}
+            </SecondaryButton>
+
+            <PrimaryButton onClick={() => navigate("signup")}>
+              {t("nav.signUp")}
+            </PrimaryButton>
+
             <Navbar.Toggle />
           </div>
         )}

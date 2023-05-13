@@ -32,7 +32,6 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
     ["jobOfferInfo", jobId, token],
     () => GetOffre(jobId, token)
   );
-  console.log("data", data);
   const [editorValue, setEditorValue] = useState(data?.description);
   const handleChanges = (value) => {
     setSelectedValues(value);
@@ -40,8 +39,6 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
   const handleUpdateJobOffer = (values, actions) => {
     const qualificationsValue = selectedValues?.map((option) => option.value);
     const qualifications = qualificationsValue?.join(",");
-    console.log("jobId", jobId);
-    console.log("values", values);
     let jobOfferData = {
       titre: values.title,
       adresse: values.address,
@@ -103,7 +100,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{t("editJobOffer")}</ModalHeader>
+          <ModalHeader>{t("editPostedJobCard.editJobOffer")}</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <form onSubmit={handleSubmit}>
@@ -202,7 +199,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                  {t("editPostedJobCard.editJobOffer")}
+                  {t("editPostedJobCard.qualifications")}
                 </label>
                 <Select
                   value={selectedValues}

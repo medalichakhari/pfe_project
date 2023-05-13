@@ -9,7 +9,6 @@ import { useTranslation } from "react-i18next";
 
 const JobCard = ({ job }) => {
   const { t } = useTranslation();
-  console.log("jobzzzzzzzzzzzz", job);
   const navigate = useNavigate();
   const { user } = useAuth();
   const handleNavigate = () => {
@@ -29,7 +28,7 @@ const JobCard = ({ job }) => {
 
   return (
     <div>
-      <div className="group group/item w-[250px] p-[20px] bg-white rounded-[10px] hover:bg-blueColor shadow-lg shadow-greIsh-400/700 hover:shadow-lg">
+      <div className="group group/item w-[300px] p-[20px] bg-white rounded-[10px] hover:bg-blueColor shadow-lg shadow-greIsh-400/700 hover:shadow-lg">
         <span className="flex justify-between items-center gap-4">
           <h1
             className="text-[16px] font-semibold text-textColor group-hover:text-white cursor-pointer"

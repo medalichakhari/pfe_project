@@ -23,10 +23,8 @@ const CompanyInfo = () => {
     ["activityAreaInfo", company?.secteurId, token],
     () => GetSecteur(company?.secteurId, token)
   );
-  console.log("wiiw", activityAreaInfo);
   const handleUpdateCompany = async (values, actions) => {
     const { user_id } = user;
-    console.log("companyId", company.id);
     const path = `companyImages/${user_id}/${image.name}`;
     image && (await uploadFile(image, path));
     const downloadURL = await downloadUrl(path);

@@ -7,7 +7,7 @@ import { DeleteOffre } from "../../lib/fetch";
 import DeleteAlertDialog from "../shared/AlertDialog";
 import { useAuth } from "../../context/AuthContext";
 
-function PostedJobCard({ jobId, jobTitle, jobType, numCandidates }) {
+function PostedJobCard({ jobId, jobTitle, jobType, numCandidates, refetch }) {
   const navigate = useNavigate();
   const { token } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
@@ -25,6 +25,7 @@ function PostedJobCard({ jobId, jobTitle, jobType, numCandidates }) {
     DeleteOffre(jobId, token)
       .then((res) => {
         console.log("res", res);
+        refetch();
         handleOpenDeleteModal();
       })
       .catch((err) => {

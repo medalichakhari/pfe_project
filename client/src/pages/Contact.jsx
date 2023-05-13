@@ -9,8 +9,6 @@ function Contact() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Send data to server or do something else with it
-    console.log(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
     setName("");
     setEmail("");
     setMessage("");

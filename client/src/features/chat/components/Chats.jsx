@@ -25,7 +25,6 @@ const Chats = () => {
   }, [user.user_id]);
 
   const handleSelect = (u) => {
-    console.log("woha: ", u);
     dispatch({ type: "CHANGE_USER", payload: u });
   };
 
