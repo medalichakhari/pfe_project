@@ -25,7 +25,7 @@ const Home = () => {
     <Layout>
       <Hero />
       <Search jobs={jobs} setFilteredJobs={setFilteredJobs} />
-      <JobList filteredJobs={filteredJobs} isLoading={isLoading} />
+      <JobList filteredJobs={filteredJobs} />
       <CategoryList />
     </Layout>
   );
