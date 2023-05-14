@@ -43,11 +43,11 @@ const RecruiterSpace = () => {
             <div>Loading...</div>
           ) : (
             <div>
-              <div className="relative mb-4 mx-2 md:mx-2 w-full md:w-auto">
+              <div className="relative mb-2 md:mb-0 mx-2 md:mx-2 w-full md:w-full">
                 <input
                   type="text"
                   placeholder="Search jobs"
-                  className="bg-white text-gray-800 rounded-full py-2 px-10 pl-10 focus:outline-none focus:shadow-outline w-full md:w-auto"
+                  className="bg-white text-gray-800 rounded-full py-2 px-10 pl-10 focus:outline-none focus:shadow-outline w-full md:w-full"
                   value={searchQuery}
                   onChange={handleSearch}
                 />
@@ -65,16 +65,20 @@ const RecruiterSpace = () => {
                   </SecondaryButton>
                 </div>
               ) : (
-                filteredJobsList?.map((job) => (
-                  <PostedJobCard
-                    key={job.id}
-                    jobTitle={job.titre}
-                    jobType={job.type}
-                    numCandidates={job.candidatures?.length || 0}
-                    jobId={job.id}
-                    refetch={refetch}
-                  />
-                ))
+                <div className="flex flex-col items-center h-full">
+                  <div className="flex gap-4 justify-center flex-wrap items-center py-4 mb-auto">
+                    {filteredJobsList?.map((job) => (
+                      <PostedJobCard
+                        key={job.id}
+                        jobTitle={job.titre}
+                        jobType={job.type}
+                        numCandidates={job.candidatures?.length || 0}
+                        jobId={job.id}
+                        refetch={refetch}
+                      />
+                    ))}
+                  </div>
+                </div>
               )}
             </div>
           )}

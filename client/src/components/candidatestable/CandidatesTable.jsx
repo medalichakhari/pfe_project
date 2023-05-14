@@ -110,7 +110,7 @@ function CandidateTable({ data, refetch }) {
         <h1 className="text-2xl font-bold mr-4">
           {t("candidatesTable.candidates")}
         </h1>
-        <div className="relative mb-2 md:mb-0 mx-2 md:mx-2 w-full md:w-auto">
+        <div className=" flex items-center relative mb-2 md:mb-0 mx-2 md:mx-2 w-full md:w-auto">
           <input
             type="text"
             placeholder={t("candidatesTable.searchCandidate")}

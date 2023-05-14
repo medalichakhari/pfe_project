@@ -27,11 +27,11 @@ const JobsByCategory = () => {
     <div>{t("jobsByCategory.noJob")}</div>
   ) : (
     <Layout>
-<div className="my-8 mx-auto max-w-4xl">
-  <h2 className="text-center text-3xl font-bold text-gray-900">
-    {t("jobsByCategory.unlockYour")}
-  </h2>
-</div>
+      <div className="my-8 mx-auto max-w-4xl">
+        <h2 className="text-center text-3xl font-bold text-gray-900">
+          {t("jobsByCategory.unlockYour")}
+        </h2>
+      </div>
       <Search placeholder={t("jobsByCategory.searchPlaceholder")} />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {jobOffersList?.map((jobOffer) => (

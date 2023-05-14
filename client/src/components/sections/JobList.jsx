@@ -16,7 +16,7 @@ const JobList = ({ filteredJobs }) => {
   };
   return  (
     <div className="flex flex-col items-center h-full">
-      <div className="flex gap-10 justify-center flex-wrap items-center py-10 mb-auto">
+      <div className="flex gap-12 justify-center flex-wrap items-center py-10 mb-auto">
         {jobsList?.map((job) => (
           <JobCard key={job.id} job={job} />
         ))}
