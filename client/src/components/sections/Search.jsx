@@ -4,7 +4,7 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { useTranslation } from "react-i18next";
 
-const Search = ({ jobs, setFilteredJobs }) => {
+const Search = ({ clarifiedJobs, setFilteredJobs }) => {
   const prevKeyword = useRef("");
 const prevLocation = useRef("");
   const [keyword, setKeyword] = useState("");
@@ -19,7 +19,7 @@ const prevLocation = useRef("");
     prevKeyword.current = keyword;
     setKeyword(value);
     if (value !== prevKeyword.current) {
-      setKeywordSuggestions(getKeywordSuggestions(value, jobs));
+      setKeywordSuggestions(getKeywordSuggestions(value, clarifiedJobs));
     }
   };
   
@@ -28,12 +28,12 @@ const prevLocation = useRef("");
     prevLocation.current = location;
     setLocation(value);
     if (value !== prevLocation.current) {
-      setLocationSuggestions(getLocationSuggestions(value, jobs));
+      setLocationSuggestions(getLocationSuggestions(value, clarifiedJobs));
     }
   };
 
   const getKeywordSuggestions = (value) => {
-    const searchedJobs = jobs.filter(
+    const searchedJobs = clarifiedJobs.filter(
       (job) =>
         job.titre.toLowerCase().includes(value.toLowerCase()) ||
         job.competences.toLowerCase().includes(value.toLowerCase())
@@ -43,7 +43,7 @@ const prevLocation = useRef("");
   };
 
   const getLocationSuggestions = (value) => {
-    const searchedJobs = jobs.filter((job) =>
+    const searchedJobs = clarifiedJobs.filter((job) =>
       job.adresse.toLowerCase().includes(value.toLowerCase())
     );
     const suggestions = [...new Set(searchedJobs.map((job) => job.adresse))];
@@ -60,7 +60,7 @@ const prevLocation = useRef("");
 
   const handleSearchJobs = (e) => {
     e.preventDefault();
-    const filteredJobs = jobs.filter(filterJobs);
+    const filteredJobs = clarifiedJobs.filter(filterJobs);
     setFilteredJobs(filteredJobs);
   };
 

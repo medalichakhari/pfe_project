@@ -7,24 +7,27 @@ import CategoryList from "../../components/sections/CategoryList";
 import { useQuery } from "react-query";
 import { GetOffres } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
+import { useUser } from "../../context/UserContext";
 
 const Home = () => {
   const { token } = useAuth();
+  const { company } = useUser();
   const [filteredJobs, setFilteredJobs] = useState([]);
   const { data: jobs, isLoading } = useQuery(["jobs", token], () =>
     GetOffres(token)
   );
-
+  console.log("jobs", jobs);
   useEffect(() => {
     if (!isLoading && jobs) {
-      setFilteredJobs(jobs);
+      const filteredJobs = jobs.filter((job) => job.societe.id !== company?.id);
+      setFilteredJobs(filteredJobs);
     }
-  }, [isLoading, jobs]);
+  }, [isLoading, jobs, company?.id]);
 
   return (
     <Layout>
       <Hero />
-      <Search jobs={jobs} setFilteredJobs={setFilteredJobs} />
+      <Search clarifiedJobs={filteredJobs} setFilteredJobs={setFilteredJobs} />
       <JobList filteredJobs={filteredJobs} />
       <CategoryList />
     </Layout>
