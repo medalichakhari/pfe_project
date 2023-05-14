@@ -20,7 +20,8 @@ function CandidateTable({ data, refetch }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const candidates = data && data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const candidates =
+    data && data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCandidacyId, setSelectedCandidacyId] = useState(null);
   const [selectedCandidateId, setSelectedCandidateId] = useState(null);

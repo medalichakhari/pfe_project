@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
 import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import SecondaryButton from "../buttons/secondarybutton/SecondaryButton";
@@ -131,24 +131,24 @@ export default function NavBar() {
             </div>
             {hasRecruiterRole || hasCandidateRole ? (
               <div className="flex justify-center items-center">
-                <button
+                <span
                   className="pr-5 text-primary hover:text-secondary"
                   onClick={navigateToChat}
                 >
                   <AiFillMessage size={30} />
-                </button>
+                </span>
                 <Dropdown
                   arrowIcon={false}
                   inline={true}
                   label={
-                    <button className="relative pr-5 text-primary hover:text-secondary">
+                    <div className="relative pr-5 text-primary hover:text-secondary">
                       <IoNotifications size={30} />
                       {unreadCount > 0 && (
                         <span className="absolute top-0 right-0 mr-5 bg-red-500 text-white font-bold text-xs rounded-full h-4 w-4 flex items-center justify-center">
                           {unreadCount}
                         </span>
                       )}
-                    </button>
+                    </div>
                   }
                 >
                   <Dropdown.Header>

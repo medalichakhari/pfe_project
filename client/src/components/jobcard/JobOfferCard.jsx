@@ -15,8 +15,11 @@ const JobOfferCard = ({ jobOffer }) => {
     <div className="container mx-auto rounded-lg bg-white shadow-lg p-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center cursor-pointer">
-          <GoogleIcon className="h-12 w-12 object-contain" />
-
+          <img
+            src={jobOffer.societe?.logo}
+            alt="companyLogo"
+            className="w-14 h-14 rounded-full object-cover"
+          />
           <div className="ml-4">
             <h3 className="font-medium text-gray-800">{jobOffer.titre}</h3>
             <p className="text-gray-600">{jobOffer?.societ?.nom}</p>
@@ -35,9 +38,10 @@ const JobOfferCard = ({ jobOffer }) => {
           2 days ago
         </p>
       </div>
-      <p className="ml-6 mt-4 text-gray-800 font-light">
-        {jobOffer.description}
-      </p>
+      <p
+        className="ml-6 mt-4 text-gray-800 font-light"
+        dangerouslySetInnerHTML={{ __html: jobOffer.description }}
+      />
       <PrimaryButton className="mt-4 w-full" onClick={handleReadMore}>
         {t("readMore")}
       </PrimaryButton>
