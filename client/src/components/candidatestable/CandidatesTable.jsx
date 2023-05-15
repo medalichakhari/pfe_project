@@ -23,15 +23,13 @@ function CandidateTable({ data, refetch }) {
   const candidates =
     data && data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCandidacyId, setSelectedCandidacyId] = useState(null);
-  const [selectedCandidateId, setSelectedCandidateId] = useState(null);
+  const [selectedCandidacy, setSelectedCandidacy] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [candidatesPerPage] = useState(5);
-  const handleOpenModal = (candidacyId, candidateId) => {
+  const handleOpenModal = (candidacy) => {
     setIsOpen(!isOpen);
-    setSelectedCandidacyId(candidacyId);
-    setSelectedCandidateId(candidateId);
+    setSelectedCandidacy(candidacy);
   };
 
   function handleSearch(event) {
@@ -129,8 +127,7 @@ function CandidateTable({ data, refetch }) {
             <EditStatusModal
               isOpen={isOpen}
               handleOpenModal={handleOpenModal}
-              candidacyId={selectedCandidacyId}
-              candidateId={selectedCandidateId}
+              candidacy={selectedCandidacy}
               refetch={refetch}
             />
             <div className="-my-2 overflow-y-hidden sm:-mx-6 lg:-mx-8">
@@ -216,12 +213,7 @@ function CandidateTable({ data, refetch }) {
                           <td className="px-4 py-2 text-center">
                             {candidacy.etat === "pending" ? (
                               <a
-                                onClick={() =>
-                                  handleOpenModal(
-                                    candidacy.id,
-                                    candidacy.candidat.id
-                                  )
-                                }
+                                onClick={() => handleOpenModal(candidacy)}
                                 className="text-indigo-600 hover:text-indigo-900 cursor-pointer"
                               >
                                 {t("candidatesTable.changeStatus")}

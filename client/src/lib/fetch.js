@@ -683,4 +683,20 @@ export const GetNotificationByCandidat = async (id, token) => {
     const response = await axios(config);
     return response.data;   
 }
+
+export const UpdateNotification = async (id, notificationData, token) => {
+    let data = notificationData;
+    let config = {
+        method: "put",
+        url: `http://localhost:8080/api/notifications/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        data: data,
+    };
+    const response = await axios(config);
+    return response;
+}
+
         

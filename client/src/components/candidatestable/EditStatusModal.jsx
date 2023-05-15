@@ -13,13 +13,7 @@ import { useAuth } from "../../context/AuthContext";
 import { UpdateCandidature } from "../../lib/fetch";
 import { useTranslation } from "react-i18next";
 
-function EditStatusModal({
-  isOpen,
-  handleOpenModal,
-  candidacyId,
-  candidateId,
-  refetch,
-}) {
+function EditStatusModal({ isOpen, handleOpenModal, candidacy, refetch }) {
   const { t } = useTranslation();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -27,9 +21,10 @@ function EditStatusModal({
   const handleChangeStatus = (values, actions) => {
     let candidatureData = {
       etat: values.status,
-      candidatId: candidateId,
+      candidatId: candidacy.candidat?.id,
+      message: `Your candidacy to ${candidacy.offre?.titre} has been ${values.status}`,
     };
-    UpdateCandidature(candidacyId, candidatureData, token)
+    UpdateCandidature(candidacy.id, candidatureData, token)
       .then((res) => {
         console.log(res);
         refetch();

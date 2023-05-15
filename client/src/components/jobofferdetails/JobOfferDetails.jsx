@@ -34,7 +34,7 @@ const JobOfferDetails = () => {
           </PrimaryButton>
         </div>
         <div className="flex my-10">
-          <div className="w-1/2">
+          <div className="w-1/3">
             {data.societe?.logo ? (
               <img
                 src={data.societe?.logo}
@@ -55,7 +55,7 @@ const JobOfferDetails = () => {
               {data.type}
             </p>
           </div>
-          <div className="w-1/2">
+          <div className="w-2/3">
             <h3 className="text-2xl font-bold text-gray-800 mb-5">
               {t("jobOfferDetails.jobDetails")}
             </h3>
@@ -66,7 +66,7 @@ const JobOfferDetails = () => {
           </div>
         </div>
         <div className="flex my-10">
-          <div className="w-1/2">
+          <div className="w-1/3">
             <div>
               <h3 className="text-xl font-bold text-gray-800 mb-2">
                 {t("jobOfferDetails.salary")}
@@ -80,7 +80,7 @@ const JobOfferDetails = () => {
               <li className="text-gray-600">{data.type}</li>
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="w-2/3">
             <h3 className="text-xl font-bold text-gray-800 mb-5">
               {t("jobOfferDetails.qualifications")}
             </h3>

@@ -7,11 +7,7 @@ import SecondaryButton from "../buttons/secondarybutton/SecondaryButton";
 import { BsBriefcase } from "react-icons/bs";
 import { FaUserGraduate } from "react-icons/fa";
 import { ImUserTie } from "react-icons/im";
-import {
-  AiFillMessage,
-  AiFillSetting,
-  AiOutlineCloseCircle,
-} from "react-icons/ai";
+import { AiFillMessage, AiFillSetting } from "react-icons/ai";
 import { IoNotifications } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
 import Slogan from "../../assets/svg/Slogan";
@@ -23,6 +19,7 @@ import { useUser } from "../../context/UserContext";
 import {
   GetNotificationByCandidat,
   GetNotificationBySociete,
+  UpdateNotification,
 } from "../../lib/fetch";
 
 export default function NavBar() {
@@ -30,23 +27,29 @@ export default function NavBar() {
   const { user, logOut, token } = useAuth();
   const { company, candidate } = useUser();
   const navigate = useNavigate();
-  const { data: recruiterNotifs, isLoading: isLoadingRecruiterNotifs } =
-    useQuery(["recruiterNotifs", company?.id, token], () => {
-      if (user?.roles?.includes("recruteur")) {
-        return GetNotificationBySociete(company?.id, token);
-      } else {
-        return Promise.resolve([]);
-      }
-    });
+  const {
+    data: recruiterNotifs,
+    isLoading: isLoadingRecruiterNotifs,
+    refetch: refetchRecruiterNotifs,
+  } = useQuery(["recruiterNotifs", company?.id, token], () => {
+    if (user?.roles?.includes("recruteur")) {
+      return GetNotificationBySociete(company?.id, token);
+    } else {
+      return Promise.resolve([]);
+    }
+  });
 
-  const { data: candidateNotifs, isLoading: isLoadingCandidateNotifs } =
-    useQuery(["candidateNotifs", candidate?.id, token], () => {
-      if (user?.roles?.includes("candidat")) {
-        return GetNotificationByCandidat(candidate?.id, token);
-      } else {
-        return Promise.resolve([]);
-      }
-    });
+  const {
+    data: candidateNotifs,
+    isLoading: isLoadingCandidateNotifs,
+    refetch: refetchCandidateNotifs,
+  } = useQuery(["candidateNotifs", candidate?.id, token], () => {
+    if (user?.roles?.includes("candidat")) {
+      return GetNotificationByCandidat(candidate?.id, token);
+    } else {
+      return Promise.resolve([]);
+    }
+  });
   const hasRecruiterRole = user?.roles?.includes("recruteur");
   const hasCandidateRole = user?.roles?.includes("candidat");
   let unreadCount;
@@ -69,6 +72,27 @@ export default function NavBar() {
   } else {
     unreadCount = 0;
   }
+  const handleReadNotif = (notif) => {
+    const notifData = {
+      isRead: true,
+    };
+
+    UpdateNotification(notif.id, notifData, token)
+      .then((res) => {
+        console.log(res);
+
+        if (user?.roles?.includes("recruteur")) {
+          refetchRecruiterNotifs();
+        }
+
+        if (user?.roles?.includes("candidat")) {
+          refetchCandidateNotifs();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const navigateToJobPosting = () => {
     if (hasRecruiterRole) {
       return (
@@ -165,14 +189,16 @@ export default function NavBar() {
                       {!isLoadingRecruiterNotifs &&
                       recruiterNotifs?.length > 0 ? (
                         recruiterNotifs
+                          .sort((a, b) => new Date(b.date) - new Date(a.date))
                           .slice(0, 5)
                           .map((notification, index) => (
                             <Dropdown.Item
                               key={index}
+                              onClick={() => handleReadNotif(notification)}
                               className={
                                 notification.isread
                                   ? "text-gray-400"
-                                  : "text-gray-800"
+                                  : "text-gray-800 font-semibold"
                               }
                             >
                               {notification.message}
@@ -200,14 +226,16 @@ export default function NavBar() {
                       {!isLoadingCandidateNotifs &&
                       candidateNotifs?.length > 0 ? (
                         candidateNotifs
+                          .sort((a, b) => new Date(b.date) - new Date(a.date))
                           .slice(0, 5)
                           .map((notification, index) => (
                             <Dropdown.Item
                               key={index}
+                              onClick={() => handleReadNotif(notification)}
                               className={
                                 notification.isread
                                   ? "text-gray-400"
-                                  : "text-gray-800"
+                                  : "text-gray-800 font-semibold"
                               }
                             >
                               {notification.message}
