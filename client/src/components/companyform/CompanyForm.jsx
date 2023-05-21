@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 
-const CompanyForm = ({ values, handleChange, handleBlur, image, setImage }) => {
+const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors, touched}) => {
   const { t } = useTranslation();
   const { token } = useAuth();
   const { data, isLoading } = useQuery(["activityAreaInfo", token], () =>
@@ -32,8 +32,15 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage }) => {
           name="companyName"
           id="companyName"
           placeholder="Enter your company name"
-          className="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.companyName && errors.companyName
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
         />
+        {touched.companyName && errors.companyName && (
+              <div className="text-red-500 text-sm">{errors.companyName}</div>
+            )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -47,8 +54,15 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage }) => {
           name="companyAddress"
           id="companyAddress"
           placeholder="Enter your company address"
-          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.companyAddress && errors.companyAddress
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
         />
+        {touched.companyAddress && errors.companyAddress && (
+              <div className="text-red-500 text-sm">{errors.companyAddress}</div>
+            )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -62,8 +76,12 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage }) => {
           name="companyActivity"
           id="companyActivity"
           placeholder="Please select it's activity area"
-          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-        >
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.companyActivity && errors.companyActivity
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}        
+          >
           <option value="">Please select it's domain</option>
           {isLoading ? (
             <option value="">Loading...</option>
@@ -75,6 +93,9 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage }) => {
             ))
           )}
         </select>
+        {touched.companyActivity && errors.companyActivity && (
+              <div className="text-red-500 text-sm">{errors.companyActivity}</div>
+            )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -88,8 +109,15 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage }) => {
           name="companyDescription"
           id="companyDescription"
           placeholder="Enter your company description"
-          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.companyAddress && errors.companyAddress
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
         />
+        {touched.companyDescription && errors.companyDescription && (
+              <div className="text-red-500 text-sm">{errors.companyDescription}</div>
+            )}
       </div>
     </>
   );
