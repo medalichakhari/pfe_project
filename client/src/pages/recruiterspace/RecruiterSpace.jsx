@@ -46,7 +46,7 @@ const RecruiterSpace = () => {
               <div className="relative mb-2 md:mb-0 mx-2 md:mx-2 w-full md:w-full">
                 <input
                   type="text"
-                  placeholder="Search jobs"
+                  placeholder="Chercher un offre d'emploi"
                   className="bg-white text-gray-800 rounded-full py-2 px-10 pl-10 focus:outline-none focus:shadow-outline w-full md:w-full"
                   value={searchQuery}
                   onChange={handleSearch}

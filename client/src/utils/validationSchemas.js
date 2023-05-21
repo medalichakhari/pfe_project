@@ -24,3 +24,4 @@ export const signInSchema = yup.object().shape({
     .matches(passwordRules, { message: "Please create a stronger password" })
     .required("Required"),
 });
+

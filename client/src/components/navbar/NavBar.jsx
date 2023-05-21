@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
@@ -29,7 +29,13 @@ export default function NavBar() {
   } = useQuery(["notifications", token], () => GetNotifications(token));
   const hasRecruiterRole = user?.roles?.includes("recruteur");
   const hasCandidateRole = user?.roles?.includes("candidat");
-  const [unreadCount, setUnreadCount] = useState(notifications.length);
+  const [unreadCount, setUnreadCount] = useState(null);
+  useEffect(() => {
+    if (!isLoadingNotifs && notifications) {
+      const unreadCount = notifications.filter((notif) => !notif.isRead).length;
+      setUnreadCount(unreadCount);
+    }
+  }, [isLoadingNotifs, notifications]);
   const handleReadNotification = (notif) => {
     const notifData = {
       isRead: true,
