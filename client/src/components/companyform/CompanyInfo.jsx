@@ -9,6 +9,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
 import { useTranslation } from "react-i18next";
 import { companySchema } from "../../utils/validationSchemas";
+import { useToast } from "@chakra-ui/react";
 
 const CompanyInfo = () => {
   const { t } = useTranslation();
@@ -16,6 +17,7 @@ const CompanyInfo = () => {
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
+  const toast = useToast();
   const { token, user } = useAuth();
   const { company, refresh } = useUser();
   const [image, setImage] = useState();
@@ -43,8 +45,24 @@ const CompanyInfo = () => {
         refresh();
         handleEditClick();
         console.log(res);
+        toast({
+          description: "Company information has been modified successfully.",
+          position: "bottom-left",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err)
+        toast({
+          description: err.message,
+          position: "bottom-left",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      });
   };
   const {
     values,
