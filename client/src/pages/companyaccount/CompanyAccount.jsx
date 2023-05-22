@@ -8,6 +8,7 @@ import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton"
 import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
 import { useUser } from "../../context/UserContext";
+import { companySchema } from "../../utils/validationSchemas";
 
 const CompanyAccount = () => {
   const [image, setImage] = useState("");
@@ -51,6 +52,7 @@ const CompanyAccount = () => {
       companyActivity: "",
       companyDescription: "",
     },
+    validationSchema : companySchema,
     onSubmit: handleCreateCompany,
   });
   return (
@@ -64,6 +66,8 @@ const CompanyAccount = () => {
               handleBlur={handleBlur}
               image={image}
               setImage={setImage}
+              errors={errors}
+              touched={touched}
             />
             <div className="flex flex-row-reverse">
               <PrimaryButton type="submit">Create</PrimaryButton>

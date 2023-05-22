@@ -8,6 +8,7 @@ import CandidatForm from "../candidatform/CandidatForm";
 import { Link } from "react-router-dom";
 import { useStorage } from "../../context/StorageContext";
 import { useTranslation } from "react-i18next";
+import { candidatSchema } from "../../utils/validationSchemas";
 
 const CandidatInfo = () => {
   const { t } = useTranslation();
@@ -65,6 +66,7 @@ const CandidatInfo = () => {
           speciality: candidate?.specialite,
           experience: candidate?.experience,
         },
+        validationSchema : candidatSchema,
     onSubmit: handleUpdateCandidat,
     enableReinitialize: true,
   });
@@ -91,6 +93,8 @@ const CandidatInfo = () => {
             setSelectedValues={setSelectedValues}
             handleChange={handleChange}
             handleBlur={handleBlur}
+            errors={errors}
+            touched={touched}
           />
         </form>
       ) : (

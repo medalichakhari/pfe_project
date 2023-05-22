@@ -9,6 +9,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
 import CandidatInfo from "../../components/candidatinfo/CandidatInfo";
 import { useUser } from "../../context/UserContext";
+import { candidatSchema } from "../../utils/validationSchemas";
 
 const CandidatAccount = () => {
   const { token, user, refreshUser } = useAuth();
@@ -58,6 +59,7 @@ const CandidatAccount = () => {
       educationLevel: "",
       experience: "",
     },
+    validationSchema : candidatSchema,
     onSubmit: handleCreateCandidat,
   });
   return (
@@ -76,6 +78,8 @@ const CandidatAccount = () => {
                 values={values}
                 handleChange={handleChange}
                 handleBlur={handleBlur}
+                errors={errors}
+                touched={touched}
               />
               <div className="flex flex-row-reverse">
                 <PrimaryButton type="submit">Create</PrimaryButton>

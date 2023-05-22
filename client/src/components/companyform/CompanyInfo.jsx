@@ -8,6 +8,7 @@ import { useQuery } from "react-query";
 import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
 import { useTranslation } from "react-i18next";
+import { companySchema } from "../../utils/validationSchemas";
 
 const CompanyInfo = () => {
   const { t } = useTranslation();
@@ -65,6 +66,7 @@ const CompanyInfo = () => {
             companyActivity: company?.secteurId,
             companyDescription: company?.description,
           },
+          validationSchema : companySchema,
     onSubmit: handleUpdateCompany,
     enableReinitialize: true,
   });
@@ -89,6 +91,8 @@ const CompanyInfo = () => {
             handleBlur={handleBlur}
             image={image}
             setImage={setImage}
+            errors={errors}
+            touched={touched}
           />
         </form>
       ) : (

@@ -44,3 +44,15 @@ export const jobOfferSchema = yup.object().shape({
   educationLevel: yup.string().required('Education level is required'),
   qualification: yup.string().required('Qualification is required'),
 }); 
+export const candidatSchema = yup.object().shape({
+  educationLevel: yup.string().required("Education level is required !"),
+  speciality: yup.string().required("Speciality is required !"),
+  experience: yup.string().required("Years of experience is required !"),
+});
+
+export const companySchema = yup.object().shape({
+  companyName: yup.string().required("Company name is required !"),
+  companyAddress: yup.string().required("Company address is required !"),
+  companyActivity: yup.string().required("Activity area is required !"),
+  companyDescription: yup.string().required("Company description is required !"),
+});
