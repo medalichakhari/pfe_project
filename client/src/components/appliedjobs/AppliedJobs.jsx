@@ -67,7 +67,7 @@ function AppliedJobs({ data, refetch }) {
   const endIndex = startIndex + jobsPerPage;
   const displayedCandidates = filteredCandidacy.slice(startIndex, endIndex);
   return (
-    <div className="max-w-3xl sm:px-1 lg:px-2">
+    <div className="max-w-7xl mx-auto py-16 sm:px-6 lg:px-8">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mr-4">
           {t("appliedJobs.jobApplication")}

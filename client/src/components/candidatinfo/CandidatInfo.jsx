@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useStorage } from "../../context/StorageContext";
 import { useTranslation } from "react-i18next";
 import { candidatSchema } from "../../utils/validationSchemas";
+import { useToast } from "@chakra-ui/react";
 
 const CandidatInfo = () => {
   const { t } = useTranslation();
@@ -18,6 +19,7 @@ const CandidatInfo = () => {
     setIsEditing(!isEditing);
   };
 
+  const toast = useToast();
   const { token, user } = useAuth();
   const { candidate, refresh } = useUser();
   const { uploadFile, downloadUrl } = useStorage();
@@ -43,8 +45,23 @@ const CandidatInfo = () => {
         refresh();
         handleEditClick();
         console.log(res);
+        toast({
+          description: "Candidate information has been modified successfully.",
+          position: "bottom-left",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast({
+          description: err.message,
+          position: "bottom-left",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+        console.log(err)});
   };
   const {
     values,
