@@ -8,6 +8,7 @@ import { useAuth } from "../../context/AuthContext";
 import { updateProfile } from "firebase/auth";
 import { useStorage } from "../../context/StorageContext";
 import { useTranslation } from "react-i18next";
+import { userSchema } from "../../utils/validationSchemas";
 
 const UserInfo = () => {
   const { t } = useTranslation();
@@ -88,6 +89,7 @@ const UserInfo = () => {
         },
     onSubmit: handleUpdateUser,
     enableReinitialize: true,
+    validationSchema: userSchema,
   });
   return (
     <>
@@ -112,6 +114,8 @@ const UserInfo = () => {
             values={values}
             handleChange={handleChange}
             handleBlur={handleBlur}
+            errors={errors}
+            touched={touched}
           />
         </form>
       ) : (

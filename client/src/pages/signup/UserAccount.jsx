@@ -11,6 +11,7 @@ import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../services/firebaseConfig";
 import { useTranslation } from "react-i18next";
+import { userSchema } from "../../utils/validationSchemas";
 
 const UserAccount = () => {
   const { t } = useTranslation();
@@ -80,7 +81,7 @@ const UserAccount = () => {
       console.log(err);
     }
   };
-  
+
   const {
     values,
     errors,
@@ -99,6 +100,7 @@ const UserAccount = () => {
       address: "",
     },
     onSubmit: handleCreateUser,
+    validationSchema: userSchema,
   });
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-50">
@@ -112,6 +114,8 @@ const UserAccount = () => {
             values={values}
             handleChange={handleChange}
             handleBlur={handleBlur}
+            errors={errors}
+            touched={touched}
           />
           <PrimaryButton className="w-full" type="submit" isLoading={isLoading}>
             {t("createAccount")}

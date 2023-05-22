@@ -11,13 +11,14 @@ const UserForm = ({
   values,
   handleChange,
   handleBlur,
+  errors,
+  touched,
 }) => {
   const { t } = useTranslation();
   const options = [
     { label: "Male", value: "male" },
     { label: "Female", value: "female" },
   ];
-
   return (
     <>
       <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
@@ -41,8 +42,15 @@ const UserForm = ({
             name="fName"
             id="fName"
             placeholder="Last Name"
-            className="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+              touched.fName && errors.fName
+                ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                : "focus:ring-blue-500 focus:border-blue-500"
+            }`}
           />
+          {touched.fName && errors.fName && (
+            <div className="text-red-500 text-sm">{errors.fName}</div>
+          )}
         </div>
         <div>
           <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -56,8 +64,15 @@ const UserForm = ({
             name="lName"
             id="lName"
             placeholder="Last Name"
-            className="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+              touched.lName && errors.lName
+                ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                : "focus:ring-blue-500 focus:border-blue-500"
+            }`}
           />
+          {touched.lName && errors.lName && (
+            <div className="text-red-500 text-sm">{errors.lName}</div>
+          )}
         </div>
       </div>
       <div>
@@ -72,8 +87,15 @@ const UserForm = ({
           name="birthDate"
           id="birthDate"
           placeholder="BirthDate"
-          className="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.birthDate && errors.birthDate
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
         />
+        {touched.birthDate && errors.birthDate && (
+          <div className="text-red-500 text-sm">{errors.birthDate}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -83,7 +105,7 @@ const UserForm = ({
           <Radio
             name="gender"
             options={options}
-            selectedValue={selectedValue}
+            selectedValue={selectedValue || "male"}
             setSelectedValue={setSelectedValue}
           />
         </div>
@@ -100,8 +122,15 @@ const UserForm = ({
           name="phoneNumber"
           id="phoneNumber"
           placeholder="Phone number with country code"
-          className="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.phoneNumber && errors.phoneNumber
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
         />
+        {touched.phoneNumber && errors.phoneNumber && (
+          <div className="text-red-500 text-sm">{errors.phoneNumber}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -115,8 +144,15 @@ const UserForm = ({
           name="address"
           id="address"
           placeholder="Address with country code"
-          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.address && errors.address
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
         />
+        {touched.address && errors.address && (
+          <div className="text-red-500 text-sm">{errors.address}</div>
+        )}
       </div>
     </>
   );

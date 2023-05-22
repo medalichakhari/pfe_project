@@ -17,6 +17,7 @@ import { skills } from "../../data/skills";
 import { useQuery } from "react-query";
 import TextEditor from "../inputs/TextEditor";
 import { useTranslation } from "react-i18next";
+import { jobOfferSchema } from "../../utils/validationSchemas";
 
 function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
   const { t } = useTranslation();
@@ -87,6 +88,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
 
     onSubmit: handleUpdateJobOffer,
     enableReinitialize: true,
+    validationSchema: jobOfferSchema,
   });
   return (
     <>
@@ -116,8 +118,15 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                   name="title"
                   id="title"
                   placeholder="Job title"
-                  className="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                    touched.title && errors.title
+                      ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                      : "focus:ring-blue-500 focus:border-blue-500"
+                  }`}
                 />
+                {touched.title && errors.title && (
+                  <div className="text-red-500 text-sm">{errors.title}</div>
+                )}
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -131,7 +140,11 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                   name="domain"
                   id="domain"
                   placeholder="Phone number with country code"
-                  className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                    touched.domain && errors.domain
+                      ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                      : "focus:ring-blue-500 focus:border-blue-500"
+                  }`}
                 >
                   <option value="">Please select it's domain</option>
                   {isLoadingCategories ? (
@@ -144,6 +157,9 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                     ))
                   )}
                 </select>
+                {touched.domain && errors.domain && (
+                  <div className="text-red-500 text-sm">{errors.domain}</div>
+                )}
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -157,8 +173,15 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                   name="address"
                   id="address"
                   placeholder="(Remote) or Job address"
-                  className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                    touched.address && errors.address
+                      ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                      : "focus:ring-blue-500 focus:border-blue-500"
+                  }`}
                 />
+                {touched.address && errors.address && (
+                  <div className="text-red-500 text-sm">{errors.address}</div>
+                )}
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -172,7 +195,11 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                   name="type"
                   id="type"
                   placeholder="Job Type"
-                  className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                    touched.type && errors.type
+                      ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                      : "focus:ring-blue-500 focus:border-blue-500"
+                  }`}
                 >
                   <option value="">Please select it's type</option>
                   <option value="internship">Internship</option>
@@ -180,6 +207,9 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                   <option value="parttime">Part Time</option>
                   <option value="other">Other</option>
                 </select>
+                {touched.type && errors.type && (
+                  <div className="text-red-500 text-sm">{errors.type}</div>
+                )}
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -194,8 +224,15 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                   name="salary"
                   id="salary"
                   placeholder="Required experience level"
-                  className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                    touched.salary && errors.salary
+                      ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                      : "focus:ring-blue-500 focus:border-blue-500"
+                  }`}
                 />
+                {touched.salary && errors.salary && (
+                  <div className="text-red-500 text-sm">{errors.salary}</div>
+                )}
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">

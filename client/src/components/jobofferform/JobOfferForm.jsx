@@ -14,6 +14,8 @@ const JobOfferForm = ({
   setEditorValue,
   handleChange,
   handleBlur,
+  errors,
+  touched,
 }) => {
   const { t } = useTranslation();
   const { token } = useAuth();
@@ -24,6 +26,7 @@ const JobOfferForm = ({
   const { data, isLoading } = useQuery(["domains", token], () =>
     GetCategories(token)
   );
+
   return (
     <>
       <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
@@ -41,8 +44,15 @@ const JobOfferForm = ({
           name="title"
           id="title"
           placeholder="Job title"
-          className="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.title && errors.title
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
         />
+        {touched.title && errors.title && (
+          <div className="text-red-500 text-sm">{errors.title}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -56,7 +66,11 @@ const JobOfferForm = ({
           name="domain"
           id="domain"
           placeholder="Phone number with country code"
-          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.domain && errors.domain
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
         >
           <option value="">Please select it's domain</option>
           {isLoading ? (
@@ -69,6 +83,9 @@ const JobOfferForm = ({
             ))
           )}
         </select>
+        {touched.domain && errors.domain && (
+          <div className="text-red-500 text-sm">{errors.domain}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -82,8 +99,15 @@ const JobOfferForm = ({
           name="address"
           id="address"
           placeholder="(Remote) or Job address"
-          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.address && errors.address
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
         />
+        {touched.address && errors.address && (
+          <div className="text-red-500 text-sm">{errors.address}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -97,7 +121,11 @@ const JobOfferForm = ({
           name="type"
           id="type"
           placeholder="Job Type"
-          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.type && errors.type
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
         >
           <option value="">Please select it's type</option>
           <option value="internship">Internship</option>
@@ -105,10 +133,13 @@ const JobOfferForm = ({
           <option value="parttime">Part Time</option>
           <option value="other">Other</option>
         </select>
+        {touched.type && errors.type && (
+          <div className="text-red-500 text-sm">{errors.type}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          {t("jobOfferForm.salary")} 
+          {t("jobOfferForm.salary")}
           <span className="text-sm text-gray-400">(optional)</span>
         </label>
         <input
@@ -119,12 +150,19 @@ const JobOfferForm = ({
           name="salary"
           id="salary"
           placeholder="Required experience level"
-          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.salary && errors.salary
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
         />
-      </div>  
+        {touched.salary && errors.salary && (
+          <div className="text-red-500 text-sm">{errors.salary}</div>
+        )}
+      </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        {t("candidateInfo.experience")}
+          {t("candidateInfo.experience")}
         </label>
         <input
           value={values.experience}
@@ -134,12 +172,19 @@ const JobOfferForm = ({
           name="experience"
           id="experience"
           placeholder="Enter number of years of experience"
-          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.experience && errors.experience
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
         />
+        {touched.experience && errors.experience && (
+          <div className="text-red-500 text-sm">{errors.experience}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        {t("candidateInfo.educationLevel")}
+          {t("candidateInfo.educationLevel")}
         </label>
         <select
           value={values.educationLevel}
@@ -149,7 +194,11 @@ const JobOfferForm = ({
           name="educationLevel"
           id="educationLevel"
           placeholder="Please select your education level"
-          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.educationLevel && errors.educationLevel
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
         >
           <option value="">Please select your education level</option>
           <option value="Bac">Bac</option>
@@ -158,6 +207,9 @@ const JobOfferForm = ({
           <option value="Ingenieur">Ingenieur</option>
           <option value="Doctorat">Doctorat</option>
         </select>
+        {touched.educationLevel && errors.educationLevel && (
+          <div className="text-red-500 text-sm">{errors.educationLevel}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">

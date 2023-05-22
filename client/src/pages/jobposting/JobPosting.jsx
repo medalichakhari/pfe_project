@@ -11,6 +11,7 @@ import { useUser } from "../../context/UserContext";
 import { useTranslation } from "react-i18next";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { jobOfferSchema } from "../../utils/validationSchemas";
 
 const STEPS_AMOUNT = 1;
 
@@ -116,6 +117,7 @@ const JobPosting = () => {
       qualification: "",
     },
     onSubmit: handleCreateJobOffer,
+    validationSchema: jobOfferSchema,
   });
   return (
     <Layout>
@@ -135,6 +137,8 @@ const JobPosting = () => {
                 setEditorValue={setEditorValue}
                 handleChange={jobOfferHandleChange}
                 handleBlur={jobOfferHandleBlur}
+                errors={jobOfferErrors}
+                touched={jobOfferTouched}
               />
             )}
             {renderJobOfferButtons()}
