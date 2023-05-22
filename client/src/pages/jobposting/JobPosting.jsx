@@ -114,7 +114,6 @@ const JobPosting = () => {
       salary: "",
       experience: "",
       educationLevel: "",
-      qualification: "",
     },
     onSubmit: handleCreateJobOffer,
     validationSchema: jobOfferSchema,

@@ -5,7 +5,7 @@ import Chat from "../../features/chat/components/Chat";
 
 const ChatSystem = () => {
   return (
-
+<Layout>
       <div className="flex flex-wrap ">
         <div className=" w-full md:w-1/3">
           <Sidebar />
@@ -14,7 +14,7 @@ const ChatSystem = () => {
           <Chat />
         </div>
       </div>
-
+</Layout>
   );
 };
 

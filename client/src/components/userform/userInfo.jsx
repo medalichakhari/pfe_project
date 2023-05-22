@@ -9,28 +9,33 @@ import { updateProfile } from "firebase/auth";
 import { useStorage } from "../../context/StorageContext";
 import { useTranslation } from "react-i18next";
 import { userSchema } from "../../utils/validationSchemas";
+import { useToast } from "@chakra-ui/react";
 
 const UserInfo = () => {
   const { t } = useTranslation();
+  const toast = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
   const { currentUser, user, token } = useAuth();
   const { userInfo, refresh } = useUser();
-  const [image, setImage] = useState(user?.picture);
+  const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState(userInfo?.genre);
   const { uploadFile, downloadUrl } = useStorage();
   const handleUpdateUser = async (values, actions) => {
     try {
       const { fName, lName } = values;
       const { user_id } = user;
-      const path = `profileImages/${user_id}/${image.name}`;
-      await uploadFile(image, path);
-      const downloadURL = await downloadUrl(path);
+      let downloadURL = null;
+      if (image) {
+        const path = `profileImages/${user_id}/${image.name}`;
+        await uploadFile(image, path);
+        downloadURL = await downloadUrl(path);
+      }
       updateProfile(currentUser, {
         displayName: `${fName} ${lName}`,
-        photoURL: downloadURL,
+        ...(downloadURL && { photoURL: downloadURL }),
       })
         .then(() => {
           console.log("updated");
@@ -40,6 +45,7 @@ const UserInfo = () => {
         });
       let userData = {
         id: user.user_id,
+        ...(downloadURL && { photo: downloadURL }),
         nom: values.fName,
         prenom: values.lName,
         email: user.email,
@@ -53,9 +59,23 @@ const UserInfo = () => {
           console.log(res);
           refresh();
           handleEditClick();
+          toast({
+            description: "User information modified successfully.",
+            position: "bottom-left",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
         })
         .catch((err) => {
           console.log(err);
+          toast({
+            description: err.message,
+            position: "bottom-left",
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+          });
         });
     } catch (err) {
       console.log(err);
@@ -74,7 +94,6 @@ const UserInfo = () => {
       ? {
           fName: "",
           lName: "",
-          email: "",
           birthDate: "",
           phoneNumber: "",
           address: "",
@@ -82,7 +101,6 @@ const UserInfo = () => {
       : {
           fName: userInfo?.nom,
           lName: userInfo?.prenom,
-          email: userInfo?.email,
           birthDate: userInfo?.dNaissance,
           phoneNumber: userInfo?.telephone,
           address: userInfo?.adresse,

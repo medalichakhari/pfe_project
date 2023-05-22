@@ -1,5 +1,5 @@
 import React from "react";
-import UserInfo from "../../components/userform/userInfo";
+import UserInfo from "../../components/userform/UserInfo";
 import Layout from "../../components/layout/Layout";
 import CandidatInfo from "../../components/candidatinfo/CandidatInfo";
 import CompanyInfo from "../../components/companyform/CompanyInfo";

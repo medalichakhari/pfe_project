@@ -29,7 +29,6 @@ export const userSchema = yup.object().shape({
   fName: yup.string().required('First name is required'),
   lName: yup.string().required('Last name is required'),
   birthDate: yup.date().required('Birth date is required'),
-  gender: yup.string().required('Gender is required'),
   phoneNumber: yup.string().required('Phone number is required'),
   address: yup.string().required('Address is required'),
 });
@@ -42,7 +41,6 @@ export const jobOfferSchema = yup.object().shape({
   salary: yup.number().required('Salary is required').positive('Salary must be a positive number'),
   experience: yup.string().required('Experience is required'),
   educationLevel: yup.string().required('Education level is required'),
-  qualification: yup.string().required('Qualification is required'),
 }); 
 export const candidatSchema = yup.object().shape({
   educationLevel: yup.string().required("Education level is required !"),
