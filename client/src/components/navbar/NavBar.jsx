@@ -16,10 +16,12 @@ import SelectLanguage from "../shared/SelectLanguage";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
 import { GetNotifications, UpdateNotification } from "../../lib/fetch";
+import { useUser } from "../../context/UserContext";
 
 export default function NavBar() {
   const { t } = useTranslation();
   const { user, logOut, token } = useAuth();
+  const {userInfo} = useUser();
   const navigate = useNavigate();
 
   const {
@@ -168,7 +170,7 @@ export default function NavBar() {
               arrowIcon={false}
               inline={true}
               label={
-                <Avatar alt="User settings" img={user.picture} rounded={true} />
+                <Avatar alt="User settings" img={userInfo?.photo} rounded={true} />
               }
             >
               <Dropdown.Header>

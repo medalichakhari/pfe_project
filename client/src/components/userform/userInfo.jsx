@@ -5,7 +5,6 @@ import { useUser } from "../../context/UserContext";
 import { useFormik } from "formik";
 import { UpdateUser } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
-import { updateProfile } from "firebase/auth";
 import { useStorage } from "../../context/StorageContext";
 import { useTranslation } from "react-i18next";
 import { userSchema } from "../../utils/validationSchemas";
@@ -18,14 +17,13 @@ const UserInfo = () => {
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
-  const { currentUser, user, token } = useAuth();
+  const { user, token } = useAuth();
   const { userInfo, refresh } = useUser();
   const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState(userInfo?.genre);
   const { uploadFile, downloadUrl } = useStorage();
   const handleUpdateUser = async (values, actions) => {
     try {
-      const { fName, lName } = values;
       const { user_id } = user;
       let downloadURL = null;
       if (image) {
@@ -33,18 +31,8 @@ const UserInfo = () => {
         await uploadFile(image, path);
         downloadURL = await downloadUrl(path);
       }
-      updateProfile(currentUser, {
-        displayName: `${fName} ${lName}`,
-        ...(downloadURL && { photoURL: downloadURL }),
-      })
-        .then(() => {
-          console.log("updated");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+
       let userData = {
-        id: user.user_id,
         ...(downloadURL && { photo: downloadURL }),
         nom: values.fName,
         prenom: values.lName,
@@ -154,7 +142,7 @@ const UserInfo = () => {
               {t("userInfo.userPicture")}
             </label>
             <img
-              src={user?.picture}
+              src={userInfo?.photo}
               alt={user?.displayName}
               className="w-24 h-24 rounded-full object-cover font-light"
             />

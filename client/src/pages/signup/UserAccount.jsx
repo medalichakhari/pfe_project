@@ -36,10 +36,10 @@ const UserAccount = () => {
         downloadURL = await downloadUrl(path);
       }
       await Promise.all([
-        updateProfile(currentUser, {
-          displayName: `${fName} ${lName}`,
-          ...(downloadURL && { photoURL: downloadURL }),
-        }),
+        // updateProfile(currentUser, {
+        //   displayName: `${fName} ${lName}`,
+        //   ...(downloadURL && { photoURL: downloadURL }),
+        // }),
         setDoc(doc(db, "users", user_id), {
           uid: user_id,
           displayName: `${fName} ${lName}`,
@@ -50,7 +50,7 @@ const UserAccount = () => {
       ]);
       let userData = {
         id: user.user_id,
-        ...(downloadURL && { photo: downloadURL }),
+        ...(downloadURL ? { photo: downloadURL } : {photo: user.picture}),
         nom: values.fName,
         prenom: values.lName,
         email: user.email,

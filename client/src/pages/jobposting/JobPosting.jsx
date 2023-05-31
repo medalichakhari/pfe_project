@@ -22,6 +22,9 @@ const JobPosting = () => {
   const [selectedValues, setSelectedValues] = useState(null);
   const [editorValue, setEditorValue] = useState("");
   const [formStep, setFormStep] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
+  const [editorError, setEditorError] = useState(true);
+  const [selectError, setSelectError] = useState(true);
   const completeFormStep = () => {
     setFormStep(formStep + 1);
   };
@@ -61,7 +64,8 @@ const JobPosting = () => {
   const { token } = useAuth();
   const { company } = useUser();
   const handleCreateJobOffer = async (values, actions) => {
-    const qualificationsValue = selectedValues.map((option) => option.value);
+    setSubmitting(true);
+    const qualificationsValue = selectedValues?.map((option) => option.value);
     const qualifications = qualificationsValue.join(",");
     let offerData = {
       titre: jobOfferValues.title,
@@ -75,27 +79,29 @@ const JobPosting = () => {
       categorieId: jobOfferValues.domain,
       societeId: company?.id,
     };
-    CreateOffre(offerData, token)
-      .then((res) => {
-        console.log(res);
-        toast({
-          description: "Joboffer added successfully .",
-          position: "bottom-left",
-          status: "success",
-          duration: 9000,
-          isClosable: true,
+    if (!editorError && !selectError) {
+      CreateOffre(offerData, token)
+        .then((res) => {
+          console.log(res);
+          toast({
+            description: "Joboffer added successfully .",
+            position: "bottom-left",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
+          navigate("/recruiterSpace");
+        })
+        .catch((err) => {
+          toast({
+            description: err.message,
+            position: "bottom-left",
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+          });
         });
-        navigate("/recruiterSpace");
-      })
-      .catch((err) => {
-        toast({
-          description: error.message,
-          position: "bottom-left",
-          status: "error",
-          duration: 9000,
-          isClosable: true,
-        });
-      });
+    }
   };
   const {
     values: jobOfferValues,
@@ -138,6 +144,11 @@ const JobPosting = () => {
                 handleBlur={jobOfferHandleBlur}
                 errors={jobOfferErrors}
                 touched={jobOfferTouched}
+                jobOfferIsSubmitting={submitting}
+                setEditorError={setEditorError}
+                setSelectError={setSelectError}
+                editorError={editorError}
+                selectError={selectError}
               />
             )}
             {renderJobOfferButtons()}

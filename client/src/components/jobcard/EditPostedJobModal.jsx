@@ -22,6 +22,9 @@ import { jobOfferSchema } from "../../utils/validationSchemas";
 function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
   const { t } = useTranslation();
   const [selectedValues, setSelectedValues] = useState(null);
+  const [editorError, setEditorError] = useState(true);
+  const [selectError, setSelectError] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const { token } = useAuth();
@@ -37,7 +40,17 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
   const handleChanges = (value) => {
     setSelectedValues(value);
   };
+  const handleEditorChange = (value) => {
+    setEditorValue(value);
+    setEditorError(value.length <= 90);
+  };
+
+  const handleSelectChange = (value) => {
+    setSelectedValues(value);
+    setSelectError(!value);
+  };
   const handleUpdateJobOffer = (values, actions) => {
+    setSubmitting(true);
     const qualificationsValue = selectedValues?.map((option) => option.value);
     const qualifications = qualificationsValue?.join(",");
     let jobOfferData = {
@@ -240,7 +253,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                 </label>
                 <Select
                   value={selectedValues}
-                  onChange={handleChanges}
+                  onChange={handleSelectChange}
                   options={skills}
                   isMultiple={true}
                   isSearchable={true}
@@ -262,14 +275,27 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                       }`,
                   }}
                 />
+                {(selectError || (editorError && submitting)) && (
+                  <div className="text-red-500 text-sm">
+                    Please select at least one skill.
+                  </div>
+                )}
               </div>
               <div>
                 <label className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white">
                   {t("editPostedJobCard.jobDescription")}
                 </label>
-                <div className="mb-2">
-                  <TextEditor value={editorValue} setValue={setEditorValue} />
+                <div>
+                  <TextEditor
+                    value={editorValue}
+                    setValue={handleEditorChange}
+                  />
                 </div>
+                {(editorError || (editorError && submitting)) && (
+                  <div className="text-red-500 text-sm mb-2">
+                    The job description must be more than 90 characters.
+                  </div>
+                )}
               </div>
               <div className="flex flex-row-reverse gap-4">
                 <button

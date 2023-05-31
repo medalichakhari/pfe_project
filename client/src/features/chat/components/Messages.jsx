@@ -21,7 +21,10 @@ const Messages = () => {
   console.log(messages);
 
   return (
-    <div className="bg-gray-300 p-2 h-96 overflow-y-auto" style={{ height: "calc(100vh - 129px)"}}>
+    <div
+      className="bg-gray-300 p-2 h-96 overflow-y-auto"
+      style={{ height: "calc(100vh - 189px)" }}
+    >
       {messages.map((m) => (
         <Message message={m} key={m.id} />
       ))}

@@ -173,6 +173,9 @@
       "qualifications" : "Qualifications",
       "jobDescription" : "Description de l'emploi"
     },
+    "recommendation" : {
+      "recommendedJobs" : "Offre d'emploi recommendée"
+        },
       "save" : "Enregistrer",
       "cancel" : "Annuler",
       "createAccount" : "Créer un compte",

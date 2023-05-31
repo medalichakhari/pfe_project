@@ -546,6 +546,23 @@ export const DeleteOffre = async (id, token) => {
     return response;
 }
 
+//Recommended Jobs
+
+export const GetRecommendedJobs = async (candidateData) => {
+    let data = candidateData;
+    let config = {
+        method: "post",
+        url: "http://127.0.0.1:5000/recommendations",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        data: data,
+    };
+    const response = await axios(config);
+    console.log(response.data);
+    return response;
+}
+
 //Candidature
 
 export const CreateCandidature = async (candidatureData, token) => {

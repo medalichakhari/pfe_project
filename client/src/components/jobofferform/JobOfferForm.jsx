@@ -5,6 +5,7 @@ import { GetCategories } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
 import TextEditor from "../inputs/TextEditor";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 const JobOfferForm = ({
   values,
@@ -16,16 +17,28 @@ const JobOfferForm = ({
   handleBlur,
   errors,
   touched,
+  jobOfferIsSubmitting,
+  setEditorError,
+  setSelectError,
+  editorError,
+  selectError,
 }) => {
   const { t } = useTranslation();
   const { token } = useAuth();
-  const handleChanges = (value) => {
-    setSelectedValues(value);
-  };
-
+  console.log("object", jobOfferIsSubmitting);
   const { data, isLoading } = useQuery(["domains", token], () =>
     GetCategories(token)
   );
+
+  const handleEditorChange = (value) => {
+    setEditorValue(value);
+    setEditorError(value.length <= 90);
+  };
+
+  const handleSelectChange = (value) => {
+    setSelectedValues(value);
+    setSelectError(!value);
+  };
 
   return (
     <>
@@ -217,7 +230,7 @@ const JobOfferForm = ({
         </label>
         <Select
           value={selectedValues}
-          onChange={handleChanges}
+          onChange={handleSelectChange}
           options={skills}
           isMultiple={true}
           isSearchable={true}
@@ -239,14 +252,24 @@ const JobOfferForm = ({
               }`,
           }}
         />
+        {selectError && jobOfferIsSubmitting &&(
+          <div className="text-red-500 text-sm">
+            Please select at least one skill.
+          </div>
+        )}
       </div>
       <div>
         <label className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {t("jobOfferForm.jobDescription")}
         </label>
-        <div className="mb-2">
-          <TextEditor value={editorValue} setValue={setEditorValue} />
+        <div>
+          <TextEditor value={editorValue} setValue={handleEditorChange} />
         </div>
+        {editorError && jobOfferIsSubmitting &&(
+          <div className="text-red-500 text-sm mb-2">
+            The job description must be more than 90 characters.
+          </div>
+        )}
       </div>
     </>
   );

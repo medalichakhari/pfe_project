@@ -4,9 +4,9 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { useTranslation } from "react-i18next";
 
-const Search = ({ clarifiedJobs, setFilteredJobs }) => {
+const Search = ({ allJobs, setFilteredJobs }) => {
   const prevKeyword = useRef("");
-const prevLocation = useRef("");
+  const prevLocation = useRef("");
   const [keyword, setKeyword] = useState("");
   const [location, setLocation] = useState("");
   const [keywordSuggestions, setKeywordSuggestions] = useState([]);
@@ -19,21 +19,21 @@ const prevLocation = useRef("");
     prevKeyword.current = keyword;
     setKeyword(value);
     if (value !== prevKeyword.current) {
-      setKeywordSuggestions(getKeywordSuggestions(value, clarifiedJobs));
+      setKeywordSuggestions(getKeywordSuggestions(value, allJobs));
     }
   };
-  
+
   const handleLocationChange = (e) => {
     const value = e.target.value;
     prevLocation.current = location;
     setLocation(value);
     if (value !== prevLocation.current) {
-      setLocationSuggestions(getLocationSuggestions(value, clarifiedJobs));
+      setLocationSuggestions(getLocationSuggestions(value, allJobs));
     }
   };
 
-  const getKeywordSuggestions = (value) => {
-    const searchedJobs = clarifiedJobs.filter(
+  const getKeywordSuggestions = (value, jobs) => {
+    const searchedJobs = jobs.filter(
       (job) =>
         job.titre.toLowerCase().includes(value.toLowerCase()) ||
         job.competences.toLowerCase().includes(value.toLowerCase())
@@ -42,8 +42,8 @@ const prevLocation = useRef("");
     return suggestions.slice(0, 10);
   };
 
-  const getLocationSuggestions = (value) => {
-    const searchedJobs = clarifiedJobs.filter((job) =>
+  const getLocationSuggestions = (value, jobs) => {
+    const searchedJobs = jobs.filter((job) =>
       job.adresse.toLowerCase().includes(value.toLowerCase())
     );
     const suggestions = [...new Set(searchedJobs.map((job) => job.adresse))];
@@ -53,14 +53,14 @@ const prevLocation = useRef("");
   const filterJobs = (job) => {
     return (
       job.titre.toLowerCase().includes(keyword.toLowerCase()) ||
-      job.competences.toLowerCase().includes(keyword.toLowerCase()) ||
+      job.competences.toLowerCase().includes(keyword.toLowerCase()) &&
       job.adresse.toLowerCase().includes(location.toLowerCase())
     );
   };
 
   const handleSearchJobs = (e) => {
     e.preventDefault();
-    const filteredJobs = clarifiedJobs.filter(filterJobs);
+    const filteredJobs = allJobs.filter(filterJobs);
     setFilteredJobs(filteredJobs);
   };
 

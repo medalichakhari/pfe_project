@@ -10,30 +10,28 @@ const ForgotPassword = () => {
   const { forgotPassword } = useAuth();
   const toast = useToast();
   const navigate = useNavigate();
-  const hadleForgotPassword = async (values, actions) => {
-    await forgotPassword(values.email);
-    navigate("/signin");
-    // .then(() => {
-    //   console.log("email sent");
-    //   navigate("/signin");
-    //   // toast({
-    //   //   description: "Email sent.",
-    //   //   position: "bottom-left",
-    //   //   status: "success",
-    //   //   duration: 9000,
-    //   //   isClosable: true,
-    //   // });
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    //   // toast({
-    //   //   description: error.message,
-    //   //   position: "bottom-left",
-    //   //   status: "error",
-    //   //   duration: 9000,
-    //   //   isClosable: true,
-    //   // });
-    // });
+  const handleForgotPassword = async (values, actions) => {
+    try {
+      await forgotPassword(values.email);
+      console.log("email sent");
+      navigate("/signin");
+      toast({
+        description: "Email sent.",
+        position: "bottom-left",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.log(error);
+      toast({
+        description: error.message,
+        position: "bottom-left",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
   const {
@@ -48,7 +46,7 @@ const ForgotPassword = () => {
     initialValues: {
       email: "",
     },
-    onSubmit: hadleForgotPassword,
+    onSubmit: handleForgotPassword,
   });
 
   return (
@@ -97,7 +95,7 @@ const ForgotPassword = () => {
             href="/signin"
             className="text-secondary hover:underline dark:text-primary"
           >
-            Login to you account
+            Login to your account
           </a>
         </div>
       </div>
