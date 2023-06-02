@@ -26,13 +26,18 @@ const Home = () => {
     const fetchRecommendedJobs = async () => {
       try {
         const res = await GetRecommendedJobs(candidateData);
-        setRecommendedJobs(res.data);
+        const filteredRecommendedJobs = res.data.filter(
+          (recommendedJob) => recommendedJob.societe.id !== company?.id
+        );
+        setRecommendedJobs(filteredRecommendedJobs);
       } catch (err) {
         console.log(err);
       }
     };
 
-    fetchRecommendedJobs();
+    if (candidate) {
+      fetchRecommendedJobs();
+    }
   }, [candidate]);
 
   useEffect(() => {
@@ -49,7 +54,7 @@ const Home = () => {
       }
     };
     fetchJobs();
-  }, []);
+  }, [company]);
 
   return (
     <Layout>

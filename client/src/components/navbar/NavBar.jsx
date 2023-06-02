@@ -17,11 +17,12 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
 import { GetNotifications, UpdateNotification } from "../../lib/fetch";
 import { useUser } from "../../context/UserContext";
+import { getUnreadMessageCount } from "../../utils/firebaseUtils";
 
 export default function NavBar() {
   const { t } = useTranslation();
   const { user, logOut, token } = useAuth();
-  const {userInfo} = useUser();
+  const { userInfo } = useUser();
   const navigate = useNavigate();
 
   const {
@@ -31,7 +32,19 @@ export default function NavBar() {
   } = useQuery(["notifications", token], () => GetNotifications(token));
   const hasRecruiterRole = user?.roles?.includes("recruteur");
   const hasCandidateRole = user?.roles?.includes("candidat");
+  const [unreadMessageCount, setUnreadMessageCount] = useState(null);
   const [unreadCount, setUnreadCount] = useState(null);
+  useEffect(() => {
+    const fetchUnreadMessageCount = async () => {
+      if (user) {
+        const count = await getUnreadMessageCount(user.user_id);
+        setUnreadMessageCount(count);
+      }
+    };
+    if (user) {
+      fetchUnreadMessageCount();
+    }
+  }, [user]);
   useEffect(() => {
     if (!isLoadingNotifs && notifications) {
       const unreadCount = notifications.filter((notif) => !notif.isRead).length;
@@ -115,12 +128,17 @@ export default function NavBar() {
             </div>
             {hasRecruiterRole || hasCandidateRole ? (
               <div className="flex justify-center items-center">
-                <span
-                  className="pr-5 text-primary hover:text-secondary"
+                <div
+                  className="pr-5 text-primary hover:text-secondary cursor-pointer"
                   onClick={navigateToChat}
                 >
                   <AiFillMessage size={30} />
-                </span>
+                  {unreadMessageCount > 0 && (
+                    <span className="absolute top-0 mt-4 ml-4 bg-red-500 text-white font-bold text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                      {unreadMessageCount}
+                    </span>
+                  )}
+                </div>
                 <Dropdown
                   arrowIcon={false}
                   inline={true}
@@ -170,7 +188,11 @@ export default function NavBar() {
               arrowIcon={false}
               inline={true}
               label={
-                <Avatar alt="User settings" img={userInfo?.photo} rounded={true} />
+                <Avatar
+                  alt="User settings"
+                  img={userInfo?.photo}
+                  rounded={true}
+                />
               }
             >
               <Dropdown.Header>

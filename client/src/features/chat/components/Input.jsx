@@ -41,6 +41,7 @@ const Input = () => {
                 senderId: user.user_id,
                 date: Timestamp.now(),
                 img: downloadURL,
+                isRead: false, // Set isRead to false for new messages
               }),
             });
           });
@@ -53,6 +54,7 @@ const Input = () => {
           text,
           senderId: user.user_id,
           date: Timestamp.now(),
+          isRead: false, // Set isRead to false for new messages
         }),
       });
     }
