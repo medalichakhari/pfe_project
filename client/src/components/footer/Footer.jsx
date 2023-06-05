@@ -41,7 +41,9 @@ const Footer = () => {
                     </li>
 
                     <li className="mt-6">
-                      <Link to="/candidateaccount">{t("footer.candidate")}</Link>
+                      <Link to="/candidateaccount">
+                        {t("footer.candidate")}
+                      </Link>
                     </li>
                     <li className="mt-6">
                       <Link to="/companyaccount">{t("footer.recruiter")}</Link>
@@ -52,7 +54,7 @@ const Footer = () => {
               <div className="w-full lg:w-1/2 flex">
                 <div className="w-full lg:w-1/2 px-6">
                   <h3 className="text-gray-800 dark:text-gray-50 font-bold text-md lg:text-base leading-tight mb-6">
-                  {t("footer.privacy")}
+                    {t("footer.privacy")}
                   </h3>
                   <ul className="text-gray-800 dark:text-gray-50 text-sm lg:text-base leading-tight">
                     <li>
@@ -90,7 +92,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="py-16 flex flex-col justify-center items-center">
-          <Link href="javascript:void(0)">
+          <Link href="/">
             <Slogan className="mr-3 h-4" />
           </Link>
           <p className="mt-6 text-xs lg:text-sm leading-none text-gray-900 dark:text-gray-50">

@@ -27,6 +27,7 @@ import JobsByCategory from "./pages/jobsbycategory/JobsByCategory";
 import Profile from "./pages/profile/Profile";
 import UserAccount from "./pages/signup/UserAccount";
 import CandidatAccount from "./pages/candidataccount/CandidatAccount";
+import Users from "./pages/dashboard/Users";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 
@@ -58,6 +59,12 @@ function App() {
                     <Route
                       path="/candidateaccount"
                       element={<CandidatAccount />}
+                    />
+                  </Route>
+                  <Route element={<RequireAuth />}>
+                    <Route
+                      path="/users"
+                      element={<Users />}
                     />
                   </Route>
                   // Recruiter protected routes
