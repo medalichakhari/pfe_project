@@ -50,7 +50,7 @@ const UserAccount = () => {
       ]);
       let userData = {
         id: user.user_id,
-        ...(downloadURL ? { photo: downloadURL } : {photo: user?.picture}),
+        ...(downloadURL ? { photo: downloadURL } : {photo: user.picture}),
         nom: values.fName,
         prenom: values.lName,
         email: user.email,
