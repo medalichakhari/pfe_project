@@ -21,7 +21,7 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacy, refetch }) {
   const handleChangeStatus = (values, actions) => {
     let candidatureData = {
       etat: values.status,
-      candidatId: candidacy.candidat?.id,
+      userId: candidacy.candidat?.userId,
       message: `Your candidacy to ${candidacy.offre?.titre} has been ${values.status}`,
     };
     UpdateCandidature(candidacy.id, candidatureData, token)

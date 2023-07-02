@@ -186,6 +186,7 @@ function CandidateTable({ data, refetch }) {
                           <td className="px-4 py-2 text-center">
                             <Link
                               to={candidacy?.candidat?.cv}
+                              target="_blank"
                               className="text-indigo-600 hover:text-indigo-900"
                             >
                               View

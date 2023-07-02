@@ -158,6 +158,7 @@ const CandidatInfo = () => {
             </label>
             <Link
               to={candidate?.cv}
+              target="_blank"
               className="text-blue-500 hover:text-blue-700"
             >
               {t("candidateInfo.view")}

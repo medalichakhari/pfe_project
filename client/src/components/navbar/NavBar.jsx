@@ -15,42 +15,34 @@ import { FiUpload } from "react-icons/fi";
 import SelectLanguage from "../shared/SelectLanguage";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
-import { GetNotifications, UpdateNotification } from "../../lib/fetch";
+import { GetNotificationsByUserId, UpdateNotification } from "../../lib/fetch";
 import { useUser } from "../../context/UserContext";
-import { getUnreadMessageCount } from "../../utils/firebaseUtils";
+// import { getUnreadMessageCount } from "../../utils/firebaseUtils";
 
 export default function NavBar() {
   const { t } = useTranslation();
   const { user, logOut, token } = useAuth();
   const { userInfo } = useUser();
   const navigate = useNavigate();
+  const hasRecruiterRole = user?.roles?.includes("recruteur");
+  const hasCandidateRole = user?.roles?.includes("candidat");
+  const [unreadCount, setUnreadCount] = useState(null);
+  const [unreadMessageCount, setUnreadMessageCount] = useState("1");
 
   const {
     data: notifications,
     isLoading: isLoadingNotifs,
     refetch: refetchNotifs,
-  } = useQuery(["notifications", token], () => GetNotifications(token));
-  const hasRecruiterRole = user?.roles?.includes("recruteur");
-  const hasCandidateRole = user?.roles?.includes("candidat");
-  const [unreadMessageCount, setUnreadMessageCount] = useState(null);
-  const [unreadCount, setUnreadCount] = useState(null);
-  useEffect(() => {
-    const fetchUnreadMessageCount = async () => {
-      if (user) {
-        const count = await getUnreadMessageCount(user.user_id);
-        setUnreadMessageCount(count);
-      }
-    };
-    if (user) {
-      fetchUnreadMessageCount();
-    }
-  }, [user]);
+  } = useQuery(["notifications", token], () =>
+    GetNotificationsByUserId(token, user.user_id)
+  );
   useEffect(() => {
     if (!isLoadingNotifs && notifications) {
       const unreadCount = notifications.filter((notif) => !notif.isRead).length;
       setUnreadCount(unreadCount);
     }
   }, [isLoadingNotifs, notifications]);
+
   const handleReadNotification = (notif) => {
     const notifData = {
       isRead: true,
@@ -66,6 +58,19 @@ export default function NavBar() {
         console.log(err);
       });
   };
+
+  // useEffect(() => {
+  //   const fetchUnreadMessageCount = async () => {
+  //     if (user) {
+  //       const count = await getUnreadMessageCount(user.user_id);
+  //       setUnreadMessageCount(count);
+  //     }
+  //   };
+  //   if (user) {
+  //     fetchUnreadMessageCount();
+  //   }
+  // }, [user]);
+
   const navigateToJobPosting = () => {
     if (hasRecruiterRole) {
       return (

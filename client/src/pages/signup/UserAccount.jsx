@@ -16,7 +16,7 @@ import { userSchema } from "../../utils/validationSchemas";
 const UserAccount = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState("male");
   const [image, setImage] = useState("");
   const { currentUser, user, token, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
@@ -36,10 +36,10 @@ const UserAccount = () => {
         downloadURL = await downloadUrl(path);
       }
       await Promise.all([
-        // updateProfile(currentUser, {
-        //   displayName: `${fName} ${lName}`,
-        //   ...(downloadURL && { photoURL: downloadURL }),
-        // }),
+        updateProfile(currentUser, {
+          displayName: `${fName} ${lName}`,
+          ...(downloadURL && { photoURL: downloadURL }),
+        }),
         setDoc(doc(db, "users", user_id), {
           uid: user_id,
           displayName: `${fName} ${lName}`,
@@ -50,7 +50,7 @@ const UserAccount = () => {
       ]);
       let userData = {
         id: user.user_id,
-        ...(downloadURL ? { photo: downloadURL } : {photo: user.picture}),
+        ...(downloadURL && { photo: downloadURL }),
         nom: values.fName,
         prenom: values.lName,
         email: user.email,

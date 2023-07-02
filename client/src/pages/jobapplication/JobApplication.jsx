@@ -13,18 +13,21 @@ const JobApplication = () => {
   const toast = useToast();
   const { token } = useAuth();
   const { offerId } = useParams();
-  const { companyId } = useParams();
+  const { userId } = useParams();
   const { userInfo, candidate } = useUser();
   const { data, isLoading } = useQuery(["offre", offerId, token], () =>
     GetOffre(offerId, token)
   );
+  console.log("user Id for job", userId);
   const navigate = useNavigate();
   const handleApplyJob = async (values, actions) => {
     let applicationData = {
       candidatId: candidate.id,
       offreId: offerId,
-      societeId: companyId,
-      message:!isLoading && `${userInfo.nom} ${userInfo.prenom} applied to ${data.titre}`,
+      userId: userId,
+      message:
+        !isLoading &&
+        `${userInfo.nom} ${userInfo.prenom} applied to ${data.titre}`,
     };
     CreateCandidature(applicationData, token)
       .then((res) => {

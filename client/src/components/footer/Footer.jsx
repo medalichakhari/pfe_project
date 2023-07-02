@@ -96,7 +96,7 @@ const Footer = () => {
             <Slogan className="mr-3 h-4" />
           </Link>
           <p className="mt-6 text-xs lg:text-sm leading-none text-gray-900 dark:text-gray-50">
-            2021 Tailwind UI Kit. All Rights Reserved.
+            2023 JOBYSSY. All Rights Reserved.
           </p>
         </div>
       </footer>

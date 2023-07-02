@@ -30,7 +30,7 @@ const CompanyInfo = () => {
     const { user_id } = user;
     let downloadURL = "";
     if (image) {
-      const path = `profileImages/${user_id}/${image.name}`;
+      const path = `companyImages/${user_id}/${image.name}`;
       await uploadFile(image, path);
       downloadURL = await downloadUrl(path);
     }

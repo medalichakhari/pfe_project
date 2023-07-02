@@ -14,7 +14,7 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const handleResetPassword = (values, actions) => {
-    resetPassword(oobCode, values.email)
+    resetPassword(oobCode, values.password)
       .then(() => {
         console.log("password reset");
         toast({
@@ -24,6 +24,7 @@ const ResetPassword = () => {
           duration: 9000,
           isClosable: true,
         });
+        navigate("/signin");
       })
       .catch((error) => {
         console.log(error);
@@ -55,7 +56,7 @@ const ResetPassword = () => {
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-50">
       <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-      <div className="mb-4 flex justify-center items-center ">
+        <div className="mb-4 flex justify-center items-center ">
           <Slogan className="h-6" />
         </div>
         <form onSubmit={handleSubmit}>

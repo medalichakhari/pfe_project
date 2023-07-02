@@ -89,7 +89,7 @@ function App() {
                   </Route>
                   <Route element={<RequireAuth allowedRoles={["user"]} />}>
                     <Route
-                      path="/offer/:offerId/apply/:companyId"
+                      path="/offer/:offerId/apply/:userId"
                       element={<JobApplication />}
                     />
                   </Route>
@@ -117,7 +117,7 @@ function App() {
           </StorageContextProvider>
         </UserProvider>
       </AuthContextProvider>
-      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+      {/* <ReactQueryDevtools initialIsOpen={false} position="bottom-right" /> */}
     </QueryClientProvider>
   );
 }

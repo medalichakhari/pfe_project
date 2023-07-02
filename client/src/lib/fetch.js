@@ -675,10 +675,10 @@ export const GetNotifications = async (token) => {
     return response.data;
 }
 
-export const GetNotificationBySociete = async (id, token) => {
+export const GetNotificationsByUserId = async (token, id) => {
     let config = {
         method: "get",
-        url: `http://localhost:8080/api/notifications/societe/${id}`,
+        url: `http://localhost:8080/api/notifications/user/${id}`,
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -688,18 +688,6 @@ export const GetNotificationBySociete = async (id, token) => {
     return response.data;   
 }
 
-export const GetNotificationByCandidat = async (id, token) => {
-    let config = {
-        method: "get",
-        url: `http://localhost:8080/api/notifications/candidat/${id}`,
-        headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-        },
-    };
-    const response = await axios(config);
-    return response.data;   
-}
 
 export const UpdateNotification = async (id, notificationData, token) => {
     let data = notificationData;

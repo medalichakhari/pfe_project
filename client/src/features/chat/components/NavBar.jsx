@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <div className="navbar flex items-center bg-blue-500 h-16 px-4 justify-between text-gray-200">
       <div>
-        <span className="logo font-bold">Jobyssey Chat</span>
+        <span className="logo font-bold">Conversations</span>
       </div>
       <div className="user flex gap-2 items-center">
         <img

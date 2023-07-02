@@ -14,17 +14,16 @@ const JobCard = ({ job }) => {
   const handleNavigate = () => {
     navigate(`/offer/${job.id}`);
   };
-
   const handleApply = () => {
     user?.roles?.includes("candidat")
-      ? navigate(`/offer/${job.id}/apply/${job.societe.id}`)
+      ? navigate(`/offer/${job.id}/apply/${job.societe.userId}`)
       : navigate("/candidateaccount");
   };
 
   const truncatedTitle =
     job.titre.slice(0, 15) + (job.titre.length > 15 ? "..." : "");
   const truncatedDescription =
-    job.description.slice(0, 99) + (job.description.length > 99 ? "..." : "");
+    job.description.slice(0, 100) + (job.description.length > 100 ? "..." : "");
 
   return (
     <div>
