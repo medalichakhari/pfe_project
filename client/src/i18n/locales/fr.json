@@ -124,7 +124,8 @@
     },
     "jobsByCategory" : {
       "noJob" : "Aucun emploi trouvé",
-      "unlockYour" : "Déverrouillez la carrière de vos rêves : explorez nos opportunités de travail diversifiées et passionnantes !"
+      "unlockYour" : "Déverrouillez la carrière de vos rêves : explorez nos opportunités de travail diversifiées et passionnantes !",
+    "loadMore" :"Charger plus"
     },
     "candidateSpace" : {
       "candidateSpace" : "Espace Candidat",

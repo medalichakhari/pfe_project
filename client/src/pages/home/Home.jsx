@@ -14,31 +14,31 @@ const Home = () => {
   const [recommendedJobs, setRecommendedJobs] = useState([]);
   const [allJobs, setAllJobs] = useState([]);
 
-  useEffect(() => {
-    const candidateData = {
-      niveau: candidate?.niveau,
-      specialite: candidate?.specialite,
-      competences: candidate?.competences,
-      experience: candidate?.experience,
-      cv: candidate?.cv,
-    };
+  // useEffect(() => {
+  //   const candidateData = {
+  //     niveau: candidate?.niveau,
+  //     specialite: candidate?.specialite,
+  //     competences: candidate?.competences,
+  //     experience: candidate?.experience,
+  //     cv: candidate?.cv,
+  //   };
 
-    const fetchRecommendedJobs = async () => {
-      try {
-        const res = await GetRecommendedJobs(candidateData);
-        const filteredRecommendedJobs = res.data.filter(
-          (recommendedJob) => recommendedJob.societe.id !== company?.id
-        );
-        setRecommendedJobs(filteredRecommendedJobs);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  //   const fetchRecommendedJobs = async () => {
+  //     try {
+  //       const res = await GetRecommendedJobs(candidateData);
+  //       const filteredRecommendedJobs = res.data.filter(
+  //         (recommendedJob) => recommendedJob.societe.id !== company?.id
+  //       );
+  //       setRecommendedJobs(filteredRecommendedJobs);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
 
-    if (candidate) {
-      fetchRecommendedJobs();
-    }
-  }, [candidate]);
+  //   if (candidate) {
+  //     fetchRecommendedJobs();
+  //   }
+  // }, [candidate]);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -62,7 +62,7 @@ const Home = () => {
       <Search allJobs={allJobs} setFilteredJobs={setFilteredJobs} />
       <JobList filteredJobs={filteredJobs} />
       <CategoryList />
-      {candidate && <RecommendedJobs recommendedJobs={recommendedJobs} />}
+      {/* {candidate && <RecommendedJobs recommendedJobs={recommendedJobs} />} */}
     </Layout>
   );
 };

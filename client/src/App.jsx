@@ -62,10 +62,7 @@ function App() {
                     />
                   </Route>
                   <Route element={<RequireAuth />}>
-                    <Route
-                      path="/users"
-                      element={<Users />}
-                    />
+                    <Route path="/users" element={<Users />} />
                   </Route>
                   // Recruiter protected routes
                   <Route element={<RequireAuth allowedRoles={["recruteur"]} />}>
@@ -117,7 +114,7 @@ function App() {
           </StorageContextProvider>
         </UserProvider>
       </AuthContextProvider>
-      {/* <ReactQueryDevtools initialIsOpen={false} position="bottom-right" /> */}
+      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
     </QueryClientProvider>
   );
 }

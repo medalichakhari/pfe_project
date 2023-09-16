@@ -34,7 +34,7 @@ export default function NavBar() {
     isLoading: isLoadingNotifs,
     refetch: refetchNotifs,
   } = useQuery(["notifications", token], () =>
-    GetNotificationsByUserId(token, user.user_id)
+    GetNotificationsByUserId(token, user?.user_id)
   );
   useEffect(() => {
     if (!isLoadingNotifs && notifications) {

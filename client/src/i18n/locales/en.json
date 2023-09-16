@@ -125,7 +125,8 @@
   },
   "jobsByCategory" : {
     "noJob" : "No Job Found",
-    "unlockYour" : "Unlock Your Dream Career: Explore Our Diverse and Exciting Job Opportunities! "
+    "unlockYour" : "Unlock Your Dream Career: Explore Our Diverse and Exciting Job Opportunities! ",
+    "loadMore" : "Load More"
   },
   "candidateSpace" : {
     "candidateSpace" : "Candidate Space",

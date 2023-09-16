@@ -24,7 +24,7 @@ function SelectLanguage() {
   return (
     <div className="relative">
       <select
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white appearance-none"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 cursor-pointer  appearance-none"
         value={selectedLanguage}
         onChange={handleChange}
       >
@@ -38,4 +38,4 @@ function SelectLanguage() {
   );
 }
 
-export default SelectLanguage; 
+export default SelectLanguage;
