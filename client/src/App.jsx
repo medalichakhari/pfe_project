@@ -21,7 +21,7 @@ import RecruiterSpace from "./pages/recruiterspace/RecruiterSpace";
 import CompanyAccount from "./pages/companyaccount/CompanyAccount";
 import { UserProvider } from "./context/UserContext";
 import Candidates from "./pages/candidates/Candidates";
-import ChatSystem from "./pages/chatsystem/ChatSystem";
+// import ChatSystem from "./pages/chatsystem/ChatSystem";
 import { ChatContextProvider } from "./features/chat/context/ChatContext";
 import JobsByCategory from "./pages/jobsbycategory/JobsByCategory";
 import Profile from "./pages/profile/Profile";
@@ -46,9 +46,9 @@ function App() {
                   <Route element={<RequireAuth />}>
                     <Route path="/profile" element={<Profile />} />
                   </Route>
-                  <Route element={<RequireAuth />}>
+                  {/* <Route element={<RequireAuth />}>
                     <Route path="/chat" element={<ChatSystem />} />
-                  </Route>
+                  </Route> */}
                   <Route element={<RequireAuth />}>
                     <Route
                       path="/companyaccount"

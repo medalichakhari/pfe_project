@@ -9,7 +9,7 @@ import { useFormik } from "formik";
 import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../services/firebaseConfig";
+// import { db } from "../../services/firebaseConfig";
 import { useTranslation } from "react-i18next";
 import { userSchema } from "../../utils/validationSchemas";
 
@@ -35,19 +35,19 @@ const UserAccount = () => {
         await uploadFile(image, path);
         downloadURL = await downloadUrl(path);
       }
-      await Promise.all([
-        updateProfile(currentUser, {
-          displayName: `${fName} ${lName}`,
-          ...(downloadURL && { photoURL: downloadURL }),
-        }),
-        setDoc(doc(db, "users", user_id), {
-          uid: user_id,
-          displayName: `${fName} ${lName}`,
-          email,
-          ...(downloadURL && { photoURL: downloadURL }),
-        }),
-        setDoc(doc(db, "userChats", user_id), {}),
-      ]);
+      // await Promise.all([
+      //   updateProfile(currentUser, {
+      //     displayName: `${fName} ${lName}`,
+      //     ...(downloadURL && { photoURL: downloadURL }),
+      //   }),
+      //   setDoc(doc(db, "users", user_id), {
+      //     uid: user_id,
+      //     displayName: `${fName} ${lName}`,
+      //     email,
+      //     ...(downloadURL && { photoURL: downloadURL }),
+      //   }),
+      //   setDoc(doc(db, "userChats", user_id), {}),
+      // ]);
       let userData = {
         id: user.user_id,
         ...(downloadURL && { photo: downloadURL }),

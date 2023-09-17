@@ -13,7 +13,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
-import { db } from "../../services/firebaseConfig";
+// import { db } from "../../services/firebaseConfig";
 import { useTranslation } from "react-i18next";
 
 function CandidateTable({ data, refetch }) {
@@ -62,46 +62,46 @@ function CandidateTable({ data, refetch }) {
   const endIndex = startIndex + candidatesPerPage;
   const displayedCandidates = filteredCandidates.slice(startIndex, endIndex);
   //handle message
-  const handleSelect = async (selectedUser) => {
-    //check whether the group(chats in firestore) exists, if not create
-    const combinedId =
-      user.user_id > selectedUser.id
-        ? user.user_id + selectedUser.id
-        : selectedUser.id + user.user_id;
-    try {
-      const res = await getDoc(doc(db, "chats", combinedId));
-      if (!res.exists()) {
-        //create a chat in chats collection
-        await setDoc(doc(db, "chats", combinedId), { messages: [] });
+  // const handleSelect = async (selectedUser) => {
+  //   //check whether the group(chats in firestore) exists, if not create
+  //   const combinedId =
+  //     user.user_id > selectedUser.id
+  //       ? user.user_id + selectedUser.id
+  //       : selectedUser.id + user.user_id;
+  //   try {
+  //     const res = await getDoc(doc(db, "chats", combinedId));
+  //     if (!res.exists()) {
+  //       //create a chat in chats collection
+  //       await setDoc(doc(db, "chats", combinedId), { messages: [] });
 
-        //create user chats
-        await updateDoc(doc(db, "userChats", user.user_id), {
-          [combinedId]: {
-            userInfo: {
-              uid: selectedUser.id,
-              displayName: selectedUser.nom,
-              photoURL: selectedUser.photo,
-            },
-            date: serverTimestamp(),
-          },
-        });
+  //       //create user chats
+  //       await updateDoc(doc(db, "userChats", user.user_id), {
+  //         [combinedId]: {
+  //           userInfo: {
+  //             uid: selectedUser.id,
+  //             displayName: selectedUser.nom,
+  //             photoURL: selectedUser.photo,
+  //           },
+  //           date: serverTimestamp(),
+  //         },
+  //       });
 
-        await updateDoc(doc(db, "userChats", selectedUser.id), {
-          [combinedId]: {
-            userInfo: {
-              uid: user.user_id,
-              displayName: user.name,
-              photoURL: user.picture,
-            },
-            date: serverTimestamp(),
-          },
-        });
-      }
-      navigate("/chat");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //       await updateDoc(doc(db, "userChats", selectedUser.id), {
+  //         [combinedId]: {
+  //           userInfo: {
+  //             uid: user.user_id,
+  //             displayName: user.name,
+  //             photoURL: user.picture,
+  //           },
+  //           date: serverTimestamp(),
+  //         },
+  //       });
+  //     }
+  //     navigate("/chat");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
   return (
     <div className="max-w-7xl mx-auto py-16 sm:px-6 lg:px-8">
       <div className="flex justify-between items-center mb-4">
@@ -192,7 +192,7 @@ function CandidateTable({ data, refetch }) {
                               View
                             </Link>
                           </td>
-                          <td className="px-4 py-2 text-center">
+                          {/* <td className="px-4 py-2 text-center">
                             <button
                               onClick={() =>
                                 handleSelect(candidacy?.candidat?.user)
@@ -201,7 +201,7 @@ function CandidateTable({ data, refetch }) {
                             >
                               <AiFillMessage size={30} />
                             </button>
-                          </td>
+                          </td> */}
                           <td className="px-4 py-2 text-center">
                             {candidacy.etat === "accepted" ? (
                               <Badge colorScheme="green">Accepted</Badge>
