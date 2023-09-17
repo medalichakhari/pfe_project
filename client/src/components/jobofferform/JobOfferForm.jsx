@@ -252,7 +252,7 @@ const JobOfferForm = ({
               }`,
           }}
         />
-        {selectError && jobOfferIsSubmitting &&(
+        {selectError && jobOfferIsSubmitting && (
           <div className="text-red-500 text-sm">
             Please select at least one skill.
           </div>
@@ -265,7 +265,7 @@ const JobOfferForm = ({
         <div>
           <TextEditor value={editorValue} setValue={handleEditorChange} />
         </div>
-        {editorError && jobOfferIsSubmitting &&(
+        {editorError && jobOfferIsSubmitting && (
           <div className="text-red-500 text-sm mb-2">
             The job description must be more than 90 characters.
           </div>

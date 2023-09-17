@@ -45,6 +45,8 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
       domaine: values.domain,
       type: values.type,
       salaire: values.salary,
+      experience: values.experience,
+      niveau: values.educationLevel,
       competences: qualifications,
       description: editorValue,
     };
@@ -74,6 +76,8 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
           type: "",
           domain: "",
           salary: "",
+          experience: "",
+          educationLevel: "",
           qualification: "",
         }
       : {
@@ -82,6 +86,8 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
           type: data?.type,
           domain: data?.categorie?.id,
           salary: data?.salaire,
+          experience: data?.experience,
+          educationLevel: data?.niveau,
           qualification: "",
         },
 
@@ -196,6 +202,61 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                   placeholder="Required experience level"
                   className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 />
+              </div>
+              <div>
+                <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                  {t("candidateInfo.experience")}
+                </label>
+                <input
+                  value={values.experience}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  type="text"
+                  name="experience"
+                  id="experience"
+                  placeholder="Enter number of years of experience"
+                  className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                    touched.experience && errors.experience
+                      ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                      : "focus:ring-blue-500 focus:border-blue-500"
+                  }`}
+                />
+                {touched.experience && errors.experience && (
+                  <div className="text-red-500 text-sm">
+                    {errors.experience}
+                  </div>
+                )}
+              </div>
+              <div>
+                <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                  {t("candidateInfo.educationLevel")}
+                </label>
+                <select
+                  value={values.educationLevel}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  type="text"
+                  name="educationLevel"
+                  id="educationLevel"
+                  placeholder="Please select your education level"
+                  className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                    touched.educationLevel && errors.educationLevel
+                      ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                      : "focus:ring-blue-500 focus:border-blue-500"
+                  }`}
+                >
+                  <option value="">Please select your education level</option>
+                  <option value="Bac">Bac</option>
+                  <option value="Licence">Licence</option>
+                  <option value="Master">Master</option>
+                  <option value="Ingenieur">Ingenieur</option>
+                  <option value="Doctorat">Doctorat</option>
+                </select>
+                {touched.educationLevel && errors.educationLevel && (
+                  <div className="text-red-500 text-sm">
+                    {errors.educationLevel}
+                  </div>
+                )}
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
