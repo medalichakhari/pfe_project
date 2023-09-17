@@ -20,7 +20,12 @@ const SignIn = () => {
   const handleSignIn = (values) => {
     signInWithEmailAndPwd(values.email, values.password)
       .then(() => {
-        navigate(from, { replace: true });
+        if (!user?.roles?.includes("user")) {
+          navigate("/profile");
+        } else {
+          navigate("/");
+        }
+        // navigate(from, { replace: true });
         toast({
           description: "Logged In.",
           position: "bottom-left",
@@ -43,7 +48,12 @@ const SignIn = () => {
   const handleSignInWithGoogle = () => {
     googleSignIn()
       .then(() => {
-        navigate(from, { replace: true });
+        if (!user?.roles?.includes("user")) {
+          navigate("/profile");
+        } else {
+          navigate("/");
+        }
+        // navigate(from, { replace: true });
         toast({
           description: "Logged In.",
           position: "bottom-left",

@@ -123,7 +123,7 @@ export default function NavBar() {
       <Navbar fluid={true} rounded={true}>
         <Navbar.Brand href="#">
           <div onClick={() => navigate("/")}>
-            <Slogan className="mr-3 h-4" />
+            <Slogan className="mr-3 mb-3 h-4" />
           </div>
         </Navbar.Brand>
         {user ? (
@@ -133,7 +133,7 @@ export default function NavBar() {
             </div>
             {hasRecruiterRole || hasCandidateRole ? (
               <div className="flex justify-center items-center">
-                <div
+                {/* <div
                   className="pr-5 text-primary hover:text-secondary cursor-pointer"
                   onClick={navigateToChat}
                 >
@@ -143,7 +143,7 @@ export default function NavBar() {
                       {unreadMessageCount}
                     </span>
                   )}
-                </div>
+                </div> */}
                 <Dropdown
                   arrowIcon={false}
                   inline={true}
