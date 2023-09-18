@@ -61,7 +61,8 @@ const CandidatInfo = () => {
           duration: 9000,
           isClosable: true,
         });
-        console.log(err)});
+        console.log(err);
+      });
   };
   const {
     values,
@@ -83,7 +84,7 @@ const CandidatInfo = () => {
           speciality: candidate?.specialite,
           experience: candidate?.experience,
         },
-        validationSchema : candidatSchema,
+    validationSchema: candidatSchema,
     onSubmit: handleUpdateCandidat,
     enableReinitialize: true,
   });
@@ -124,7 +125,10 @@ const CandidatInfo = () => {
               onClick={handleEditClick}
               className="text-primary hover:text-secondary"
             >
-              <FaEdit />
+              <div className="flex items-center">
+                <FaEdit />
+                <span className="ml-1">Edit</span>
+              </div>
             </button>
           </div>
 
