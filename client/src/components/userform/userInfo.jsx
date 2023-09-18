@@ -134,7 +134,10 @@ const UserInfo = () => {
               onClick={handleEditClick}
               className="text-primary hover:text-secondary"
             >
-              <FaEdit />
+              <div className="flex items-center">
+                <FaEdit />
+                <span className="ml-1">Edit</span>
+              </div>
             </button>
           </div>
           <div>

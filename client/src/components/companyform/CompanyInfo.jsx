@@ -54,7 +54,7 @@ const CompanyInfo = () => {
         });
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         toast({
           description: err.message,
           position: "bottom-left",
@@ -126,7 +126,10 @@ const CompanyInfo = () => {
               onClick={handleEditClick}
               className="text-primary hover:text-secondary"
             >
-              <FaEdit />
+              <div className="flex items-center">
+                <FaEdit />
+                <span className="ml-1">Edit</span>
+              </div>
             </button>
           </div>
           {company?.logo ? (
