@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useFormik } from "formik";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CompanyForm from "../../components/companyform/CompanyForm";
 import Layout from "../../components/layout/Layout";
 import { CreateSociete } from "../../lib/fetch";
 import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
-import { useUser } from "../../context/UserContext";
 import { companySchema } from "../../utils/validationSchemas";
 
 const CompanyAccount = () => {
