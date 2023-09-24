@@ -149,9 +149,6 @@ function CandidateTable({ data, refetch }) {
                           {t("candidatesTable.curriculumVitae")}
                         </th>
                         <th className="px-4 py-2 text-center text-gray-700">
-                          {t("candidatesTable.chat")}
-                        </th>
-                        <th className="px-4 py-2 text-center text-gray-700">
                           {t("candidatesTable.status")}
                         </th>
                       </tr>

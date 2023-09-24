@@ -73,12 +73,12 @@ const JobOfferDetails = () => {
               </h3>
               <li className="text-gray-600 mb-4">{data.salaire}</li>
             </div>
-            <div>
+            {/* <div>
               <h3 className="text-xl font-bold text-gray-800 mb-2">
                 {t("jobOfferDetails.jobType")}
               </h3>
               <li className="text-gray-600">{data.type}</li>
-            </div>
+            </div> */}
           </div>
           <div className="w-2/3">
             <h3 className="text-xl font-bold text-gray-800 mb-5">
