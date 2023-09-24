@@ -117,7 +117,7 @@ const UserAccount = () => {
             errors={errors}
             touched={touched}
           />
-          <PrimaryButton className="w-full" type="submit" isLoading={isLoading}>
+          <PrimaryButton className="w-full" type="submit" disabled={isLoading}>
             {t("createAccount")}
           </PrimaryButton>
         </form>

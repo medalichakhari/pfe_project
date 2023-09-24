@@ -6,7 +6,7 @@ export default function PrimaryButton({
   children,
   className,
   onClick,
-  isLoading,
+  disabled,
   ...props
 }) {
   return (
@@ -15,12 +15,13 @@ export default function PrimaryButton({
       className={classNames(
         "text-white rounded-full py-1.5 px-5 md:py-1.5 md:px-5 bg-gradient-to-br hover:bg-gradient-to-r transition-all duration-300 from-primary to-secondary hover:bg-blend-darken",
         className,
-        isLoading && "opacity-50 cursor-not-allowed"
+        disabled && "opacity-50 cursor-not-allowed"
       )}
-      disabled={isLoading}
+      disabled={disabled}
       {...props}
     >
-      {isLoading ? "Loading..." : children}
+      {children}
+      {/* {isLoading ? "Loading..." : children} */}
     </button>
   );
 }

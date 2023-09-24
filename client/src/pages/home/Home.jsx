@@ -8,7 +8,6 @@ import { GetCandidaturesByCandidat, GetOffres } from "../../lib/fetch";
 import { useUser } from "../../context/UserContext";
 import { useAuth } from "../../context/AuthContext";
 import { useQuery } from "react-query";
-import LoadingSpinner from "../../components/shared/LoadingSpinner";
 
 const Home = () => {
   const { token } = useAuth();
@@ -17,7 +16,7 @@ const Home = () => {
   const [recommendedJobs, setRecommendedJobs] = useState([]);
   const [allJobs, setAllJobs] = useState([]);
 
-  const { data, isLoading } = useQuery(["candidatures", token], () =>
+  const { data } = useQuery(["candidatures", token], () =>
     GetCandidaturesByCandidat(candidate?.id, token)
   );
 
@@ -47,7 +46,7 @@ const Home = () => {
     <Layout>
       <Hero />
       <Search allJobs={allJobs} setFilteredJobs={setFilteredJobs} />
-      <LoadingSpinner /> : <JobList filteredJobs={filteredJobs} />
+      <JobList filteredJobs={filteredJobs} />
       <CategoryList />
       {/* {candidate && <RecommendedJobs recommendedJobs={recommendedJobs} />} */}
     </Layout>

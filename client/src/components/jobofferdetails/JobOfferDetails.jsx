@@ -1,11 +1,11 @@
 import React from "react";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
-import GoogleIcon from "../../assets/svg/GoogleIcon";
 import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
+import { useUser } from "../../context/UserContext";
 import { useQuery } from "react-query";
-import { GetOffre } from "../../lib/fetch";
+import { GetCandidaturesByCandidat, GetOffre } from "../../lib/fetch";
 import { BsBriefcase } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 
@@ -13,9 +13,22 @@ const JobOfferDetails = () => {
   const { t } = useTranslation();
   const { offerId } = useParams();
   const { token, user } = useAuth();
+  const { candidate } = useUser();
+  console.log(candidate.id);
+  const { data: candidatures, isLoading: isLoadingCandidatures } = useQuery(
+    ["candidatures", token],
+    () => GetCandidaturesByCandidat(candidate?.id, token)
+  );
+  console.log(offerId);
+  console.log(candidatures);
   const { data, isLoading } = useQuery(["offer", offerId, token], () =>
     GetOffre(offerId, token)
   );
+  const offerExistsInCandidatures =
+    !isLoadingCandidatures &&
+    candidatures &&
+    candidatures.some((candidature) => candidature?.offreId == offerId);
+  console.log("offerExistsInCandidatures", offerExistsInCandidatures);
   const navigate = useNavigate();
   const handleNavigate = () => {
     user && user.roles.includes("candidat")
@@ -29,7 +42,10 @@ const JobOfferDetails = () => {
       <div className="container mx-auto my-10 px-6">
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold text-gray-800">{data.titre}</h1>
-          <PrimaryButton onClick={handleNavigate}>
+          <PrimaryButton
+            onClick={handleNavigate}
+            disabled={offerExistsInCandidatures}
+          >
             {t("jobOfferDetails.applyNow")}
           </PrimaryButton>
         </div>
