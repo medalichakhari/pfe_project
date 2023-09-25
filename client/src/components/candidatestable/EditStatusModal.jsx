@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -12,12 +12,17 @@ import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { UpdateCandidature } from "../../lib/fetch";
 import { useTranslation } from "react-i18next";
+import TextEditor from "../inputs/TextEditor";
 
 function EditStatusModal({ isOpen, handleOpenModal, candidacy, refetch }) {
   const { t } = useTranslation();
+  const [editorValue, setEditorValue] = useState("");
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const { token } = useAuth();
+  const handleEditorChange = (value) => {
+    setEditorValue(value);
+  };
   const handleChangeStatus = (values, actions) => {
     let candidatureData = {
       etat: values.status,
@@ -82,6 +87,18 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacy, refetch }) {
                 <option value="accepted">Accepted</option>
                 <option value="rejected">Rejected</option>
               </select>
+              
+              <div>
+                <label className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                  Contenu de l'Email
+                </label>
+                <div>
+                  <TextEditor
+                    value={editorValue}
+                    setValue={handleEditorChange}
+                  />
+                </div>
+              </div>
               <div className="flex flex-row-reverse">
                 <button
                   onClick={handleOpenModal}

@@ -10,7 +10,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useQuery } from "react-query";
 
 const Home = () => {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const { candidate, company } = useUser();
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [recommendedJobs, setRecommendedJobs] = useState([]);
@@ -25,11 +25,20 @@ const Home = () => {
       try {
         const res = await GetOffres();
         console.log(res);
-        const filteredJobs = res.filter(
-          (job) =>
-            job.societe.id !== company?.id &&
-            !data?.some((candidature) => candidature?.offreId === job?.id)
-        );
+        let filteredJobs;
+
+        if (user?.roles.includes("candidate")) {
+          filteredJobs = res.filter(
+            (job) =>
+              job.societe.id !== user?.companyId &&
+              !data?.some((candidature) => candidature?.offreId === job?.id)
+          );
+        } else {
+          filteredJobs = res.filter(
+            (job) => job.societe.id !== user?.companyId
+          );
+        }
+
         setFilteredJobs(filteredJobs);
         setAllJobs(res);
       } catch (err) {

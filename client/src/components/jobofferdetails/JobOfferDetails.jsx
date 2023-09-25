@@ -14,13 +14,10 @@ const JobOfferDetails = () => {
   const { offerId } = useParams();
   const { token, user } = useAuth();
   const { candidate } = useUser();
-  console.log(candidate.id);
   const { data: candidatures, isLoading: isLoadingCandidatures } = useQuery(
     ["candidatures", token],
     () => GetCandidaturesByCandidat(candidate?.id, token)
   );
-  console.log(offerId);
-  console.log(candidatures);
   const { data, isLoading } = useQuery(["offer", offerId, token], () =>
     GetOffre(offerId, token)
   );
@@ -28,7 +25,6 @@ const JobOfferDetails = () => {
     !isLoadingCandidatures &&
     candidatures &&
     candidatures.some((candidature) => candidature?.offreId == offerId);
-  console.log("offerExistsInCandidatures", offerExistsInCandidatures);
   const navigate = useNavigate();
   const handleNavigate = () => {
     user && user.roles.includes("candidat")
