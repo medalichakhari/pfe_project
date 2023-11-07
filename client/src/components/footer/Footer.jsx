@@ -27,7 +27,7 @@ const Footer = () => {
                       <Link to="/recruiterspace">{t("footer.recruiter")}</Link>
                     </li>
                     <li className="mt-6">
-                      <Link to="/conact">{t("footer.contact")}</Link>
+                      <Link to="/contact">{t("footer.contact")}</Link>
                     </li>
                   </ul>
                 </div>

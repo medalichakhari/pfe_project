@@ -34,7 +34,7 @@ const JobPosting = () => {
   const renderCompanyButtons = () => {
     if (formStep === 0) {
       return (
-        <div className="flex flex-row-reverse">
+        <div className="flex flex-row-reverse mt-2">
           <PrimaryButton type="button" onClick={completeFormStep}>
             {t("jobOfferForm.next")}
           </PrimaryButton>
@@ -48,11 +48,11 @@ const JobPosting = () => {
   const renderJobOfferButtons = () => {
     if (formStep === STEPS_AMOUNT) {
       return (
-        <div className="flex justify-between">
+        <div className="flex justify-between mt-2">
           <SecondaryButton type="button" onClick={previousFormStep}>
             {t("jobOfferForm.previous")}
           </SecondaryButton>
-          <PrimaryButton type="submit">
+          <PrimaryButton type="submit" disabled={submitting}>
             {t("jobOfferForm.createJob")}
           </PrimaryButton>
         </div>

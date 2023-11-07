@@ -10,8 +10,10 @@ import { useStorage } from "../../context/StorageContext";
 import CandidatInfo from "../../components/candidatinfo/CandidatInfo";
 import { useUser } from "../../context/UserContext";
 import { candidatSchema } from "../../utils/validationSchemas";
+import { set } from "react-hook-form";
 
 const CandidatAccount = () => {
+  const [submitting, setSubmitting] = useState(false);
   const { token, user, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
   const [selectedFile, setSelectedFile] = useState(null);
@@ -20,6 +22,7 @@ const CandidatAccount = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const handleCreateCandidat = async (values, actions) => {
+    setSubmitting(true);
     const qualificationsValue = selectedValues.map((option) => option.value);
     const qualifications = qualificationsValue.join(",");
     const { user_id } = user;
@@ -81,7 +84,9 @@ const CandidatAccount = () => {
                 touched={touched}
               />
               <div className="flex flex-row-reverse">
-                <PrimaryButton type="submit">Create</PrimaryButton>
+                <PrimaryButton type="submit" disabled={submitting}>
+                  Create
+                </PrimaryButton>
               </div>
             </form>
           )}

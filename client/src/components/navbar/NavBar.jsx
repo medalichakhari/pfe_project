@@ -259,10 +259,13 @@ export default function NavBar() {
             {t("nav.home")}
           </Navbar.Link>
           <Navbar.Link href="/about">{t("nav.about")}</Navbar.Link>
-          <Navbar.Link href="/candidateaccount" className="flex items-center">
-            {<FiUpload className="mr-1 text-gray-500" />}
-            {t("nav.uploadCV")}
-          </Navbar.Link>
+          {!hasCandidateRole && (
+            <Navbar.Link href="/candidateaccount" className="flex items-center">
+              {<FiUpload className="mr-1 text-gray-500" />}
+              {t("nav.uploadCV")}
+            </Navbar.Link>
+          )}
+
           {navigateToJobPosting()}
           <Navbar.Link href="/contact">{t("nav.contact")}</Navbar.Link>
         </Navbar.Collapse>

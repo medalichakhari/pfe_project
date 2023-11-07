@@ -15,12 +15,14 @@ const JobApplication = () => {
   const { offerId } = useParams();
   const { userId } = useParams();
   const { userInfo, candidate } = useUser();
+  const [submitting, setSubmitting] = useState(false);
   const { data, isLoading } = useQuery(["offre", offerId, token], () =>
     GetOffre(offerId, token)
   );
   console.log("user Id for job", userId);
   const navigate = useNavigate();
   const handleApplyJob = async (values, actions) => {
+    setSubmitting(true);
     let applicationData = {
       candidatId: candidate.id,
       offreId: offerId,
@@ -58,7 +60,11 @@ const JobApplication = () => {
         <div className="w-full max-w-xl p-4 bg-white border border-gray-200 rounded-lg shadow-xl sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
           <CandidatInfo />
           <div className="flex flex-row-reverse">
-            <PrimaryButton type="button" onClick={handleApplyJob}>
+            <PrimaryButton
+              type="button"
+              onClick={handleApplyJob}
+              disabled={submitting}
+            >
               Apply
             </PrimaryButton>
           </div>

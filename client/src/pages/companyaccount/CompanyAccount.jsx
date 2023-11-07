@@ -8,13 +8,16 @@ import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton"
 import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
 import { companySchema } from "../../utils/validationSchemas";
+import { set } from "react-hook-form";
 
 const CompanyAccount = () => {
   const [image, setImage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const { token, user, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
   const handleCreateCompany = async (values, actions) => {
+    setSubmitting(true);
     const { user_id } = user;
     const path = `companyImages/${user_id}/${image.name}`;
     await uploadFile(image, path);
@@ -51,7 +54,7 @@ const CompanyAccount = () => {
       companyActivity: "",
       companyDescription: "",
     },
-    validationSchema : companySchema,
+    validationSchema: companySchema,
     onSubmit: handleCreateCompany,
   });
   return (
@@ -69,7 +72,9 @@ const CompanyAccount = () => {
               touched={touched}
             />
             <div className="flex flex-row-reverse">
-              <PrimaryButton type="submit">Create</PrimaryButton>
+              <PrimaryButton type="submit" disabled={submitting}>
+                Create
+              </PrimaryButton>
             </div>
           </form>
         </div>

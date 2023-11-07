@@ -63,6 +63,7 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacy, refetch }) {
         onClose={handleOpenModal}
         isCentered={true}
         onEsc={handleOpenModal}
+        size={"xl"}
       >
         <ModalOverlay />
         <ModalContent>
@@ -87,7 +88,7 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacy, refetch }) {
                 <option value="accepted">Accepted</option>
                 <option value="rejected">Rejected</option>
               </select>
-              
+
               <div>
                 <label className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white">
                   Contenu de l'Email
@@ -99,7 +100,7 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacy, refetch }) {
                   />
                 </div>
               </div>
-              <div className="flex flex-row-reverse">
+              <div className="flex flex-row-reverse mt-2">
                 <button
                   onClick={handleOpenModal}
                   className="ml-2 text-white rounded-full py-1.5 px-5 md:py-1.5 md:px-5 bg-gradient-to-br hover:bg-gradient-to-r transition-all duration-300 from-red-500 to-red-700 hover:bg-blend-darken"

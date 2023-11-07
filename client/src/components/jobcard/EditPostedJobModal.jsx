@@ -103,6 +103,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
         onClose={handleOpenEditModal}
         isCentered={true}
         onEsc={handleOpenEditModal}
+        size={"xl"}
       >
         <ModalOverlay />
         <ModalContent>

@@ -25,7 +25,6 @@ const JobOfferForm = ({
 }) => {
   const { t } = useTranslation();
   const { token } = useAuth();
-  console.log("object", jobOfferIsSubmitting);
   const { data, isLoading } = useQuery(["domains", token], () =>
     GetCategories(token)
   );

@@ -53,7 +53,7 @@ const SignIn = () => {
         } else {
           navigate("/");
         }
-        // navigate(from, { replace: true });
+        navigate(from, { replace: true });
         toast({
           description: "Logged In.",
           position: "bottom-left",
