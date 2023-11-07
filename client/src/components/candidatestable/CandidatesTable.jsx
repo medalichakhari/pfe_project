@@ -224,7 +224,7 @@ function CandidateTable({ data, refetch }) {
                   </table>
                 </div>
               </div>
-              {filteredCandidates.length >= candidatesPerPage && (
+              {filteredCandidates.length > candidatesPerPage && (
                 <Pagination
                   pageCount={pageCount}
                   onPageChange={handlePageChange}
