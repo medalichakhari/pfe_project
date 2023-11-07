@@ -15,7 +15,7 @@ function Contact() {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className=" min-h-screen">
       <div className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-lg mx-auto">
           <h2 className="text-3xl font-extrabold text-gray-900">Contact Us</h2>
@@ -28,7 +28,7 @@ function Contact() {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Name
                 </label>
@@ -48,7 +48,7 @@ function Contact() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Email
                 </label>
@@ -68,7 +68,7 @@ function Contact() {
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Message
                 </label>
