@@ -22,8 +22,8 @@ const JobOfferDetails = () => {
     GetOffre(offerId, token)
   );
   const offerExistsInCandidatures =
+    Array.isArray(candidatures) &&
     !isLoadingCandidatures &&
-    candidatures &&
     candidatures.some((candidature) => candidature?.offreId == offerId);
   const navigate = useNavigate();
   const handleNavigate = () => {
