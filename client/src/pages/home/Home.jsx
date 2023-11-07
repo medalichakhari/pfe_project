@@ -26,7 +26,6 @@ const Home = () => {
         const res = await GetOffres();
         console.log(res);
         let filteredJobs;
-
         if (user?.roles.includes("candidate")) {
           filteredJobs = res.filter(
             (job) =>

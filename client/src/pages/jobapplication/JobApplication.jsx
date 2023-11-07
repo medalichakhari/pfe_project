@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { GetOffre } from "../../lib/fetch";
+import { useState } from "react";
 
 const JobApplication = () => {
   const toast = useToast();

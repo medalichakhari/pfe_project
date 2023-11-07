@@ -25,14 +25,12 @@ const CandidatSpace = () => {
         {t("candidateSpace.candidateSpace")}
       </h1>
       <Tabs.Group style="underline">
-        <Tabs.Item title={t("candidateSpace.profile")}>{t("candidateSpace.profile")}</Tabs.Item>
         <Tabs.Item title="Applications" active={true}>
           {!isLoading && candidatures && (
             <AppliedJobs data={candidatures} refetch={refetch} />
           )}
         </Tabs.Item>
-        <Tabs.Item title={t("candidateSpace.accepted")}>{t("candidateSpace.accepted")}</Tabs.Item>
-        <Tabs.Item title={t("candidateSpace.rejected")}>{t("candidateSpace.rejected")}</Tabs.Item>
+        <Tabs.Item title={"Interviews"}>Interviews</Tabs.Item>
       </Tabs.Group>
     </Layout>
   );

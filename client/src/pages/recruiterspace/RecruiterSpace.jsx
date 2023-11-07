@@ -37,7 +37,6 @@ const RecruiterSpace = () => {
     <Layout>
       <h1 className="text-4xl font-bold ml-3 mt-8">Recruiter Space</h1>
       <Tabs.Group style="underline">
-        <Tabs.Item title="Profile">Profile content</Tabs.Item>
         <Tabs.Item title="Jobs" active={true}>
           {isLoading ? (
             <div>Loading...</div>
@@ -83,7 +82,6 @@ const RecruiterSpace = () => {
             </div>
           )}
         </Tabs.Item>
-        <Tabs.Item title="Candidates">Candidates</Tabs.Item>
         <Tabs.Item title="Interviews">Interviews</Tabs.Item>
       </Tabs.Group>
     </Layout>
