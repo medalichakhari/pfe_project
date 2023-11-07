@@ -37,7 +37,7 @@ const Footer = () => {
                   </h3>
                   <ul className="text-gray-800 dark:text-gray-50 text-sm lg:text-base leading-tight">
                     <li>
-                      <Link to="/chat">{t("footer.chat")}</Link>
+                      <Link to="/">{t("footer.chat")}</Link>
                     </li>
 
                     <li className="mt-6">
