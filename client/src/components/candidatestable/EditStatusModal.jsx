@@ -28,6 +28,8 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacy, refetch }) {
       etat: values.status,
       userId: candidacy.candidat?.userId,
       message: `Your candidacy to ${candidacy.offre?.titre} has been ${values.status}`,
+      objectifEmail: values.emailSubject,
+      contenuEmail: editorValue,
     };
     UpdateCandidature(candidacy.id, candidatureData, token)
       .then((res) => {
@@ -51,6 +53,7 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacy, refetch }) {
   } = useFormik({
     initialValues: {
       status: "",
+      emailSubject: "",
     },
     onSubmit: handleChangeStatus,
   });
@@ -63,7 +66,7 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacy, refetch }) {
         onClose={handleOpenModal}
         isCentered={true}
         onEsc={handleOpenModal}
-        size={"xl"}
+        size={"lg"}
       >
         <ModalOverlay />
         <ModalContent>
@@ -88,12 +91,11 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacy, refetch }) {
                 <option value="accepted">Accepted</option>
                 <option value="rejected">Rejected</option>
               </select>
-
               <div>
                 <label className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                  Contenu de l'Email
+                  Email Content
                 </label>
-                <div>
+                <div className="mb-2">
                   <TextEditor
                     value={editorValue}
                     setValue={handleEditorChange}
