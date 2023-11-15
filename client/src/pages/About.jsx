@@ -15,7 +15,7 @@ const About = () => {
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
             Built with PERN stack and Tailwind CSS
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 leading-7">
             At our job portal, we're passionate about connecting talented
             individuals with their dream job opportunities. We believe that
             everyone deserves the chance to find fulfilling work, and we're
@@ -30,7 +30,7 @@ const About = () => {
             beautiful, responsive layouts quickly and easily, without
             sacrificing flexibility.
           </p>
-          <p className="text-gray-600 mt-4">
+          <p className="text-gray-600 leading-7 mt-4">
             Our team is made up of experienced developers and job market
             experts, who work tirelessly to ensure that our platform is
             up-to-date and relevant to today's job seekers. We're constantly

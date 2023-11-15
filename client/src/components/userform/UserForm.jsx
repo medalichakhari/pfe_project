@@ -144,7 +144,7 @@ const UserForm = ({
           name="address"
           id="address"
           placeholder="Address with country code"
-          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+          className={`mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
             touched.address && errors.address
               ? "focus:ring-red-500 focus:border-red-500 border-red-500"
               : "focus:ring-blue-500 focus:border-blue-500"
