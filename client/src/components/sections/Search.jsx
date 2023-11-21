@@ -53,8 +53,8 @@ const Search = ({ allJobs, setFilteredJobs }) => {
   const filterJobs = (job) => {
     return (
       job.titre.toLowerCase().includes(keyword.toLowerCase()) ||
-      job.competences.toLowerCase().includes(keyword.toLowerCase()) &&
-      job.adresse.toLowerCase().includes(location.toLowerCase())
+      (job.competences.toLowerCase().includes(keyword.toLowerCase()) &&
+        job.adresse.toLowerCase().includes(location.toLowerCase()))
     );
   };
 
@@ -157,7 +157,10 @@ const Search = ({ allJobs, setFilteredJobs }) => {
             </ul>
           )}
         </div>
-        <PrimaryButton onClick={handleSearchJobs} className="w-full md:w-auto">
+        <PrimaryButton
+          onClick={handleSearchJobs}
+          className="cursor-pointer w-full md:w-auto"
+        >
           {t("search.search")}
         </PrimaryButton>
       </div>
