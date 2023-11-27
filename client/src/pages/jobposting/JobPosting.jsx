@@ -82,7 +82,7 @@ const JobPosting = () => {
     if (!editorError && !selectError) {
       CreateOffre(offerData, token)
         .then((res) => {
-          console.log(res);
+          setSubmitting(false);
           toast({
             description: "Joboffer added successfully .",
             position: "bottom-left",
@@ -93,6 +93,8 @@ const JobPosting = () => {
           navigate("/recruiterSpace");
         })
         .catch((err) => {
+          console.log(err);
+          setSubmitting(false);
           toast({
             description: err.message,
             position: "bottom-left",

@@ -14,8 +14,6 @@ const Home = () => {
   const { candidate, company } = useUser();
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [recommendedJobs, setRecommendedJobs] = useState([]);
-  const [allJobs, setAllJobs] = useState([]);
-
   const { data } = useQuery(["candidatures", token], () =>
     GetCandidaturesByCandidat(candidate?.id, token)
   );
@@ -24,22 +22,31 @@ const Home = () => {
     const fetchJobs = async () => {
       try {
         const res = await GetOffres();
-        console.log(res);
-        let filteredJobs;
-        if (user?.roles.includes("candidate")) {
-          filteredJobs = res.filter(
-            (job) =>
-              job.societe.id !== user?.companyId &&
-              !data?.some((candidature) => candidature?.offreId === job?.id)
-          );
-        } else {
-          filteredJobs = res.filter(
-            (job) => job.societe.id !== user?.companyId
-          );
+        let filteredJobs = res;
+
+        if (user) {
+          const { roles } = user;
+          const isRecruiter = roles.includes("recruteur");
+          const isCandidate = roles.includes("candidat");
+
+          filteredJobs = res.filter((job) => {
+            if (isRecruiter && isCandidate) {
+              return (
+                job.societe?.id !== company?.id &&
+                !data?.some((candidature) => candidature?.offreId === job?.id)
+              );
+            } else if (isRecruiter) {
+              return job.societe.id !== company?.id;
+            } else if (isCandidate) {
+              return !data?.some(
+                (candidature) => candidature?.offreId === job?.id
+              );
+            }
+            return true;
+          });
         }
 
         setFilteredJobs(filteredJobs);
-        setAllJobs(res);
       } catch (err) {
         console.log(err);
       }
@@ -48,12 +55,12 @@ const Home = () => {
     if (data) {
       fetchJobs();
     }
-  }, [company, data]);
+  }, [company, candidate, data, user]);
 
   return (
     <Layout>
       <Hero />
-      <Search allJobs={allJobs} setFilteredJobs={setFilteredJobs} />
+      <Search filteredJobs={filteredJobs} setFilteredJobs={setFilteredJobs} />
       <JobList filteredJobs={filteredJobs} />
       <CategoryList />
       {/* {candidate && <RecommendedJobs recommendedJobs={recommendedJobs} />} */}

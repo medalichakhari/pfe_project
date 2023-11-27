@@ -4,7 +4,7 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { useTranslation } from "react-i18next";
 
-const Search = ({ allJobs, setFilteredJobs }) => {
+const Search = ({ filteredJobs, setFilteredJobs }) => {
   const prevKeyword = useRef("");
   const prevLocation = useRef("");
   const [keyword, setKeyword] = useState("");
@@ -19,7 +19,7 @@ const Search = ({ allJobs, setFilteredJobs }) => {
     prevKeyword.current = keyword;
     setKeyword(value);
     if (value !== prevKeyword.current) {
-      setKeywordSuggestions(getKeywordSuggestions(value, allJobs));
+      setKeywordSuggestions(getKeywordSuggestions(value, filteredJobs));
     }
   };
 
@@ -28,7 +28,7 @@ const Search = ({ allJobs, setFilteredJobs }) => {
     prevLocation.current = location;
     setLocation(value);
     if (value !== prevLocation.current) {
-      setLocationSuggestions(getLocationSuggestions(value, allJobs));
+      setLocationSuggestions(getLocationSuggestions(value, filteredJobs));
     }
   };
 
@@ -60,8 +60,8 @@ const Search = ({ allJobs, setFilteredJobs }) => {
 
   const handleSearchJobs = (e) => {
     e.preventDefault();
-    const filteredJobs = allJobs.filter(filterJobs);
-    setFilteredJobs(filteredJobs);
+    const searchedJobs = filteredJobs.filter(filterJobs);
+    setFilteredJobs(searchedJobs);
   };
 
   const handleKeywordSuggestionClick = (suggestion) => {
