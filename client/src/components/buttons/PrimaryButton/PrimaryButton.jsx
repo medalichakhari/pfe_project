@@ -2,13 +2,13 @@ import classNames from "classnames";
 import React from "react";
 import PropTypes from "prop-types";
 
-export default function PrimaryButton({
+const PrimaryButton = ({
   children,
   className,
   onClick,
   disabled,
   ...props
-}) {
+}) => {
   return (
     <button
       onClick={onClick}
@@ -24,10 +24,12 @@ export default function PrimaryButton({
       {/* {isLoading ? "Loading..." : children} */}
     </button>
   );
-}
+};
 
 PrimaryButton.propTypes = {
   children: PropTypes.node.isRequired,
   classNames: PropTypes.string,
   onClick: PropTypes.func,
 };
+
+export default PrimaryButton;
