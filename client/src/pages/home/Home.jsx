@@ -8,7 +8,6 @@ import { GetCandidaturesByCandidat, GetOffres } from "../../lib/fetch";
 import { useUser } from "../../context/UserContext";
 import { useAuth } from "../../context/AuthContext";
 import { useQuery } from "react-query";
-
 const Home = () => {
   const { token, user } = useAuth();
   const { candidate, company } = useUser();
