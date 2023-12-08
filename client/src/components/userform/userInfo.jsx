@@ -158,13 +158,13 @@ const UserInfo = () => {
               {userInfo?.nom + " " + userInfo?.prenom}
             </p>
           </div>
-          <div className="mb-4">
+          <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("userInfo.birthdate")}
             </label>
             <p className="text-gray-500 text-sm">{userInfo?.dNaissance}</p>
           </div>
-          <div className="mb-4">
+          <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("userInfo.gender")}
             </label>
@@ -174,7 +174,7 @@ const UserInfo = () => {
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("userInfo.phoneNumber")}
             </label>
-            <p className="mb-2 text-gray-500 text-sm">{userInfo?.telephone}</p>
+            <p className="mb-1 text-gray-500 text-sm">{userInfo?.telephone}</p>
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
