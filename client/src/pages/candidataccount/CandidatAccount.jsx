@@ -8,9 +8,7 @@ import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton"
 import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
 import CandidatInfo from "../../components/candidatinfo/CandidatInfo";
-import { useUser } from "../../context/UserContext";
 import { candidatSchema } from "../../utils/validationSchemas";
-import { set } from "react-hook-form";
 
 const CandidatAccount = () => {
   const [submitting, setSubmitting] = useState(false);

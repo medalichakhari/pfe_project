@@ -8,7 +8,6 @@ import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton"
 import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
 import { companySchema } from "../../utils/validationSchemas";
-import { set } from "react-hook-form";
 
 const CompanyAccount = () => {
   const [image, setImage] = useState("");
