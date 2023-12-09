@@ -2,6 +2,7 @@ import { createContext, useContext } from "react";
 import { useAuth } from "./AuthContext";
 import { useQuery } from "react-query";
 import { GetUser } from "../lib/fetch";
+import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 const UserContext = createContext();
 
@@ -53,7 +54,7 @@ export function UserProvider({ children }) {
 
   if (isLoading) {
     // You could show a loading spinner or skeleton component here
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (isError) {

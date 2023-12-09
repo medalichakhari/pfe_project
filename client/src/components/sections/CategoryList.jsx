@@ -12,6 +12,7 @@ import { useQuery } from "react-query";
 import { GetCategories } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 const CategoryList = () => {
   const { t } = useTranslation();
@@ -42,7 +43,7 @@ const CategoryList = () => {
     GetCategories(token)
   );
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
   return (
     <div className="container mx-auto my-6 sm:my-4 lg:my-8 px-4 sm:px-6 lg:px-8">

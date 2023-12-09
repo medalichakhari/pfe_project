@@ -17,6 +17,7 @@ import { skills } from "../../data/skills";
 import { useQuery } from "react-query";
 import TextEditor from "../inputs/TextEditor";
 import { useTranslation } from "react-i18next";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
   const { t } = useTranslation();
@@ -142,7 +143,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                 >
                   <option value="">Please select it's domain</option>
                   {isLoadingCategories ? (
-                    <option value="">Loading...</option>
+                    <LoadingSpinner />
                   ) : (
                     categories?.map((item) => (
                       <option key={item.id} value={item.id}>

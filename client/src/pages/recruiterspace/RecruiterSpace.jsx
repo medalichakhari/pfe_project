@@ -9,6 +9,7 @@ import { useQuery } from "react-query";
 import { GetOffresBySociete } from "../../lib/fetch";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../components/shared/LoadingSpinner";
 
 const RecruiterSpace = () => {
   const { token } = useAuth();
@@ -39,7 +40,7 @@ const RecruiterSpace = () => {
       <Tabs.Group style="underline">
         <Tabs.Item title="Jobs" active={true}>
           {isLoading ? (
-            <div>Loading...</div>
+            <LoadingSpinner />
           ) : (
             <div>
               <div className="relative mb-2 md:mb-0 mx-2 md:mx-2 w-full md:w-full">

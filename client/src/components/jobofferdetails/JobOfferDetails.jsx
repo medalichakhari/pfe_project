@@ -8,6 +8,7 @@ import { useQuery } from "react-query";
 import { GetCandidaturesByCandidat, GetOffre } from "../../lib/fetch";
 import { BsBriefcase } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 const JobOfferDetails = () => {
   const { t } = useTranslation();
@@ -32,7 +33,7 @@ const JobOfferDetails = () => {
       : navigate("/candidateaccount");
   };
   return isLoading ? (
-    <div>Loading...</div>
+    <LoadingSpinner />
   ) : (
     <>
       <div className="container mx-auto my-10 px-6">

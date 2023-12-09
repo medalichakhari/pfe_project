@@ -6,6 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 import TextEditor from "../inputs/TextEditor";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 const JobOfferForm = ({
   values,
@@ -86,7 +87,7 @@ const JobOfferForm = ({
         >
           <option value="">Please select it's domain</option>
           {isLoading ? (
-            <option value="">Loading...</option>
+            <LoadingSpinner />
           ) : (
             data?.map((item) => (
               <option key={item.id} value={item.id}>

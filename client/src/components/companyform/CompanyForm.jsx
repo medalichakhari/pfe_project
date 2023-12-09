@@ -4,6 +4,7 @@ import { GetSecteurs } from "../../lib/fetch";
 import { useQuery } from "react-query";
 import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors, touched}) => {
   const { t } = useTranslation();
@@ -84,7 +85,7 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors
           >
           <option value="">Please select it's domain</option>
           {isLoading ? (
-            <option value="">Loading...</option>
+            <LoadingSpinner />
           ) : (
             data.map((item) => (
               <option  key={item.id} value={item.id}>

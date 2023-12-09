@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import SecondaryButton from "../../components/buttons/secondarybutton/SecondaryButton";
 import { useTranslation } from "react-i18next";
+import LoadingSpinner from "../../components/shared/LoadingSpinner";
 
 const JobsByCategory = () => {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ const JobsByCategory = () => {
     setShowCount(showCount + 8);
   };
   return isLoading ? (
-    <div>Loading...</div>
+    <LoadingSpinner />
   ) : !jobOffers.length > 0 ? (
     <div>{t("jobsByCategory.noJob")}</div>
   ) : (
