@@ -21,7 +21,7 @@ const UploadImage = ({ image, setImage }) => {
         <div className="relative w-24 h-24">
           <img
             className="w-24 h-24 rounded-full object-cover font-light"
-            src={image}
+            src={URL.createObjectURL(image)}
             alt="image"
           />
           <button
