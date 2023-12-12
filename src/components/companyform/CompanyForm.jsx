@@ -6,9 +6,13 @@ import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "../shared/LoadingSpinner";
 
-const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors, touched}) => {
+const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors, touched, editorValue, setEditorValue, editorError, setEditorError, isSubmitting}) => {
   const { t } = useTranslation();
   const { token } = useAuth();
+  const handleEditorChange = (value) => {
+    setEditorValue(value);
+    setEditorError(value.length <= 90);
+  };
   const { data, isLoading } = useQuery(["activityAreaInfo", token], () =>
     GetSecteurs(token)
   );
@@ -98,11 +102,20 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors
               <div className="text-red-500 text-sm">{errors.companyActivity}</div>
             )}
       </div>
+      
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
         {t("companyInfo.companyDescription")}
         </label>
-        <textarea
+        <div>
+          <TextEditor value={editorValue} setValue={handleEditorChange} />
+        </div>
+        {editorError && isSubmitting && (
+          <div className="text-red-500 text-sm mb-2">
+            The company description must be more than 90 characters.
+          </div>
+        )}
+        {/* <textarea
           value={values.companyDescription}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -118,7 +131,7 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors
         />
         {touched.companyDescription && errors.companyDescription && (
               <div className="text-red-500 text-sm">{errors.companyDescription}</div>
-            )}
+            )} */}
       </div>
     </>
   );

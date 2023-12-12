@@ -11,12 +11,12 @@ import { companySchema } from "../../utils/validationSchemas";
 
 const CompanyAccount = () => {
   const [image, setImage] = useState("");
-  const [submitting, setSubmitting] = useState(false);
+  const [editorValue, setEditorValue] = useState("");
+  const [editorError, setEditorError] = useState(false);
   const { token, user, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
   const handleCreateCompany = async (values, actions) => {
-    setSubmitting(true);
     const { user_id } = user;
     const path = `companyImages/${user_id}/${image.name}`;
     await uploadFile(image, path);
@@ -69,9 +69,14 @@ const CompanyAccount = () => {
               setImage={setImage}
               errors={errors}
               touched={touched}
+              editorValue={editorValue}
+              setEditorValue={setEditorValue}
+              editorError={editorError}
+              setEditorError={setEditorError}
+              isSubmitting={isSubmitting}
             />
             <div className="flex flex-row-reverse">
-              <PrimaryButton type="submit" disabled={submitting}>
+              <PrimaryButton type="submit" disabled={isSubmitting}>
                 Create
               </PrimaryButton>
             </div>
