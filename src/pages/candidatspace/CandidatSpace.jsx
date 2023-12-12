@@ -1,7 +1,7 @@
 import React from "react";
-import Layout from "../../components/layout/Layout";
+import Layout from "@/layout/Layout";
 import { Tabs } from "flowbite-react";
-import AppliedJobs from "../../components/appliedjobs/AppliedJobs";
+import AppliedJobs from "@/appliedjobs/AppliedJobs";
 import { GetCandidaturesByCandidat } from "../../lib/fetch";
 import { useUser } from "../../context/UserContext";
 import { useQuery } from "react-query";

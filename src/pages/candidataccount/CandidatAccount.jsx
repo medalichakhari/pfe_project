@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import { useLocation, useNavigate } from "react-router-dom";
-import CandidatForm from "../../components/candidatform/CandidatForm";
-import Layout from "../../components/layout/Layout";
+import CandidatForm from "@/candidatform/CandidatForm";
+import Layout from "@/layout/Layout";
 import { CreateCandidat } from "../../lib/fetch";
-import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
+import PrimaryButton from "@/buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
-import CandidatInfo from "../../components/candidatinfo/CandidatInfo";
+import CandidatInfo from "@/candidatinfo/CandidatInfo";
 import { candidatSchema } from "../../utils/validationSchemas";
 
 const CandidatAccount = () => {

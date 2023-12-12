@@ -1,12 +1,12 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
-import SecondaryButton from "../../components/buttons/secondarybutton/SecondaryButton";
-import Layout from "../../components/layout/Layout";
-import JobOfferForm from "../../components/jobofferform/JobOfferForm";
+import PrimaryButton from "@/buttons/primarybutton/PrimaryButton";
+import SecondaryButton from "@/buttons/secondarybutton/SecondaryButton";
+import Layout from "@/layout/Layout";
+import JobOfferForm from "@/jobofferform/JobOfferForm";
 import { useAuth } from "../../context/AuthContext";
 import { CreateOffre } from "../../lib/fetch";
-import CompanyInfo from "../../components/companyform/CompanyInfo";
+import CompanyInfo from "@/companyform/CompanyInfo";
 import { useUser } from "../../context/UserContext";
 import { useTranslation } from "react-i18next";
 import { useToast } from "@chakra-ui/react";

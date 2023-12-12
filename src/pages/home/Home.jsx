@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Layout from "../../components/layout/Layout";
-import Hero from "../../components/sections/Hero";
-import JobList from "../../components/sections/JobList";
-import Search from "../../components/sections/Search";
-import CategoryList from "../../components/sections/CategoryList";
+import Layout from "@/layout/Layout";
+import Hero from "@/sections/Hero";
+import JobList from "@/sections/JobList";
+import Search from "@/sections/Search";
+import CategoryList from "@/sections/CategoryList";
 import { GetCandidaturesByCandidat, GetOffres } from "../../lib/fetch";
 import { useUser } from "../../context/UserContext";
 import { useAuth } from "../../context/AuthContext";

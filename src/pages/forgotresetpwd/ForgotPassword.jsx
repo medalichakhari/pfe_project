@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
+import PrimaryButton from "@/buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "@chakra-ui/react";
 import Slogan from "../../assets/svg/Slogan";

@@ -1,5 +1,5 @@
 import React from 'react';
-import SideBar from '../../components/sidebar/SideBar';
+import SideBar from '@/sidebar/SideBar';
 
 function Users() {
   return (

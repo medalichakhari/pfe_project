@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import PrimaryButton from "@/buttons/primarybutton/PrimaryButton";
-import SecondaryButton from "../../components/buttons/secondarybutton/SecondaryButton";
+import SecondaryButton from "@/buttons/secondarybutton/SecondaryButton";
 import { useAuth } from "../../context/AuthContext";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
 import { signUpSchema } from "../../utils/validationSchemas";

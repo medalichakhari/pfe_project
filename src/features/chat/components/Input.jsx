@@ -13,7 +13,7 @@ import {
 import { db, storage } from "../../../services/firebaseConfig";
 import { v4 as uuid } from "uuid";
 import { useStorage } from "../../../context/StorageContext";
-import PrimaryButton from "../../../components/buttons/primarybutton/PrimaryButton";
+import PrimaryButton from "@/buttons/primarybutton/PrimaryButton";
 
 const Input = () => {
   const [text, setText] = useState("");

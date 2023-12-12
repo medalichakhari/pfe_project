@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Slogan from "../assets/svg/Slogan";
-import SecondaryButton from "../components/buttons/secondarybutton/SecondaryButton";
+import SecondaryButton from "@/buttons/secondarybutton/SecondaryButton";
 
 const About = () => {
   const navigate = useNavigate();

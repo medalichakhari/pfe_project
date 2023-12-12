@@ -10,7 +10,7 @@ import {
   confirmPasswordReset,
 } from "firebase/auth";
 import { auth } from "../services/firebaseConfig";
-import LoadingSpinner from "../components/shared/LoadingSpinner";
+import LoadingSpinner from "@/shared/LoadingSpinner";
 
 export const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);

@@ -1,8 +1,8 @@
 import React from "react";
-import UserInfo from "../../components/userform/userInfo";
-import Layout from "../../components/layout/Layout";
-import CandidatInfo from "../../components/candidatinfo/CandidatInfo";
-import CompanyInfo from "../../components/companyform/CompanyInfo";
+import UserInfo from "@/userform/userInfo";
+import Layout from "@/layout/Layout";
+import CandidatInfo from "@/candidatinfo/CandidatInfo";
+import CompanyInfo from "@/companyform/CompanyInfo";
 import { useAuth } from "../../context/AuthContext";
 
 const Profile = () => {

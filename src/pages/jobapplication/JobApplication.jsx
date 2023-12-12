@@ -1,9 +1,9 @@
-import Layout from "../../components/layout/Layout";
-import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
+import Layout from "@/layout/Layout";
+import PrimaryButton from "@/buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { CreateCandidature } from "../../lib/fetch";
 import { useUser } from "../../context/UserContext";
-import CandidatInfo from "../../components/candidatinfo/CandidatInfo";
+import CandidatInfo from "@/candidatinfo/CandidatInfo";
 import { useNavigate, useParams } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import { useQuery } from "react-query";

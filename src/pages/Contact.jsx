@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import PrimaryButton from "../components/buttons/primarybutton/PrimaryButton";
+import PrimaryButton from "@/buttons/primarybutton/PrimaryButton";
 
 function Contact() {
   const [name, setName] = useState("");

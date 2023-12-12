@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import Layout from "../../components/layout/Layout";
+import Layout from "@/layout/Layout";
 import { Tabs } from "flowbite-react";
-import PostedJobCard from "../../components/jobcard/PostedJobCard";
-import SecondaryButton from "../../components/buttons/secondarybutton/SecondaryButton";
+import PostedJobCard from "@/jobcard/PostedJobCard";
+import SecondaryButton from "@/buttons/secondarybutton/SecondaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { useUser } from "../../context/UserContext";
 import { useQuery } from "react-query";
 import { GetOffresBySociete } from "../../lib/fetch";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import LoadingSpinner from "../../components/shared/LoadingSpinner";
+import LoadingSpinner from "@/shared/LoadingSpinner";
 
 const RecruiterSpace = () => {
   const { token } = useAuth();

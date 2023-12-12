@@ -13,7 +13,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { StorageContextProvider } from "./context/StorageContext";
 import JobApplication from "./pages/jobapplication/JobApplication";
 import JobPosting from "./pages/jobposting/JobPosting";
-import RequireAuth from "./components/RequireAuth";
+import RequireAuth from "@/RequireAuth";
 import ForgotPassword from "./pages/forgotresetpwd/ForgotPassword";
 import ResetPassword from "./pages/forgotresetpwd/ResetPassword";
 import CandidatSpace from "./pages/candidatspace/CandidatSpace";

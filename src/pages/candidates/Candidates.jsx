@@ -1,8 +1,8 @@
 import React from "react";
-import CandidatesTable from "../../components/candidatestable/CandidatesTable";
+import CandidatesTable from "@/candidatestable/CandidatesTable";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import Layout from "../../components/layout/Layout";
+import Layout from "@/layout/Layout";
 import { GetCandidaturesByOffre } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
 

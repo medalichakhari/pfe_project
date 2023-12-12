@@ -1,6 +1,6 @@
 import React from "react";
-import JobOfferDetails from "../../components/jobofferdetails/JobOfferDetails";
-import Layout from "../../components/layout/Layout";
+import JobOfferDetails from "@/jobofferdetails/JobOfferDetails";
+import Layout from "@/layout/Layout";
 
 const JobOffer = () => {
   return (

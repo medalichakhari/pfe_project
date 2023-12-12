@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import UserForm from "../../components/userform/UserForm";
+import UserForm from "@/userform/UserForm";
 import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import { CreateUser } from "../../lib/fetch";
 import { useFormik } from "formik";
-import PrimaryButton from "../../components/buttons/primarybutton/PrimaryButton";
+import PrimaryButton from "@/buttons/primarybutton/PrimaryButton";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 // import { db } from "../../services/firebaseConfig";

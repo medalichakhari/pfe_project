@@ -1,14 +1,13 @@
 import React from "react";
-import Layout from "../../components/layout/Layout";
-import Search from "../../components/sections/Search";
-import JobOfferCard from "../../components/jobcard/JobOfferCard";
+import Layout from "@/layout/Layout";
+import JobOfferCard from "@/jobcard/JobOfferCard";
 import { useParams } from "react-router-dom";
 import { GetOffresByCategorie } from "../../lib/fetch";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import SecondaryButton from "../../components/buttons/secondarybutton/SecondaryButton";
+import SecondaryButton from "@/buttons/secondarybutton/SecondaryButton";
 import { useTranslation } from "react-i18next";
-import LoadingSpinner from "../../components/shared/LoadingSpinner";
+import LoadingSpinner from "@/shared/LoadingSpinner";
 
 const JobsByCategory = () => {
   const { t } = useTranslation();

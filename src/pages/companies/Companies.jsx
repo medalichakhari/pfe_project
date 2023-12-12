@@ -1,7 +1,7 @@
 import React from "react";
-import Layout from "../../components/layout/Layout";
-import CompanyList from "../../components/sections/CompanyList";
-import Search from "../../components/sections/Search";
+import Layout from "@/layout/Layout";
+import CompanyList from "@/sections/CompanyList";
+import Search from "@/sections/Search";
 
 const Companies = () => {
   return (
