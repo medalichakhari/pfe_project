@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import TextEditor from "../../components/inputs/TextEditor";
 
 const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors, touched, editorValue, setEditorValue, editorError, setEditorError, isSubmitting}) => {
   const { t } = useTranslation();
@@ -103,7 +104,7 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors
             )}
       </div>
       
-      <div>
+      <div className="mb-2">
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
         {t("companyInfo.companyDescription")}
         </label>
