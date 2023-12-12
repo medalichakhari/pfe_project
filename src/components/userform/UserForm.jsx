@@ -138,7 +138,7 @@ const UserForm = ({
           <div className="text-red-500 text-sm">{errors.phoneNumber}</div>
         )}
       </div>
-      <div>
+      {/* <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {t("userForm.country")}
         </label>
@@ -165,25 +165,7 @@ const UserForm = ({
               }`,
           }}
         />
-        {/* <select
-        options={countryList}
-          value={values.country}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          type="text"
-          name="country"
-          id="country"
-          placeholder="Your country"
-          className={`mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
-            touched.country && errors.country
-              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-              : "focus:ring-blue-500 focus:border-blue-500"
-          }`}
-        />
-        {touched.country && errors.country && (
-          <div className="text-red-500 text-sm">{errors.country}</div>
-        )} */}
-      </div>
+      </div> */}
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {t("userForm.address")}
