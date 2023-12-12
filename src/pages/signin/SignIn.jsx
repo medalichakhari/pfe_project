@@ -19,20 +19,29 @@ const SignIn = () => {
   const from = location.state?.from?.pathname || "/";
   const handleSignIn = (values) => {
     signInWithEmailAndPwd(values.email, values.password)
-      .then(() => {
-        if (!user?.roles?.includes("user")) {
-          navigate("/profile");
-        } else {
-          navigate("/");
+      .then((userCredential) => {
+        const user = userCredential.user;
+        if (user) {
+          user.getIdTokenResult()
+            .then((idTokenResult) => {
+              const customClaims = idTokenResult.claims;
+              if (customClaims.roles && customClaims.roles.includes("user")) {
+                navigate("/");
+              } else {
+                navigate("/profile");
+              }
+              toast({
+                description: "Logged In.",
+                position: "bottom-left",
+                status: "success",
+                duration: 9000,
+                isClosable: true,
+              });
+            })
+            .catch((error) => {
+              console.log("Error fetching custom claims:", error);
+            });
         }
-        // navigate(from, { replace: true });
-        toast({
-          description: "Logged In.",
-          position: "bottom-left",
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
       })
       .catch((error) => {
         toast({
@@ -45,22 +54,32 @@ const SignIn = () => {
         console.log(error);
       });
   };
+  
   const handleSignInWithGoogle = () => {
     googleSignIn()
-      .then(() => {
-        if (!user?.roles?.includes("user")) {
-          navigate("/profile");
-        } else {
-          navigate("/");
+      .then((userCredential) => {
+        const user = userCredential.user;
+        if (user) {
+          user.getIdTokenResult()
+            .then((idTokenResult) => {
+              const customClaims = idTokenResult.claims;
+              if (customClaims.roles && customClaims.roles.includes("user")) {
+                navigate("/");
+              } else {
+                navigate("/profile");
+              }
+              toast({
+                description: "Logged In.",
+                position: "bottom-left",
+                status: "success",
+                duration: 9000,
+                isClosable: true,
+              });
+            })
+            .catch((error) => {
+              console.log("Error fetching custom claims:", error);
+            });
         }
-        navigate(from, { replace: true });
-        toast({
-          description: "Logged In.",
-          position: "bottom-left",
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
       })
       .catch((error) => {
         toast({
@@ -73,6 +92,7 @@ const SignIn = () => {
         console.log(error);
       });
   };
+  
   const {
     values,
     errors,
