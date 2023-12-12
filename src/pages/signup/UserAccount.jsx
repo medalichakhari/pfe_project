@@ -18,7 +18,8 @@ const UserAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedValue, setSelectedValue] = useState("male");
   const [image, setImage] = useState("");
-  const { currentUser, user, token, refreshUser } = useAuth();
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const { user, token, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -97,6 +98,7 @@ const UserAccount = () => {
       birthDate: "",
       gender: "",
       phoneNumber: "",
+      country: "",
       address: "",
     },
     onSubmit: handleCreateUser,
@@ -116,6 +118,8 @@ const UserAccount = () => {
             handleBlur={handleBlur}
             errors={errors}
             touched={touched}
+            selectedCountry={selectedCountry}
+            setSelectedCountry={setSelectedCountry}
           />
           <PrimaryButton className="w-full" type="submit" disabled={isLoading}>
             {t("createAccount")}

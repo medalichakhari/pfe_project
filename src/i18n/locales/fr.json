@@ -83,6 +83,7 @@
         "birthdate" : "Date de naissance",
         "gender" : "Sexe",
         "phoneNumber" : "Numéro de téléphone",
+        "country" : "Country",
         "address" : "Adresse"
     },
     "candidateInfo" : {
