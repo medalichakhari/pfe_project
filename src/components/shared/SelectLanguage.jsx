@@ -28,8 +28,8 @@ function SelectLanguage() {
         value={selectedLanguage}
         onChange={handleChange}
       >
-        <option value="en">English</option>
-        <option value="fr">French</option>
+        <option value="en">En</option>
+        <option value="fr">Fr</option>
       </select>
       {/* <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
         <HiTranslate className="w-5 h-5" />

@@ -242,7 +242,7 @@ export default function NavBar() {
           <div className="flex md:order-2 gap-2">
             <SelectLanguage />
 
-            <SecondaryButton onClick={() => navigate("/signin")}>
+            <SecondaryButton className="hidden md:block" onClick={() => navigate("/signin")}>
               {t("nav.signIn")}
             </SecondaryButton>
 
