@@ -17,24 +17,26 @@ const CompanyAccount = () => {
   const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
   const handleCreateCompany = async (values, actions) => {
-    const { user_id } = user;
-    const path = `companyImages/${user_id}/${image.name}`;
-    await uploadFile(image, path);
-    const downloadURL = await downloadUrl(path);
-    let companyData = {
-      logo: downloadURL,
-      nom: values.companyName,
-      adresse: values.companyAddress,
-      description: editorValue,
-      secteurId: values.companyActivity,
-      userId: user_id,
-    };
-    try {
-      await CreateSociete(companyData, token);
-      await refreshUser();
-      navigate("/postjob");
-    } catch (err) {
-      console.log(err);
+    if (editorError) {
+      const { user_id } = user;
+      const path = `companyImages/${user_id}/${image.name}`;
+      await uploadFile(image, path);
+      const downloadURL = await downloadUrl(path);
+      let companyData = {
+        logo: downloadURL,
+        nom: values.companyName,
+        adresse: values.companyAddress,
+        description: editorValue,
+        secteurId: values.companyActivity,
+        userId: user_id,
+      };
+      try {
+        await CreateSociete(companyData, token);
+        await refreshUser();
+        navigate("/postjob");
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 

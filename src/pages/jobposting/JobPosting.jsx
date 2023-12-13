@@ -64,6 +64,7 @@ const JobPosting = () => {
   const { token } = useAuth();
   const { company } = useUser();
   const handleCreateJobOffer = async (values, actions) => {
+    if (!editorError && !selectError) {
     setSubmitting(true);
     const qualificationsValue = selectedValues?.map((option) => option.value);
     const qualifications = qualificationsValue.join(",");
@@ -79,7 +80,6 @@ const JobPosting = () => {
       categorieId: jobOfferValues.domain,
       societeId: company?.id,
     };
-    if (!editorError && !selectError) {
       CreateOffre(offerData, token)
         .then((res) => {
           setSubmitting(false);
