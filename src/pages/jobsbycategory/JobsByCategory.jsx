@@ -11,15 +11,52 @@ import LoadingSpinner from "@/shared/LoadingSpinner";
 
 const JobsByCategory = () => {
   const { t } = useTranslation();
+  const { user } = useAuth();
+  const { candidate, company } = useUser();
+  const [filteredJobs, setFilteredJobs] = useState([]);
   const [showCount, setShowCount] = useState(9);
   const { categoryId } = useParams();
-  const { data: jobOffers, isLoading } = useQuery(
-    ["jobOffers", categoryId],
-    () => GetOffresByCategorie(categoryId)
-  );
-  const jobOffersList = jobOffers && jobOffers?.slice(0, showCount);
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const res = await GetOffresByCategorie(categoryId);
+        let filteredJobs;
+
+        if (user) {
+          const { roles } = user;
+          const isRecruiter = roles.includes("recruteur");
+          const isCandidate = roles.includes("candidat");
+
+          filteredJobs = res.filter((job) => {
+            if (isRecruiter && isCandidate) {
+              return (
+                job.societe?.id !== company?.id &&
+                !data?.some((candidature) => candidature?.offreId === job?.id)
+              );
+            } else if (isRecruiter) {
+              return job.societe.id !== company?.id;
+            } else if (isCandidate) {
+              return !data?.some(
+                (candidature) => candidature?.offreId === job?.id
+              );
+            }
+            return true;
+          });
+        }
+
+        setFilteredJobs(filteredJobs);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (data) {
+      fetchJobs();
+    }
+  }, [company, candidate, data, user]);
+  const jobOffersList = filteredJobs && filteredJobs?.slice(0, showCount);
   const handleLoadMore = () => {
-    setShowCount(showCount + 8);
+    setShowCount(showCount + 9);
   };
   return isLoading ? (
     <LoadingSpinner />
