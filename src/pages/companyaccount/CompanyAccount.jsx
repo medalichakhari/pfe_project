@@ -25,7 +25,7 @@ const CompanyAccount = () => {
       logo: downloadURL,
       nom: values.companyName,
       adresse: values.companyAddress,
-      description: values.companyDescription,
+      description: editorValue,
       secteurId: values.companyActivity,
       userId: user_id,
     };
