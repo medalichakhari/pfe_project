@@ -56,7 +56,8 @@ const UserAccount = () => {
         prenom: values.lName,
         email: user.email,
         dNaissance: values.birthDate,
-        telephone: values.phoneNumber,
+        telephone: `${values.phoneNumberPrefix}${values.phoneNumber}`,
+        pays: values.country,
         adresse: values.address,
         genre: selectedValue,
       };
