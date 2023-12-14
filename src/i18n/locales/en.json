@@ -94,6 +94,7 @@
     "qualifications" : "Qualifications",
     "experience" : "Years of Experience",
     "curriculumVitae" : "Curriculum Vitae",
+    "portfolioUrl" : "Portfolio URL if exist",
     "view" : "View"
   },
   "companyInfo" : {

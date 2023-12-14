@@ -108,6 +108,28 @@ const CandidatForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+        {t("candidateInfo.portfolioUrl")}
+        </label>
+        <input
+          value={values.portfolioUrl}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          type="text"
+          name="portfolioUrl"
+          id="portfolioUrl"
+          placeholder="Enter your portfolio url if exist"
+          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+            touched.portfolioUrl && errors.portfolioUrl
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 focus:border-blue-500"
+          }`}
+        />
+        {touched.portfolioUrl && errors.portfolioUrl && (
+              <div className="text-red-500 text-sm">{errors.portfolioUrl}</div>
+            )}
+      </div>
+      <div>
+        <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
         {t("candidateInfo.experience")}
         </label>
         <input

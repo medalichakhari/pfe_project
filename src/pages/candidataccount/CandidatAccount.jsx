@@ -32,6 +32,7 @@ const CandidatAccount = () => {
       specialite: values.speciality,
       competences: qualifications,
       experience: values.experience,
+      portfolio: values.portfolioUrl,
       cv: downloadURL,
       userId: user_id,
     };
@@ -58,6 +59,7 @@ const CandidatAccount = () => {
       speciality: "",
       educationLevel: "",
       experience: "",
+      portfolioUrl: "",
     },
     validationSchema: candidatSchema,
     onSubmit: handleCreateCandidat,
