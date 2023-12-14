@@ -103,65 +103,51 @@ const UserForm = ({
           <div className="text-red-500 text-sm">{errors.birthDate}</div>
         )}
       </div>
-      <div>
-        <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          {t("userForm.gender")}:
-        </label>
-        <div className="flex items-center">
-          <Radio
-            name="gender"
-            options={options}
-            selectedValue={selectedValue || "male"}
-            setSelectedValue={setSelectedValue}
-          />
-        </div>
-      </div>
       <div className="flex flex-col space-y-2">
   <label className="text-sm font-medium text-gray-900 dark:text-white">
     {t("userForm.phoneNumber")}
   </label>
-  <div className="relative">
-    <input
-      value={values.phoneNumberPrefix}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      type="text"
-      name="phoneNumberPrefix"
-      id="phoneNumberPrefix"
-      placeholder="+216"
-      className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
-        touched.phoneNumberPrefix && errors.phoneNumberPrefix
-          ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-          : "focus:ring-blue-500 focus:border-blue-500"
-      }`}
-    />
-    {touched.phoneNumberPrefix && errors.phoneNumberPrefix && (
-      <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-        <span className="text-red-500 text-sm">{errors.phoneNumberPrefix}</span>
-      </div>
-    )}
+  <div className="flex items-center">
+    <div className="relative flex-shrink-0 w-3/12">
+      <input
+        value={values.phoneNumberPrefix}
+        defaultValue={"+216"}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        type="text"
+        name="phoneNumberPrefix"
+        id="phoneNumberPrefix"
+        placeholder="+216"
+        className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+          touched.phoneNumberPrefix && errors.phoneNumberPrefix
+            ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+            : "focus:ring-blue-500 focus:border-blue-500"
+        }`}
+      />
+    </div>
+    <div className="relative flex-grow">
+      <input
+        value={values.phoneNumber}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        type="text"
+        name="phoneNumber"
+        id="phoneNumber"
+        placeholder="Phone number"
+        className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg block w-full p-2.5 pl-0 pr-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+          touched.phoneNumber && errors.phoneNumber
+            ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+            : "focus:ring-blue-500 focus:border-blue-500"
+        }`}
+      />
+    </div>
   </div>
-  <div className="relative">
-    <input
-      value={values.phoneNumber}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      type="text"
-      name="phoneNumber"
-      id="phoneNumber"
-      placeholder="Phone number"
-      className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
-        touched.phoneNumber && errors.phoneNumber
-          ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-          : "focus:ring-blue-500 focus:border-blue-500"
-      }`}
-    />
-    {touched.phoneNumber && errors.phoneNumber && (
-      <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-        <span className="text-red-500 text-sm">{errors.phoneNumber}</span>
-      </div>
-    )}
-  </div>
+  {touched.phoneNumberPrefix && errors.phoneNumberPrefix && (
+    <div className="text-red-500 text-sm">{errors.phoneNumberPrefix}</div>
+  )}
+  {touched.phoneNumber && errors.phoneNumber && (
+    <div className="text-red-500 text-sm">{errors.phoneNumber}</div>
+  )}
 </div>
 
       <div>
