@@ -117,7 +117,7 @@ const UserForm = ({
         </div>
       </div>
       <div className="flex flex-col space-y-2">
-  <label htmlFor="phoneNumber" className="text-sm font-medium text-gray-900 dark:text-white">
+  <label className="text-sm font-medium text-gray-900 dark:text-white">
     {t("userForm.phoneNumber")}
   </label>
   <div className="relative">
@@ -128,8 +128,12 @@ const UserForm = ({
       type="text"
       name="phoneNumberPrefix"
       id="phoneNumberPrefix"
-      placeholder="Phone number with country code"
-      className={`input-style ${touched && errors.phoneNumberPrefix ? "error-style" : "valid-style"}`}
+      placeholder="+216"
+      className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+        touched.phoneNumberPrefix && errors.phoneNumberPrefix
+          ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+          : "focus:ring-blue-500 focus:border-blue-500"
+      }`}
     />
     {touched.phoneNumberPrefix && errors.phoneNumberPrefix && (
       <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -145,8 +149,12 @@ const UserForm = ({
       type="text"
       name="phoneNumber"
       id="phoneNumber"
-      placeholder="Phone number with country code"
-      className={`input-style ${touched.phoneNumber && errors.phoneNumber ? "error-style" : "valid-style"}`}
+      placeholder="Phone number"
+      className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+        touched.phoneNumber && errors.phoneNumber
+          ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+          : "focus:ring-blue-500 focus:border-blue-500"
+      }`}
     />
     {touched.phoneNumber && errors.phoneNumber && (
       <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
