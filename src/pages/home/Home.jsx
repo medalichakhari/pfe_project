@@ -21,7 +21,7 @@ const Home = () => {
     const fetchJobs = async () => {
       try {
         const res = await GetOffres();
-        let filteredJobs;
+        let filteredJobs=res;
 
         if (user) {
           const { roles } = user;

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "@/layout/Layout";
 import JobOfferCard from "@/jobcard/JobOfferCard";
 import { useParams } from "react-router-dom";
-import { GetOffresByCategorie } from "../../lib/fetch";
+import { GetCandidaturesByCandidat, GetOffresByCategorie } from "../../lib/fetch";
 import { useState } from "react";
+import {useAuth} from "../../context/AuthContext";
+import {useUser} from "../../context/UserContext";  
 import { useQuery } from "react-query";
 import SecondaryButton from "@/buttons/secondarybutton/SecondaryButton";
 import { useTranslation } from "react-i18next";
@@ -11,22 +13,23 @@ import LoadingSpinner from "@/shared/LoadingSpinner";
 
 const JobsByCategory = () => {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const { candidate, company } = useUser();
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [showCount, setShowCount] = useState(9);
   const { categoryId } = useParams();
+  const { data} = useQuery(["candidatures", token], () =>
+  GetCandidaturesByCandidat(candidate?.id, token)
+);
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         const res = await GetOffresByCategorie(categoryId);
-        let filteredJobs;
-
+        let filteredJobs=res;
         if (user) {
           const { roles } = user;
           const isRecruiter = roles.includes("recruteur");
           const isCandidate = roles.includes("candidat");
-
           filteredJobs = res.filter((job) => {
             if (isRecruiter && isCandidate) {
               return (
@@ -58,11 +61,12 @@ const JobsByCategory = () => {
   const handleLoadMore = () => {
     setShowCount(showCount + 9);
   };
-  return isLoading ? (
-    <LoadingSpinner />
-  ) : !jobOffers.length > 0 ? (
-    <div>{t("jobsByCategory.noJob")}</div>
-  ) : (
+  // isLoading ? (
+  //   <LoadingSpinner />
+  // ) : !jobOffers.length > 0 ? (
+  //   <div>{t("jobsByCategory.noJob")}</div>
+  // ) : 
+  return (
     <Layout>
       <div className="my-8 mx-auto max-w-4xl">
         <h2 className="text-center text-3xl font-bold text-gray-900">
@@ -75,7 +79,7 @@ const JobsByCategory = () => {
           <JobOfferCard key={jobOffer.id} jobOffer={jobOffer} />
         ))}
       </div>
-      {jobOffers.length > showCount && (
+      {jobOffersList?.length > showCount && (
         <div className="mt-8 flex justify-center">
           <SecondaryButton onClick={handleLoadMore}>
             {t("jobsByCategory.loadMore")}
