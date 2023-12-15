@@ -17,40 +17,39 @@ const Home = () => {
     GetCandidaturesByCandidat(candidate?.id, token)
   );
 
+  const filterJobs = (jobs) => {
+    if (!user) return jobs;
+  
+    const { roles } = user;
+    const isRecruiter = roles?.includes("recruteur");
+    const isCandidate = roles?.includes("candidat");
+  
+    return jobs.filter((job) => {
+      if (isRecruiter && isCandidate) {
+        return (
+          job.societe?.id !== company?.id &&
+          !data?.some((candidature) => candidature?.offreId === job?.id)
+        );
+      } else if (isRecruiter) {
+        return job?.societe?.id !== company?.id;
+      } else if (isCandidate) {
+        return !data?.some((candidature) => candidature?.offreId === job?.id);
+      }
+      return true;
+    });
+  };
+  
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         const res = await GetOffres();
-        let filteredJobs=res;
-
-        if (user) {
-          const { roles } = user;
-          const isRecruiter = roles?.includes("recruteur");
-          const isCandidate = roles?.includes("candidat");
-
-          filteredJobs = res.filter((job) => {
-            if (isRecruiter && isCandidate) {
-              return (
-                job.societe?.id !== company?.id &&
-                !data?.some((candidature) => candidature?.offreId === job?.id)
-              );
-            } else if (isRecruiter) {
-              return job?.societe?.id !== company?.id;
-            } else if (isCandidate) {
-              return !data?.some(
-                (candidature) => candidature?.offreId === job?.id
-              );
-            }
-            return true;
-          });
-        }
-
-        setFilteredJobs(filteredJobs);
+        const updatedJobs = filterJobs(res);
+        setFilteredJobs(updatedJobs);
       } catch (err) {
         console.log(err);
       }
     };
-
+  
     if (data) {
       fetchJobs();
     }
