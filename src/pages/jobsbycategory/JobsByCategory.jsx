@@ -21,46 +21,48 @@ const JobsByCategory = () => {
   const { data} = useQuery(["candidatures", token], () =>
   GetCandidaturesByCandidat(candidate?.id, token)
 );
-  useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const res = await GetOffresByCategorie(categoryId);
-        let filteredJobs=res;
-        if (user) {
-          const { roles } = user;
-          const isRecruiter = roles.includes("recruteur");
-          const isCandidate = roles.includes("candidat");
-          filteredJobs = res.filter((job) => {
-            if (isRecruiter && isCandidate) {
-              return (
-                job.societe?.id !== company?.id &&
-                !data?.some((candidature) => candidature?.offreId === job?.id)
-              );
-            } else if (isRecruiter) {
-              return job.societe.id !== company?.id;
-            } else if (isCandidate) {
-              return !data?.some(
-                (candidature) => candidature?.offreId === job?.id
-              );
-            }
-            return true;
-          });
-        }
+const filterJobs = (jobs) => {
+  if (!user) return jobs;
 
-        setFilteredJobs(filteredJobs);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  const { roles } = user;
+  const isRecruiter = roles.includes("recruteur");
+  const isCandidate = roles.includes("candidat");
 
-    if (data) {
-      fetchJobs();
+  return jobs.filter((job) => {
+    if (isRecruiter && isCandidate) {
+      return (
+        job.societe?.id !== company?.id &&
+        !data?.some((candidature) => candidature?.offreId === job?.id)
+      );
+    } else if (isRecruiter) {
+      return job.societe.id !== company?.id;
+    } else if (isCandidate) {
+      return !data?.some((candidature) => candidature?.offreId === job?.id);
     }
-  }, [company, candidate, data, user]);
-  const jobOffersList = filteredJobs && filteredJobs?.slice(0, showCount);
-  const handleLoadMore = () => {
-    setShowCount(showCount + 9);
-  };
+    return true;
+  });
+};
+
+const fetchJobsByCategory = async () => {
+  try {
+    const res = await GetOffresByCategorie(categoryId);
+    const updatedJobs = filterJobs(res);
+    setFilteredJobs(updatedJobs);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+useEffect(() => {
+  if (data) {
+    fetchJobsByCategory();
+  }
+}, [categoryId, company, candidate, data, user]);
+
+const jobOffersList = filteredJobs?.slice(0, showCount); // Integrate showCount here
+const handleLoadMore = () => {
+  setShowCount(showCount + 9);
+};
   // isLoading ? (
   //   <LoadingSpinner />
   // ) : !jobOffers.length > 0 ? (
