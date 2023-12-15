@@ -25,17 +25,17 @@ const filterJobs = (jobs) => {
   if (!user) return jobs;
 
   const { roles } = user;
-  const isRecruiter = roles.includes("recruteur");
-  const isCandidate = roles.includes("candidat");
+  const isRecruiter = roles?.includes("recruteur");
+  const isCandidate = roles?.includes("candidat");
 
   return jobs.filter((job) => {
     if (isRecruiter && isCandidate) {
       return (
-        job.societe?.id !== company?.id &&
+        job?.societe?.id !== company?.id &&
         !data?.some((candidature) => candidature?.offreId === job?.id)
       );
     } else if (isRecruiter) {
-      return job.societe.id !== company?.id;
+      return job?.societe?.id !== company?.id;
     } else if (isCandidate) {
       return !data?.some((candidature) => candidature?.offreId === job?.id);
     }

@@ -9,9 +9,7 @@ const JobList = ({ filteredJobs }) => {
   const [showCount, setShowCount] = useState(8);
   const jobsList =
     filteredJobs &&
-    filteredJobs
-      .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-      .slice(0, showCount);
+    filteredJobs?.sort((a, b) => new Date(b?.updatedAt) - new Date(a?.updatedAt))?.slice(0, showCount);
   const handleLoadMore = () => {
     setShowCount(showCount + 8);
   };
