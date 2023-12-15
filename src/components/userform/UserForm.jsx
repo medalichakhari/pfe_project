@@ -162,7 +162,6 @@ const UserForm = ({
     <div className="text-red-500 text-sm">{errors.phoneNumber}</div>
   )}
 </div>
-
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {t("userForm.country")}

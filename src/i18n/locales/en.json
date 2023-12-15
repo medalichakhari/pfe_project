@@ -104,7 +104,9 @@
     "companyAddress" : "Company Address",
     "companyPhoneNumber" : "Company Phone Number",
     "companyDescription" : "Company Description",
-    "activityArea" : "Activity Area"
+    "activityArea" : "Activity Area",
+    "country" : "Country",
+    "website" : "Company website"
   },
   "jobOfferDetails" : {
     "applyNow" : "Apply Now",

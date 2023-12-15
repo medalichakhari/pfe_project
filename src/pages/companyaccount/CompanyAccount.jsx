@@ -13,6 +13,7 @@ const CompanyAccount = () => {
   const [image, setImage] = useState("");
   const [editorValue, setEditorValue] = useState("");
   const [editorError, setEditorError] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(null);
   const { token, user, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
@@ -26,7 +27,9 @@ const CompanyAccount = () => {
         logo: downloadURL,
         nom: values.companyName,
         adresse: values.companyAddress,
+        pays: selectedCountry.value,
         description: editorValue,
+        website: values.companyWebsite,
         secteurId: values.companyActivity,
         userId: user_id,
       };
@@ -54,6 +57,7 @@ const CompanyAccount = () => {
       companyAddress: "",
       companyActivity: "",
       companyDescription: "",
+      companyWebsite: "",
     },
     validationSchema: companySchema,
     onSubmit: handleCreateCompany,
@@ -73,6 +77,8 @@ const CompanyAccount = () => {
               touched={touched}
               editorValue={editorValue}
               setEditorValue={setEditorValue}
+              selectedCountry={selectedCountry} 
+              setSelectedCountry={setSelectedCountry}
               editorError={editorError}
               setEditorError={setEditorError}
               isSubmitting={isSubmitting}
