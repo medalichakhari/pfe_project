@@ -25,8 +25,8 @@ const Home = () => {
 
         if (user) {
           const { roles } = user;
-          const isRecruiter = roles.includes("recruteur");
-          const isCandidate = roles.includes("candidat");
+          const isRecruiter = roles?.includes("recruteur");
+          const isCandidate = roles?.includes("candidat");
 
           filteredJobs = res.filter((job) => {
             if (isRecruiter && isCandidate) {
@@ -35,7 +35,7 @@ const Home = () => {
                 !data?.some((candidature) => candidature?.offreId === job?.id)
               );
             } else if (isRecruiter) {
-              return job.societe.id !== company?.id;
+              return job?.societe?.id !== company?.id;
             } else if (isCandidate) {
               return !data?.some(
                 (candidature) => candidature?.offreId === job?.id
