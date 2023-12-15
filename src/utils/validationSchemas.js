@@ -32,8 +32,6 @@ export const userSchema = yup.object().shape({
   birthDate: yup.date().required('Birth date is required'),
   phoneNumber: yup.string().required('Phone number is required'),
   phoneNumberPrefix: yup.string().required('Phone number prefix is required'),
-  country: yup.string().required('Country is required'),
-  
   address: yup.string().required('Address is required'),
 });
 

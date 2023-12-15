@@ -103,6 +103,19 @@ const UserForm = ({
           <div className="text-red-500 text-sm">{errors.birthDate}</div>
         )}
       </div>
+      <div>
+        <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+          {t("userForm.gender")}:
+        </label>
+        <div className="flex items-center">
+          <Radio
+            name="gender"
+            options={options}
+            selectedValue={selectedValue || "male"}
+            setSelectedValue={setSelectedValue}
+          />
+        </div>
+      </div>
       <div className="flex flex-col space-y-2">
   <label className="text-sm font-medium text-gray-900 dark:text-white">
     {t("userForm.phoneNumber")}
@@ -133,7 +146,7 @@ const UserForm = ({
         type="text"
         name="phoneNumber"
         id="phoneNumber"
-        placeholder="Phone number"
+        placeholder="    Phone number"
         className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg block w-full p-2.5 pl-0 pr-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
           touched.phoneNumber && errors.phoneNumber
             ? "focus:ring-red-500 focus:border-red-500 border-red-500"
