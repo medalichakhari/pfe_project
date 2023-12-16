@@ -6,7 +6,8 @@ import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import TextEditor from "../../components/inputs/TextEditor";
-import countryList from "../../data/countryList.json"
+import {countryList} from "../../data/countryList.json"
+import Select from "react-tailwindcss-select";
 
 const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors, touched, editorValue, setEditorValue, editorError, setEditorError, isSubmitting, selectedCountry,setSelectedCountry}) => {
   const { t } = useTranslation();
