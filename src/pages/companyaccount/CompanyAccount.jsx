@@ -18,7 +18,7 @@ const CompanyAccount = () => {
   const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
   const handleCreateCompany = async (values, actions) => {
-    if (editorError) {
+    if (!editorError) {
       const { user_id } = user;
       const path = `companyImages/${user_id}/${image.name}`;
       await uploadFile(image, path);
@@ -29,7 +29,7 @@ const CompanyAccount = () => {
         adresse: values.companyAddress,
         pays: selectedCountry.value,
         description: editorValue,
-        website: values.companyWebsite,
+        siteWeb: values.companyWebsite,
         secteurId: values.companyActivity,
         userId: user_id,
       };
@@ -56,12 +56,12 @@ const CompanyAccount = () => {
       companyName: "",
       companyAddress: "",
       companyActivity: "",
-      companyDescription: "",
       companyWebsite: "",
     },
     validationSchema: companySchema,
     onSubmit: handleCreateCompany,
   });
+
   return (
     <Layout>
       <div className="flex justify-center items-center">

@@ -55,8 +55,7 @@ export const candidatSchema = yup.object().shape({
 
 export const companySchema = yup.object().shape({
   companyName: yup.string().required("Company name is required !"),
-  companyCountry: yup.string().required("Country is required !"),
   companyAddress: yup.string().required("Company address is required !"),
-  companyActivity: yup.string().required("Activity area is required !"),
-  //companyDescription: yup.string().required("Company description is required !"),
+  companyActivity: yup.string().required("Company activity is required !"),
+  companyWebsite: yup.string().matches(urlRegex, 'Invalid URL format. Please enter a valid URL.')
 });
