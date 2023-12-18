@@ -78,11 +78,13 @@ const CandidatInfo = () => {
           educationLevel: "",
           speciality: "",
           experience: "",
+          portfolioUrl: "",
         }
       : {
           educationLevel: candidate?.niveau,
           speciality: candidate?.specialite,
           experience: candidate?.experience,
+          portfolioUrl: candidate?.portfolio,
         },
     validationSchema: candidatSchema,
     onSubmit: handleUpdateCandidat,
@@ -149,6 +151,18 @@ const CandidatInfo = () => {
               {t("candidateInfo.qualifications")}
             </label>
             <p className="text-gray-500 text-sm">{candidate?.competences}</p>
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+              {t("candidateInfo.portfolioUrl")}
+            </label>
+            <Link
+                              to={company?.portfolio}
+                              target="_blank"
+                              className="text-indigo-600 hover:text-indigo-900"
+                            >
+                              {company?.portfolio}
+                            </Link>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">

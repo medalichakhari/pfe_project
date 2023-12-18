@@ -10,6 +10,7 @@ import { useStorage } from "../../context/StorageContext";
 import { useTranslation } from "react-i18next";
 import { companySchema } from "../../utils/validationSchemas";
 import { useToast } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const CompanyInfo = () => {
   const { t } = useTranslation();
@@ -21,6 +22,7 @@ const CompanyInfo = () => {
   const { token, user } = useAuth();
   const { company, refresh } = useUser();
   const [image, setImage] = useState();
+  const [selectedCountry, setSelectedCountry] = useState(company?.pays);
   const { uploadFile, downloadUrl } = useStorage();
   const { data: activityAreaInfo, isLoading } = useQuery(
     ["activityAreaInfo", company?.secteurId, token],
@@ -79,12 +81,14 @@ const CompanyInfo = () => {
             companyName: "",
             companyAddress: "",
             companyActivity: "",
+            companyWebsite: "",
             companyDescription: "",
           }
         : {
             companyName: company?.nom,
             companyAddress: company?.adresse,
             companyActivity: company?.secteurId,
+            companyWebsite: company?.siteWeb,
             companyDescription: company?.description,
           },
     validationSchema: companySchema,
@@ -110,6 +114,8 @@ const CompanyInfo = () => {
             values={values}
             handleChange={handleChange}
             handleBlur={handleBlur}
+            selectedCountry={selectedCountry}
+            setSelectedCountry={setSelectedCountry}
             image={image}
             setImage={setImage}
             errors={errors}
@@ -157,6 +163,18 @@ const CompanyInfo = () => {
               {t("companyInfo.activityArea")}
             </label>
             <p className="text-gray-500 text-sm">{activityAreaInfo?.nom}</p>
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+              {t("companyInfo.companyWebsite")}
+            </label>
+            <Link
+                              to={company?.siteWeb}
+                              target="_blank"
+                              className="text-indigo-600 hover:text-indigo-900"
+                            >
+                              {company?.siteWeb}
+                            </Link>
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">

@@ -21,6 +21,7 @@ const UserInfo = () => {
   const { userInfo, refresh } = useUser();
   const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState(userInfo?.genre);
+  const [selectedCountry, setSelectedCountry] = useState(userInfo?.pays);
   const { uploadFile, downloadUrl } = useStorage();
   const handleUpdateUser = async (values, actions) => {
     try {
@@ -117,6 +118,8 @@ const UserInfo = () => {
             setImage={setImage}
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
+            selectedCountry={selectedCountry}
+            setSelectedCountry={setSelectedCountry}
             values={values}
             handleChange={handleChange}
             handleBlur={handleBlur}
@@ -175,6 +178,12 @@ const UserInfo = () => {
               {t("userInfo.phoneNumber")}
             </label>
             <p className="mb-1 text-gray-500 text-sm">{userInfo?.telephone}</p>
+          </div>
+          <div>
+            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+              {t("userInfo.country")}
+            </label>
+            <p className="mb-2 text-gray-500 text-sm">{userInfo?.pays}</p>
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
