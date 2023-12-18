@@ -157,11 +157,11 @@ const CandidatInfo = () => {
               {t("candidateInfo.portfolioUrl")}
             </label>
             <Link
-                              to={company?.portfolio}
+                              to={candidate?.portfolio}
                               target="_blank"
                               className="text-indigo-600 hover:text-indigo-900"
                             >
-                              {company?.portfolio}
+                              {candidate?.portfolio}
                             </Link>
           </div>
           <div className="mb-4">
