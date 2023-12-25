@@ -73,8 +73,8 @@
     "birthdate" : "Birthdate",
     "gender" : "Gender",
     "phoneNumber" : "Phone Number",
+    "country" : "Country",
     "address" : "Address"
-    
   },
   "userForm" : {
       "personalInformation" : "Personal Information",
