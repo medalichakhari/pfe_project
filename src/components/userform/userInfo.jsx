@@ -84,6 +84,7 @@ const UserInfo = () => {
           fName: "",
           lName: "",
           birthDate: "",
+          phoneNumberPrefix: "+216",
           phoneNumber: "",
           address: "",
         }
@@ -91,6 +92,7 @@ const UserInfo = () => {
           fName: userInfo?.nom,
           lName: userInfo?.prenom,
           birthDate: userInfo?.dNaissance,
+          phoneNumberPrefix: "+216",
           phoneNumber: userInfo?.telephone,
           address: userInfo?.adresse,
         },
