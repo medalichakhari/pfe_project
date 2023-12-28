@@ -21,7 +21,7 @@ const UserInfo = () => {
   const { userInfo, refresh } = useUser();
   const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState(userInfo?.genre);
-  const [selectedCountry, setSelectedCountry] = useState(userInfo?.pays);
+  const [selectedCountry, setSelectedCountry] = useState();
   const { uploadFile, downloadUrl } = useStorage();
   const handleUpdateUser = async (values, actions) => {
     try {

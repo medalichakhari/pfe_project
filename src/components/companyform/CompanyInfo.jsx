@@ -22,7 +22,7 @@ const CompanyInfo = () => {
   const { token, user } = useAuth();
   const { company, refresh } = useUser();
   const [image, setImage] = useState();
-  const [selectedCountry, setSelectedCountry] = useState(company?.pays);
+  const [selectedCountry, setSelectedCountry] = useState();
   const { uploadFile, downloadUrl } = useStorage();
   const { data: activityAreaInfo, isLoading } = useQuery(
     ["activityAreaInfo", company?.secteurId, token],
