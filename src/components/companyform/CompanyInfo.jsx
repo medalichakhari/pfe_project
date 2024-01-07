@@ -21,6 +21,7 @@ const CompanyInfo = () => {
   const toast = useToast();
   const { token, user } = useAuth();
   const { company, refresh } = useUser();
+  const [editorValue, setEditorValue] = useState(company?.description);
   const [image, setImage] = useState();
   const [selectedCountry, setSelectedCountry] = useState();
   const { uploadFile, downloadUrl } = useStorage();
@@ -41,7 +42,9 @@ const CompanyInfo = () => {
       nom: values.companyName,
       pays : selectedCountry.value,
       adresse: values.companyAddress,
-      description: values.companyDescription,
+      siteWeb: values.companyWebsite,
+      description: editorValue,
+      secteurId: values.companyActivity,
     };
     UpdateSociete(company.id, companyData, token)
       .then((res) => {
@@ -83,14 +86,12 @@ const CompanyInfo = () => {
             companyAddress: "",
             companyActivity: "",
             companyWebsite: "",
-            companyDescription: "",
           }
         : {
             companyName: company?.nom,
             companyAddress: company?.adresse,
             companyActivity: company?.secteurId,
             companyWebsite: company?.siteWeb,
-            companyDescription: company?.description,
           },
     validationSchema: companySchema,
     onSubmit: handleUpdateCompany,
@@ -121,6 +122,8 @@ const CompanyInfo = () => {
             setImage={setImage}
             errors={errors}
             touched={touched}
+            editorValue={editorValue}
+            setEditorValue={setEditorValue}
           />
         </form>
       ) : (
