@@ -40,8 +40,8 @@ const UserForm = ({
         <span className="text-sm text-gray-400">(optional)</span>
       </label>
       <UploadImage image={image} setImage={setImage} />
-      <div className="flex flex-col-2">
-        <div className="mr-2">
+      <div className="flex flex-col md:flex-row">
+        <div className="md:w-1/2 mr-2">
           <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
             {t("userForm.firstName")}
           </label>
@@ -63,7 +63,7 @@ const UserForm = ({
             <div className="text-red-500 text-sm">{errors.fName}</div>
           )}
         </div>
-        <div>
+        <div className="md:w-1/2">
           <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
             {t("userForm.lastName")}
           </label>
