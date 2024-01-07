@@ -56,7 +56,7 @@ const CategoryList = () => {
             key={category.id}
             category={categoriesInfo[category.id - 1].categoryName}
             logo={categoriesInfo[category.id - 1].logo}
-            count={category.offres?.length || 0}
+            // count={category.offres?.length || 0}
             categoryId={category.id}
           />
         ))}

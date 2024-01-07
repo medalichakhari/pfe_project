@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <div>
       <footer id="footer" className="relative z-50 dark:bg-gray-900 pt-24">
-        <div className=" border-t border-b border-gray-200 dark:border-gray-700 py-16">
+        <div className=" border-t border-b border-gray-200 dark:border-gray-700 py-10">
           <div className="mx-auto container px-4 xl:px-12 2xl:px-4">
             <div className="lg:flex">
               <div className="w-full lg:w-1/2 mb-16 lg:mb-0 flex">
@@ -91,12 +91,12 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="py-16 flex flex-col justify-center items-center">
+        <div className="py-10 flex flex-col justify-center items-center">
           <Link href="/">
             <Slogan className="mr-3 h-4" />
           </Link>
           <p className="mt-6 text-xs lg:text-sm leading-none text-gray-900 dark:text-gray-50">
-            2023 JOBYSSY. All Rights Reserved.
+            2024 JOBYSSY. All Rights Reserved.
           </p>
         </div>
       </footer>

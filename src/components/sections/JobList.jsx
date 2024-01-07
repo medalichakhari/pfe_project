@@ -18,7 +18,7 @@ const JobList = ({ filteredJobs }) => {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
   };
-  return  (
+  return jobsList.length > 0 ? (
     // Wrap the div with motion.div and add the initial and animate props
     <motion.div
       className="flex flex-col items-center h-full"
@@ -39,7 +39,15 @@ const JobList = ({ filteredJobs }) => {
         </div>
       )}
     </motion.div>
-  )
+  ) : (
+    <div className="flex flex-col items-center h-full">
+      <div className="flex gap-12 justify-center flex-wrap items-center py-10 mb-auto">
+        <p className="text-2xl font-bold text-gray-500">
+          No job offers found for you
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export default JobList;

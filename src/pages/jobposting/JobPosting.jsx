@@ -65,7 +65,7 @@ const JobPosting = () => {
   const { company } = useUser();
   const handleCreateJobOffer = async (values, actions) => {
     if (!editorError && !selectError) {
-    setSubmitting(true);
+      setSubmitting(true);
     const qualificationsValue = selectedValues?.map((option) => option.value);
     const qualifications = qualificationsValue.join(",");
     let offerData = {

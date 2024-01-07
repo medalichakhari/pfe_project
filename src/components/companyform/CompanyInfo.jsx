@@ -39,6 +39,7 @@ const CompanyInfo = () => {
     let companyData = {
       ...(downloadURL && { logo: downloadURL }),
       nom: values.companyName,
+      pays : selectedCountry.value,
       adresse: values.companyAddress,
       description: values.companyDescription,
     };
@@ -146,11 +147,17 @@ const CompanyInfo = () => {
             />
           ) : null}
 
-          <div>
+          <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("companyInfo.companyName")}
             </label>
             <p className="text-gray-500 text-sm">{company?.nom}</p>
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+              Company state
+            </label>
+            <p className="text-gray-500 text-sm">{company?.pays}</p>
           </div>
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
@@ -180,7 +187,7 @@ const CompanyInfo = () => {
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("companyInfo.companyDescription")}
             </label>
-            <p className="mb-2 text-gray-500 text-sm">{company?.description}</p>
+            <p className="mb-2 text-gray-500 text-sm" dangerouslySetInnerHTML={{ __html: company?.description }} />
           </div>
         </>
       )}

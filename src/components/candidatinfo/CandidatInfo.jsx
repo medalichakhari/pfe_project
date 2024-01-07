@@ -38,6 +38,7 @@ const CandidatInfo = () => {
       specialite: values.speciality,
       competences: selectedValues ? qualifications : candidate.competences,
       experience: values.experience,
+      portfolio: values.portfolioUrl,
       cv: downloadURL ? downloadURL : candidate.cv,
     };
     UpdateCandidat(candidate.id, candidatData, token)
@@ -152,18 +153,20 @@ const CandidatInfo = () => {
             </label>
             <p className="text-gray-500 text-sm">{candidate?.competences}</p>
           </div>
-          <div className="mb-4">
-            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              {t("candidateInfo.portfolioUrl")}
-            </label>
-            <Link
-                              to={candidate?.portfolio}
-                              target="_blank"
-                              className="text-indigo-600 hover:text-indigo-900"
-                            >
-                              {candidate?.portfolio}
-                            </Link>
-          </div>
+          {candidate?.portfolio && (
+            <div className="mb-4">
+              <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+                {t("candidateInfo.portfolioUrl")}
+              </label>
+              <Link
+                to={candidate?.portfolio}
+                target="_blank"
+                className="text-indigo-600 hover:text-indigo-900"
+              >
+                {candidate?.portfolio}
+              </Link>
+            </div>
+          )}
           <div className="mb-4">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("candidateInfo.experience")}

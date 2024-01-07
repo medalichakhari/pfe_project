@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import UploadImage from "../shared/UploadImage";
 import Radio from "../inputs/Radio";
 import { useTranslation } from "react-i18next";
-import { countryList } from "../../data/countryList.json"
+import { statesOfTunisia } from "../../data/statesOfTunisia.json"
 import Select from "react-tailwindcss-select";
+import { set } from "react-hook-form";
 const UserForm = ({
   image,
   setImage,
@@ -16,10 +17,14 @@ const UserForm = ({
   touched,
   selectedCountry,
   setSelectedCountry,
+  selectError,
+  setSelectError,
+  isSubmitting
 }) => {
   const { t } = useTranslation();
   const handleChanges = (value) => {
     setSelectedCountry(value);
+    setSelectError(!value);
   };
   const options = [
     { label: "Male", value: "male" },
@@ -131,6 +136,7 @@ const UserForm = ({
         name="phoneNumberPrefix"
         id="phoneNumberPrefix"
         placeholder="+216"
+        di
         className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
           touched.phoneNumberPrefix && errors.phoneNumberPrefix
             ? "focus:ring-red-500 focus:border-red-500 border-red-500"
@@ -169,7 +175,7 @@ const UserForm = ({
         <Select
           value={selectedCountry}
           onChange={handleChanges}
-          options={countryList}
+          options={statesOfTunisia}
           isSearchable={true}
           isClearable={true}
           placeholder="Select your country"
@@ -189,6 +195,11 @@ const UserForm = ({
               }`,
           }}
         />
+        {selectError  && isSubmitting && (
+          <div className="text-red-500 text-sm">
+            Please select your country.
+          </div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -201,7 +212,7 @@ const UserForm = ({
           type="text"
           name="address"
           id="address"
-          placeholder="Address with country code"
+          placeholder="Your address"
           className={`mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
             touched.address && errors.address
               ? "focus:ring-red-500 focus:border-red-500 border-red-500"

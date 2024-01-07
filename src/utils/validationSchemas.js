@@ -29,11 +29,16 @@ export const signInSchema = yup.object().shape({
 export const userSchema = yup.object().shape({
   fName: yup.string().required('First name is required'),
   lName: yup.string().required('Last name is required'),
-  birthDate: yup.date().required('Birth date is required'),
-  phoneNumber: yup.string().required('Phone number is required'),
-  phoneNumberPrefix: yup.string().required('Phone number prefix is required'),
+  birthDate: yup.date().required('Birthdate is required'),
+  phoneNumber: yup.string()
+    .matches(/^\d+$/, 'Phone number must contain only numbers')
+    .required('Phone number is required'),
+  phoneNumberPrefix: yup.string()
+    .matches(/^\+\d+$/, 'Phone number prefix must start with + and contain only numbers after the +')
+    .required('Phone number prefix is required'),
   address: yup.string().required('Address is required'),
 });
+
 
 export const jobOfferSchema = yup.object().shape({
   title: yup.string().required('Title is required'),

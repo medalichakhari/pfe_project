@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import TextEditor from "../../components/inputs/TextEditor";
-import {countryList} from "../../data/countryList.json"
+import {statesOfTunisia} from "../../data/statesOfTunisia.json"
 import Select from "react-tailwindcss-select";
 
 const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors, touched, editorValue, setEditorValue, editorError, setEditorError, isSubmitting, selectedCountry,setSelectedCountry}) => {
@@ -60,7 +60,7 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors
         <Select
           value={selectedCountry}
           onChange={handleChanges}
-          options={countryList}
+          options={statesOfTunisia}
           isSearchable={true}
           isClearable={true}
           placeholder="Select your country"

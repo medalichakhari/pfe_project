@@ -120,7 +120,7 @@ export default function NavBar() {
   };
   return (
     <>
-      <Navbar fluid={true} rounded={true}>
+      <Navbar fluid={true} rounded={true} className="mb-4">
         <Navbar.Brand href="#">
           <div onClick={() => navigate("/")}>
             <Slogan className="mr-3 mb-3 h-4" />

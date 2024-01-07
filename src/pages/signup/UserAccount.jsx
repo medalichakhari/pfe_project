@@ -16,6 +16,7 @@ import { userSchema } from "../../utils/validationSchemas";
 const UserAccount = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
+  const [selectError, setSelectError] = useState(true);
   const [selectedValue, setSelectedValue] = useState("male");
   const [image, setImage] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -97,7 +98,7 @@ const UserAccount = () => {
       fName: "",
       lName: "",
       birthDate: "",
-      phoneNumberPrefix: "",
+      phoneNumberPrefix: "+216",
       phoneNumber: "",
       address: "",
     },
@@ -120,6 +121,8 @@ const UserAccount = () => {
             touched={touched}
             selectedCountry={selectedCountry}
             setSelectedCountry={setSelectedCountry}
+            isSubmitting={isSubmitting}
+            selectError
           />
           <PrimaryButton className="w-full" type="submit" disabled={isLoading}>
             {t("createAccount")}
