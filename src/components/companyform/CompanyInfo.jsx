@@ -22,6 +22,7 @@ const CompanyInfo = () => {
   const { token, user } = useAuth();
   const { company, refresh } = useUser();
   const [editorValue, setEditorValue] = useState(company?.description);
+  const [editorError, setEditorError] = useState(false);
   const [image, setImage] = useState();
   const [selectedCountry, setSelectedCountry] = useState();
   const { uploadFile, downloadUrl } = useStorage();
@@ -124,6 +125,8 @@ const CompanyInfo = () => {
             touched={touched}
             editorValue={editorValue}
             setEditorValue={setEditorValue}
+            editorError={editorError}
+            setEditorError={setEditorError}
           />
         </form>
       ) : (

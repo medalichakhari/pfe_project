@@ -175,7 +175,7 @@ export default function NavBar() {
                             className={
                               notification.isread
                                 ? "text-gray-400"
-                                : "text-gray-800 font-semibold"
+                                : "text-lightgray font-semibold"
                             }
                           >
                             {notification.message}
