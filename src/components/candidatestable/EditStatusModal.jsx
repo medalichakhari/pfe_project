@@ -28,6 +28,7 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacy, refetch }) {
       etat: values.status,
       userId: candidacy.candidat?.userId,
       message: `Your candidacy to ${candidacy.offre?.titre} has been ${values.status}`,
+      candidateEmail: candidacy.candidat?.user?.email,
       objectifEmail: values.emailSubject,
       contenuEmail: editorValue,
     };
