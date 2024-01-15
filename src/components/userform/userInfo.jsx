@@ -22,6 +22,7 @@ const UserInfo = () => {
   const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState(userInfo?.genre);
   const [selectedCountry, setSelectedCountry] = useState();
+  const [selectError, setSelectError] = useState(true);
   const { uploadFile, downloadUrl } = useStorage();
   const handleUpdateUser = async (values, actions) => {
     try {
@@ -127,6 +128,8 @@ const UserInfo = () => {
             handleBlur={handleBlur}
             errors={errors}
             touched={touched}
+            selectError={selectError}
+            setSelectError={setSelectError}
           />
         </form>
       ) : (

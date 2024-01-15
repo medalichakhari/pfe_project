@@ -19,7 +19,7 @@ const UserAccount = () => {
   const [selectError, setSelectError] = useState(true);
   const [selectedValue, setSelectedValue] = useState("male");
   const [image, setImage] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState();
   const { user, token, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
@@ -122,7 +122,8 @@ const UserAccount = () => {
             selectedCountry={selectedCountry}
             setSelectedCountry={setSelectedCountry}
             isSubmitting={isSubmitting}
-            selectError
+            selectError={selectError}
+            setSelectError={setSelectError}
           />
           <PrimaryButton className="w-full" type="submit" disabled={isLoading}>
             {t("createAccount")}
