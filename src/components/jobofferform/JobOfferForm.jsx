@@ -5,7 +5,6 @@ import { GetCategories } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
 import TextEditor from "../inputs/TextEditor";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 import LoadingSpinner from "../shared/LoadingSpinner";
 
 const JobOfferForm = ({
@@ -98,28 +97,6 @@ const JobOfferForm = ({
         </select>
         {touched.domain && errors.domain && (
           <div className="text-red-500 text-sm">{errors.domain}</div>
-        )}
-      </div>
-      <div>
-        <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          {t("jobOfferForm.address")}
-        </label>
-        <input
-          value={values.address}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          type="text"
-          name="address"
-          id="address"
-          placeholder="(Remote) or Job address"
-          className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
-            touched.address && errors.address
-              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-              : "focus:ring-blue-500 focus:border-blue-500"
-          }`}
-        />
-        {touched.address && errors.address && (
-          <div className="text-red-500 text-sm">{errors.address}</div>
         )}
       </div>
       <div>

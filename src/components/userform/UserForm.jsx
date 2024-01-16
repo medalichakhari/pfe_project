@@ -4,7 +4,6 @@ import Radio from "../inputs/Radio";
 import { useTranslation } from "react-i18next";
 import { statesOfTunisia } from "../../data/statesOfTunisia.json"
 import Select from "react-tailwindcss-select";
-import { set } from "react-hook-form";
 const UserForm = ({
   image,
   setImage,
