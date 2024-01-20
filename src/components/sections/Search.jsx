@@ -53,8 +53,9 @@ const Search = ({ filteredJobs, setFilteredJobs }) => {
   const filterJobs = (job) => {
     return (
       job.titre.toLowerCase().includes(keyword.toLowerCase()) ||
-      (job.competences.toLowerCase().includes(keyword.toLowerCase()) &&
-        job.adresse.toLowerCase().includes(location.toLowerCase()))
+      job.competences.toLowerCase().includes(keyword.toLowerCase()) ||
+      job.isRemote.toLowerCase().includes(location.toLowerCase()) || 
+      job.societe.adresse.toLowerCase().includes(location.toLocaleLowerCase)
     );
   };
 
