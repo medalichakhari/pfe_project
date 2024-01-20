@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaSearch } from "react-icons/fa";
-import { BsBriefcaseFill } from "react-icons/bs";
+import { HiOutlineLocationMarker } from "react-icons/hi";
 import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { useTranslation } from "react-i18next";
 
 const Search = ({ filteredJobs, setFilteredJobs }) => {
   const prevKeyword = useRef("");
+  const prevLocation = useRef("");
   const [keyword, setKeyword] = useState("");
+  const [location, setLocation] = useState("");
   const [keywordSuggestions, setKeywordSuggestions] = useState([]);
+  const [locationSuggestions, setLocationSuggestions] = useState([]);
   const keywordInputRef = useRef(null);
+  const locationInputRef = useRef(null);
 
   const handleKeywordChange = (e) => {
     const value = e.target.value;
@@ -18,6 +22,16 @@ const Search = ({ filteredJobs, setFilteredJobs }) => {
       setKeywordSuggestions(getKeywordSuggestions(value, filteredJobs));
     }
   };
+
+  const handleLocationChange = (e) => {
+    const value = e.target.value;
+    prevLocation.current = location;
+    setLocation(value);
+    if (value !== prevLocation.current) {
+      setLocationSuggestions(getLocationSuggestions(value, filteredJobs));
+    }
+  };
+
   const getKeywordSuggestions = (value, jobs) => {
     const searchedJobs = jobs.filter(
       (job) =>
@@ -25,6 +39,14 @@ const Search = ({ filteredJobs, setFilteredJobs }) => {
         job.competences.toLowerCase().includes(value.toLowerCase())
     );
     const suggestions = [...new Set(searchedJobs.map((job) => job.titre))];
+    return suggestions.slice(0, 10);
+  };
+
+  const getLocationSuggestions = (value, jobs) => {
+    const searchedJobs = jobs.filter((job) =>
+      job.adresse.toLowerCase().includes(value.toLowerCase())
+    );
+    const suggestions = [...new Set(searchedJobs.map((job) => job.adresse))];
     return suggestions.slice(0, 10);
   };
 
@@ -47,12 +69,23 @@ const Search = ({ filteredJobs, setFilteredJobs }) => {
     setKeywordSuggestions([]);
   };
 
+  const handleLocationSuggestionClick = (suggestion) => {
+    setLocation(suggestion);
+    setLocationSuggestions([]);
+  };
+
   const handleClickOutside = (e) => {
     if (
       keywordInputRef.current &&
       !keywordInputRef.current.contains(e.target)
     ) {
       setKeywordSuggestions([]);
+    }
+    if (
+      locationInputRef.current &&
+      !locationInputRef.current.contains(e.target)
+    ) {
+      setLocationSuggestions([]);
     }
   };
 
@@ -96,22 +129,33 @@ const Search = ({ filteredJobs, setFilteredJobs }) => {
             </ul>
           )}
         </div>
-        <div className="relative mb-2 md:mb-0 mx-2 md:mx-2 w-full md:w-auto">
-          <select
+        <div
+          ref={locationInputRef}
+          className="relative mb-2 md:mb-0 mx-2 md:mx-2 w-full md:w-auto"
+        >
+          <input
             type="text"
+            placeholder={t("search.location")}
             className="bg-white text-gray-800 rounded-full py-2 px-10 pl-10 focus:outline-none focus:shadow-outline w-full md:w-auto"
-          >
-            {" "}
-            <option value="" disabled selected>
-              {t("search.location")}
-            </option>
-            <option key={1} value={"Internship"}>
-              Internship
-            </option>
-          </select>
+            value={location}
+            onChange={handleLocationChange}
+          />
           <div className="absolute inset-y-0 left-0 flex items-center pl-4">
-            <BsBriefcaseFill className="text-gray-500" />
+            <HiOutlineLocationMarker className="text-gray-500" />
           </div>
+          {locationSuggestions.length > 0 && (
+            <ul className="w-full absolute z-10 bg-gray-50 mt-1 py-2 rounded-md shadow-lg">
+              {locationSuggestions.map((suggestion, index) => (
+                <li
+                  key={index}
+                  className="cursor-pointer px-4 py-2 hover:bg-gray-200"
+                  onClick={() => handleLocationSuggestionClick(suggestion)}
+                >
+                  {suggestion}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <PrimaryButton
           onClick={handleSearchJobs}

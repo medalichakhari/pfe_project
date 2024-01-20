@@ -101,30 +101,28 @@ const JobOfferForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          {t("jobOfferForm.jobType")}
+          Location
         </label>
         <select
-          value={values.type}
+          value={values.isRemote}
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
-          name="type"
-          id="type"
-          placeholder="Job Type"
+          name="isRemote"
+          id="isRemote"
+          placeholder="Location"
           className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
-            touched.type && errors.type
+            touched.isRemote && errors.isRemote
               ? "focus:ring-red-500 focus:border-red-500 border-red-500"
               : "focus:ring-blue-500 focus:border-blue-500"
           }`}
         >
-          <option value="">Please select it's type</option>
-          <option value="internship">Internship</option>
-          <option value="fulltime">Full Time</option>
-          <option value="parttime">Part Time</option>
-          <option value="other">Other</option>
+          <option value="">Please select it's location</option>
+          <option value="onTheSite">On the site</option>
+          <option value="remote">Remote</option>
         </select>
-        {touched.type && errors.type && (
-          <div className="text-red-500 text-sm">{errors.type}</div>
+        {touched.isRemote && errors.isRemote && (
+          <div className="text-red-500 text-sm">{errors.isRemote}</div>
         )}
       </div>
       <div>

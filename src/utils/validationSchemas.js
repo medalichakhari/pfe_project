@@ -42,7 +42,7 @@ export const userSchema = yup.object().shape({
 export const jobOfferSchema = yup.object().shape({
   title: yup.string().required('Title is required'),
   address: yup.string().required('Address is required'),
-  type: yup.string().required('Type is required'),
+  isRemote: yup.string().required('Location is required'),
   domain: yup.string().required('Domain is required'),
   salary: yup.number().required('Salary is required').positive('Salary must be a positive number'),
   experience: yup.string().required('Experience is required'),

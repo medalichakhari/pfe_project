@@ -70,7 +70,7 @@ const JobPosting = () => {
     const qualifications = qualificationsValue.join(",");
     let offerData = {
       titre: jobOfferValues.title,
-      type: jobOfferValues.type,
+      isRemote: jobOfferValues.isRemote,
       salaire: jobOfferValues.salary,
       experience: jobOfferValues.experience,
       niveau: jobOfferValues.educationLevel,
@@ -115,7 +115,7 @@ const JobPosting = () => {
   } = useFormik({
     initialValues: {
       title: "",
-      type: "",
+      isRemote: "",
       domain: "",
       salary: "",
       experience: "",

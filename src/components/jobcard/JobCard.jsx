@@ -41,11 +41,11 @@ const JobCard = ({ job }) => {
         </span>
         <div className="flex items-center mb-2">
           <HiOutlineLocationMarker className="text-gray-500 mr-1" />
-          <h6 className="text-gray-500">Remote</h6>
+          <h6 className="text-gray-500">{job.isRemote?job?.societe.adresse:"Remote"}</h6>
         </div>
         <div className="flex items-center mb-2">
           <BsBriefcase className="mr-1 text-gray-500" />
-          <h6 className="text-gray-500">{job.type}</h6>
+          <h6 className="text-gray-500">Internship</h6>
         </div>
         <p className="text-sm text-gray-600 pt-4 border-t border-gray-300 mt-4" dangerouslySetInnerHTML={{ __html: truncatedDescription }} />
         <div className="flex items-center mt-4">

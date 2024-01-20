@@ -43,7 +43,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
     let jobOfferData = {
       titre: values.title,
       domaine: values.domain,
-      type: values.type,
+      isRemote: values.isRemote,
       salaire: values.salary,
       experience: values.experience,
       niveau: values.educationLevel,
@@ -72,7 +72,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
     initialValues: isLoading
       ? {
           title: "",
-          type: "",
+          isRemote: "",
           domain: "",
           salary: "",
           experience: "",
@@ -82,7 +82,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
       : {
           title: data?.titre,
           address: data?.adresse,
-          type: data?.type,
+          isRemote: data?.type,
           domain: data?.categorie?.id,
           salary: data?.salaire,
           experience: data?.experience,
@@ -156,20 +156,18 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                   {t("editPostedJobCard.jobType")}
                 </label>
                 <select
-                  value={values.type}
+                  value={values.isRemote}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   type="text"
-                  name="type"
-                  id="type"
-                  placeholder="Job Type"
+                  name="isRemote"
+                  id="isRemote"
+                  placeholder="Job Location"
                   className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 >
-                  <option value="">Please select it's type</option>
-                  <option value="internship">Internship</option>
-                  <option value="fulltime">Full Time</option>
-                  <option value="parttime">Part Time</option>
-                  <option value="other">Other</option>
+                  <option value="">Please select it's location</option>
+                  <option value="onTheSite">On the site</option>
+                  <option value="remote">Remote</option>
                 </select>
               </div>
               <div>

@@ -30,10 +30,10 @@ const JobOfferCard = ({ jobOffer }) => {
       <div className="flex items-center mb-4">
         <p className="flex items-center px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
           <HiOutlineLocationMarker className="text-gray-500 mr-1" />
-          Remote
+          {job.isRemote?job?.societe.adresse:"Remote"}
         </p>
         <p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          {jobOffer.type}
+          Internship
         </p>
         <p className="px-3 py-1 text-sm font-semibold text-gray-700">
           2 days ago
