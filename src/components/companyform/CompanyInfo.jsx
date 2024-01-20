@@ -153,31 +153,31 @@ const CompanyInfo = () => {
             />
           ) : null}
 
-          <div className="mb-4">
+          <div className="mb-1">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("companyInfo.companyName")}
             </label>
             <p className="text-gray-500 text-sm">{company?.nom}</p>
           </div>
-          <div className="mb-4">
+          <div className="mb-1">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               Company state
             </label>
             <p className="text-gray-500 text-sm">{company?.pays}</p>
           </div>
-          <div className="mb-4">
+          <div className="mb-1">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("companyInfo.companyAddress")}
             </label>
             <p className="text-gray-500 text-sm">{company?.adresse}</p>
           </div>
-          <div className="mb-4">
+          <div className="mb-1">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("companyInfo.activityArea")}
             </label>
             <p className="text-gray-500 text-sm">{activityAreaInfo?.nom}</p>
           </div>
-          <div className="mb-4">
+          <div className="mb-1">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("companyInfo.companyWebsite")}
             </label>

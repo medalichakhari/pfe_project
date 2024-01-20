@@ -36,7 +36,6 @@ export const userSchema = yup.object().shape({
   phoneNumberPrefix: yup.string()
     .matches(/^\+\d+$/, 'Phone number prefix must start with + and contain only numbers after the +')
     .required('Phone number prefix is required'),
-  address: yup.string().required('Address is required'),
 });
 
 

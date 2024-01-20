@@ -7,7 +7,7 @@ import SecondaryButton from "../buttons/secondarybutton/SecondaryButton";
 import { BsBriefcase } from "react-icons/bs";
 import { FaUserGraduate } from "react-icons/fa";
 import { ImUserTie } from "react-icons/im";
-import { AiFillMessage, AiFillSetting } from "react-icons/ai";
+import { AiFillSetting } from "react-icons/ai";
 import { IoNotifications } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
 import Slogan from "../../assets/svg/Slogan";

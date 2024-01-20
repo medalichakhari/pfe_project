@@ -11,9 +11,11 @@ const JobCard = ({ job }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { user } = useAuth();
+
   const handleNavigate = () => {
     navigate(`/offer/${job.id}`);
   };
+
   const handleApply = () => {
     user?.roles?.includes("candidat")
       ? navigate(`/offer/${job.id}/apply/${job.societe.userId}`)
@@ -27,45 +29,33 @@ const JobCard = ({ job }) => {
 
   return (
     <div>
-      <div className="group group/item w-[300px] p-[20px] bg-white rounded-[10px] hover:bg-blueColor shadow-lg shadow-greIsh-400/700 hover:shadow-lg">
-        <span className="flex justify-between items-center gap-4">
-          <h1
-            className="text-[16px] font-semibold text-textColor group-hover:text-white cursor-pointer"
-            onClick={handleNavigate}
-          >
+      <div className="group w-[300px] p-6 bg-white rounded-md hover:bg-blueColor shadow-lg hover:shadow-lg transition duration-300">
+        <span className="flex justify-between items-center mb-4">
+          <h1 className="text-lg font-semibold text-textColor group-hover:text-white cursor-pointer" onClick={handleNavigate}>
             {truncatedTitle}
           </h1>
-          <span className="flex items-center text-[#ccc] gap-1">
-            <BiTimeFive />
+          <span className="flex items-center text-gray-500">
+            <BiTimeFive className="mr-1" />
             {moment(job.updatedAt).fromNow()}
           </span>
         </span>
-        <div className=" flex items-center mt-1">
+        <div className="flex items-center mb-2">
           <HiOutlineLocationMarker className="text-gray-500 mr-1" />
-          <h6 className="text-[#ccc]">{job.adresse}</h6>
+          <h6 className="text-gray-500">Remote</h6>
         </div>
-        <div className="flex items-center mt-1">
+        <div className="flex items-center mb-2">
           <BsBriefcase className="mr-1 text-gray-500" />
-          <h6 className="text-[#ccc]">{job.type}</h6>
+          <h6 className="text-gray-500">{job.type}</h6>
         </div>
-        <p
-          className="text-[13px text-[#959595] pt-[20px] border-t-[2px] mt-[20px]"
-          dangerouslySetInnerHTML={{ __html: truncatedDescription }}
-        />
-        <div className="flex items-center gap-2">
-          {job.societe?.logo ? (
-            <img
-              src={job.societe?.logo}
-              alt="companyLogo"
-              className="w-7 h-7 rounded-full object-cover"
-            />
-          ) : null}
-          <span className="text-[14px] py-[1rem] block group-hover:text-white">
-            {job.societe?.nom}
-          </span>
+        <p className="text-sm text-gray-600 pt-4 border-t border-gray-300 mt-4" dangerouslySetInnerHTML={{ __html: truncatedDescription }} />
+        <div className="flex items-center mt-4">
+          {job.societe?.logo && (
+            <img src={job.societe?.logo} alt="companyLogo" className="w-7 h-7 rounded-full object-cover mr-2" />
+          )}
+          <span className="text-sm font-semibold">{job.societe?.nom}</span>
         </div>
         <button
-          className="border-[2px] rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-white group-hover/item:text-textColor group-hover:text-textColor"
+          className="mt-4 bg-blueColor text-white rounded-md py-2 w-full hover:bg-white hover:text-blueColor border border-blueColor transition duration-300"
           onClick={handleApply}
         >
           {t("apply")}

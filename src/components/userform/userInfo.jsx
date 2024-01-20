@@ -21,8 +21,6 @@ const UserInfo = () => {
   const { userInfo, refresh } = useUser();
   const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState(userInfo?.genre);
-  const [selectedCountry, setSelectedCountry] = useState();
-  const [selectError, setSelectError] = useState(true);
   const { uploadFile, downloadUrl } = useStorage();
   const handleUpdateUser = async (values, actions) => {
     try {
@@ -41,7 +39,6 @@ const UserInfo = () => {
         email: user.email,
         dNaissance: values.birthDate,
         telephone: values.phoneNumber,
-        adresse: values.address,
         genre: selectedValue,
       };
       UpdateUser(user.user_id, userData, token)
@@ -87,7 +84,6 @@ const UserInfo = () => {
           birthDate: "",
           phoneNumberPrefix: "+216",
           phoneNumber: "",
-          address: "",
         }
       : {
           fName: userInfo?.nom,
@@ -95,7 +91,6 @@ const UserInfo = () => {
           birthDate: userInfo?.dNaissance,
           phoneNumberPrefix: "+216",
           phoneNumber: userInfo?.telephone,
-          address: userInfo?.adresse,
         },
     onSubmit: handleUpdateUser,
     enableReinitialize: true,
@@ -121,15 +116,11 @@ const UserInfo = () => {
             setImage={setImage}
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
-            selectedCountry={selectedCountry}
-            setSelectedCountry={setSelectedCountry}
             values={values}
             handleChange={handleChange}
             handleBlur={handleBlur}
             errors={errors}
             touched={touched}
-            selectError={selectError}
-            setSelectError={setSelectError}
           />
         </form>
       ) : (
@@ -183,18 +174,6 @@ const UserInfo = () => {
               {t("userInfo.phoneNumber")}
             </label>
             <p className="mb-1 text-gray-500 text-sm">{userInfo?.telephone}</p>
-          </div>
-          <div>
-            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              {t("userInfo.country")}
-            </label>
-            <p className="mb-2 text-gray-500 text-sm">{userInfo?.pays}</p>
-          </div>
-          <div>
-            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
-              {t("userInfo.address")}
-            </label>
-            <p className="mb-2 text-gray-500 text-sm">{userInfo?.adresse}</p>
           </div>
         </>
       )}

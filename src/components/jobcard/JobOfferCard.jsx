@@ -1,5 +1,4 @@
 import React from "react";
-import GoogleIcon from "../../assets/svg/GoogleIcon";
 import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +7,13 @@ import { useTranslation } from "react-i18next";
 const JobOfferCard = ({ jobOffer }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
   const handleReadMore = () => {
     navigate(`/offer/${jobOffer.id}`);
   };
+
   return (
-    <div className="container mx-auto rounded-lg bg-white shadow-lg p-6">
+    <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300 ease-in-out p-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center cursor-pointer">
           <img
@@ -27,21 +28,18 @@ const JobOfferCard = ({ jobOffer }) => {
         </div>
       </div>
       <div className="flex items-center mb-4">
-        <p className="flex justify-content px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          <HiOutlineLocationMarker className="text-gray-500 m-1" />
-          {jobOffer.adresse}
+        <p className="flex items-center px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+          <HiOutlineLocationMarker className="text-gray-500 mr-1" />
+          Remote
         </p>
         <p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
           {jobOffer.type}
         </p>
-        <p className="px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+        <p className="px-3 py-1 text-sm font-semibold text-gray-700">
           2 days ago
         </p>
       </div>
-      <p
-        className="ml-6 mt-4 text-gray-800 font-light"
-        dangerouslySetInnerHTML={{ __html: jobOffer.description }}
-      />
+      <p className="mt-4 text-gray-800 font-light" dangerouslySetInnerHTML={{ __html: jobOffer.description }} />
       <PrimaryButton className="mt-4 w-full" onClick={handleReadMore}>
         {t("readMore")}
       </PrimaryButton>

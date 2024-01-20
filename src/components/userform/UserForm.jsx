@@ -136,7 +136,7 @@ const UserForm = ({
         id="phoneNumberPrefix"
         placeholder="+216"
         di
-        className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+        className={`mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
           touched.phoneNumberPrefix && errors.phoneNumberPrefix
             ? "focus:ring-red-500 focus:border-red-500 border-red-500"
             : "focus:ring-blue-500 focus:border-blue-500"
@@ -152,7 +152,7 @@ const UserForm = ({
         name="phoneNumber"
         id="phoneNumber"
         placeholder="    Phone number"
-        className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg block w-full p-2.5 pl-0 pr-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+        className={`mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg block w-full p-2.5 pl-0 pr-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
           touched.phoneNumber && errors.phoneNumber
             ? "focus:ring-red-500 focus:border-red-500 border-red-500"
             : "focus:ring-blue-500 focus:border-blue-500"
@@ -167,61 +167,6 @@ const UserForm = ({
     <div className="text-red-500 text-sm">{errors.phoneNumber}</div>
   )}
 </div>
-      <div>
-        <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          {t("userForm.country")}
-        </label>
-        <Select
-          value={selectedCountry}
-          onChange={handleChanges}
-          options={statesOfTunisia}
-          isSearchable={true}
-          isClearable={true}
-          placeholder="Select your country"
-          classNames={{
-            menuButton: ({ isDisabled }) =>
-              `flex text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none ${
-                isDisabled
-                  ? "bg-gray-200"
-                  : "bg-white hover:border-gray-400 focus:border-blue-500 focus:ring focus:ring-blue-500/20"
-              }`,
-            menu: "absolute z-10 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700",
-            listItem: ({ isSelected }) =>
-              `block transition duration-200 px-2 py-2 cursor-pointer select-none truncate rounded ${
-                isSelected
-                  ? `text-white bg-blue-500`
-                  : `text-gray-500 hover:bg-blue-100 hover:text-blue-500`
-              }`,
-          }}
-        />
-        {selectError  && isSubmitting && (
-          <div className="text-red-500 text-sm">
-            Please select your country.
-          </div>
-        )}
-      </div>
-      <div>
-        <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          {t("userForm.address")}
-        </label>
-        <input
-          value={values.address}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          type="text"
-          name="address"
-          id="address"
-          placeholder="Your address"
-          className={`mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
-            touched.address && errors.address
-              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-              : "focus:ring-blue-500 focus:border-blue-500"
-          }`}
-        />
-        {touched.address && errors.address && (
-          <div className="text-red-500 text-sm">{errors.address}</div>
-        )}
-      </div>
     </>
   );
 };

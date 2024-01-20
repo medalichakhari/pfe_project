@@ -16,10 +16,8 @@ import { userSchema } from "../../utils/validationSchemas";
 const UserAccount = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const [selectError, setSelectError] = useState(true);
   const [selectedValue, setSelectedValue] = useState("male");
   const [image, setImage] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState();
   const { user, token, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
@@ -58,8 +56,6 @@ const UserAccount = () => {
         email: user.email,
         dNaissance: values.birthDate,
         telephone: `${values.phoneNumberPrefix}${values.phoneNumber}`,
-        pays: selectedCountry.value,
-        adresse: values.address,
         genre: selectedValue,
       };
       await CreateUser(userData, token);
@@ -100,7 +96,6 @@ const UserAccount = () => {
       birthDate: "",
       phoneNumberPrefix: "+216",
       phoneNumber: "",
-      address: "",
     },
     onSubmit: handleCreateUser,
     validationSchema: userSchema,
@@ -119,11 +114,7 @@ const UserAccount = () => {
             handleBlur={handleBlur}
             errors={errors}
             touched={touched}
-            selectedCountry={selectedCountry}
-            setSelectedCountry={setSelectedCountry}
             isSubmitting={isSubmitting}
-            selectError={selectError}
-            setSelectError={setSelectError}
           />
           <PrimaryButton className="w-full" type="submit" disabled={isLoading}>
             {t("createAccount")}

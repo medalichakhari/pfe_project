@@ -12,7 +12,7 @@ const Home = () => {
   const { token, user } = useAuth();
   const { candidate, company } = useUser();
   const [filteredJobs, setFilteredJobs] = useState([]);
-  const [recommendedJobs, setRecommendedJobs] = useState([]);
+  // const [recommendedJobs, setRecommendedJobs] = useState([]);
   const { data } = useQuery(["candidatures", token], () =>
     GetCandidaturesByCandidat(candidate?.id, token)
   );

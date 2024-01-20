@@ -32,76 +32,68 @@ const JobOfferDetails = () => {
       ? navigate(`/offer/${offerId}/apply/${data.societe.id}`)
       : navigate("/candidateaccount");
   };
+
   return isLoading ? (
     <LoadingSpinner />
   ) : (
-    <>
-      <div className="container mx-auto my-10 px-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-4xl font-bold text-gray-800">{data.titre}</h1>
-          <PrimaryButton
-            onClick={handleNavigate}
-            disabled={offerExistsInCandidatures}
-          >
-            {t("jobOfferDetails.applyNow")}
-          </PrimaryButton>
-        </div>
-        <div className="flex my-10">
-          <div className="w-1/3">
-            {data.societe?.logo ? (
-              <img
-                src={data.societe?.logo}
-                alt={data.societe?.nom}
-                className="h-16 w-16 rounded-full object-cover"
-              />
-            ) : null}
-
-            <h2 className="text-xl font-bold text-gray-800 mt-5">
-              {data.societe?.nom}
-            </h2>
-            <p className="flex justify-content text-gray-600 mt-2">
-              <HiOutlineLocationMarker className="text-gray-500 m-1" />
-              {data.adresse}
-            </p>
-            <p className="flex justify-content text-gray-600 mt-2">
-              <BsBriefcase className="text-gray-500 m-1" />
-              {data.type}
-            </p>
-          </div>
-          <div className="w-2/3">
-            <h3 className="text-2xl font-bold text-gray-800 mb-5">
-              {t("jobOfferDetails.jobDetails")}
-            </h3>
-            <p
-              className="text-gray-600"
-              dangerouslySetInnerHTML={{ __html: data.description }}
+    <div className="container mx-auto my-10 px-6">
+      <div className="flex justify-between items-center">
+        <h1 className="text-4xl font-bold text-gray-800">{data.titre}</h1>
+        <PrimaryButton
+          onClick={handleNavigate}
+          disabled={offerExistsInCandidatures}
+        >
+          {t("jobOfferDetails.applyNow")}
+        </PrimaryButton>
+      </div>
+      <div className="flex my-10">
+        <div className="w-1/3">
+          {data.societe?.logo && (
+            <img
+              src={data.societe?.logo}
+              alt={data.societe?.nom}
+              className="h-16 w-16 rounded-full object-cover"
             />
-          </div>
+          )}
+          <h2 className="text-xl font-bold text-gray-800 mt-5">
+            {data.societe?.nom}
+          </h2>
+          <p className="text-gray-600 mt-2 flex items-center">
+            <HiOutlineLocationMarker className="text-gray-500 mr-1" />
+            Remote
+          </p>
+          <p className="text-gray-600 mt-2 flex items-center">
+            <BsBriefcase className="text-gray-500 mr-1" />
+            {data.type}
+          </p>
         </div>
-        <div className="flex my-10">
-          <div className="w-1/3">
-            <div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
-                {t("jobOfferDetails.salary")}
-              </h3>
-              <li className="text-gray-600 mb-4">{data.salaire}</li>
-            </div>
-            {/* <div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
-                {t("jobOfferDetails.jobType")}
-              </h3>
-              <li className="text-gray-600">{data.type}</li>
-            </div> */}
-          </div>
-          <div className="w-2/3">
-            <h3 className="text-xl font-bold text-gray-800 mb-5">
-              {t("jobOfferDetails.qualifications")}
-            </h3>
-            <p className="text-gray-600">{data.competences}</p>
-          </div>
+        <div className="w-2/3">
+          <h3 className="text-2xl font-bold text-gray-800 mb-5">
+            {t("jobOfferDetails.jobDetails")}
+          </h3>
+          <p
+            className="text-gray-600"
+            dangerouslySetInnerHTML={{ __html: data.description }}
+          />
         </div>
       </div>
-    </>
+      <div className="flex my-10">
+        <div className="w-1/3">
+          <div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">
+              {t("jobOfferDetails.salary")}
+            </h3>
+            <li className="text-gray-600 mb-4">{data.salaire}</li>
+          </div>
+        </div>
+        <div className="w-2/3">
+          <h3 className="text-xl font-bold text-gray-800 mb-5">
+            {t("jobOfferDetails.qualifications")}
+          </h3>
+          <p className="text-gray-600">{data.competences}</p>
+        </div>
+      </div>
+    </div>
   );
 };
 

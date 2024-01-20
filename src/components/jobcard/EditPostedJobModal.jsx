@@ -105,7 +105,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
         size={"xl"}
       >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent className="overflow-y-auto">
           <ModalHeader>{t("editPostedJobCard.editJobOffer")}</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>

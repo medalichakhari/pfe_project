@@ -6,10 +6,25 @@ import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import TextEditor from "../../components/inputs/TextEditor";
-import {statesOfTunisia} from "../../data/statesOfTunisia.json"
+import { countryList } from "../../data/countryList.json";
 import Select from "react-tailwindcss-select";
 
-const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors, touched, editorValue, setEditorValue, editorError, setEditorError, isSubmitting, selectedCountry,setSelectedCountry}) => {
+const CompanyForm = ({
+  values,
+  handleChange,
+  handleBlur,
+  image,
+  setImage,
+  errors,
+  touched,
+  editorValue,
+  setEditorValue,
+  editorError,
+  setEditorError,
+  isSubmitting,
+  selectedCountry,
+  setSelectedCountry,
+}) => {
   const { t } = useTranslation();
   const { token } = useAuth();
   const handleEditorChange = (value) => {
@@ -25,15 +40,16 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors
   return (
     <>
       <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
-      {t("companyInfo.companyInformation")}
+        {t("companyInfo.companyInformation")}
       </h4>
       <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-      {t("companyInfo.companyLogo")} <span className="text-sm text-gray-400">(optional)</span>
+        {t("companyInfo.companyLogo")}{" "}
+        <span className="text-sm text-gray-400">(optional)</span>
       </label>
       <UploadImage image={image} setImage={setImage} />
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        {t("companyInfo.companyName")}
+          {t("companyInfo.companyName")}
         </label>
         <input
           value={values.companyName}
@@ -50,8 +66,8 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors
           }`}
         />
         {touched.companyName && errors.companyName && (
-              <div className="text-red-500 text-sm">{errors.companyName}</div>
-            )}
+          <div className="text-red-500 text-sm">{errors.companyName}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -60,7 +76,7 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors
         <Select
           value={selectedCountry}
           onChange={handleChanges}
-          options={statesOfTunisia}
+          options={countryList}
           isSearchable={true}
           isClearable={true}
           placeholder="Select your country"
@@ -83,7 +99,7 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        {t("companyInfo.companyAddress")}
+          {t("companyInfo.companyAddress")}
         </label>
         <input
           value={values.companyAddress}
@@ -100,12 +116,12 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors
           }`}
         />
         {touched.companyAddress && errors.companyAddress && (
-              <div className="text-red-500 text-sm">{errors.companyAddress}</div>
-            )}
+          <div className="text-red-500 text-sm">{errors.companyAddress}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        {t("companyInfo.activityArea")}
+          {t("companyInfo.activityArea")}
         </label>
         <select
           value={values.companyActivity}
@@ -119,26 +135,26 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors
             touched.companyActivity && errors.companyActivity
               ? "focus:ring-red-500 focus:border-red-500 border-red-500"
               : "focus:ring-blue-500 focus:border-blue-500"
-          }`}        
-          >
+          }`}
+        >
           <option value="">Please select it's domain</option>
           {isLoading ? (
             <LoadingSpinner />
           ) : (
             data.map((item) => (
-              <option  key={item.id} value={item.id}>
+              <option key={item.id} value={item.id}>
                 {item.nom}
               </option>
             ))
           )}
         </select>
         {touched.companyActivity && errors.companyActivity && (
-              <div className="text-red-500 text-sm">{errors.companyActivity}</div>
-            )}
+          <div className="text-red-500 text-sm">{errors.companyActivity}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        {t("companyInfo.website")}  
+          {t("companyInfo.website")}
         </label>
         <input
           value={values.companyWebsite}
@@ -155,12 +171,12 @@ const CompanyForm = ({ values, handleChange, handleBlur, image, setImage ,errors
           }`}
         />
         {touched.companyWebsite && errors.companyWebsite && (
-              <div className="text-red-500 text-sm">{errors.companyWebsite}</div>
-            )}
+          <div className="text-red-500 text-sm">{errors.companyWebsite}</div>
+        )}
       </div>
       <div className="mb-2">
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        {t("companyInfo.companyDescription")}
+          {t("companyInfo.companyDescription")}
         </label>
         <div>
           <TextEditor value={editorValue} setValue={handleEditorChange} />

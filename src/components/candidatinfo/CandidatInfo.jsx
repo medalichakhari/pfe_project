@@ -135,26 +135,26 @@ const CandidatInfo = () => {
             </button>
           </div>
 
-          <div className="mb-4">
+          <div className="mb-1">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("candidateInfo.educationLevel")}
             </label>
             <p className="text-gray-500 text-sm">{candidate?.niveau}</p>
           </div>
-          <div className="mb-4">
+          <div className="mb-1">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("candidateInfo.speciality")}
             </label>
             <p className="text-gray-500 text-sm">{candidate?.specialite}</p>
           </div>
-          <div className="mb-4">
+          <div className="mb-1">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("candidateInfo.qualifications")}
             </label>
             <p className="text-gray-500 text-sm">{candidate?.competences}</p>
           </div>
           {candidate?.portfolio && (
-            <div className="mb-4">
+            <div className="mb-1">
               <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
                 {t("candidateInfo.portfolioUrl")}
               </label>
@@ -167,13 +167,13 @@ const CandidatInfo = () => {
               </Link>
             </div>
           )}
-          <div className="mb-4">
+          <div className="mb-1">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("candidateInfo.experience")}
             </label>
             <p className="text-gray-500 text-sm">{candidate?.experience}</p>
           </div>
-          <div className="mb-4">
+          <div className="mb-1">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("candidateInfo.curriculumVitae")}
             </label>
