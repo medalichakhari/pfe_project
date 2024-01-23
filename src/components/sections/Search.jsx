@@ -44,9 +44,9 @@ const Search = ({ filteredJobs, setFilteredJobs }) => {
 
   const getLocationSuggestions = (value, jobs) => {
     const searchedJobs = jobs.filter((job) =>
-      job.adresse.toLowerCase().includes(value.toLowerCase())
+      job.societe.adresse.toLowerCase().includes(value.toLowerCase())
     );
-    const suggestions = [...new Set(searchedJobs.map((job) => job.adresse))];
+    const suggestions = [...new Set(searchedJobs.map((job) => job.societe.adresse))];
     return suggestions.slice(0, 10);
   };
 
@@ -54,8 +54,8 @@ const Search = ({ filteredJobs, setFilteredJobs }) => {
     return (
       job.titre.toLowerCase().includes(keyword.toLowerCase()) ||
       job.competences.toLowerCase().includes(keyword.toLowerCase()) ||
-      job.isRemote.toLowerCase().includes(location.toLowerCase()) || 
-      job.societe.adresse.toLowerCase().includes(location.toLocaleLowerCase)
+      job.isRemote.toLowerCase().includes(location.toLowerCase()) ||
+      job.societe.adresse.toLowerCase().includes(location.toLowerCase)
     );
   };
 
