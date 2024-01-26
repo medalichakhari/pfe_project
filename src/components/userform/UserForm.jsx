@@ -2,7 +2,7 @@ import React from "react";
 import UploadImage from "../shared/UploadImage";
 import Radio from "../inputs/Radio";
 import { useTranslation } from "react-i18next";
-import { statesOfTunisia } from "../../data/statesOfTunisia.json"
+import { countryList } from "../../data/countryList.json"
 import Select from "react-tailwindcss-select";
 const UserForm = ({
   image,
@@ -119,6 +119,39 @@ const UserForm = ({
             setSelectedValue={setSelectedValue}
           />
         </div>
+      </div>
+      <div>
+        <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+          {t("userForm.country")}
+        </label>
+        <Select
+          value={selectedCountry}
+          onChange={handleChanges}
+          options={countryList}
+          isSearchable={true}
+          isClearable={true}
+          placeholder="Select your country"
+          classNames={{
+            menuButton: ({ isDisabled }) =>
+              `flex text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none ${
+                isDisabled
+                  ? "bg-gray-200"
+                  : "bg-white hover:border-gray-400 focus:border-blue-500 focus:ring focus:ring-blue-500/20"
+              }`,
+            menu: "absolute z-10 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700",
+            listItem: ({ isSelected }) =>
+              `block transition duration-200 px-2 py-2 cursor-pointer select-none truncate rounded ${
+                isSelected
+                  ? `text-white bg-blue-500`
+                  : `text-gray-500 hover:bg-blue-100 hover:text-blue-500`
+              }`,
+          }}
+        />
+        {selectError  && isSubmitting && (
+          <div className="text-red-500 text-sm">
+            Please select your country.
+          </div>
+        )}
       </div>
       <div className="flex flex-col space-y-2">
   <label className="text-sm font-medium text-gray-900 dark:text-white">

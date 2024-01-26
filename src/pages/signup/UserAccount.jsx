@@ -17,6 +17,8 @@ const UserAccount = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedValue, setSelectedValue] = useState("male");
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectError, setSelectError] = useState(false);
   const [image, setImage] = useState("");
   const { user, token, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
@@ -56,6 +58,7 @@ const UserAccount = () => {
         email: user.email,
         dNaissance: values.birthDate,
         telephone: `${values.phoneNumberPrefix}${values.phoneNumber}`,
+        pays: selectedCountry,
         genre: selectedValue,
       };
       await CreateUser(userData, token);
@@ -109,6 +112,10 @@ const UserAccount = () => {
             setImage={setImage}
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
+            selectedCountry={selectedCountry}
+            setSelectedCountry={setSelectedCountry}
+            selectError={selectError}
+            setSelectError={setSelectError}
             values={values}
             handleChange={handleChange}
             handleBlur={handleBlur}
