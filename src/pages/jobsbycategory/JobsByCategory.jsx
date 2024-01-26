@@ -22,7 +22,7 @@ const JobsByCategory = () => {
   const [showCount, setShowCount] = useState(9);
   const { categoryId } = useParams();
   const { data } = useQuery(["candidatures", token], () =>
-    GetCandidaturesByCandidat(candidate?.id, token)
+    GetCandidaturesByCandidat(candidate?.id, token),
   );
   const filterJobs = (jobs) => {
     if (!user) return jobs;

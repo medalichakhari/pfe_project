@@ -41,7 +41,7 @@ const JobCard = ({ job }) => {
         </span>
         <div className="flex items-center mb-2">
           <HiOutlineLocationMarker className="text-gray-500 mr-1" />
-          <h6 className="text-gray-500">{job.isRemote?job?.societe.adresse:"Remote"}</h6>
+          <h6 className="text-gray-500">{job.isRemote ? job?.societe.adresse : "Remote"}</h6>
         </div>
         <div className="flex items-center mb-2">
           <BsBriefcase className="mr-1 text-gray-500" />

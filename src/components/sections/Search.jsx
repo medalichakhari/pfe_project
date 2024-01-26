@@ -51,11 +51,16 @@ const Search = ({ filteredJobs, setFilteredJobs }) => {
   };
 
   const filterJobs = (job) => {
+    const lowercaseKeyword = keyword.toLowerCase();
+    const lowercaseLocation = location.toLowerCase();
     return (
-      job.titre.toLowerCase().includes(keyword.toLowerCase()) ||
-      job.competences.toLowerCase().includes(keyword.toLowerCase()) ||
-      job.isRemote.toLowerCase().includes(location.toLowerCase()) ||
-      job.societe.adresse.toLowerCase().includes(location.toLowerCase)
+      job.titre.toLowerCase().includes(lowercaseKeyword) ||
+      job.competences.toLowerCase().includes(lowercaseKeyword) ||
+      job.isRemote.toLowerCase().includes(lowercaseLocation) ||
+      (
+        !job.isRemote.toLowerCase().includes(lowercaseLocation) &&
+        job.societe.adresse.toLowerCase().includes(lowercaseLocation)
+      )
     );
   };
 

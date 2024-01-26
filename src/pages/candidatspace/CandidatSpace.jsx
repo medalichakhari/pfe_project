@@ -17,7 +17,10 @@ const CandidatSpace = () => {
     data: candidatures,
     refetch,
   } = useQuery(["candidatures", candidate?.id, token], () =>
-    GetCandidaturesByCandidat(candidate?.id, token)
+    GetCandidaturesByCandidat(candidate?.id, token),
+    {
+      enabled: !!candidate?.id,
+    }
   );
   return (
     <Layout>
