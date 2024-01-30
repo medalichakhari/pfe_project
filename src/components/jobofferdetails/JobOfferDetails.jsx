@@ -25,9 +25,7 @@ const JobOfferDetails = () => {
   const offerExistsInCandidatures =
     Array.isArray(candidatures) &&
     !isLoadingCandidatures &&
-    candidatures.some(
-      (candidature) => candidature?.offreId === offerId
-    );
+    candidatures.some((candidature) => candidature?.offreId == offerId);
   const navigate = useNavigate();
   const handleNavigate = () => {
     user && user.roles.includes("candidat")
@@ -44,7 +42,6 @@ const JobOfferDetails = () => {
         <PrimaryButton
           onClick={handleNavigate}
           disabled={offerExistsInCandidatures}
-          className="ml-4"
         >
           {t("jobOfferDetails.applyNow")}
         </PrimaryButton>
@@ -55,17 +52,17 @@ const JobOfferDetails = () => {
             <img
               src={data.societe?.logo}
               alt={data.societe?.nom}
-              className="h-16 w-16 rounded-full object-cover mx-auto"
+              className="h-16 w-16 rounded-full object-cover"
             />
           )}
-          <h2 className="text-xl font-bold text-gray-800 mt-5 text-center">
+          <h2 className="text-xl font-bold text-gray-800 mt-5">
             {data.societe?.nom}
           </h2>
-          <p className="text-gray-600 mt-2 flex items-center justify-center">
+          <p className="text-gray-600 mt-2 flex items-center">
             <HiOutlineLocationMarker className="text-gray-500 mr-1" />
             {data.isRemote ? data?.societe.adresse : "Remote"}
           </p>
-          <p className="text-gray-600 mt-2 flex items-center justify-center">
+          <p className="text-gray-600 mt-2 flex items-center">
             <BsBriefcase className="text-gray-500 mr-1" />
             Internship
           </p>
