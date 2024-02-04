@@ -15,6 +15,9 @@ const Home = () => {
   // const [recommendedJobs, setRecommendedJobs] = useState([]);
   const { data } = useQuery(["candidatures", token], () =>
     GetCandidaturesByCandidat(candidate?.id, token)
+    ,     {
+      enabled: !!candidate?.id,
+    }
   );
 
   const filterJobs = (jobs) => {

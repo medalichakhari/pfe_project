@@ -58,7 +58,7 @@ const UserAccount = () => {
         email: user.email,
         dNaissance: values.birthDate,
         telephone: `${values.phoneNumberPrefix}${values.phoneNumber}`,
-        pays: selectedCountry,
+        pays: selectedCountry.value,
         genre: selectedValue,
       };
       await CreateUser(userData, token);

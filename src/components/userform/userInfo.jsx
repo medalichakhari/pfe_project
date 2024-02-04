@@ -21,6 +21,8 @@ const UserInfo = () => {
   const { userInfo, refresh } = useUser();
   const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState(userInfo?.genre);
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectError, setSelectError] = useState(false);
   const { uploadFile, downloadUrl } = useStorage();
   const handleUpdateUser = async (values, actions) => {
     try {
@@ -38,6 +40,7 @@ const UserInfo = () => {
         prenom: values.lName,
         email: user.email,
         dNaissance: values.birthDate,
+        pays: selectedCountry.value,
         telephone: values.phoneNumber,
         genre: selectedValue,
       };
@@ -116,11 +119,16 @@ const UserInfo = () => {
             setImage={setImage}
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
+            selectedCountry={selectedCountry}
+            setSelectedCountry={setSelectedCountry}
+            selectError={selectError}
+            setSelectError={setSelectError}
             values={values}
             handleChange={handleChange}
             handleBlur={handleBlur}
             errors={errors}
             touched={touched}
+            isSubmitting={isSubmitting}
           />
         </form>
       ) : (
