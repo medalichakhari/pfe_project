@@ -8,17 +8,21 @@ import PrimaryButton from "@/buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { useStorage } from "../../context/StorageContext";
 import { companySchema } from "../../utils/validationSchemas";
+import { set } from "react-hook-form";
 
 const CompanyAccount = () => {
   const [image, setImage] = useState("");
   const [editorValue, setEditorValue] = useState("");
-  const [editorError, setEditorError] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [editorError, setEditorError] = useState(true);
+  const [selectedCountry, setSelectedCountry] = useState();
+  const [selectError, setSelectError] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const { token, user, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
   const navigate = useNavigate();
   const handleCreateCompany = async (values, actions) => {
-    if (!editorError) {
+    setSubmitting(true);
+    if (!editorError && !selectError) {
       const { user_id } = user;
       const path = `companyImages/${user_id}/${image.name}`;
       await uploadFile(image, path);
@@ -77,11 +81,13 @@ const CompanyAccount = () => {
               touched={touched}
               editorValue={editorValue}
               setEditorValue={setEditorValue}
-              selectedCountry={selectedCountry} 
+              selectedCountry={selectedCountry}
               setSelectedCountry={setSelectedCountry}
+              selectError={selectError}
+              setSelectError={setSelectError}
               editorError={editorError}
               setEditorError={setEditorError}
-              isSubmitting={isSubmitting}
+              isSubmitting={submitting}
             />
             <div className="flex flex-row-reverse">
               <PrimaryButton type="submit" disabled={isSubmitting}>

@@ -2,7 +2,7 @@ import React from "react";
 import UploadImage from "../shared/UploadImage";
 import Radio from "../inputs/Radio";
 import { useTranslation } from "react-i18next";
-import { countryList } from "../../data/countryList.json"
+import { countryList } from "../../data/countryList.json";
 import Select from "react-tailwindcss-select";
 const UserForm = ({
   image,
@@ -18,7 +18,7 @@ const UserForm = ({
   setSelectedCountry,
   selectError,
   setSelectError,
-  isSubmitting
+  isSubmitting,
 }) => {
   const { t } = useTranslation();
   const handleChanges = (value) => {
@@ -147,60 +147,60 @@ const UserForm = ({
               }`,
           }}
         />
-        {selectError  && isSubmitting && (
+        {selectError && isSubmitting && (
           <div className="text-red-500 text-sm">
             Please select your country.
           </div>
         )}
       </div>
       <div className="flex flex-col space-y-2">
-  <label className="text-sm font-medium text-gray-900 dark:text-white">
-    {t("userForm.phoneNumber")}
-  </label>
-  <div className="flex items-center">
-    <div className="relative flex-shrink-0 w-3/12">
-      <input
-        value={values.phoneNumberPrefix}
-        defaultValue={"+216"}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        type="text"
-        name="phoneNumberPrefix"
-        id="phoneNumberPrefix"
-        placeholder="+216"
-        di
-        className={`mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
-          touched.phoneNumberPrefix && errors.phoneNumberPrefix
-            ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-            : "focus:ring-blue-500 focus:border-blue-500"
-        }`}
-      />
-    </div>
-    
-    <div className="relative flex-grow">
-      <input
-        value={values.phoneNumber}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        type="text"
-        name="phoneNumber"
-        id="phoneNumber"
-        placeholder="    Phone number"
-        className={`mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg block w-full p-2.5 pl-0 pr-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
-          touched.phoneNumber && errors.phoneNumber
-            ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-            : "focus:ring-blue-500 focus:border-blue-500"
-        }`}
-      />
-    </div>
-  </div>
-  {touched.phoneNumberPrefix && errors.phoneNumberPrefix && (
-    <div className="text-red-500 text-sm">{errors.phoneNumberPrefix}</div>
-  )}
-  {touched.phoneNumber && errors.phoneNumber && (
-    <div className="text-red-500 text-sm">{errors.phoneNumber}</div>
-  )}
-</div>
+        <label className="text-sm font-medium text-gray-900 dark:text-white">
+          {t("userForm.phoneNumber")}
+        </label>
+        <div className="flex items-center">
+          <div className="relative flex-shrink-0 w-3/12">
+            <input
+              value={values.phoneNumberPrefix}
+              defaultValue={"+216"}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              type="text"
+              name="phoneNumberPrefix"
+              id="phoneNumberPrefix"
+              placeholder="+216"
+              di
+              className={`mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                touched.phoneNumberPrefix && errors.phoneNumberPrefix
+                  ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                  : "focus:ring-blue-500 focus:border-blue-500"
+              }`}
+            />
+          </div>
+
+          <div className="relative flex-grow">
+            <input
+              value={values.phoneNumber}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              type="text"
+              name="phoneNumber"
+              id="phoneNumber"
+              placeholder="    Phone number"
+              className={`mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg block w-full p-2.5 pl-0 pr-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                touched.phoneNumber && errors.phoneNumber
+                  ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                  : "focus:ring-blue-500 focus:border-blue-500"
+              }`}
+            />
+          </div>
+        </div>
+        {touched.phoneNumberPrefix && errors.phoneNumberPrefix && (
+          <div className="text-red-500 text-sm">{errors.phoneNumberPrefix}</div>
+        )}
+        {touched.phoneNumber && errors.phoneNumber && (
+          <div className="text-red-500 text-sm">{errors.phoneNumber}</div>
+        )}
+      </div>
     </>
   );
 };

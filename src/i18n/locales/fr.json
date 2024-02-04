@@ -73,7 +73,7 @@
     "birthdate": "Date de naissance",
     "gender": "Sexe",
     "phoneNumber": "Numéro de téléphone",
-    "country": "State",
+    "country": "Pays",
     "address": "Adresse"
   },
   "userForm": {

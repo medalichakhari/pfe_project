@@ -19,6 +19,7 @@ const UserAccount = () => {
   const [selectedValue, setSelectedValue] = useState("male");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectError, setSelectError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [image, setImage] = useState("");
   const { user, token, refreshUser } = useAuth();
   const { uploadFile, downloadUrl } = useStorage();
@@ -27,60 +28,64 @@ const UserAccount = () => {
   const from = location.state?.from?.pathname || "/";
   const toast = useToast();
   const handleCreateUser = async (values, actions) => {
-    try {
-      setIsLoading(true);
-      const { fName, lName } = values;
-      const { user_id, email } = user;
-      let downloadURL = "";
-      if (image) {
-        const path = `profileImages/${user_id}/${image.name}`;
-        await uploadFile(image, path);
-        downloadURL = await downloadUrl(path);
+    setSubmitting(true);
+    if (!selectError) {
+      try {
+        setIsLoading(true);
+        const { fName, lName } = values;
+        const { user_id, email } = user;
+        let downloadURL = "";
+        if (image) {
+          const path = `profileImages/${user_id}/${image.name}`;
+          await uploadFile(image, path);
+          downloadURL = await downloadUrl(path);
+        }
+        // await Promise.all([
+        //   updateProfile(currentUser, {
+        //     displayName: `${fName} ${lName}`,
+        //     ...(downloadURL && { photoURL: downloadURL }),
+        //   }),
+        //   setDoc(doc(db, "users", user_id), {
+        //     uid: user_id,
+        //     displayName: `${fName} ${lName}`,
+        //     email,
+        //     ...(downloadURL && { photoURL: downloadURL }),
+        //   }),
+        //   setDoc(doc(db, "userChats", user_id), {}),
+        // ]);
+        let userData = {
+          id: user.user_id,
+          ...(downloadURL && { photo: downloadURL }),
+          nom: values.fName,
+          prenom: values.lName,
+          email: user.email,
+          dNaissance: values.birthDate,
+          paysCode:values.phoneNumberPrefix,
+          telephone: `${values.phoneNumberPrefix}${values.phoneNumber}`,
+          pays: selectedCountry.value,
+          genre: selectedValue,
+        };
+        await CreateUser(userData, token);
+        await refreshUser();
+        setIsLoading(false);
+        navigate(from, { replace: true });
+        toast({
+          description: "User created.",
+          position: "bottom-left",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+      } catch (err) {
+        toast({
+          description: err.message,
+          position: "bottom-left",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+        console.log(err);
       }
-      // await Promise.all([
-      //   updateProfile(currentUser, {
-      //     displayName: `${fName} ${lName}`,
-      //     ...(downloadURL && { photoURL: downloadURL }),
-      //   }),
-      //   setDoc(doc(db, "users", user_id), {
-      //     uid: user_id,
-      //     displayName: `${fName} ${lName}`,
-      //     email,
-      //     ...(downloadURL && { photoURL: downloadURL }),
-      //   }),
-      //   setDoc(doc(db, "userChats", user_id), {}),
-      // ]);
-      let userData = {
-        id: user.user_id,
-        ...(downloadURL && { photo: downloadURL }),
-        nom: values.fName,
-        prenom: values.lName,
-        email: user.email,
-        dNaissance: values.birthDate,
-        telephone: `${values.phoneNumberPrefix}${values.phoneNumber}`,
-        pays: selectedCountry.value,
-        genre: selectedValue,
-      };
-      await CreateUser(userData, token);
-      await refreshUser();
-      setIsLoading(false);
-      navigate(from, { replace: true });
-      toast({
-        description: "User created.",
-        position: "bottom-left",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
-    } catch (err) {
-      toast({
-        description: err.message,
-        position: "bottom-left",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-      });
-      console.log(err);
     }
   };
 
@@ -121,7 +126,7 @@ const UserAccount = () => {
             handleBlur={handleBlur}
             errors={errors}
             touched={touched}
-            isSubmitting={isSubmitting}
+            isSubmitting={submitting}
           />
           <PrimaryButton className="w-full" type="submit" disabled={isLoading}>
             {t("createAccount")}

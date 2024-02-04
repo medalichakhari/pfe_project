@@ -22,53 +22,58 @@ const UserInfo = () => {
   const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState(userInfo?.genre);
   const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectError, setSelectError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [selectError, setSelectError] = useState(true);
   const { uploadFile, downloadUrl } = useStorage();
   const handleUpdateUser = async (values, actions) => {
-    try {
-      const { user_id } = user;
-      let downloadURL = null;
-      if (image) {
-        const path = `profileImages/${user_id}/${image.name}`;
-        await uploadFile(image, path);
-        downloadURL = await downloadUrl(path);
-      }
+    setSubmitting(true);
+    if (!selectError) {
+      try {
+        const { user_id } = user;
+        let downloadURL = null;
+        if (image) {
+          const path = `profileImages/${user_id}/${image.name}`;
+          await uploadFile(image, path);
+          downloadURL = await downloadUrl(path);
+        }
 
-      let userData = {
-        ...(downloadURL && { photo: downloadURL }),
-        nom: values.fName,
-        prenom: values.lName,
-        email: user.email,
-        dNaissance: values.birthDate,
-        pays: selectedCountry.value,
-        telephone: values.phoneNumber,
-        genre: selectedValue,
-      };
-      UpdateUser(user.user_id, userData, token)
-        .then((res) => {
-          console.log(res);
-          refresh();
-          handleEditClick();
-          toast({
-            description: "User information modified successfully.",
-            position: "bottom-left",
-            status: "success",
-            duration: 9000,
-            isClosable: true,
+        let userData = {
+          ...(downloadURL && { photo: downloadURL }),
+          nom: values.fName,
+          prenom: values.lName,
+          email: user.email,
+          dNaissance: values.birthDate,
+          paysCode: values.phoneNumberPrefix,
+          pays: selectedCountry.value,
+          telephone: values.phoneNumber,
+          genre: selectedValue,
+        };
+        UpdateUser(user.user_id, userData, token)
+          .then((res) => {
+            console.log(res);
+            refresh();
+            handleEditClick();
+            toast({
+              description: "User information modified successfully.",
+              position: "bottom-left",
+              status: "success",
+              duration: 9000,
+              isClosable: true,
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            toast({
+              description: err.message,
+              position: "bottom-left",
+              status: "error",
+              duration: 9000,
+              isClosable: true,
+            });
           });
-        })
-        .catch((err) => {
-          console.log(err);
-          toast({
-            description: err.message,
-            position: "bottom-left",
-            status: "error",
-            duration: 9000,
-            isClosable: true,
-          });
-        });
-    } catch (err) {
-      console.log(err);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
   const {
@@ -92,7 +97,7 @@ const UserInfo = () => {
           fName: userInfo?.nom,
           lName: userInfo?.prenom,
           birthDate: userInfo?.dNaissance,
-          phoneNumberPrefix: "+216",
+          phoneNumberPrefix: userInfo?.paysCode,
           phoneNumber: userInfo?.telephone,
         },
     onSubmit: handleUpdateUser,
@@ -128,7 +133,7 @@ const UserInfo = () => {
             handleBlur={handleBlur}
             errors={errors}
             touched={touched}
-            isSubmitting={isSubmitting}
+            isSubmitting={submitting}
           />
         </form>
       ) : (
@@ -176,6 +181,12 @@ const UserInfo = () => {
               {t("userInfo.gender")}
             </label>
             <p className="text-gray-500 text-sm">{userInfo?.genre}</p>
+          </div>
+          <div>
+            <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
+              {t("userInfo.country")}
+            </label>
+            <p className="mb-1 text-gray-500 text-sm">{userInfo?.pays}</p>
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">

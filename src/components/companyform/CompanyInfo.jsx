@@ -22,7 +22,9 @@ const CompanyInfo = () => {
   const { token, user } = useAuth();
   const { company, refresh } = useUser();
   const [editorValue, setEditorValue] = useState(company?.description);
-  const [editorError, setEditorError] = useState(false);
+  const [editorError, setEditorError] = useState(true);
+  const [selectError, setSelectError] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [image, setImage] = useState();
   const [selectedCountry, setSelectedCountry] = useState();
   const { uploadFile, downloadUrl } = useStorage();
@@ -31,45 +33,48 @@ const CompanyInfo = () => {
     () => GetSecteur(company?.secteurId, token)
   );
   const handleUpdateCompany = async (values, actions) => {
-    const { user_id } = user;
-    let downloadURL = "";
-    if (image) {
-      const path = `companyImages/${user_id}/${image.name}`;
-      await uploadFile(image, path);
-      downloadURL = await downloadUrl(path);
+    setSubmitting(true);
+    if (!editorError && !selectError) {
+      const { user_id } = user;
+      let downloadURL = "";
+      if (image) {
+        const path = `companyImages/${user_id}/${image.name}`;
+        await uploadFile(image, path);
+        downloadURL = await downloadUrl(path);
+      }
+      let companyData = {
+        ...(downloadURL && { logo: downloadURL }),
+        nom: values.companyName,
+        pays : selectedCountry.value,
+        adresse: values.companyAddress,
+        siteWeb: values.companyWebsite,
+        description: editorValue,
+        secteurId: values.companyActivity,
+      };
+      UpdateSociete(company.id, companyData, token)
+        .then((res) => {
+          refresh();
+          handleEditClick();
+          console.log(res);
+          toast({
+            description: "Company information has been modified successfully.",
+            position: "bottom-left",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast({
+            description: err.message,
+            position: "bottom-left",
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+          });
+        });
     }
-    let companyData = {
-      ...(downloadURL && { logo: downloadURL }),
-      nom: values.companyName,
-      pays : selectedCountry.value,
-      adresse: values.companyAddress,
-      siteWeb: values.companyWebsite,
-      description: editorValue,
-      secteurId: values.companyActivity,
-    };
-    UpdateSociete(company.id, companyData, token)
-      .then((res) => {
-        refresh();
-        handleEditClick();
-        console.log(res);
-        toast({
-          description: "Company information has been modified successfully.",
-          position: "bottom-left",
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        toast({
-          description: err.message,
-          position: "bottom-left",
-          status: "error",
-          duration: 9000,
-          isClosable: true,
-        });
-      });
   };
   const {
     values,
@@ -119,6 +124,8 @@ const CompanyInfo = () => {
             handleBlur={handleBlur}
             selectedCountry={selectedCountry}
             setSelectedCountry={setSelectedCountry}
+            selectError={selectError}
+            setSelectError={setSelectError}
             image={image}
             setImage={setImage}
             errors={errors}
@@ -127,6 +134,7 @@ const CompanyInfo = () => {
             setEditorValue={setEditorValue}
             editorError={editorError}
             setEditorError={setEditorError}
+            isSubmitting={submitting}
           />
         </form>
       ) : (

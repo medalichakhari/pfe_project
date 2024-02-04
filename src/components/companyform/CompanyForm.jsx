@@ -24,6 +24,8 @@ const CompanyForm = ({
   isSubmitting,
   selectedCountry,
   setSelectedCountry,
+  selectError,
+  setSelectError,
 }) => {
   const { t } = useTranslation();
   const { token } = useAuth();
@@ -36,6 +38,7 @@ const CompanyForm = ({
   );
   const handleChanges = (value) => {
     setSelectedCountry(value);
+    setSelectError(!value);
   };
   return (
     <>
@@ -96,6 +99,11 @@ const CompanyForm = ({
               }`,
           }}
         />
+        {selectError && isSubmitting && (
+          <div className="text-red-500 text-sm">
+            Please select your country.
+          </div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
