@@ -1,9 +1,8 @@
 import React from "react";
-import Select from "react-tailwindcss-select";
+import CreatableSelect from "react-select/creatable";
 import { skills } from "../../data/skills";
 import UploadCv from "../shared/UploadCv";
 import { useTranslation } from "react-i18next";
-
 
 const CandidatForm = ({
   selectedFile,
@@ -14,7 +13,7 @@ const CandidatForm = ({
   handleChange,
   handleBlur,
   errors,
-  touched
+  touched,
 }) => {
   const { t } = useTranslation();
   const handleChanges = (value) => {
@@ -28,7 +27,7 @@ const CandidatForm = ({
 
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        {t("candidateInfo.educationLevel")}
+          {t("candidateInfo.educationLevel")}
         </label>
         <select
           value={values.educationLevel}
@@ -43,7 +42,7 @@ const CandidatForm = ({
               ? "focus:ring-red-500 focus:border-red-500 border-red-500"
               : "focus:ring-blue-500 focus:border-blue-500"
           }`}
-          >
+        >
           <option value="">Please select your education level</option>
           <option value="Bac">Bac</option>
           <option value="Licence">Licence</option>
@@ -52,12 +51,12 @@ const CandidatForm = ({
           <option value="Doctorat">Doctorat</option>
         </select>
         {touched.educationLevel && errors.educationLevel && (
-              <div className="text-red-500 text-sm">{errors.educationLevel}</div>
-            )}
+          <div className="text-red-500 text-sm">{errors.educationLevel}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        {t("candidateInfo.speciality")}
+          {t("candidateInfo.speciality")}
         </label>
         <input
           value={values.speciality}
@@ -74,41 +73,24 @@ const CandidatForm = ({
           }`}
         />
         {touched.speciality && errors.speciality && (
-              <div className="text-red-500 text-sm">{errors.speciality}</div>
-            )}
+          <div className="text-red-500 text-sm">{errors.speciality}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        {t("candidateInfo.qualifications")}
+          {t("candidateInfo.qualifications")}
         </label>
-        <Select
-          value={selectedValues}
+        <CreatableSelect
+          isMulti
+          isClearable
           onChange={handleChanges}
           options={skills}
-          isMultiple={true}
-          isSearchable={true}
-          isClearable={true}
           placeholder="Select needed skills"
-          classNames={{
-            menuButton: ({ isDisabled }) =>
-              `flex text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none ${
-                isDisabled
-                  ? "bg-gray-200"
-                  : "bg-white hover:border-gray-400 focus:border-blue-500 focus:ring focus:ring-blue-500/20"
-              }`,
-            menu: "absolute z-10 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700",
-            listItem: ({ isSelected }) =>
-              `block transition duration-200 px-2 py-2 cursor-pointer select-none truncate rounded ${
-                isSelected
-                  ? `text-white bg-blue-500`
-                  : `text-gray-500 hover:bg-blue-100 hover:text-blue-500`
-              }`,
-          }}
         />
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        {t("candidateInfo.portfolioUrl")}
+          {t("candidateInfo.portfolioUrl")}
         </label>
         <input
           value={values.portfolioUrl}
@@ -125,12 +107,12 @@ const CandidatForm = ({
           }`}
         />
         {touched.portfolioUrl && errors.portfolioUrl && (
-              <div className="text-red-500 text-sm">{errors.portfolioUrl}</div>
-            )}
+          <div className="text-red-500 text-sm">{errors.portfolioUrl}</div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        {t("candidateInfo.experience")}
+          {t("candidateInfo.experience")}
         </label>
         <input
           value={values.experience}
@@ -147,12 +129,12 @@ const CandidatForm = ({
           }`}
         />
         {touched.experience && errors.experience && (
-              <div className="text-red-500 text-sm">{errors.experience}</div>
-            )}
+          <div className="text-red-500 text-sm">{errors.experience}</div>
+        )}
       </div>
       <div>
         <label className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white">
-        {t("candidateInfo.curriculumVitae")}
+          {t("candidateInfo.curriculumVitae")}
         </label>
         <UploadCv
           selectedFile={selectedFile}

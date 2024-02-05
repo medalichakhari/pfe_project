@@ -12,7 +12,7 @@ import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { useAuth } from "../../context/AuthContext";
 import { GetCategories, GetOffre, UpdateOffre } from "../../lib/fetch";
 import { useState } from "react";
-import Select from "react-tailwindcss-select";
+import CreatableSelect from "react-select/creatable";
 import { skills } from "../../data/skills";
 import { useQuery } from "react-query";
 import TextEditor from "../inputs/TextEditor";
@@ -245,29 +245,14 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                   {t("editPostedJobCard.qualifications")}
                 </label>
-                <Select
+                <CreatableSelect
                   value={selectedValues}
                   onChange={handleChanges}
                   options={skills}
-                  isMultiple={true}
-                  isSearchable={true}
-                  isClearable={true}
+                  isMulti
+                  isClearable
+                  isSearchable
                   placeholder="Select needed skills"
-                  classNames={{
-                    menuButton: ({ isDisabled }) =>
-                      `flex text-sm text-gray-500 border border-gray-300 rounded-lg shadow-sm transition-all duration-300 focus:outline-none ${
-                        isDisabled
-                          ? "bg-gray-200"
-                          : "bg-white hover:border-gray-400 focus:border-blue-500 focus:ring focus:ring-blue-500/20"
-                      }`,
-                    menu: "absolute z-10 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700",
-                    listItem: ({ isSelected }) =>
-                      `block transition duration-200 px-2 py-2 cursor-pointer select-none truncate rounded ${
-                        isSelected
-                          ? `text-white bg-blue-500`
-                          : `text-gray-500 hover:bg-blue-100 hover:text-blue-500`
-                      }`,
-                  }}
                 />
               </div>
               <div>

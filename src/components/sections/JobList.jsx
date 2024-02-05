@@ -9,7 +9,9 @@ const JobList = ({ filteredJobs }) => {
   const [showCount, setShowCount] = useState(8);
   const jobsList =
     filteredJobs &&
-    filteredJobs?.sort((a, b) => new Date(b?.updatedAt) - new Date(a?.updatedAt))?.slice(0, showCount);
+    filteredJobs
+      ?.sort((a, b) => new Date(b?.updatedAt) - new Date(a?.updatedAt))
+      ?.slice(0, showCount);
   const handleLoadMore = () => {
     setShowCount(showCount + 8);
   };
@@ -42,9 +44,7 @@ const JobList = ({ filteredJobs }) => {
   ) : (
     <div className="flex flex-col items-center h-full">
       <div className="flex gap-12 justify-center flex-wrap items-center py-10 mb-auto">
-        <p className="text-2xl font-bold text-gray-500">
-          No job offers found for you
-        </p>
+        <p className="text-2xl font-bold text-gray-500">{t("noJobsFound")}</p>
       </div>
     </div>
   );

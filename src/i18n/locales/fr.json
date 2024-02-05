@@ -19,14 +19,14 @@
   },
   "search": {
     "search": "Rechercher",
-    "keyword": "Titre de l'emploi",
+    "keyword": "Titre de l'emploi, compétences",
     "location": "Emplacement"
   },
   "categoryList": {
     "browseCategory": "Parcourir les catégories",
-    "marketing": "Marketing & Communication",
-    "design": "Design & Développement",
-    "hr": "Ressources Humaine",
+    "marketing": "Marketing et Communication",
+    "design": "Design et Développement",
+    "hr": "Ressources Humaines",
     "finance": "Finance et Gestion",
     "government": "Emplois gouvernementaux",
     "business": "Affaires et Conseil",
@@ -185,5 +185,6 @@
   "createAccount": "Créer un compte",
   "apply": "Postuler",
   "readMore": "Lire la suite",
-  "loadMore": "Charger plus"
+  "loadMore": "Charger plus",
+  "noJobsFound": "Aucune offre de stage n'a été trouvée."
 }
