@@ -21,7 +21,10 @@ const UserInfo = () => {
   const { userInfo, refresh } = useUser();
   const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState(userInfo?.genre);
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState({
+    label: userInfo?.pays,
+    value: userInfo?.pays,
+  });
   const [submitting, setSubmitting] = useState(false);
   const [selectError, setSelectError] = useState(true);
   const { uploadFile, downloadUrl } = useStorage();

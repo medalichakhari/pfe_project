@@ -77,6 +77,7 @@ const CompanyForm = ({
           {t("companyInfo.country")}
         </label>
         <Select
+          value={selectedCountry}
           onChange={handleChanges}
           options={countryList}
           isSearchable

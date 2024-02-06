@@ -21,12 +21,16 @@ const CompanyInfo = () => {
   const toast = useToast();
   const { token, user } = useAuth();
   const { company, refresh } = useUser();
+  console.log("company", company);
   const [editorValue, setEditorValue] = useState(company?.description);
   const [editorError, setEditorError] = useState(true);
   const [selectError, setSelectError] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [image, setImage] = useState();
-  const [selectedCountry, setSelectedCountry] = useState();
+  const [selectedCountry, setSelectedCountry] = useState({
+    label: company?.pays,
+    value: company?.pays,
+  });
   const { uploadFile, downloadUrl } = useStorage();
   const { data: activityAreaInfo, isLoading } = useQuery(
     ["activityAreaInfo", company?.secteurId, token],

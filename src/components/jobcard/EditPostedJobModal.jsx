@@ -21,7 +21,6 @@ import LoadingSpinner from "../shared/LoadingSpinner";
 
 function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
   const { t } = useTranslation();
-  const [selectedValues, setSelectedValues] = useState(null);
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const { token } = useAuth();
@@ -33,6 +32,14 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
     ["jobOfferInfo", jobId, token],
     () => GetOffre(jobId, token)
   );
+  const skillsArray = data?.competences
+    ?.split(",")
+    .map((skill) => skill.trim());
+  const mappedSkills = skillsArray?.map((skill) => ({
+    label: skill,
+    value: skill,
+  }));
+  const [selectedValues, setSelectedValues] = useState(mappedSkills);
   const [editorValue, setEditorValue] = useState(data?.description);
   const handleChanges = (value) => {
     setSelectedValues(value);

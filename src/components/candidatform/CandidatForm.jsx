@@ -81,6 +81,7 @@ const CandidatForm = ({
           {t("candidateInfo.qualifications")}
         </label>
         <CreatableSelect
+          value={selectedValues}
           isMulti
           isClearable
           onChange={handleChanges}

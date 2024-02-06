@@ -24,7 +24,14 @@ const CandidatInfo = () => {
   const { candidate, refresh } = useUser();
   const { uploadFile, downloadUrl } = useStorage();
   const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedValues, setSelectedValues] = useState(null);
+  const skillsArray = candidate?.competences
+    ?.split(",")
+    .map((skill) => skill.trim());
+  const mappedSkills = skillsArray?.map((skill) => ({
+    label: skill,
+    value: skill,
+  }));
+  const [selectedValues, setSelectedValues] = useState(mappedSkills);
   const handleUpdateCandidat = async (values, actions) => {
     const qualificationsValue = selectedValues.map((option) => option.value);
     const qualifications = qualificationsValue.join(",");

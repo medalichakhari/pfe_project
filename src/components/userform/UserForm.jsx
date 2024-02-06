@@ -125,6 +125,7 @@ const UserForm = ({
           {t("userForm.country")}
         </label>
         <Select
+          value={selectedCountry}
           onChange={handleChanges}
           options={countryList}
           isClearable
