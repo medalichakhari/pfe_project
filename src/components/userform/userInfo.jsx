@@ -26,7 +26,7 @@ const UserInfo = () => {
     value: userInfo?.pays,
   });
   const [submitting, setSubmitting] = useState(false);
-  const [selectError, setSelectError] = useState(true);
+  const [selectError, setSelectError] = useState();
   const { uploadFile, downloadUrl } = useStorage();
   const handleUpdateUser = async (values, actions) => {
     setSubmitting(true);
