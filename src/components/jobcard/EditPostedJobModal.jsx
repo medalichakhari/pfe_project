@@ -52,7 +52,6 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
     };
     UpdateOffre(jobId, jobOfferData, token)
       .then((res) => {
-        console.log(res);
         handleOpenEditModal();
         refetch();
       })

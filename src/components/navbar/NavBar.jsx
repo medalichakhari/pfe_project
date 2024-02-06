@@ -33,8 +33,9 @@ export default function NavBar() {
     data: notifications,
     isLoading: isLoadingNotifs,
     refetch: refetchNotifs,
-  } = useQuery(["notifications", token], () =>
-    GetNotificationsByUserId(token, user?.user_id),
+  } = useQuery(
+    ["notifications", token],
+    () => GetNotificationsByUserId(token, user?.user_id),
     {
       enabled: !!user?.user_id,
     }
@@ -53,7 +54,6 @@ export default function NavBar() {
 
     UpdateNotification(notif.id, notifData, token)
       .then((res) => {
-        console.log(res);
         refetchNotifs();
         setUnreadCount(unreadCount - 1);
       })
@@ -245,7 +245,10 @@ export default function NavBar() {
           <div className="flex md:order-2 gap-2">
             <SelectLanguage />
 
-            <SecondaryButton className="hidden md:block" onClick={() => navigate("/signin")}>
+            <SecondaryButton
+              className="hidden md:block"
+              onClick={() => navigate("/signin")}
+            >
               {t("nav.signIn")}
             </SecondaryButton>
 

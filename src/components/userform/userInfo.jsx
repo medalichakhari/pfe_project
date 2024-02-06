@@ -50,7 +50,6 @@ const UserInfo = () => {
         };
         UpdateUser(user.user_id, userData, token)
           .then((res) => {
-            console.log(res);
             refresh();
             handleEditClick();
             toast({

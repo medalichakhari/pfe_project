@@ -45,7 +45,7 @@ const CompanyInfo = () => {
       let companyData = {
         ...(downloadURL && { logo: downloadURL }),
         nom: values.companyName,
-        pays : selectedCountry.value,
+        pays: selectedCountry.value,
         adresse: values.companyAddress,
         siteWeb: values.companyWebsite,
         description: editorValue,
@@ -55,7 +55,6 @@ const CompanyInfo = () => {
         .then((res) => {
           refresh();
           handleEditClick();
-          console.log(res);
           toast({
             description: "Company information has been modified successfully.",
             position: "bottom-left",
@@ -190,18 +189,21 @@ const CompanyInfo = () => {
               {t("companyInfo.companyWebsite")}
             </label>
             <Link
-                              to={company?.siteWeb}
-                              target="_blank"
-                              className="text-indigo-600 hover:text-indigo-900"
-                            >
-                              {company?.siteWeb}
-                            </Link>
+              to={company?.siteWeb}
+              target="_blank"
+              className="text-indigo-600 hover:text-indigo-900"
+            >
+              {company?.siteWeb}
+            </Link>
           </div>
           <div>
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("companyInfo.companyDescription")}
             </label>
-            <p className="mb-2 text-gray-500 text-sm" dangerouslySetInnerHTML={{ __html: company?.description }} />
+            <p
+              className="mb-2 text-gray-500 text-sm"
+              dangerouslySetInnerHTML={{ __html: company?.description }}
+            />
           </div>
         </>
       )}

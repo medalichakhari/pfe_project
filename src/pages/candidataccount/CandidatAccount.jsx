@@ -38,7 +38,6 @@ const CandidatAccount = () => {
     };
     CreateCandidat(candidatData, token)
       .then((res) => {
-        console.log(res);
         refreshUser()
           .then(() => navigate(from, { replace: true }))
           .catch((err) => console.log(err));

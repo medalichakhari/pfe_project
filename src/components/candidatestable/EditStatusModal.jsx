@@ -33,8 +33,7 @@ function EditStatusModal({ isOpen, handleOpenModal, candidacy, refetch }) {
       contenuEmail: editorValue,
     };
     UpdateCandidature(candidacy.id, candidatureData, token)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         refetch();
         handleOpenModal();
       })

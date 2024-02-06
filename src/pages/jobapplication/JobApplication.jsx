@@ -34,7 +34,6 @@ const JobApplication = () => {
     };
     CreateCandidature(applicationData, token)
       .then((res) => {
-        console.log(res);
         toast({
           description: "succesfully applied",
           position: "bottom-left",

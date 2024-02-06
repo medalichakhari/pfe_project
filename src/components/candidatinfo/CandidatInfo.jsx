@@ -45,7 +45,6 @@ const CandidatInfo = () => {
       .then((res) => {
         refresh();
         handleEditClick();
-        console.log(res);
         toast({
           description: "Candidate information has been modified successfully.",
           position: "bottom-left",
