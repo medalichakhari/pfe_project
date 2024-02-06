@@ -114,6 +114,7 @@ const UserInfo = () => {
             <button
               type="submit"
               className="text-primary hover:text-secondary mr-2"
+              disabled={isSubmitting}
             >
               {t("save")}
             </button>

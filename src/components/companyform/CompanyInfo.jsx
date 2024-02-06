@@ -83,7 +83,7 @@ const CompanyInfo = () => {
     values,
     errors,
     touched,
-    isSubmitting,
+    isSubmitting: isCompanySubmitting,
     handleBlur,
     handleChange,
     handleSubmit,
@@ -114,6 +114,7 @@ const CompanyInfo = () => {
             <button
               type="submit"
               className="text-primary hover:text-secondary mr-2"
+              disabled={isCompanySubmitting}
             >
               {t("save")}
             </button>

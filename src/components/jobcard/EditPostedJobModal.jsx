@@ -40,31 +40,42 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
     value: skill,
   }));
   const [selectedValues, setSelectedValues] = useState(mappedSkills);
+  const [selectError, setSelectError] = useState(true);
   const [editorValue, setEditorValue] = useState(data?.description);
+  const [editorError, setEditorError] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const handleChanges = (value) => {
     setSelectedValues(value);
+    setSelectError(!value);
+  };
+  const handleEditorChange = (value) => {
+    setEditorValue(value);
+    setEditorError(value.length <= 90);
   };
   const handleUpdateJobOffer = (values, actions) => {
-    const qualificationsValue = selectedValues?.map((option) => option.value);
-    const qualifications = qualificationsValue?.join(",");
-    let jobOfferData = {
-      titre: values.title,
-      domaine: values.domain,
-      isRemote: values.isRemote,
-      salaire: values.salary,
-      experience: values.experience,
-      niveau: values.educationLevel,
-      competences: qualifications,
-      description: editorValue,
-    };
-    UpdateOffre(jobId, jobOfferData, token)
-      .then((res) => {
-        handleOpenEditModal();
-        refetch();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setSubmitting(true);
+    if (!editorError && !selectError) {
+      const qualificationsValue = selectedValues?.map((option) => option.value);
+      const qualifications = qualificationsValue?.join(",");
+      let jobOfferData = {
+        titre: values.title,
+        domaine: values.domain,
+        isRemote: values.isRemote,
+        salaire: values.salary,
+        experience: values.experience,
+        niveau: values.educationLevel,
+        competences: qualifications,
+        description: editorValue,
+      };
+      UpdateOffre(jobId, jobOfferData, token)
+        .then((res) => {
+          handleOpenEditModal();
+          refetch();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   const {
     values,
@@ -260,14 +271,27 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                   isSearchable
                   placeholder="Select needed skills"
                 />
+                {selectError && submitting && (
+                  <div className="text-red-500 text-sm">
+                    Please select your skills.
+                  </div>
+                )}
               </div>
               <div>
                 <label className="block mt-2 mb-1 text-sm font-medium text-gray-900 dark:text-white">
                   {t("editPostedJobCard.jobDescription")}
                 </label>
                 <div className="mb-2">
-                  <TextEditor value={editorValue} setValue={setEditorValue} />
+                  <TextEditor
+                    value={editorValue}
+                    setValue={handleEditorChange}
+                  />
                 </div>
+                {editorError && submitting && (
+                  <div className="text-red-500 text-sm mb-2">
+                    The company description must be more than 90 characters.
+                  </div>
+                )}
               </div>
               <div className="flex flex-row-reverse gap-4">
                 <button
