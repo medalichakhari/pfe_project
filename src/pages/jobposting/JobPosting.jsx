@@ -45,40 +45,24 @@ const JobPosting = () => {
     }
   };
 
-  const renderJobOfferButtons = () => {
-    if (formStep === STEPS_AMOUNT) {
-      return (
-        <div className="flex justify-between mt-2">
-          <SecondaryButton type="button" onClick={previousFormStep}>
-            {t("jobOfferForm.previous")}
-          </SecondaryButton>
-          <PrimaryButton type="submit" disabled={submitting}>
-            {t("jobOfferForm.createJob")}
-          </PrimaryButton>
-        </div>
-      );
-    } else {
-      return null;
-    }
-  };
   const { token } = useAuth();
   const { company } = useUser();
   const handleCreateJobOffer = async (values, actions) => {
     setSubmitting(true);
     if (!editorError && !selectError) {
-    const qualificationsValue = selectedValues?.map((option) => option.value);
-    const qualifications = qualificationsValue.join(",");
-    let offerData = {
-      titre: jobOfferValues.title,
-      isRemote: jobOfferValues.isRemote,
-      salaire: jobOfferValues.salary,
-      experience: jobOfferValues.experience,
-      niveau: jobOfferValues.educationLevel,
-      competences: qualifications,
-      description: editorValue,
-      categorieId: jobOfferValues.domain,
-      societeId: company?.id,
-    };
+      const qualificationsValue = selectedValues?.map((option) => option.value);
+      const qualifications = qualificationsValue.join(",");
+      let offerData = {
+        titre: jobOfferValues.title,
+        isRemote: jobOfferValues.isRemote,
+        salaire: jobOfferValues.salary,
+        experience: jobOfferValues.experience,
+        niveau: jobOfferValues.educationLevel,
+        competences: qualifications,
+        description: editorValue,
+        categorieId: jobOfferValues.domain,
+        societeId: company?.id,
+      };
       CreateOffre(offerData, token)
         .then((res) => {
           setSubmitting(false);
@@ -124,6 +108,23 @@ const JobPosting = () => {
     onSubmit: handleCreateJobOffer,
     validationSchema: jobOfferSchema,
   });
+
+  const renderJobOfferButtons = () => {
+    if (formStep === STEPS_AMOUNT) {
+      return (
+        <div className="flex justify-between mt-2">
+          <SecondaryButton type="button" onClick={previousFormStep}>
+            {t("jobOfferForm.previous")}
+          </SecondaryButton>
+          <PrimaryButton type="submit" disabled={jobOfferIsSubmitting}>
+            {t("jobOfferForm.createJob")}
+          </PrimaryButton>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  };
   return (
     <Layout>
       <div className="flex justify-center items-center">

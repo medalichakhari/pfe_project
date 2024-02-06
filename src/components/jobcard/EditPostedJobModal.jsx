@@ -82,7 +82,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
       : {
           title: data?.titre,
           address: data?.adresse,
-          isRemote: data?.type,
+          isRemote: data?.isRemote,
           domain: data?.categorie?.id,
           salary: data?.salaire,
           experience: data?.experience,

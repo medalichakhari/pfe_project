@@ -22,7 +22,7 @@ const JobsByCategory = () => {
   const [showCount, setShowCount] = useState(9);
   const { categoryId } = useParams();
   const { data } = useQuery(["candidatures", token], () =>
-    GetCandidaturesByCandidat(candidate?.id, token),
+    GetCandidaturesByCandidat(candidate?.id, token)
   );
   const filterJobs = (jobs) => {
     if (!user) return jobs;
@@ -80,20 +80,20 @@ const JobsByCategory = () => {
       </div>
       {/* <Search placeholder={t("jobsByCategory.searchPlaceholder")} /> */}
       {jobOffersList?.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {jobOffersList?.map((jobOffer) => (
             <JobOfferCard key={jobOffer.id} jobOffer={jobOffer} />
           ))}
         </div>
       ) : (
-
-      <div className="flex flex-col items-center h-full">
+        <div className="flex flex-col items-center h-full">
           <div className="flex gap-12 justify-center flex-wrap items-center py-10 mb-auto">
             <p className="text-2xl font-bold text-gray-500">
-              No job offers found
+              {t("noJobsFound")}
             </p>
           </div>
-        </div>)}
+        </div>
+      )}
 
       {jobOffersList?.length > showCount && (
         <div className="mt-8 flex justify-center">

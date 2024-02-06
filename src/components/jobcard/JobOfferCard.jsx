@@ -30,7 +30,7 @@ const JobOfferCard = ({ jobOffer }) => {
       <div className="flex items-center mb-4">
         <p className="flex items-center px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
           <HiOutlineLocationMarker className="text-gray-500 mr-1" />
-          {jobOffer.isRemote ? jobOffer?.societe.adresse : "Remote"}
+          {jobOffer.isRemote ? jobOffer?.societe.pays : "Remote"}
         </p>
         <p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
           Internship
@@ -39,7 +39,10 @@ const JobOfferCard = ({ jobOffer }) => {
           2 days ago
         </p>
       </div>
-      <p className="mt-4 text-gray-800 font-light" dangerouslySetInnerHTML={{ __html: jobOffer.description }} />
+      <p
+        className="mt-4 text-gray-800 font-light"
+        dangerouslySetInnerHTML={{ __html: jobOffer.description }}
+      />
       <PrimaryButton className="mt-4 w-full" onClick={handleReadMore}>
         {t("readMore")}
       </PrimaryButton>

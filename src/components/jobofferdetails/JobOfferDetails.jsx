@@ -60,7 +60,7 @@ const JobOfferDetails = () => {
           </h2>
           <p className="text-gray-600 mt-2 flex items-center">
             <HiOutlineLocationMarker className="text-gray-500 mr-1" />
-            {data.isRemote ? data?.societe.adresse : "Remote"}
+            {data.isRemote ? data?.societe.pays : "Remote"}
           </p>
           <p className="text-gray-600 mt-2 flex items-center">
             <BsBriefcase className="text-gray-500 mr-1" />
