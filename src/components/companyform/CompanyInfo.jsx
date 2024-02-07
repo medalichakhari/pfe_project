@@ -25,7 +25,7 @@ const CompanyInfo = () => {
   const [editorError, setEditorError] = useState(false);
   const [selectError, setSelectError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(company?.logo);
   const [selectedCountry, setSelectedCountry] = useState({
     label: company?.pays,
     value: company?.pays,
@@ -35,12 +35,16 @@ const CompanyInfo = () => {
     ["activityAreaInfo", company?.secteurId, token],
     () => GetSecteur(company?.secteurId, token)
   );
+  const isValidUrl = (url) => {
+    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    return urlPattern.test(url);
+  };
   const handleUpdateCompany = async (values, actions) => {
     setSubmitting(true);
     if (!editorError && !selectError) {
       const { user_id } = user;
       let downloadURL = "";
-      if (image) {
+      if (image && !isValidUrl(image)) {
         const path = `companyImages/${user_id}/${image.name}`;
         await uploadFile(image, path);
         downloadURL = await downloadUrl(path);

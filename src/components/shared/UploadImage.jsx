@@ -15,13 +15,29 @@ const UploadImage = ({ image, setImage }) => {
     setImage(file);
   };
 
+  const isValidUrl = (url) => {
+    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    return urlPattern.test(url);
+  };
+
+  const getImageSource = () => {
+    if (image) {
+      if (isValidUrl(image)) {
+        return image;
+      } else if (image instanceof File) {
+        return URL.createObjectURL(image);
+      }
+    }
+    return "";
+  };
+
   return (
     <div className="relative">
       {image ? (
         <div className="relative w-24 h-24">
           <img
             className="w-24 h-24 rounded-full object-cover font-light"
-            src={URL.createObjectURL(image)}
+            src={getImageSource()}
             alt="image"
           />
           <button
@@ -58,4 +74,5 @@ const UploadImage = ({ image, setImage }) => {
     </div>
   );
 };
+
 export default UploadImage;
