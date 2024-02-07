@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -33,18 +33,24 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
     () => GetOffre(jobId, token)
   );
 
+  const [selectedValues, setSelectedValues] = useState([]);
+  const [editorValue, setEditorValue] = useState();
   const [selectError, setSelectError] = useState(true);
   const [editorError, setEditorError] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const skillsArray = data?.competences
-    ?.split(",")
-    .map((skill) => skill.trim());
-  const mappedSkills = skillsArray?.map((skill) => ({
-    label: skill,
-    value: skill,
-  }));
-  const [selectedValues, setSelectedValues] = useState(mappedSkills);
-  const [editorValue, setEditorValue] = useState(data?.description);
+  useEffect(() => {
+    if (!isLoading && data) {
+      const skillsArray = data.competences
+        ?.split(",")
+        .map((skill) => skill.trim());
+      const mappedSkills = skillsArray?.map((skill) => ({
+        label: skill,
+        value: skill,
+      }));
+      setSelectedValues(mappedSkills);
+      setEditorValue(data.description);
+    }
+  }, [isLoading, data]);
 
   const handleChanges = (value) => {
     setSelectedValues(value);
