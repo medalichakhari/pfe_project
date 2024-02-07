@@ -9,6 +9,9 @@ const CandidatForm = ({
   setSelectedFile,
   selectedValues,
   setSelectedValues,
+  selectError,
+  setSelectError,
+  submitting,
   values,
   handleChange,
   handleBlur,
@@ -18,6 +21,7 @@ const CandidatForm = ({
   const { t } = useTranslation();
   const handleChanges = (value) => {
     setSelectedValues(value);
+    setSelectError(value.length === 0);
   };
   return (
     <>
@@ -88,6 +92,11 @@ const CandidatForm = ({
           options={skills}
           placeholder="Select needed skills"
         />
+        {selectError && submitting && (
+          <div className="text-red-500 text-sm">
+            Please select at least one skill.
+          </div>
+        )}
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">

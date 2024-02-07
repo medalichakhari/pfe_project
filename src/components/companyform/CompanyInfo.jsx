@@ -21,10 +21,9 @@ const CompanyInfo = () => {
   const toast = useToast();
   const { token, user } = useAuth();
   const { company, refresh } = useUser();
-  console.log("company", company);
   const [editorValue, setEditorValue] = useState(company?.description);
-  const [editorError, setEditorError] = useState(true);
-  const [selectError, setSelectError] = useState(true);
+  const [editorError, setEditorError] = useState(false);
+  const [selectError, setSelectError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [image, setImage] = useState();
   const [selectedCountry, setSelectedCountry] = useState({

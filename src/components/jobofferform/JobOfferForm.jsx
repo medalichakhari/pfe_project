@@ -36,7 +36,7 @@ const JobOfferForm = ({
 
   const handleSelectChange = (value) => {
     setSelectedValues(value);
-    setSelectError(!value);
+    setSelectError(value.length === 0);
   };
 
   return (

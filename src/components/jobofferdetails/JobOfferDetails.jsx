@@ -17,7 +17,10 @@ const JobOfferDetails = () => {
   const { candidate } = useUser();
   const { data: candidatures, isLoading: isLoadingCandidatures } = useQuery(
     ["candidatures", token],
-    () => GetCandidaturesByCandidat(candidate?.id, token)
+    () => GetCandidaturesByCandidat(candidate?.id, token),
+    {
+      enabled: !!candidate?.id,
+    }
   );
   const { data, isLoading } = useQuery(["offer", offerId, token], () =>
     GetOffre(offerId, token)

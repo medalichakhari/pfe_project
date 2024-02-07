@@ -13,20 +13,21 @@ const Home = () => {
   const { candidate, company } = useUser();
   const [filteredJobs, setFilteredJobs] = useState([]);
   // const [recommendedJobs, setRecommendedJobs] = useState([]);
-  const { data } = useQuery(["candidatures", token], () =>
-    GetCandidaturesByCandidat(candidate?.id, token)
-    ,     {
+  const { data, isLoading } = useQuery(
+    ["candidatures", token],
+    () => GetCandidaturesByCandidat(candidate?.id, token),
+    {
       enabled: !!candidate?.id,
     }
   );
 
   const filterJobs = (jobs) => {
     if (!user) return jobs;
-  
+
     const { roles } = user;
     const isRecruiter = roles?.includes("recruteur");
     const isCandidate = roles?.includes("candidat");
-  
+
     return jobs.filter((job) => {
       if (isRecruiter && isCandidate) {
         return (
@@ -41,7 +42,7 @@ const Home = () => {
       return true;
     });
   };
-  
+
   useEffect(() => {
     const fetchJobs = async () => {
       try {
@@ -52,8 +53,8 @@ const Home = () => {
         console.log(err);
       }
     };
-  
-    if (data) {
+
+    if (!isLoading) {
       fetchJobs();
     }
   }, [company, candidate, data, user]);

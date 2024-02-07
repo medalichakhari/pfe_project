@@ -32,6 +32,10 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
     ["jobOfferInfo", jobId, token],
     () => GetOffre(jobId, token)
   );
+
+  const [selectError, setSelectError] = useState(true);
+  const [editorError, setEditorError] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const skillsArray = data?.competences
     ?.split(",")
     .map((skill) => skill.trim());
@@ -40,10 +44,8 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
     value: skill,
   }));
   const [selectedValues, setSelectedValues] = useState(mappedSkills);
-  const [selectError, setSelectError] = useState(true);
   const [editorValue, setEditorValue] = useState(data?.description);
-  const [editorError, setEditorError] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
+
   const handleChanges = (value) => {
     setSelectedValues(value);
     setSelectError(!value);

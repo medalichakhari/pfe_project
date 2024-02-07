@@ -32,44 +32,50 @@ const CandidatInfo = () => {
     value: skill,
   }));
   const [selectedValues, setSelectedValues] = useState(mappedSkills);
+  const [selectError, setSelectError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const handleUpdateCandidat = async (values, actions) => {
-    const qualificationsValue = selectedValues.map((option) => option.value);
-    const qualifications = qualificationsValue.join(",");
-    const { user_id } = user;
+    setSubmitting(true);
+    if (!selectError) {
+      const qualificationsValue = selectedValues.map((option) => option.value);
+      const qualifications = qualificationsValue.join(",");
+      const { user_id } = user;
 
-    const path = `candidatResumes/${user_id}/${selectedFile?.name}`;
-    selectedFile && (await uploadFile(selectedFile, path));
-    const downloadURL = await downloadUrl(path);
-    let candidatData = {
-      niveau: values.educationLevel,
-      specialite: values.speciality,
-      competences: selectedValues ? qualifications : candidate.competences,
-      experience: values.experience,
-      portfolio: values.portfolioUrl,
-      cv: downloadURL ? downloadURL : candidate.cv,
-    };
-    UpdateCandidat(candidate.id, candidatData, token)
-      .then((res) => {
-        refresh();
-        handleEditClick();
-        toast({
-          description: "Candidate information has been modified successfully.",
-          position: "bottom-left",
-          status: "success",
-          duration: 9000,
-          isClosable: true,
+      const path = `candidatResumes/${user_id}/${selectedFile?.name}`;
+      selectedFile && (await uploadFile(selectedFile, path));
+      const downloadURL = await downloadUrl(path);
+      let candidatData = {
+        niveau: values.educationLevel,
+        specialite: values.speciality,
+        competences: selectedValues ? qualifications : candidate.competences,
+        experience: values.experience,
+        portfolio: values.portfolioUrl,
+        cv: downloadURL ? downloadURL : candidate.cv,
+      };
+      UpdateCandidat(candidate.id, candidatData, token)
+        .then((res) => {
+          refresh();
+          handleEditClick();
+          toast({
+            description:
+              "Candidate information has been modified successfully.",
+            position: "bottom-left",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
+        })
+        .catch((err) => {
+          toast({
+            description: err.message,
+            position: "bottom-left",
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+          });
+          console.log(err);
         });
-      })
-      .catch((err) => {
-        toast({
-          description: err.message,
-          position: "bottom-left",
-          status: "error",
-          duration: 9000,
-          isClosable: true,
-        });
-        console.log(err);
-      });
+    }
   };
   const {
     values,
@@ -118,6 +124,9 @@ const CandidatInfo = () => {
             selectedFile={selectedFile}
             setSelectedFile={setSelectedFile}
             selectedValues={selectedValues}
+            selectError={selectError}
+            setSelectError={setSelectError}
+            submitting={submitting}
             setSelectedValues={setSelectedValues}
             handleChange={handleChange}
             handleBlur={handleBlur}

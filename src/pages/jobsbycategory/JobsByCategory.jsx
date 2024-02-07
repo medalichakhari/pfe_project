@@ -21,8 +21,12 @@ const JobsByCategory = () => {
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [showCount, setShowCount] = useState(9);
   const { categoryId } = useParams();
-  const { data } = useQuery(["candidatures", token], () =>
-    GetCandidaturesByCandidat(candidate?.id, token)
+  const { data, isLoading } = useQuery(
+    ["candidatures", token],
+    () => GetCandidaturesByCandidat(candidate?.id, token),
+    {
+      enabled: !!candidate?.id,
+    }
   );
   const filterJobs = (jobs) => {
     if (!user) return jobs;
@@ -57,7 +61,7 @@ const JobsByCategory = () => {
   };
 
   useEffect(() => {
-    if (data) {
+    if (!isLoading) {
       fetchJobsByCategory();
     }
   }, [categoryId, company, candidate, data, user]);
