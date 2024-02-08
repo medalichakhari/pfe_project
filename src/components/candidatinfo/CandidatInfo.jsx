@@ -23,7 +23,7 @@ const CandidatInfo = () => {
   const { token, user } = useAuth();
   const { candidate, refresh } = useUser();
   const { uploadFile, downloadUrl } = useStorage();
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(candidate?.cv);
   const skillsArray = candidate?.competences
     ?.split(",")
     .map((skill) => skill.trim());
