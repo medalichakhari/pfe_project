@@ -41,16 +41,20 @@ const CandidatInfo = () => {
       const qualifications = qualificationsValue.join(",");
       const { user_id } = user;
 
-      const path = `candidatResumes/${user_id}/${selectedFile?.name}`;
-      selectedFile && (await uploadFile(selectedFile, path));
-      const downloadURL = await downloadUrl(path);
+      let downloadURL = candidate.cv;
+      if (selectedFile instanceof File) {
+        const path = `candidatResumes/${user_id}/${selectedFile?.name}`;
+        await uploadFile(selectedFile, path);
+        downloadURL = await downloadUrl(path);
+      }
+
       let candidatData = {
         niveau: values.educationLevel,
         specialite: values.speciality,
         competences: selectedValues ? qualifications : candidate.competences,
         experience: values.experience,
         portfolio: values.portfolioUrl,
-        cv: downloadURL ? downloadURL : candidate.cv,
+        cv: downloadURL,
       };
       UpdateCandidat(candidate.id, candidatData, token)
         .then((res) => {
