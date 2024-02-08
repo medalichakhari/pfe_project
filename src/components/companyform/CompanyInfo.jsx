@@ -35,16 +35,12 @@ const CompanyInfo = () => {
     ["activityAreaInfo", company?.secteurId, token],
     () => GetSecteur(company?.secteurId, token)
   );
-  const isValidUrl = (url) => {
-    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
-    return urlPattern.test(url);
-  };
   const handleUpdateCompany = async (values, actions) => {
     setSubmitting(true);
     if (!editorError && !selectError) {
       const { user_id } = user;
       let downloadURL = "";
-      if (image && !isValidUrl(image)) {
+      if (image && image instanceof File) {
         const path = `companyImages/${user_id}/${image.name}`;
         await uploadFile(image, path);
         downloadURL = await downloadUrl(path);

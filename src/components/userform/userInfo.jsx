@@ -28,17 +28,14 @@ const UserInfo = () => {
   const [submitting, setSubmitting] = useState(false);
   const [selectError, setSelectError] = useState();
   const { uploadFile, downloadUrl } = useStorage();
-  const isValidUrl = (url) => {
-    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
-    return urlPattern.test(url);
-  };
+
   const handleUpdateUser = async (values, actions) => {
     setSubmitting(true);
     if (!selectError) {
       try {
         const { user_id } = user;
         let downloadURL = null;
-        if (image && !isValidUrl(image)) {
+        if (image && image instanceof File) {
           const path = `profileImages/${user_id}/${image.name}`;
           await uploadFile(image, path);
           downloadURL = await downloadUrl(path);

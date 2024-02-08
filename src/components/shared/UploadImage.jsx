@@ -15,17 +15,12 @@ const UploadImage = ({ image, setImage }) => {
     setImage(file);
   };
 
-  const isValidUrl = (url) => {
-    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
-    return urlPattern.test(url);
-  };
-
   const getImageSource = () => {
     if (image) {
-      if (isValidUrl(image)) {
-        return image;
-      } else if (image instanceof File) {
+      if (image instanceof File) {
         return URL.createObjectURL(image);
+      } else {
+        return image;
       }
     }
     return "";
