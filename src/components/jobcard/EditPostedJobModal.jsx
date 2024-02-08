@@ -18,8 +18,10 @@ import { useQuery } from "react-query";
 import TextEditor from "../inputs/TextEditor";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import { useToast } from "@chakra-ui/react";
 
 function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
+  const toast = useToast();
   const { t } = useTranslation();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -35,8 +37,8 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
 
   const [selectedValues, setSelectedValues] = useState([]);
   const [editorValue, setEditorValue] = useState();
-  const [selectError, setSelectError] = useState(true);
-  const [editorError, setEditorError] = useState(true);
+  const [selectError, setSelectError] = useState(false);
+  const [editorError, setEditorError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
     if (!isLoading && data) {
@@ -54,7 +56,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
 
   const handleChanges = (value) => {
     setSelectedValues(value);
-    setSelectError(!value);
+    setSelectError(value.length === 0);
   };
   const handleEditorChange = (value) => {
     setEditorValue(value);
@@ -79,9 +81,23 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
         .then((res) => {
           handleOpenEditModal();
           refetch();
+          toast({
+            description: "succesfully updated",
+            position: "bottom-left",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
         })
         .catch((err) => {
           console.log(err);
+          toast({
+            description: err.message,
+            position: "bottom-left",
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+          });
         });
     }
   };
