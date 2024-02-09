@@ -16,6 +16,7 @@ const CandidatAccount = () => {
   const { uploadFile, downloadUrl } = useStorage();
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedValues, setSelectedValues] = useState(null);
+  const [selectError, setSelectError] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -76,6 +77,8 @@ const CandidatAccount = () => {
                 setSelectedFile={setSelectedFile}
                 selectedValues={selectedValues}
                 setSelectedValues={setSelectedValues}
+                selectError={selectError}
+                setSelectError={setSelectError}
                 values={values}
                 handleChange={handleChange}
                 handleBlur={handleBlur}

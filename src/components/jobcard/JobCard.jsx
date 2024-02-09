@@ -28,8 +28,8 @@ const JobCard = ({ job }) => {
     job.description.slice(0, 100) + (job.description.length > 100 ? "..." : "");
 
   return (
-    <div>
-      <div className="group w-[300px] p-6 bg-white rounded-md hover:bg-blueColor shadow-lg hover:shadow-lg transition duration-300">
+    <div className="h-full">
+      <div className="group w-[300px] p-6 bg-white rounded-md hover:bg-blueColor shadow-lg hover:shadow-lg transition duration-300 h-full">
         <span className="flex justify-between items-center mb-4">
           <h1
             className="text-lg font-semibold text-textColor group-hover:text-white cursor-pointer"

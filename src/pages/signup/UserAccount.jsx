@@ -18,7 +18,7 @@ const UserAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedValue, setSelectedValue] = useState("male");
   const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectError, setSelectError] = useState(false);
+  const [selectError, setSelectError] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [image, setImage] = useState("");
   const { user, token, refreshUser } = useAuth();
