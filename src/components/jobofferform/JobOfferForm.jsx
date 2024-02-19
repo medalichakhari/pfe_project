@@ -1,11 +1,15 @@
+import { DatePicker } from "antd";
 import CreatableSelect from "react-select/creatable";
-import { skills } from "../../data/skills";
 import { useQuery } from "react-query";
+import { useTranslation } from "react-i18next";
+import { skills } from "../../data/skills";
 import { GetCategories } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
 import TextEditor from "../inputs/TextEditor";
-import { useTranslation } from "react-i18next";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import moment from "moment";
+
+const { RangePicker } = DatePicker;
 
 const JobOfferForm = ({
   values,
@@ -130,6 +134,21 @@ const JobOfferForm = ({
           {t("jobOfferForm.salary")}
           <span className="text-sm text-gray-400">(optional)</span>
         </label>
+        <RangePicker
+          size="large"
+          className="w-full"
+          format={"DD/MM/YYYY"}
+          onChange={(e) => console.log(e)}
+        />
+        {touched.salary && errors.salary && (
+          <div className="text-red-500 text-sm">{errors.salary}</div>
+        )}
+      </div>
+      {/* <div>
+        <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+          {t("jobOfferForm.salary")}
+          <span className="text-sm text-gray-400">(optional)</span>
+        </label>
         <input
           value={values.salary}
           onChange={handleChange}
@@ -147,7 +166,7 @@ const JobOfferForm = ({
         {touched.salary && errors.salary && (
           <div className="text-red-500 text-sm">{errors.salary}</div>
         )}
-      </div>
+      </div> */}
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {t("candidateInfo.experience")}
