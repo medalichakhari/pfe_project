@@ -4,7 +4,7 @@ import JobCard from "../jobcard/JobCard";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 
-const JobList = ({ filteredJobs }) => {
+const JobList = ({ isLoadingJobs, filteredJobs }) => {
   const { t } = useTranslation();
   const [showCount, setShowCount] = useState(8);
   const jobsList =
@@ -20,7 +20,7 @@ const JobList = ({ filteredJobs }) => {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
   };
-  return jobsList.length > 0 ? (
+  return !isLoadingJobs && jobsList.length > 0 ? (
     // Wrap the div with motion.div and add the initial and animate props
     <motion.div
       className="flex flex-col items-center h-full"

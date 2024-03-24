@@ -12,6 +12,7 @@ const Home = () => {
   const { token, user } = useAuth();
   const { candidate, company } = useUser();
   const [filteredJobs, setFilteredJobs] = useState([]);
+  const [isLoadingJobs, setIsLoadingJobs] = useState(false);
   // const [recommendedJobs, setRecommendedJobs] = useState([]);
   const { data, isLoading } = useQuery(
     ["candidatures", token],
@@ -46,11 +47,14 @@ const Home = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
+        setIsLoadingJobs(true);
         const res = await GetOffres();
         const updatedJobs = filterJobs(res);
         setFilteredJobs(updatedJobs);
+        setIsLoadingJobs(false);
       } catch (err) {
         console.log(err);
+        setIsLoadingJobs(false);
       }
     };
 
@@ -63,7 +67,7 @@ const Home = () => {
     <Layout>
       <Hero />
       <Search filteredJobs={filteredJobs} setFilteredJobs={setFilteredJobs} />
-      <JobList filteredJobs={filteredJobs} />
+      <JobList isLoadingJobs={isLoadingJobs} filteredJobs={filteredJobs} />
       <CategoryList />
       {/* {candidate && <RecommendedJobs recommendedJobs={recommendedJobs} />} */}
     </Layout>

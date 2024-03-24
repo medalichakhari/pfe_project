@@ -19,6 +19,7 @@ const JobsByCategory = () => {
   const { user, token } = useAuth();
   const { candidate, company } = useUser();
   const [filteredJobs, setFilteredJobs] = useState([]);
+  const [isLoadingJobs, setIsLoadingJobs] = useState(false);
   const [showCount, setShowCount] = useState(9);
   const { categoryId } = useParams();
   const { data, isLoading } = useQuery(
@@ -52,11 +53,14 @@ const JobsByCategory = () => {
 
   const fetchJobsByCategory = async () => {
     try {
+      setIsLoadingJobs(true);
       const res = await GetOffresByCategorie(categoryId);
       const updatedJobs = filterJobs(res);
       setFilteredJobs(updatedJobs);
+      setIsLoadingJobs(false);
     } catch (err) {
       console.log(err);
+      setIsLoadingJobs(false);
     }
   };
 
@@ -83,7 +87,7 @@ const JobsByCategory = () => {
         </h2>
       </div>
       {/* <Search placeholder={t("jobsByCategory.searchPlaceholder")} /> */}
-      {jobOffersList?.length > 0 ? (
+      {!isLoadingJobs && jobOffersList?.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {jobOffersList?.map((jobOffer) => (
             <JobOfferCard key={jobOffer.id} jobOffer={jobOffer} />
