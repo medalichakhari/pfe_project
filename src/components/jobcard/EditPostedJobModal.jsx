@@ -36,7 +36,6 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
     ["jobOfferInfo", jobId, token],
     () => GetOffre(jobId, token)
   );
-  debugger;
   const [selectedValues, setSelectedValues] = useState([]);
   const [editorValue, setEditorValue] = useState();
   const [selectError, setSelectError] = useState(false);
