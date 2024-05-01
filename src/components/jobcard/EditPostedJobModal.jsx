@@ -19,7 +19,9 @@ import TextEditor from "../inputs/TextEditor";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import { useToast } from "@chakra-ui/react";
+import { DatePicker } from "antd";
 
+const { RangePicker } = DatePicker;
 function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
   const toast = useToast();
   const { t } = useTranslation();
@@ -40,6 +42,8 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
   const [selectError, setSelectError] = useState(false);
   const [editorError, setEditorError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [dateRange, setDateRange] = useState([data.startDate, data.endDate]);
+  const [dateError, setDateError] = useState(true);
   useEffect(() => {
     if (!isLoading && data) {
       const skillsArray = data.competences
@@ -62,6 +66,10 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
     setEditorValue(value);
     setEditorError(value.length <= 90);
   };
+  const handleDateRangeChange = (value) => {
+    setDateRange(value);
+    setDateError(!value);
+  };
   const handleUpdateJobOffer = (values, actions) => {
     setSubmitting(true);
     if (!editorError && !selectError) {
@@ -71,7 +79,8 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
         titre: values.title,
         domaine: values.domain,
         isRemote: values.isRemote,
-        salaire: values.salary,
+        startDate: moment(dateRange[0]).format("YYYY-MM-DD"),
+        endDate: moment(dateRange[1]).format("YYYY-MM-DD"),
         experience: values.experience,
         niveau: values.educationLevel,
         competences: qualifications,
@@ -115,7 +124,6 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
           title: "",
           isRemote: "",
           domain: "",
-          salary: "",
           experience: "",
           educationLevel: "",
           qualification: "",
@@ -125,7 +133,6 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
           address: data?.adresse,
           isRemote: data?.isRemote,
           domain: data?.categorie?.id,
-          salary: data?.salaire,
           experience: data?.experience,
           educationLevel: data?.niveau,
           qualification: "",
@@ -213,38 +220,45 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                  {t("editPostedJobCard.salary")}
-                  <span className="text-sm text-gray-400">(optional)</span>
+                  {t("editPostedJobCard.date")}
                 </label>
-                <input
-                  value={values.salary}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  type="text"
-                  name="salary"
-                  id="salary"
-                  placeholder="Required experience level"
-                  className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                <RangePicker
+                  size="large"
+                  className="w-full"
+                  format={"DD/MM/YYYY"}
+                  name="date"
+                  value={dateRange}
+                  onChange={handleDateRangeChange}
                 />
+                {isSubmitting && dateError && (
+                  <div className="text-red-500 text-sm">
+                    Please add the date range
+                  </div>
+                )}
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                   {t("candidateInfo.experience")}
                 </label>
-                <input
+                <select
                   value={values.experience}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   type="text"
                   name="experience"
                   id="experience"
-                  placeholder="Enter number of years of experience"
+                  placeholder="Enter your experience level"
                   className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
                     touched.experience && errors.experience
                       ? "focus:ring-red-500 focus:border-red-500 border-red-500"
                       : "focus:ring-blue-500 focus:border-blue-500"
                   }`}
-                />
+                >
+                  <option value="">Please select your experience level</option>
+                  <option value="Bac">Entry level</option>
+                  <option value="Licence">Intermidiate</option>
+                  <option value="Master">Advanced</option>
+                </select>
                 {touched.experience && errors.experience && (
                   <div className="text-red-500 text-sm">
                     {errors.experience}

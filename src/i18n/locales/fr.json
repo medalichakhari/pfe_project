@@ -108,7 +108,7 @@
   "jobOfferDetails": {
     "applyNow": "Postuler maintenant",
     "jobDetails": "Détails de l'emploi",
-    "salary": "Salaire",
+    "date": "Plage de dates",
     "jobType": "Type d'emploi",
     "qualifications": "Qualifications"
   },
@@ -118,7 +118,7 @@
     "domain": "Domaine",
     "address": "Adresse",
     "jobType": "Type d'emploi",
-    "salary": "Salaire",
+    "date": "Plage de dates",
     "qualifications": "Qualifications",
     "jobDescription": "Description de l'emploi",
     "next": "Suivant",
@@ -173,7 +173,7 @@
     "domain": "Domaine",
     "address": "Adresse",
     "jobType": "Type d'emploi",
-    "salary": "Salaire",
+    "date": "Plage de dates",
     "qualifications": "Qualifications",
     "jobDescription": "Description de l'emploi"
   },

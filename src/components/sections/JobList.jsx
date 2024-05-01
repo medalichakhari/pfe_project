@@ -20,8 +20,14 @@ const JobList = ({ isLoadingJobs, filteredJobs }) => {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
   };
-  return !isLoadingJobs && jobsList.length > 0 ? (
+  return !isLoadingJobs && !jobsList.length ? (
     // Wrap the div with motion.div and add the initial and animate props
+    <div className="flex flex-col items-center h-full">
+      <div className="flex gap-12 justify-center flex-wrap items-center py-10 mb-auto">
+        <p className="text-2xl font-bold text-gray-500">{t("noJobsFound")}</p>
+      </div>
+    </div>
+  ) : (
     <motion.div
       className="flex flex-col items-center h-full"
       initial="hidden"
@@ -41,12 +47,6 @@ const JobList = ({ isLoadingJobs, filteredJobs }) => {
         </div>
       )}
     </motion.div>
-  ) : (
-    <div className="flex flex-col items-center h-full">
-      <div className="flex gap-12 justify-center flex-wrap items-center py-10 mb-auto">
-        <p className="text-2xl font-bold text-gray-500">{t("noJobsFound")}</p>
-      </div>
-    </div>
   );
 };
 

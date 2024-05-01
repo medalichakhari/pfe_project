@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { jobOfferSchema } from "../../utils/validationSchemas";
-
+import moment from "moment";
 const STEPS_AMOUNT = 1;
 
 const JobPosting = () => {
@@ -25,6 +25,8 @@ const JobPosting = () => {
   const [submitting, setSubmitting] = useState(false);
   const [editorError, setEditorError] = useState(true);
   const [selectError, setSelectError] = useState(true);
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [dateError, setDateError] = useState(true);
   const completeFormStep = () => {
     setFormStep(formStep + 1);
   };
@@ -55,7 +57,8 @@ const JobPosting = () => {
       let offerData = {
         titre: jobOfferValues.title,
         isRemote: jobOfferValues.isRemote,
-        salaire: jobOfferValues.salary,
+        startDate: moment(dateRange[0]).format("YYYY-MM-DD"),
+        endDate: moment(dateRange[1]).format("YYYY-MM-DD"),
         experience: jobOfferValues.experience,
         niveau: jobOfferValues.educationLevel,
         competences: qualifications,
@@ -101,7 +104,6 @@ const JobPosting = () => {
       title: "",
       isRemote: "",
       domain: "",
-      salary: "",
       experience: "",
       educationLevel: "",
     },
@@ -150,6 +152,11 @@ const JobPosting = () => {
                 setSelectError={setSelectError}
                 editorError={editorError}
                 selectError={selectError}
+                dateRange={dateRange}
+                setDateRange={setDateRange}
+                dateError={dateError}
+                setDateError={setDateError}
+                isSubmitting={jobOfferIsSubmitting}
               />
             )}
             {renderJobOfferButtons()}

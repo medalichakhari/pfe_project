@@ -92,7 +92,7 @@
     "educationLevel": "Education Level",
     "speciality": "Speciality",
     "qualifications": "Qualifications",
-    "experience": "Years of Experience",
+    "experience": "Experience Level",
     "curriculumVitae": "Curriculum Vitae",
     "portfolioUrl": "Portfolio URL if exist",
     "view": "View"
@@ -111,7 +111,7 @@
   "jobOfferDetails": {
     "applyNow": "Apply Now",
     "jobDetails": "Job Details",
-    "salary": "Salary",
+    "date": "Date range",
     "jobType": "Job Type",
     "qualifications": "Qualifications"
   },
@@ -121,7 +121,7 @@
     "domain": "Domain",
     "address": "Address",
     "jobType": "Job Type",
-    "salary": "Salary",
+    "date": "Date range",
     "qualifications": "Qualifications",
     "jobDescription": "Job Description",
     "next": "Next",
@@ -176,7 +176,7 @@
     "domain": "Domain",
     "address": "Address",
     "jobType": "Job Type",
-    "salary": "Salary",
+    "date": "Date range",
     "qualifications": "Qualifications",
     "jobDescription": "Job Description"
   },

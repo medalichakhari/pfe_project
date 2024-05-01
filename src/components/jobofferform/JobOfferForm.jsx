@@ -7,7 +7,6 @@ import { GetCategories } from "../../lib/fetch";
 import { useAuth } from "../../context/AuthContext";
 import TextEditor from "../inputs/TextEditor";
 import LoadingSpinner from "../shared/LoadingSpinner";
-import moment from "moment";
 
 const { RangePicker } = DatePicker;
 
@@ -26,6 +25,11 @@ const JobOfferForm = ({
   setSelectError,
   editorError,
   selectError,
+  dateRange,
+  setDateRange,
+  dateError,
+  setDateError,
+  isSubmitting,
 }) => {
   const { t } = useTranslation();
   const { token } = useAuth();
@@ -42,7 +46,10 @@ const JobOfferForm = ({
     setSelectedValues(value);
     setSelectError(value.length === 0);
   };
-
+  const handleDateRangeChange = (value) => {
+    setDateRange(value);
+    setDateError(!value);
+  };
   return (
     <>
       <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">
@@ -131,17 +138,18 @@ const JobOfferForm = ({
       </div>
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-          {t("jobOfferForm.salary")}
-          <span className="text-sm text-gray-400">(optional)</span>
+          {t("jobOfferForm.date")}
         </label>
         <RangePicker
           size="large"
           className="w-full"
           format={"DD/MM/YYYY"}
-          onChange={(e) => console.log(e)}
+          name="date"
+          value={dateRange}
+          onChange={handleDateRangeChange}
         />
-        {touched.salary && errors.salary && (
-          <div className="text-red-500 text-sm">{errors.salary}</div>
+        {isSubmitting && dateError && (
+          <div className="text-red-500 text-sm">Please add the date range</div>
         )}
       </div>
       {/* <div>
@@ -171,20 +179,25 @@ const JobOfferForm = ({
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {t("candidateInfo.experience")}
         </label>
-        <input
+        <select
           value={values.experience}
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
           name="experience"
           id="experience"
-          placeholder="Enter number of years of experience"
+          placeholder="Enter your experience level"
           className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
             touched.experience && errors.experience
               ? "focus:ring-red-500 focus:border-red-500 border-red-500"
               : "focus:ring-blue-500 focus:border-blue-500"
           }`}
-        />
+        >
+          <option value="">Please select your experience level</option>
+          <option value="Bac">Entry level</option>
+          <option value="Licence">Intermidiate</option>
+          <option value="Master">Advanced</option>
+        </select>
         {touched.experience && errors.experience && (
           <div className="text-red-500 text-sm">{errors.experience}</div>
         )}

@@ -84,9 +84,11 @@ const JobOfferDetails = () => {
         <div className="w-1/3">
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">
-              {t("jobOfferDetails.salary")}
+              {t("jobOfferDetails.date")}
             </h3>
-            <li className="text-gray-600 mb-4">{data.salaire}</li>
+            <p className="text-gray-600 mb-4">
+              {data.startDate} {data.endDate}
+            </p>
           </div>
         </div>
         <div className="w-2/3">

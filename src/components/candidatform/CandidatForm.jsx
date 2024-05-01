@@ -124,20 +124,25 @@ const CandidatForm = ({
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {t("candidateInfo.experience")}
         </label>
-        <input
+        <select
           value={values.experience}
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
           name="experience"
           id="experience"
-          placeholder="Enter number of years of experience"
+          placeholder="Enter your experience level"
           className={`mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
             touched.experience && errors.experience
               ? "focus:ring-red-500 focus:border-red-500 border-red-500"
               : "focus:ring-blue-500 focus:border-blue-500"
           }`}
-        />
+        >
+          <option value="">Please select your experience level</option>
+          <option value="Bac">Entry level</option>
+          <option value="Licence">Intermidiate</option>
+          <option value="Master">Advanced</option>
+        </select>
         {touched.experience && errors.experience && (
           <div className="text-red-500 text-sm">{errors.experience}</div>
         )}
