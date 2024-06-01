@@ -29,7 +29,7 @@ const CandidatAccount = () => {
     selectedFile && (await uploadFile(selectedFile, path));
     const downloadURL = await downloadUrl(path);
     let candidatData = {
-      niveau: values.educationLevel,
+      // niveau: values.educationLevel,
       specialite: values.speciality,
       competences: qualifications,
       experience: values.experience,
@@ -57,7 +57,7 @@ const CandidatAccount = () => {
   } = useFormik({
     initialValues: {
       speciality: "",
-      educationLevel: "",
+      // educationLevel: "",
       experience: "",
       portfolioUrl: "",
     },

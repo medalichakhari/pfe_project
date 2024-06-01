@@ -92,10 +92,16 @@
     "educationLevel": "Education Level",
     "speciality": "Speciality",
     "qualifications": "Qualifications",
-    "experience": "Experience Level",
+    "experience": "Experience level",
     "curriculumVitae": "Curriculum Vitae",
     "portfolioUrl": "Portfolio URL if exist",
     "view": "View"
+  },
+  "experienceLevel": {
+    "selectExperienceLevel": "Please select Experience Level",
+    "junior": "Junior",
+    "middle": "Middle",
+    "senior": "Senior"
   },
   "companyInfo": {
     "companyInformation": "Company Information",
@@ -183,11 +189,18 @@
   "recommendation": {
     "recommendedJobs": "Recommended Jobs"
   },
+  "jobType": {
+    "selectJobType": "Please select Job Type",
+    "fullTime": "Full Time",
+    "partTime": "Part Time",
+    "internship": "Internship",
+    "freelance": "Freelance"
+  },
   "save": "Save",
   "cancel": "Cancel",
   "createAccount": "Create Account",
   "apply": "Apply",
   "readMore": "Read More",
   "loadMore": "Load More",
-  "noJobsFound": "No internship offers found"
+  "noJobsFound": "No jobs offers found"
 }

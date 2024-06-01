@@ -92,9 +92,15 @@
     "educationLevel": "Niveau d'éducation",
     "speciality": "Spécialité",
     "qualifications": "Qualifications",
-    "experience": "Années d'expérience",
+    "experience": "Niveau d'expérience",
     "curriculumVitae": "Curriculum Vitae",
     "view": "View"
+  },
+  "experienceLevel": {
+    "selectExperienceLevel": "Sélectionnez le niveau d'expérience",
+    "junior": "Junior",
+    "middle": "Middle",
+    "senior": "Senior"
   },
   "companyInfo": {
     "companyInformation": "Informations sur la société",
@@ -180,11 +186,18 @@
   "recommendation": {
     "recommendedJobs": "Offre d'emploi recommendée"
   },
+  "jobType": {
+    "selectJobType": "Sélectionnez le type d'emploi",
+    "fullTime": "Temps plein",
+    "partTime": "Temps partiel",
+    "internship": "Stage",
+    "freelance": "Freelance"
+  },
   "save": "Enregistrer",
   "cancel": "Annuler",
   "createAccount": "Créer un compte",
   "apply": "Postuler",
   "readMore": "Lire la suite",
   "loadMore": "Charger plus",
-  "noJobsFound": "Aucune offre de stage n'a été trouvée."
+  "noJobsFound": "Aucune offre d'emploi n'a été trouvée."
 }

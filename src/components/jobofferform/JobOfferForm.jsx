@@ -136,7 +136,7 @@ const JobOfferForm = ({
           <div className="text-red-500 text-sm">{errors.isRemote}</div>
         )}
       </div>
-      <div>
+      {/* <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {t("jobOfferForm.date")}
         </label>
@@ -151,7 +151,7 @@ const JobOfferForm = ({
         {isSubmitting && dateError && (
           <div className="text-red-500 text-sm">Please add the date range</div>
         )}
-      </div>
+      </div> */}
       {/* <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {t("jobOfferForm.salary")}
@@ -193,16 +193,17 @@ const JobOfferForm = ({
               : "focus:ring-blue-500 focus:border-blue-500"
           }`}
         >
-          <option value="">Please select your experience level</option>
-          <option value="Bac">Entry level</option>
-          <option value="Licence">Intermidiate</option>
-          <option value="Master">Advanced</option>
+          <option value="">{t("jobType.selectJobType")}</option>
+          <option value="FullTime">{t("jobType.fullTime")}</option>
+          <option value="PartTime">{t("jobType.partTime")}</option>
+          <option value="Internship">{t("jobType.internship")}</option>
+          <option value="Freelance">{t("jobType.freelance")}</option>
         </select>
         {touched.experience && errors.experience && (
           <div className="text-red-500 text-sm">{errors.experience}</div>
         )}
       </div>
-      <div>
+      {/* <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {t("candidateInfo.educationLevel")}
         </label>
@@ -230,7 +231,7 @@ const JobOfferForm = ({
         {touched.educationLevel && errors.educationLevel && (
           <div className="text-red-500 text-sm">{errors.educationLevel}</div>
         )}
-      </div>
+      </div> */}
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {t("jobOfferForm.qualifications")}

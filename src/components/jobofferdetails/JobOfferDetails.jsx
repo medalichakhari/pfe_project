@@ -82,14 +82,14 @@ const JobOfferDetails = () => {
       </div>
       <div className="flex my-10">
         <div className="w-1/3">
-          <div>
+          {/* <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">
               {t("jobOfferDetails.date")}
             </h3>
             <p className="text-gray-600 mb-4">
               {data.startDate} {data.endDate}
             </p>
-          </div>
+          </div> */}
         </div>
         <div className="w-2/3">
           <h3 className="text-xl font-bold text-gray-800 mb-5">

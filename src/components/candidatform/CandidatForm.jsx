@@ -29,7 +29,7 @@ const CandidatForm = ({
         {t("candidateInfo.candidateInformation")}
       </h4>
 
-      <div>
+      {/* <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {t("candidateInfo.educationLevel")}
         </label>
@@ -57,7 +57,7 @@ const CandidatForm = ({
         {touched.educationLevel && errors.educationLevel && (
           <div className="text-red-500 text-sm">{errors.educationLevel}</div>
         )}
-      </div>
+      </div> */}
       <div>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {t("candidateInfo.speciality")}
@@ -138,10 +138,10 @@ const CandidatForm = ({
               : "focus:ring-blue-500 focus:border-blue-500"
           }`}
         >
-          <option value="">Please select your experience level</option>
-          <option value="Bac">Entry level</option>
-          <option value="Licence">Intermidiate</option>
-          <option value="Master">Advanced</option>
+          <option value="">{t("experienceLevel.selectExperienceLevel")}</option>
+          <option value="Bac">{t("experienceLevel.junior")}</option>
+          <option value="Licence">{t("experienceLevel.middle")}</option>
+          <option value="Master">{t("experienceLevel.senior")}</option>
         </select>
         {touched.experience && errors.experience && (
           <div className="text-red-500 text-sm">{errors.experience}</div>

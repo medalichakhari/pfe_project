@@ -44,10 +44,10 @@ export const jobOfferSchema = yup.object().shape({
   isRemote: yup.string().required('Location is required'),
   domain: yup.string().required('Domain is required'),
   experience: yup.string().required('Experience is required'),
-  educationLevel: yup.string().required('Education level is required'),
+  // educationLevel: yup.string().required('Education level is required'),
 }); 
 export const candidatSchema = yup.object().shape({
-  educationLevel: yup.string().required("Education level is required !"),
+  // educationLevel: yup.string().required("Education level is required !"),
   speciality: yup.string().required("Speciality is required !"),
   experience: yup.string().required("Years of experience is required !"),
   portfolioUrl: yup

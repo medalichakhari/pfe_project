@@ -41,7 +41,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
   const [selectError, setSelectError] = useState(false);
   const [editorError, setEditorError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [dateRange, setDateRange] = useState([data?.startDate, data?.endDate]);
+  // const [dateRange, setDateRange] = useState([data?.startDate, data?.endDate]);
   const [dateError, setDateError] = useState(true);
   useEffect(() => {
     if (!isLoading && data) {
@@ -78,10 +78,10 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
         titre: values.title,
         domaine: values.domain,
         isRemote: values.isRemote,
-        startDate: moment(dateRange[0]).format("YYYY-MM-DD"),
-        endDate: moment(dateRange[1]).format("YYYY-MM-DD"),
         experience: values.experience,
-        niveau: values.educationLevel,
+        // startDate: moment(dateRange[0]).format("YYYY-MM-DD"),
+        // endDate: moment(dateRange[1]).format("YYYY-MM-DD"),
+        // niveau: values.educationLevel,
         competences: qualifications,
         description: editorValue,
       };
@@ -124,7 +124,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
           isRemote: "",
           domain: "",
           experience: "",
-          educationLevel: "",
+          // educationLevel: "",
           qualification: "",
         }
       : {
@@ -133,7 +133,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
           isRemote: data?.isRemote,
           domain: data?.categorie?.id,
           experience: data?.experience,
-          educationLevel: data?.niveau,
+          // educationLevel: data?.niveau,
           qualification: "",
         },
 
@@ -217,7 +217,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                   <option value="remote">Remote</option>
                 </select>
               </div>
-              <div>
+              {/* <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                   {t("editPostedJobCard.date")}
                 </label>
@@ -234,7 +234,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                     Please add the date range
                   </div>
                 )}
-              </div>
+              </div> */}
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                   {t("candidateInfo.experience")}
@@ -264,7 +264,7 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                   </div>
                 )}
               </div>
-              <div>
+              {/* <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                   {t("candidateInfo.educationLevel")}
                 </label>
@@ -282,19 +282,18 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                       : "focus:ring-blue-500 focus:border-blue-500"
                   }`}
                 >
-                  <option value="">Please select your education level</option>
-                  <option value="Bac">Bac</option>
-                  <option value="Licence">Licence</option>
-                  <option value="Master">Master</option>
-                  <option value="Ingenieur">Ingenieur</option>
-                  <option value="Doctorat">Doctorat</option>
+                  <option value="">{t("jobType.selectJobType")}</option>
+                  <option value="FullTime">{t("jobType.fullTime")}</option>
+                  <option value="PartTime">{t("jobType.partTime")}</option>
+                  <option value="Internship">{t("jobType.internship")}</option>
+                  <option value="Freelance">{t("jobType.freelance")}</option>
                 </select>
                 {touched.educationLevel && errors.educationLevel && (
                   <div className="text-red-500 text-sm">
                     {errors.educationLevel}
                   </div>
                 )}
-              </div>
+              </div> */}
               <div>
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                   {t("editPostedJobCard.qualifications")}

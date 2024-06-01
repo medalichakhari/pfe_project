@@ -49,7 +49,7 @@ const CandidatInfo = () => {
       }
 
       let candidatData = {
-        niveau: values.educationLevel,
+        // niveau: values.educationLevel,
         specialite: values.speciality,
         competences: selectedValues ? qualifications : candidate.competences,
         experience: values.experience,
@@ -92,13 +92,13 @@ const CandidatInfo = () => {
   } = useFormik({
     initialValues: !candidate
       ? {
-          educationLevel: "",
+          // educationLevel: "",
           speciality: "",
           experience: "",
           portfolioUrl: "",
         }
       : {
-          educationLevel: candidate?.niveau,
+          // educationLevel: candidate?.niveau,
           speciality: candidate?.specialite,
           experience: candidate?.experience,
           portfolioUrl: candidate?.portfolio,
@@ -155,12 +155,12 @@ const CandidatInfo = () => {
             </button>
           </div>
 
-          <div className="mb-1">
+          {/* <div className="mb-1">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("candidateInfo.educationLevel")}
             </label>
             <p className="text-gray-500 text-sm">{candidate?.niveau}</p>
-          </div>
+          </div> */}
           <div className="mb-1">
             <label className="block mb-1 text-md font-medium text-gray-900 dark:text-white">
               {t("candidateInfo.speciality")}
