@@ -3,10 +3,17 @@ import PrimaryButton from "../buttons/primarybutton/PrimaryButton";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
 
 const JobOfferCard = ({ jobOffer }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const truncatedTitle =
+    jobOffer.titre.slice(0, 15) + (jobOffer.titre.length > 15 ? "..." : "");
+  const truncatedDescription =
+    jobOffer.description.slice(0, 100) +
+    (jobOffer.description.length > 100 ? "..." : "");
 
   const handleReadMore = () => {
     navigate(`/offer/${jobOffer.id}`);
@@ -22,7 +29,7 @@ const JobOfferCard = ({ jobOffer }) => {
             className="w-14 h-14 rounded-full object-cover"
           />
           <div className="ml-4">
-            <h3 className="font-medium text-gray-800">{jobOffer.titre}</h3>
+            <h3 className="font-medium text-gray-800">{truncatedTitle}</h3>
             <p className="text-gray-600">{jobOffer?.societ?.nom}</p>
           </div>
         </div>
@@ -33,15 +40,15 @@ const JobOfferCard = ({ jobOffer }) => {
           {jobOffer.isRemote ? jobOffer?.societe.pays : "Remote"}
         </p>
         <p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          Internship
+          {jobOffer.experience}
         </p>
         <p className="px-3 py-1 text-sm font-semibold text-gray-700">
-          2 days ago
+          {moment(jobOffer.updatedAt).fromNow()}
         </p>
       </div>
       <p
         className="mt-4 text-gray-800 font-light"
-        dangerouslySetInnerHTML={{ __html: jobOffer.description }}
+        dangerouslySetInnerHTML={{ __html: truncatedDescription }}
       />
       <PrimaryButton className="mt-4 w-full" onClick={handleReadMore}>
         {t("readMore")}

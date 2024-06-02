@@ -67,7 +67,7 @@ const JobOfferDetails = () => {
           </p>
           <p className="text-gray-600 mt-2 flex items-center">
             <BsBriefcase className="text-gray-500 mr-1" />
-            Internship
+            {data.experience}
           </p>
         </div>
         <div className="w-2/3">

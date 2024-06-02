@@ -50,7 +50,7 @@ const JobCard = ({ job }) => {
         </div>
         <div className="flex items-center mb-2">
           <BsBriefcase className="mr-1 text-gray-500" />
-          <h6 className="text-gray-500">Internship</h6>
+          <h6 className="text-gray-500">{job.experience}</h6>
         </div>
         <p
           className="text-sm text-gray-600 pt-4 border-t border-gray-300 mt-4"

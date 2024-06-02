@@ -253,10 +253,11 @@ function EditPostedJobModal({ isOpen, handleOpenEditModal, jobId }) {
                       : "focus:ring-blue-500 focus:border-blue-500"
                   }`}
                 >
-                  <option value="">Please select your experience level</option>
-                  <option value="Bac">Entry level</option>
-                  <option value="Licence">Intermidiate</option>
-                  <option value="Master">Advanced</option>
+                  <option value="">{t("jobType.selectJobType")}</option>
+                  <option value="FullTime">{t("jobType.fullTime")}</option>
+                  <option value="PartTime">{t("jobType.partTime")}</option>
+                  <option value="Internship">{t("jobType.internship")}</option>
+                  <option value="Freelance">{t("jobType.freelance")}</option>
                 </select>
                 {touched.experience && errors.experience && (
                   <div className="text-red-500 text-sm">
